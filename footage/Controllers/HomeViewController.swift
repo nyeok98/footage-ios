@@ -9,6 +9,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    
+    let dongnyeok = true
 
     @IBOutlet weak var homeTab: UITabBarItem!
     
