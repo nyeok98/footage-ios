@@ -11,7 +11,9 @@ import UIKit
 class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
-        self.tabBar.tintColor = UIColor.clear
+        self.tabBar.tintColor = UIColor(named: "tabColor")
+        self.tabBar.unselectedItemTintColor = UIColor(named: "untabColor")
+        self.tabBar.clipsToBounds = true
     }
 
 }
