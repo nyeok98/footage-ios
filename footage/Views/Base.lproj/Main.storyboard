@@ -7,11 +7,15 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="NanumSquareBold.ttf">
+            <string>NanumSquareB</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Settings View Controller-->
         <scene sceneID="IfT-wq-VqF">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Dfk-EY-56W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="cUF-MF-BT5" customClass="SettingsViewController" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5ZO-5D-RFa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -30,22 +34,78 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="slider.horizontal.3" catalog="system" selectedImage="slider.horizontal.3" id="eRC-YB-kkY"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dfk-EY-56W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-30" y="-167"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="HDd-je-FcQ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7yW-Ly-5Cg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="hbu-LT-T1p" customClass="HomeViewController" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kP2-vr-zzd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H72-wm-f5e">
-                                <rect key="frame" x="137" y="396" width="100" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="오늘까지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H72-wm-f5e">
+                                <rect key="frame" x="28" y="102" width="110" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="당신이 남긴" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJx-zr-y7Y">
+                                <rect key="frame" x="28" y="154" width="216" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="발자취" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeL-aW-bTF">
+                                <rect key="frame" x="28" y="207" width="82" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5AW-RJ-lkU">
+                                <rect key="frame" x="95" y="323" width="184" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="시작" image="start_btn"/>
+                                <connections>
+                                    <action selector="startButtonPressed:" destination="hbu-LT-T1p" eventType="touchUpInside" id="AGD-aU-c73"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="triangle" translatesAutoresizingMaskIntoConstraints="NO" id="ayF-dc-El5">
+                                <rect key="frame" x="225" y="95" width="23" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="triangle-1" translatesAutoresizingMaskIntoConstraints="NO" id="uAi-TR-6c4">
+                                <rect key="frame" x="252" y="150" width="16" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="triangle-2" translatesAutoresizingMaskIntoConstraints="NO" id="ZT6-4V-TKK">
+                                <rect key="frame" x="294" y="44" width="23" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="triangle" translatesAutoresizingMaskIntoConstraints="NO" id="a0q-k1-loB" userLabel="triangle-5">
+                                <rect key="frame" x="316" y="102" width="28" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="triangle-4" translatesAutoresizingMaskIntoConstraints="NO" id="sdP-GN-8qX">
+                                <rect key="frame" x="307" y="194" width="23" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ak2-5v-9Pu">
+                                <rect key="frame" x="279" y="241" width="73" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m0H-qt-p6W">
+                                <rect key="frame" x="163" y="234" width="110" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="60"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -55,17 +115,23 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="house.fill" catalog="system" selectedImage="house.fill" id="eM9-wi-LaY"/>
                     <connections>
-                        <outlet property="HomeTab" destination="eM9-wi-LaY" id="Rdi-2P-gqd"/>
-                        <outlet property="homeTab" destination="eM9-wi-LaY" id="ThM-0E-Fqq"/>
+                        <outlet property="startButton" destination="5AW-RJ-lkU" id="5Qr-Oq-b14"/>
+                        <outlet property="todayString" destination="H72-wm-f5e" id="xS8-Gv-GeD"/>
+                        <outlet property="triangle1" destination="ayF-dc-El5" id="1a8-HI-27a"/>
+                        <outlet property="triangle2" destination="uAi-TR-6c4" id="Qje-A8-1LX"/>
+                        <outlet property="triangle3" destination="ZT6-4V-TKK" id="P9g-z7-wQO"/>
+                        <outlet property="triangle4" destination="a0q-k1-loB" id="Gh2-fQ-s7C"/>
+                        <outlet property="triangle5" destination="sdP-GN-8qX" id="osK-w5-8Tc"/>
+                        <outlet property="youString" destination="BJx-zr-y7Y" id="vHd-Bb-PGW"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7yW-Ly-5Cg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-875.36231884057975" y="-956.25"/>
+            <point key="canvasLocation" x="-876" y="-956.89655172413802"/>
         </scene>
         <!--Recommend View Controller-->
         <scene sceneID="Vd9-L6-78M">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sVq-dj-Iaj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="ycr-8l-2eS" customClass="RecommendViewController" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="maa-kY-Dof">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -84,13 +150,13 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="star.fill" catalog="system" selectedImage="star.fill" id="dd8-i4-0sG"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sVq-dj-Iaj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-30" y="-956"/>
         </scene>
         <!--Stats View Controller-->
         <scene sceneID="pep-kE-Oo1">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XMn-d6-hXb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="nHf-mU-wXi" customClass="StatsViewController" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JBj-uz-UhT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -110,13 +176,13 @@
                     <tabBarItem key="tabBarItem" title="" image="person.fill" catalog="system" selectedImage="person.fill" id="L63-ZD-f4q"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XMn-d6-hXb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-875" y="-167"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="7hQ-78-LxV">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lij-Qe-D6V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tabBarController id="oXa-ZM-RuF" customClass="TabBarViewController" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pRi-NA-qpU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -141,6 +207,7 @@
                         <segue destination="cUF-MF-BT5" kind="relationship" relationship="viewControllers" id="822-bT-ohP"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lij-Qe-D6V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1851" y="-956"/>
         </scene>
@@ -151,11 +218,16 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="start_btn" width="182" height="65"/>
+        <image name="triangle" width="21" height="18"/>
+        <image name="triangle-1" width="16" height="14"/>
+        <image name="triangle-2" width="18" height="16"/>
+        <image name="triangle-4" width="18" height="16"/>
         <namedColor name="tabColor">
             <color red="0.15294117647058825" green="0.22352941176470589" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="untabColor">
-            <color red="0.73723155259999995" green="0.7333264947" blue="0.73333376650000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.7369999885559082" green="0.73299998044967651" blue="0.73299998044967651" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

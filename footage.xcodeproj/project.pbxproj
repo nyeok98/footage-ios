@@ -14,9 +14,14 @@
 		B9A66FAB248F6BF6001EAF54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9A66FAA248F6BF6001EAF54 /* Assets.xcassets */; };
 		B9A66FAE248F6BF6001EAF54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9A66FAC248F6BF6001EAF54 /* LaunchScreen.storyboard */; };
 		B9A66FB9248F70AC001EAF54 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FB8248F70AC001EAF54 /* RecommendViewController.swift */; };
-		B9A66FBC248F70D1001EAF54 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FBB248F70D1001EAF54 /* StatsViewController.swift */; };
 		B9A66FBE248F70E8001EAF54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FBD248F70E8001EAF54 /* SettingsViewController.swift */; };
 		B9A66FC0248F801B001EAF54 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FBF248F801B001EAF54 /* TabBarViewController.swift */; };
+		B9AC35A12490CC3500B5CBBD /* NanumSquareLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9AC359D2490CC3500B5CBBD /* NanumSquareLight.ttf */; };
+		B9AC35A22490CC3500B5CBBD /* NanumSquareRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9AC359E2490CC3500B5CBBD /* NanumSquareRegular.ttf */; };
+		B9AC35A32490CC3500B5CBBD /* NanumSquareBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9AC359F2490CC3500B5CBBD /* NanumSquareBold.ttf */; };
+		B9AC35A42490CC3500B5CBBD /* NanumSquareExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9AC35A02490CC3500B5CBBD /* NanumSquareExtraBold.ttf */; };
+		B9AC35AB24910FE300B5CBBD /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */; };
+		B9AC35AF2491100800B5CBBD /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC35AE2491100800B5CBBD /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +34,14 @@
 		B9A66FAD248F6BF6001EAF54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B9A66FAF248F6BF6001EAF54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9A66FB8248F70AC001EAF54 /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
-		B9A66FBB248F70D1001EAF54 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		B9A66FBD248F70E8001EAF54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B9A66FBF248F801B001EAF54 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		B9AC359D2490CC3500B5CBBD /* NanumSquareLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareLight.ttf; sourceTree = "<group>"; };
+		B9AC359E2490CC3500B5CBBD /* NanumSquareRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRegular.ttf; sourceTree = "<group>"; };
+		B9AC359F2490CC3500B5CBBD /* NanumSquareBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareBold.ttf; sourceTree = "<group>"; };
+		B9AC35A02490CC3500B5CBBD /* NanumSquareExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareExtraBold.ttf; sourceTree = "<group>"; };
+		B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		B9AC35AE2491100800B5CBBD /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +74,7 @@
 		B9A66FA0248F6BF3001EAF54 /* footage */ = {
 			isa = PBXGroup;
 			children = (
+				B9AC359C2490CB3A00B5CBBD /* fonts */,
 				B9A66FB7248F6CA6001EAF54 /* Controllers */,
 				B9A66FB6248F6C9B001EAF54 /* Views */,
 				B9A66FB5248F6C8D001EAF54 /* Models */,
@@ -96,11 +107,31 @@
 			children = (
 				B9A66FA5248F6BF3001EAF54 /* HomeViewController.swift */,
 				B9A66FB8248F70AC001EAF54 /* RecommendViewController.swift */,
-				B9A66FBB248F70D1001EAF54 /* StatsViewController.swift */,
 				B9A66FBD248F70E8001EAF54 /* SettingsViewController.swift */,
 				B9A66FBF248F801B001EAF54 /* TabBarViewController.swift */,
+				B9AC35AD24910FFB00B5CBBD /* Stats */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B9AC359C2490CB3A00B5CBBD /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B9AC359F2490CC3500B5CBBD /* NanumSquareBold.ttf */,
+				B9AC35A02490CC3500B5CBBD /* NanumSquareExtraBold.ttf */,
+				B9AC359D2490CC3500B5CBBD /* NanumSquareLight.ttf */,
+				B9AC359E2490CC3500B5CBBD /* NanumSquareRegular.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		B9AC35AD24910FFB00B5CBBD /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				B9AC35AE2491100800B5CBBD /* CollectionViewController.swift */,
+				B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */,
+			);
+			path = Stats;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,8 +192,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9AC35A22490CC3500B5CBBD /* NanumSquareRegular.ttf in Resources */,
+				B9AC35A12490CC3500B5CBBD /* NanumSquareLight.ttf in Resources */,
 				B9A66FAE248F6BF6001EAF54 /* LaunchScreen.storyboard in Resources */,
+				B9AC35A42490CC3500B5CBBD /* NanumSquareExtraBold.ttf in Resources */,
 				B9A66FAB248F6BF6001EAF54 /* Assets.xcassets in Resources */,
+				B9AC35A32490CC3500B5CBBD /* NanumSquareBold.ttf in Resources */,
 				B9A66FA9248F6BF3001EAF54 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,8 +212,9 @@
 				B9A66FA6248F6BF3001EAF54 /* HomeViewController.swift in Sources */,
 				B9A66FB9248F70AC001EAF54 /* RecommendViewController.swift in Sources */,
 				B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */,
-				B9A66FBC248F70D1001EAF54 /* StatsViewController.swift in Sources */,
 				B9A66FC0248F801B001EAF54 /* TabBarViewController.swift in Sources */,
+				B9AC35AF2491100800B5CBBD /* CollectionViewController.swift in Sources */,
+				B9AC35AB24910FE300B5CBBD /* StatsViewController.swift in Sources */,
 				B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */,
 				B9A66FBE248F70E8001EAF54 /* SettingsViewController.swift in Sources */,
 			);
