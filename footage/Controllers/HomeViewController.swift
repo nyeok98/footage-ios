@@ -19,6 +19,11 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var triangle3: UIImageView!
     @IBOutlet weak var triangle4: UIImageView!
     @IBOutlet weak var triangle5: UIImageView!
+    @IBOutlet weak var square1: UIImageView!
+    @IBOutlet weak var square2: UIImageView!
+    @IBOutlet weak var square3: UIImageView!
+    @IBOutlet weak var square4: UIImageView!
+    
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
         
@@ -35,6 +40,11 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
+        square1.alpha = 0
+        square2.alpha = 0
+        square3.alpha = 0
+        square4.alpha = 0
+        
 //        
     }
 
