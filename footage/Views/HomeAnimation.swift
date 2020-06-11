@@ -27,25 +27,35 @@ class HomeAnimation {
     static func homeStartAnimation(_ homeVC: HomeViewController) {
         // start button pressed
         
+        UIView.animate(withDuration: 1, animations: {
+            homeVC.startButton.alpha = 0
+        })
+        UIView.animate(withDuration: 2, animations: {
+            homeVC.startButton.alpha = 1
+        })
+        UIView.animate(withDuration: 1, animations: {
+            homeVC.startButton.setImage(#imageLiteral(resourceName: "stop_btn"), for: .normal)
+        })
+        
         // 1. Text Animation
-        homeVC.startButton.setImage(#imageLiteral(resourceName: "stop_btn"), for: .normal)
+        
         homeVC.todayString.text = "오늘"
         homeVC.youString.text = "당신이 새로 남긴"
         homeVC.footString.text = "발자취"
         homeVC.todayString.alpha = 0.0
         homeVC.youString.alpha = 0.0
         homeVC.footString.alpha = 0.0
-        Timer.scheduledTimer(withTimeInterval: 0.0, repeats: false) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
             UIView.animate(withDuration: 1, animations: {
                 homeVC.todayString.alpha = 1
             })
         }
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 0.75, repeats: false) { (timer) in
             UIView.animate(withDuration: 1, animations: {
                 homeVC.youString.alpha = 1
             })
         }
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
             UIView.animate(withDuration: 1, animations: {
                 homeVC.footString.alpha = 1
             })
@@ -63,11 +73,11 @@ class HomeAnimation {
         }
         // 2
         
-        // 3, Square Appear
+        // 3. Square Appear
         let squares = [homeVC.square1, homeVC.square2, homeVC.square3, homeVC.square4]
         imageIndex = 0.0
         for square in squares {
-            Timer.scheduledTimer(withTimeInterval: 0.2 * imageIndex, repeats: false) { (timer) in
+            Timer.scheduledTimer(withTimeInterval: 0.6 + (0.2 * imageIndex), repeats: false) { (timer) in
                 squareAppear(square!)
             }
             imageIndex += 1
@@ -95,26 +105,33 @@ class HomeAnimation {
 //MARK- homeStopAnimation
     
     static func homeStopAnimation(_ homeVC: HomeViewController) {
-        
+        UIView.animate(withDuration: 1, animations: {
+            homeVC.startButton.alpha = 0
+        })
+        UIView.animate(withDuration: 2, animations: {
+            homeVC.startButton.alpha = 1
+        })
+        UIView.animate(withDuration: 1, animations: {
+            homeVC.startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
+        })
         // 1. Text Animation
-        homeVC.startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
         homeVC.todayString.text = "오늘까지"
         homeVC.youString.text = "당신이 남긴"
         homeVC.footString.text = "발자취"
         homeVC.todayString.alpha = 0.0
         homeVC.youString.alpha = 0.0
         homeVC.footString.alpha = 0.0
-        Timer.scheduledTimer(withTimeInterval: 0.0, repeats: false) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
             UIView.animate(withDuration: 1, animations: {
                 homeVC.todayString.alpha = 1
             })
         }
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 0.75, repeats: false) { (timer) in
             UIView.animate(withDuration: 1, animations: {
                 homeVC.youString.alpha = 1
             })
         }
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
             UIView.animate(withDuration: 1, animations: {
                 homeVC.footString.alpha = 1
             })
@@ -137,7 +154,7 @@ class HomeAnimation {
         let images = [homeVC.triangle1, homeVC.triangle2, homeVC.triangle3, homeVC.triangle4, homeVC.triangle5]
         
         for index in 0...4 {
-            Timer.scheduledTimer(withTimeInterval: 0.1 * Double(index), repeats: false) { (timer) in
+            Timer.scheduledTimer(withTimeInterval: 0.1 * Double(index) + 0.5, repeats: false) { (timer) in
                 self.comebackTriangles(images[index]!, triangleOriginalPosition[index])
             }
         }

@@ -179,7 +179,7 @@
         <scene sceneID="pep-kE-Oo1">
             <objects>
                 <viewController id="nHf-mU-wXi" customClass="StatsViewController" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="JBj-uz-UhT">
+                    <view key="view" contentMode="scaleToFill" id="JBj-uz-UhT" customClass="UICollectionView" customModule="footage" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

@@ -40,6 +40,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
+        startButton.alpha = 0
         square1.alpha = 0
         square2.alpha = 0
         square3.alpha = 0
