@@ -21,7 +21,6 @@
 		B9AC35A32490CC3500B5CBBD /* NanumSquareBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9AC359F2490CC3500B5CBBD /* NanumSquareBold.ttf */; };
 		B9AC35A42490CC3500B5CBBD /* NanumSquareExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9AC35A02490CC3500B5CBBD /* NanumSquareExtraBold.ttf */; };
 		B9AC35AB24910FE300B5CBBD /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */; };
-		B9AC35AF2491100800B5CBBD /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC35AE2491100800B5CBBD /* CollectionViewController.swift */; };
 		B9AC35B32491CAD700B5CBBD /* HomeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC35B22491CAD700B5CBBD /* HomeAnimation.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +41,6 @@
 		B9AC359F2490CC3500B5CBBD /* NanumSquareBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareBold.ttf; sourceTree = "<group>"; };
 		B9AC35A02490CC3500B5CBBD /* NanumSquareExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareExtraBold.ttf; sourceTree = "<group>"; };
 		B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
-		B9AC35AE2491100800B5CBBD /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		B9AC35B22491CAD700B5CBBD /* HomeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,7 +110,7 @@
 				B9A66FB8248F70AC001EAF54 /* RecommendViewController.swift */,
 				B9A66FBD248F70E8001EAF54 /* SettingsViewController.swift */,
 				B9A66FBF248F801B001EAF54 /* TabBarViewController.swift */,
-				B9AC35AD24910FFB00B5CBBD /* Stats */,
+				B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -126,15 +124,6 @@
 				B9AC359E2490CC3500B5CBBD /* NanumSquareRegular.ttf */,
 			);
 			path = fonts;
-			sourceTree = "<group>";
-		};
-		B9AC35AD24910FFB00B5CBBD /* Stats */ = {
-			isa = PBXGroup;
-			children = (
-				B9AC35AE2491100800B5CBBD /* CollectionViewController.swift */,
-				B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */,
-			);
-			path = Stats;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,7 +205,6 @@
 				B9A66FB9248F70AC001EAF54 /* RecommendViewController.swift in Sources */,
 				B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */,
 				B9A66FC0248F801B001EAF54 /* TabBarViewController.swift in Sources */,
-				B9AC35AF2491100800B5CBBD /* CollectionViewController.swift in Sources */,
 				B9AC35B32491CAD700B5CBBD /* HomeAnimation.swift in Sources */,
 				B9AC35AB24910FE300B5CBBD /* StatsViewController.swift in Sources */,
 				B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */,

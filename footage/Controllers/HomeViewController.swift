@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var youString: UILabel!
     @IBOutlet weak var todayString: UILabel!
+    @IBOutlet weak var footString: UILabel!
     @IBOutlet weak var triangle1: UIImageView!
     @IBOutlet weak var triangle2: UIImageView!
     @IBOutlet weak var triangle3: UIImageView!
@@ -33,13 +34,8 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
-//        
     }
-
-
-    
 
 }
 

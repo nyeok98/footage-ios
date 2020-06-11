@@ -115,6 +115,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="house.fill" catalog="system" selectedImage="house.fill" id="eM9-wi-LaY"/>
                     <connections>
+                        <outlet property="footString" destination="OeL-aW-bTF" id="K5N-zg-iLe"/>
                         <outlet property="startButton" destination="5AW-RJ-lkU" id="5Qr-Oq-b14"/>
                         <outlet property="todayString" destination="H72-wm-f5e" id="MBj-ww-EZz"/>
                         <outlet property="triangle1" destination="ayF-dc-El5" id="1a8-HI-27a"/>
