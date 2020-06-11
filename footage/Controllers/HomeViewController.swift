@@ -9,7 +9,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
+    
     
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var youString: UILabel!
@@ -44,9 +44,20 @@ class HomeViewController: UIViewController {
         square2.alpha = 0
         square3.alpha = 0
         square4.alpha = 0
+        triangle1.frame.origin.y = -40
+        triangle2.frame.origin.y = -40
+        triangle3.frame.origin.y = -40
+        triangle4.frame.origin.y = -40
+        triangle5.frame.origin.y = -40
+        triangle1.alpha = 0
+        triangle2.alpha = 0
+        triangle3.alpha = 0
+        triangle4.alpha = 0
+        triangle5.alpha = 0
+        HomeAnimation.homeStopAnimation(self)
         
     }
-
+    
 }
 
 

@@ -25,6 +25,9 @@ class HomeAnimation {
 //MARK- homeStartAnimation
     
     static func homeStartAnimation(_ homeVC: HomeViewController) {
+        // start button pressed
+        
+        // 1. Text Animation
         homeVC.startButton.setImage(#imageLiteral(resourceName: "stop_btn"), for: .normal)
         homeVC.todayString.text = "오늘"
         homeVC.youString.text = "당신이 새로 남긴"
@@ -47,10 +50,10 @@ class HomeAnimation {
                 homeVC.footString.alpha = 1
             })
         }
-    
-      1
+        // Text Animation Ends
+        
+        // 2. Triangle Disappear
         let images = [homeVC.triangle3, homeVC.triangle1, homeVC.triangle2, homeVC.triangle4, homeVC.triangle5]
-        let squares = [homeVC.square1, homeVC.square2, homeVC.square3, homeVC.square4]
         var imageIndex = 0.0
         for image in images {
             Timer.scheduledTimer(withTimeInterval: 0.1 * imageIndex, repeats: false) { (timer) in
@@ -58,6 +61,10 @@ class HomeAnimation {
             }
             imageIndex += 1
         }
+        // 2
+        
+        // 3, Square Appear
+        let squares = [homeVC.square1, homeVC.square2, homeVC.square3, homeVC.square4]
         imageIndex = 0.0
         for square in squares {
             Timer.scheduledTimer(withTimeInterval: 0.2 * imageIndex, repeats: false) { (timer) in
@@ -65,9 +72,10 @@ class HomeAnimation {
             }
             imageIndex += 1
         }
+        // 3
     }
 
-    //삼각형 올라오도록 하는 함수
+    // 삼각형 없어지도록 하는 함수
     static func shootupwards(_ image: UIImageView) {
         UIView.animate(withDuration: 0.25, animations: {
             var origin = image.frame.origin
@@ -77,7 +85,7 @@ class HomeAnimation {
         })
     }
     
-    //사각형 서서히 나타나게 하는 함수
+    // 사각형 서서히 나타나게 하는 함수
     static func squareAppear(_ square: UIImageView) {
         UIView.animate(withDuration: 0.25, animations: {
             square.alpha = 1
@@ -88,6 +96,7 @@ class HomeAnimation {
     
     static func homeStopAnimation(_ homeVC: HomeViewController) {
         
+        // 1. Text Animation
         homeVC.startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
         homeVC.todayString.text = "오늘까지"
         homeVC.youString.text = "당신이 남긴"
@@ -110,14 +119,11 @@ class HomeAnimation {
                 homeVC.footString.alpha = 1
             })
         }
+        // 1
         
-        let images = [homeVC.triangle1, homeVC.triangle2, homeVC.triangle3, homeVC.triangle4, homeVC.triangle5]
+        // 2. Square Disappear
+        
         let squares = [homeVC.square1, homeVC.square2, homeVC.square3, homeVC.square4]
-        for index in 0...4 {
-            Timer.scheduledTimer(withTimeInterval: 0.1 * Double(index), repeats: false) { (timer) in
-                self.comebackTriangles(images[index]!, triangleOriginalPosition[index])
-            }
-        }
         var imageIndex = 0.0
         for square in squares {
             Timer.scheduledTimer(withTimeInterval: 0.1 * imageIndex, repeats: false) { (timer) in
@@ -125,12 +131,23 @@ class HomeAnimation {
             }
             imageIndex += 1
         }
+        // 2
+        
+        // 3. Triangle Appear
+        let images = [homeVC.triangle1, homeVC.triangle2, homeVC.triangle3, homeVC.triangle4, homeVC.triangle5]
+        
+        for index in 0...4 {
+            Timer.scheduledTimer(withTimeInterval: 0.1 * Double(index), repeats: false) { (timer) in
+                self.comebackTriangles(images[index]!, triangleOriginalPosition[index])
+            }
+        }
     }
     
     //삼각형 다시 원래 자리로 내려오게 하는 부분
     static func comebackTriangles (_ image: UIImageView, _ position: CGPoint) {
         UIView.animate(withDuration: 0.25, animations: {
             image.frame = CGRect(origin: position, size: image.frame.size)
+            image.alpha = 1
         })
     }
     
