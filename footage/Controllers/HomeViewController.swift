@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EFCountingLabel
 
 class HomeViewController: UIViewController {
     
@@ -24,6 +25,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var square2: UIImageView!
     @IBOutlet weak var square3: UIImageView!
     @IBOutlet weak var square4: UIImageView!
+    @IBOutlet weak var distance: EFCountingLabel!
+    @IBOutlet weak var distanceView: UIView!
+    @IBOutlet weak var unitLabel: UILabel!
+    
     
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
@@ -39,6 +44,8 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
         startButton.alpha = 0
         square1.alpha = 0
@@ -55,6 +62,8 @@ class HomeViewController: UIViewController {
         triangle3.alpha = 0
         triangle4.alpha = 0
         triangle5.alpha = 0
+        distanceView.alpha = 0
+        unitLabel.alpha = 0
         HomeAnimation.homeStopAnimation(self)
         
     }

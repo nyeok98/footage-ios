@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EFCountingLabel
 
 
 class HomeAnimation {
@@ -36,6 +37,21 @@ class HomeAnimation {
         UIView.animate(withDuration: 1, animations: {
             homeVC.startButton.setImage(#imageLiteral(resourceName: "stop_btn"), for: .normal)
         })
+        
+        // 0. Counting Rate
+        homeVC.distanceView.alpha = 0
+        UIView.animate(withDuration: 3, animations: {
+            homeVC.distanceView.alpha = 1
+        })
+        homeVC.unitLabel.alpha = 0
+        UIView.animate(withDuration: 3, animations: {
+            homeVC.unitLabel.alpha = 1
+        })
+        homeVC.distance.setUpdateBlock { (value, label) in
+            label.text = String(format: "%.1f", value)
+        }
+        homeVC.distance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
+        homeVC.distance.countFrom(0, to: 1.2, withDuration: 5)
         
         // 1. Text Animation
         
@@ -114,6 +130,21 @@ class HomeAnimation {
         UIView.animate(withDuration: 1, animations: {
             homeVC.startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
         })
+        // 0. Counting Rate
+        //homeVC.distanceView.alpha = 0
+        UIView.animate(withDuration: 3, animations: {
+            homeVC.distanceView.alpha = 1
+        })
+        homeVC.unitLabel.alpha = 0
+        UIView.animate(withDuration: 3, animations: {
+            homeVC.unitLabel.alpha = 1
+        })
+        homeVC.distance.setUpdateBlock { (value, label) in
+            label.text = String(format: "%.f", value)
+        }
+        homeVC.distance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
+        homeVC.distance.countFrom(0, to: 136, withDuration: 5)
+        
         // 1. Text Animation
         homeVC.todayString.text = "오늘까지"
         homeVC.youString.text = "당신이 남긴"
