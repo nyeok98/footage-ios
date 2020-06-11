@@ -22,6 +22,7 @@
 		B9AC35A42490CC3500B5CBBD /* NanumSquareExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9AC35A02490CC3500B5CBBD /* NanumSquareExtraBold.ttf */; };
 		B9AC35AB24910FE300B5CBBD /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */; };
 		B9AC35AF2491100800B5CBBD /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC35AE2491100800B5CBBD /* CollectionViewController.swift */; };
+		B9AC35B32491CAD700B5CBBD /* HomeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC35B22491CAD700B5CBBD /* HomeAnimation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		B9AC35A02490CC3500B5CBBD /* NanumSquareExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareExtraBold.ttf; sourceTree = "<group>"; };
 		B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		B9AC35AE2491100800B5CBBD /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		B9AC35B22491CAD700B5CBBD /* HomeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				B9A66FA7248F6BF3001EAF54 /* Main.storyboard */,
 				B9A66FAC248F6BF6001EAF54 /* LaunchScreen.storyboard */,
+				B9AC35B22491CAD700B5CBBD /* HomeAnimation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */,
 				B9A66FC0248F801B001EAF54 /* TabBarViewController.swift in Sources */,
 				B9AC35AF2491100800B5CBBD /* CollectionViewController.swift in Sources */,
+				B9AC35B32491CAD700B5CBBD /* HomeAnimation.swift in Sources */,
 				B9AC35AB24910FE300B5CBBD /* StatsViewController.swift in Sources */,
 				B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */,
 				B9A66FBE248F70E8001EAF54 /* SettingsViewController.swift in Sources */,

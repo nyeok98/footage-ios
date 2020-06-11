@@ -116,13 +116,13 @@
                     <tabBarItem key="tabBarItem" title="" image="house.fill" catalog="system" selectedImage="house.fill" id="eM9-wi-LaY"/>
                     <connections>
                         <outlet property="startButton" destination="5AW-RJ-lkU" id="5Qr-Oq-b14"/>
-                        <outlet property="todayString" destination="H72-wm-f5e" id="xS8-Gv-GeD"/>
+                        <outlet property="todayString" destination="H72-wm-f5e" id="MBj-ww-EZz"/>
                         <outlet property="triangle1" destination="ayF-dc-El5" id="1a8-HI-27a"/>
                         <outlet property="triangle2" destination="uAi-TR-6c4" id="Qje-A8-1LX"/>
                         <outlet property="triangle3" destination="ZT6-4V-TKK" id="P9g-z7-wQO"/>
                         <outlet property="triangle4" destination="a0q-k1-loB" id="Gh2-fQ-s7C"/>
                         <outlet property="triangle5" destination="sdP-GN-8qX" id="osK-w5-8Tc"/>
-                        <outlet property="youString" destination="BJx-zr-y7Y" id="vHd-Bb-PGW"/>
+                        <outlet property="youString" destination="BJx-zr-y7Y" id="dNN-Uo-Ar1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7yW-Ly-5Cg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
