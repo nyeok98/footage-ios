@@ -14,7 +14,7 @@ class HomeViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     var locationArray: [CLLocation] = []
-    var distanceToday: Double = 0
+    static var distanceToday: Double = 0
     
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var startButton: UIButton!
@@ -40,7 +40,7 @@ class HomeViewController: UIViewController {
         startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
         setInitialAlpha()
         setInitialPositionTriangle()
-        configureMapView()
+        configureInitialMapView()
         HomeAnimation.homeStopAnimation(self)
         //drawDirection()
     }
@@ -74,8 +74,17 @@ class HomeViewController: UIViewController {
         
         if startButton.currentImage == #imageLiteral(resourceName: "start_btn") {
             HomeAnimation.homeStartAnimation(self)
+            UIView.animate(withDuration: 1) {
+                self.mainMap.alpha = 0
+            }
+            trackMapView()
         } else {
             HomeAnimation.homeStopAnimation(self)
+            UIView.animate(withDuration: 1) {
+                self.mainMap.alpha = 0
+            }
+            locationManager.stopUpdatingLocation()
+            configureInitialMapView()
         }
     }
     
@@ -85,7 +94,18 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     
-    func configureMapView() {
+    func configureInitialMapView() {
+        mainMap.mapType = MKMapType.satelliteFlyover
+        let coordinateLocation = CLLocationCoordinate2DMake(CLLocationDegrees(exactly: 37.3341)!, CLLocationDegrees(exactly:-122.0092)!)
+        let spanValue = MKCoordinateSpan(latitudeDelta: 120, longitudeDelta: 120)
+        let locationRegion = MKCoordinateRegion(center: coordinateLocation, span: spanValue)
+        mainMap.setRegion(locationRegion, animated: true)
+        UIView.animate(withDuration: 1) {
+            self.mainMap.alpha = 1
+        }
+    }
+    
+    func trackMapView() {
         //지도 띄우기
         // Do any additional setup after loading the view, typically from a nib.
         locationManager.delegate = self
@@ -94,9 +114,13 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         locationManager.requestLocation()
         locationArray.append(locationManager.location!)
         locationManager.startUpdatingLocation() // 위치 업데이트 시작
-        locationManager.distanceFilter = 50 // meters
+        locationManager.distanceFilter = 20 // meters
         locationManager.pausesLocationUpdatesAutomatically = true
+        mainMap.mapType = MKMapType.standard
         mainMap.showsUserLocation = true // 현재 위치에 마커로 표시됨
+        UIView.animate(withDuration: 1) {
+            self.mainMap.alpha = 1
+        }
         
     }
     
@@ -135,8 +159,8 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
                 return
             }
             let routeLine = response.routes[0].polyline
-            self.distanceToday += response.routes[0].distance / 1000 // meters to km
-            self.distance.text = String(format: "%.1f", self.distanceToday)
+            HomeViewController.distanceToday += response.routes[0].distance / 1000 // meters to km
+            self.distance.text = String(format: "%.1f", HomeViewController.distanceToday)
             self.mainMap.addOverlay(routeLine)
             //self.mainMap.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
 
@@ -149,8 +173,6 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         polylineView.lineWidth = 10
         return polylineView
     }
-    
-    
 }
 
 
