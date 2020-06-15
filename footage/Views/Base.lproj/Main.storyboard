@@ -146,7 +146,7 @@
                         <outlet property="distance" destination="m0H-qt-p6W" id="Ayd-4N-rcN"/>
                         <outlet property="distanceView" destination="vtI-px-9ux" id="5sK-xn-uuK"/>
                         <outlet property="footString" destination="OeL-aW-bTF" id="WvL-of-4yx"/>
-                        <outlet property="mapView" destination="Dqc-ly-Rcj" id="Vk0-jC-LaH"/>
+                        <outlet property="mainMap" destination="Dqc-ly-Rcj" id="2af-5t-aVW"/>
                         <outlet property="square1" destination="4vC-qo-2tq" id="hHx-fc-eWI"/>
                         <outlet property="square2" destination="7eb-23-zfn" id="YNF-9a-glj"/>
                         <outlet property="square3" destination="3oq-4d-XNT" id="rKH-DH-Qjw"/>
