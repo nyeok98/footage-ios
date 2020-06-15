@@ -12,6 +12,8 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var rangeControl: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     
+    static var journeyArray: [JourneyData] = []
+    
     static let badgeElementKind = "badge-element-kind"
     enum Section {
         case main
@@ -71,6 +73,8 @@ extension StatsViewController {
         collectionView.isPagingEnabled = true
         // collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .clear
+        collectionView.allowsSelection = true
+        collectionView.delegate = self
         
         // Register Components
         collectionView.register(MapCell.self, forCellWithReuseIdentifier: MapCell.reuseIdentifier)
@@ -134,7 +138,19 @@ extension StatsViewController {
     }
 }
 
-extension StatsViewController {
+extension StatsViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("item selected")
+        performSegue(withIdentifier: "goToJourney", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! JourneyViewController
+        destinationVC.journeyData = StatsViewController.journeyArray[0]
+    }
+    
     private func configureOthers() {
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2.0
 //        let radius = bounds.width / 2.0
@@ -142,6 +158,7 @@ extension StatsViewController {
 //        layer.borderColor = UIColor.black.cgColor
 //        layer.borderWidth = 1.0
     }
+
 }
 
 
