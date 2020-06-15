@@ -12,6 +12,9 @@ import EFCountingLabel
 
 class HomeViewController: UIViewController {
     
+    let locationManager = CLLocationManager()
+    var locationArray: [CLLocation] = []
+    
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var youString: UILabel!
@@ -36,8 +39,9 @@ class HomeViewController: UIViewController {
         startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
         setInitialAlpha()
         setInitialPositionTriangle()
+        configureMapView()
         HomeAnimation.homeStopAnimation(self)
-        drawDirection()
+        //drawDirection()
     }
     
     func setInitialAlpha() {
@@ -81,16 +85,23 @@ class HomeViewController: UIViewController {
 extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     
     func configureMapView() {
-        let locationManager = CLLocationManager()//지도 띄우기
+        //지도 띄우기
         // Do any additional setup after loading the view, typically from a nib.
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest //정확도 최고
-        locationManager.requestWhenInUseAuthorization() //사용자 인증 요청
-        locationManager.startUpdatingLocation() //위치 업데이트 시작
-        mainMap.showsUserLocation = true //현재 위치에 마커로 표시됨
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation //정확도 최고
+        locationManager.requestWhenInUseAuthorization() // 사용자 인증 요청
+        locationManager.requestLocation()
+        locationArray.append(locationManager.location!)
+        locationManager.startUpdatingLocation() // 위치 업데이트 시작
+        locationManager.distanceFilter = 10 // meters
+        locationManager.pausesLocationUpdatesAutomatically = true
+        mainMap.showsUserLocation = true // 현재 위치에 마커로 표시됨
         
     }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
     
     func myLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees, delta: Double){
         let coordinateLocation = CLLocationCoordinate2DMake(latitude, longitude)
@@ -102,16 +113,17 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     
     //업데이트 되는 위치정보 표시
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let lastLocation = locations.last //가장 최근의 위치정보 저장
-        myLocation(latitude: (lastLocation?.coordinate.latitude)!, longitude: (lastLocation?.coordinate.longitude)!, delta: 0.01) //delat값이 1보다 작을수록 확대됨. 0.01은 100배확대
-        
+        print("update called")
+        guard let lastLocation = locations.last //가장 최근의 위치정보 저장
+            else { return }
+        locationArray.append(lastLocation)
+        appendNewDirection()
+        myLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude, delta: 0.001) // 0.01은 100배확대
     }
     
-    func drawDirection() {
-        let start = MKPlacemark(coordinate:
-            CLLocationCoordinate2D(latitude: 36.5150, longitude: 127.2384))
-        let finish = MKPlacemark(coordinate:
-            CLLocationCoordinate2D(latitude: 36.5150, longitude: 128))
+    func appendNewDirection() {
+        let start = MKPlacemark(coordinate: locationArray[locationArray.count - 2].coordinate)
+        let finish = MKPlacemark(coordinate: locationArray[locationArray.count - 1].coordinate)
         let direction = MKDirections.Request()
         direction.source = MKMapItem(placemark: start)
         direction.destination = MKMapItem(placemark: finish)
@@ -121,19 +133,17 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
             guard let response = response else {
                 return
             }
-            let route = response.routes[0]
-            print(route.steps[0].instructions)
-            self.mainMap.addOverlay(route.polyline)
-//            let originalFrame = route.polyline.boundingMapRect
-//            let mapFrame = MKMapRect(x: originalFrame.origin.x-100, y: originalFrame.origin.y-100, width: originalFrame.width + 100, height: originalFrame.height + 100)
-            self.mainMap.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
-            
+            let routeLine = response.routes[0].polyline
+            self.mainMap.addOverlay(routeLine)
+            //self.mainMap.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+
         }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let polylineView = MKPolylineRenderer(overlay: overlay)
-        polylineView.strokeColor = UIColor(named: "tabColor")
+        polylineView.strokeColor = UIColor(named: "mainColor")
+        polylineView.lineWidth = 10
         return polylineView
     }
     
