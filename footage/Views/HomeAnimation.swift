@@ -51,7 +51,7 @@ class HomeAnimation {
             label.text = String(format: "%.1f", value)
         }
         homeVC.distance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
-        homeVC.distance.countFrom(0, to: 1.2, withDuration: 5)
+        homeVC.distance.countFrom(0, to: 0.0, withDuration: 5)
         
         // 1. Text Animation
         

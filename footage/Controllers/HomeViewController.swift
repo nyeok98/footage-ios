@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     var locationArray: [CLLocation] = []
+    var distanceToday: Double = 0
     
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var startButton: UIButton!
@@ -88,12 +89,12 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         //지도 띄우기
         // Do any additional setup after loading the view, typically from a nib.
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation //정확도 최고
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest//정확도 최고
         locationManager.requestWhenInUseAuthorization() // 사용자 인증 요청
         locationManager.requestLocation()
         locationArray.append(locationManager.location!)
         locationManager.startUpdatingLocation() // 위치 업데이트 시작
-        locationManager.distanceFilter = 10 // meters
+        locationManager.distanceFilter = 50 // meters
         locationManager.pausesLocationUpdatesAutomatically = true
         mainMap.showsUserLocation = true // 현재 위치에 마커로 표시됨
         
@@ -134,6 +135,8 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
                 return
             }
             let routeLine = response.routes[0].polyline
+            self.distanceToday += response.routes[0].distance / 1000 // meters to km
+            self.distance.text = String(format: "%.1f", self.distanceToday)
             self.mainMap.addOverlay(routeLine)
             //self.mainMap.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
 
