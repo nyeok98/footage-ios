@@ -114,7 +114,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         locationManager.requestLocation()
         locationArray.append(locationManager.location!)
         locationManager.startUpdatingLocation() // 위치 업데이트 시작
-        locationManager.distanceFilter = 20 // meters
+        locationManager.distanceFilter = 5 // meters
         locationManager.pausesLocationUpdatesAutomatically = true
         mainMap.mapType = MKMapType.standard
         mainMap.showsUserLocation = true // 현재 위치에 마커로 표시됨
@@ -147,25 +147,31 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func appendNewDirection() {
-        let start = MKPlacemark(coordinate: locationArray[locationArray.count - 2].coordinate)
-        let finish = MKPlacemark(coordinate: locationArray[locationArray.count - 1].coordinate)
-        let direction = MKDirections.Request()
-        direction.source = MKMapItem(placemark: start)
-        direction.destination = MKMapItem(placemark: finish)
-        direction.transportType = .walking
-        let directions = MKDirections(request: direction)
-        directions.calculate { (response, error) in
-            guard let response = response else {
-                return
-            }
-            let routeLine = response.routes[0].polyline
-            HomeViewController.distanceToday += response.routes[0].distance / 1000 // meters to km
-            self.distance.text = String(format: "%.1f", HomeViewController.distanceToday)
-            self.mainMap.addOverlay(routeLine)
+        var newPointArray: [CLLocationCoordinate2D] = []
+        newPointArray.append(locationArray[locationArray.count - 2].coordinate)
+        newPointArray.append(locationArray[locationArray.count - 1].coordinate)
+        let newLine = MKPolyline(coordinates: newPointArray, count: 2)
+        self.mainMap.addOverlay(newLine)
+//        let start = MKPlacemark(coordinate: locationArray[locationArray.count - 2].coordinate)
+//        let finish = MKPlacemark(coordinate: locationArray[locationArray.count - 1].coordinate)
+//        let direction = MKDirections.Request()
+//        direction.source = MKMapItem(placemark: start)
+//        direction.destination = MKMapItem(placemark: finish)
+//        direction.transportType = .walking
+//        let directions = MKDirections(request: direction)
+//        directions.calculate { (response, error) in
+//            guard let response = response else {
+//                return
+//            }
+//            let routeLine = response.routes[0].polyline
+//            HomeViewController.distanceToday += response.routes[0].distance / 1000 // meters to km
+//            self.distance.text = String(format: "%.1f", HomeViewController.distanceToday)
+//            self.mainMap.addOverlay(routeLine)
+            
             //self.mainMap.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
 
         }
-    }
+    
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let polylineView = MKPolylineRenderer(overlay: overlay)
