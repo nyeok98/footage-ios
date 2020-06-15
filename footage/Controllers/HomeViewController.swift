@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import MapKit
 import EFCountingLabel
 
 class HomeViewController: UIViewController {
     
-    
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var youString: UILabel!
     @IBOutlet weak var todayString: UILabel!
@@ -68,6 +69,38 @@ class HomeViewController: UIViewController {
         
     }
     
+}
+
+// MARK: Map Kit View
+
+extension HomeViewController: CLLocationManagerDelegate {
+
+    func configureMapView() {
+        let locationManager = CLLocationManager()//지도 띄우기
+        // Do any additional setup after loading the view, typically from a nib.
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest //정확도 최고
+        locationManager.requestWhenInUseAuthorization() //사용자 인증 요청
+        locationManager.startUpdatingLocation() //위치 업데이트 시작
+        mapView.showsUserLocation = true //현재 위치에 마커로 표시됨
+        
+    }
+
+    
+    func myLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees, delta: Double){
+        let coordinateLocation = CLLocationCoordinate2DMake(latitude, longitude)
+        let spanValue = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
+        let locationRegion = MKCoordinateRegion(center: coordinateLocation, span: spanValue)
+        mapView.setRegion(locationRegion, animated: true)
+        
+    }
+    
+    //업데이트 되는 위치정보 표시
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let lastLocation = locations.last //가장 최근의 위치정보 저장
+      myLocation(latitude: (lastLocation?.coordinate.latitude)!, longitude: (lastLocation?.coordinate.longitude)!, delta: 0.01) //delat값이 1보다 작을수록 확대됨. 0.01은 100배확대
+        
+    }
 }
 
 

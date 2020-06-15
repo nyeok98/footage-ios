@@ -40,7 +40,7 @@ class HomeAnimation {
         
         // 0. Counting Rate
         homeVC.distanceView.alpha = 0
-        UIView.animate(withDuration: 3, animations: {
+        UIView.animate(withDuration: 3.5, animations: {
             homeVC.distanceView.alpha = 1
         })
         homeVC.unitLabel.alpha = 0
@@ -131,8 +131,8 @@ class HomeAnimation {
             homeVC.startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
         })
         // 0. Counting Rate
-        //homeVC.distanceView.alpha = 0
-        UIView.animate(withDuration: 3, animations: {
+        homeVC.distanceView.alpha = 0
+        UIView.animate(withDuration: 3.5, animations: {
             homeVC.distanceView.alpha = 1
         })
         homeVC.unitLabel.alpha = 0

@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6EB4753C2493B40F00166A1D /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4753B2493B40F00166A1D /* MapCell.swift */; };
+		6EB475412494BF8300166A1D /* DateSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4753F2493CBB000166A1D /* DateSupplementaryView.swift */; };
+		6EB475452496489000166A1D /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB475442496489000166A1D /* TitleSupplementaryView.swift */; };
 		B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */; };
 		B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */; };
 		B9A66FA6248F6BF3001EAF54 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA5248F6BF3001EAF54 /* HomeViewController.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6EB4753B2493B40F00166A1D /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
+		6EB4753F2493CBB000166A1D /* DateSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSupplementaryView.swift; sourceTree = "<group>"; };
+		6EB475442496489000166A1D /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
 		8D56ABB957378A50C8E81335 /* Pods_footage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_footage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B62ECEFF6FF5C8333D8221B6 /* Pods-footage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-footage.debug.xcconfig"; path = "Target Support Files/Pods-footage/Pods-footage.debug.xcconfig"; sourceTree = "<group>"; };
 		B9A66F9E248F6BF3001EAF54 /* footage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = footage.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,7 +72,6 @@
 				B62ECEFF6FF5C8333D8221B6 /* Pods-footage.debug.xcconfig */,
 				D2CCB6D4199D83BB62272983 /* Pods-footage.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -124,6 +129,9 @@
 				B9A66FA7248F6BF3001EAF54 /* Main.storyboard */,
 				B9A66FAC248F6BF6001EAF54 /* LaunchScreen.storyboard */,
 				B9AC35B22491CAD700B5CBBD /* HomeAnimation.swift */,
+				6EB4753B2493B40F00166A1D /* MapCell.swift */,
+				6EB4753F2493CBB000166A1D /* DateSupplementaryView.swift */,
+				6EB475442496489000166A1D /* TitleSupplementaryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -270,12 +278,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EB475412494BF8300166A1D /* DateSupplementaryView.swift in Sources */,
 				B9A66FA6248F6BF3001EAF54 /* HomeViewController.swift in Sources */,
 				B9A66FB9248F70AC001EAF54 /* RecommendViewController.swift in Sources */,
 				B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */,
 				B9A66FC0248F801B001EAF54 /* TabBarViewController.swift in Sources */,
 				B9AC35B32491CAD700B5CBBD /* HomeAnimation.swift in Sources */,
 				B9AC35AB24910FE300B5CBBD /* StatsViewController.swift in Sources */,
+				6EB4753C2493B40F00166A1D /* MapCell.swift in Sources */,
+				6EB475452496489000166A1D /* TitleSupplementaryView.swift in Sources */,
 				B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */,
 				B9A66FBE248F70E8001EAF54 /* SettingsViewController.swift in Sources */,
 			);
@@ -423,14 +434,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GN72VLK2LR;
+				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = footage/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dreampizza.footage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dreampizza2.footage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -443,14 +454,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GN72VLK2LR;
+				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = footage/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dreampizza.footage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dreampizza2.footage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
