@@ -101,10 +101,20 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     
     
     func configureInitialMapView() {
+        var coordinate: CLLocationCoordinate2D? = nil
         mainMap.mapType = MKMapType.satelliteFlyover
-        let coordinateLocation = CLLocationCoordinate2DMake(CLLocationDegrees(exactly: 37.3341)!, CLLocationDegrees(exactly:-122.0092)!)
         let spanValue = MKCoordinateSpan(latitudeDelta: 120, longitudeDelta: 120)
-        let locationRegion = MKCoordinateRegion(center: coordinateLocation, span: spanValue)
+        if CLLocationManager.authorizationStatus() == .authorizedAlways ||
+            CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            while locationManager.location == nil {
+                locationManager.requestLocation()
+            }
+            coordinate = locationManager.location!.coordinate
+            mainMap.showsUserLocation = true
+        } else {
+            coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(exactly: 36.5151)!, CLLocationDegrees(exactly: 127.2385)!)
+        }
+        let locationRegion = MKCoordinateRegion(center: coordinate!, span: spanValue)
         mainMap.setRegion(locationRegion, animated: true)
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
@@ -125,7 +135,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         while locationManager.location == nil {
             self.locationManager.requestLocation()
         }
-        locationArray.append(locationManager.location!) // first item goes into the array
+        
         locationManager.distanceFilter = 5 // meters
         locationManager.pausesLocationUpdatesAutomatically = true
         
@@ -150,6 +160,9 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         guard let lastLocation = locations.last
             else { return }
         locationArray.append(lastLocation)
+        if locationArray.count == 1 { // didUpdateLocations is first called - append location twice
+            locationArray.append(lastLocation)
+        }
         journeyData!.coordinateArray.append(lastLocation.coordinate)
         appendNewDirection()
         myLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude, delta: 0.001)
