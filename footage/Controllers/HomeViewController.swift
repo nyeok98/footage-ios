@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
     var locationArray: [CLLocation] = []
     var journeyData: JourneyData? = nil
     static var distanceToday: Double = 0
+    var timer: Timer?
     
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var startButton: UIButton!
@@ -39,12 +40,13 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         mainMap.delegate = self
         locationManager.delegate = self
+        
         startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
         setInitialAlpha()
         setInitialPositionTriangle()
-        configureInitialMapView()
         HomeAnimation.homeStopAnimation(self)
-        //drawDirection()
+        
+        configureInitialMapView()
     }
     
     func setInitialAlpha() {
@@ -72,31 +74,21 @@ class HomeViewController: UIViewController {
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
         
-        //let homeAnimation = HomeAnimation()
-        
-        if startButton.currentImage == #imageLiteral(resourceName: "start_btn") {
+        if startButton.currentImage == #imageLiteral(resourceName: "start_btn") { // FROM START TO STOP
             HomeAnimation.homeStartAnimation(self)
-            UIView.animate(withDuration: 1) {
-                self.mainMap.alpha = 0
-            }
-            locationManager.requestWhenInUseAuthorization() // 사용자 인증 요청
-            locationManager.requestLocation()
-            let originalLocation = locationManager.location!
-            var newLocation = locationManager.location
-            for _ in 1...10 {
+            
+            locationManager.requestWhenInUseAuthorization()
+            for _ in 1...10 { // wait for accurate location
                 self.locationManager.requestLocation()
-                newLocation = self.locationManager.location
             }
             trackMapView()
-        } else {
+            
+        } else { // FROM STOP TO START
+            StatsViewController.journeyArray.append(journeyData!) // Save journey data
+            timer!.invalidate()
             HomeAnimation.homeStopAnimation(self)
-            StatsViewController.journeyArray.append(journeyData!)
-            print(journeyData!.coordinateArray[0])
-            UIView.animate(withDuration: 1) {
-                self.mainMap.alpha = 0
-            }
-            locationManager.stopUpdatingLocation()
-            locationManager.pausesLocationUpdatesAutomatically = true
+            locationArray = []
+            // locationManager.pausesLocationUpdatesAutomatically = true
             configureInitialMapView()
         }
     }
@@ -106,6 +98,7 @@ class HomeViewController: UIViewController {
 // MARK: Map Kit View
 
 extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
+    
     
     func configureInitialMapView() {
         mainMap.mapType = MKMapType.satelliteFlyover
@@ -119,29 +112,32 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func trackMapView() {
-        //지도 띄우기
-        // Do any additional setup after loading the view, typically from a nib.
-        journeyData = JourneyData()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest//정확도 최고
-        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
+
+        journeyData = JourneyData() // create new data collection template
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
             self.locationManager.requestLocation()
         }
-        locationArray.append(locationManager.location!) // 위치 업데이트 시작
-        //locationManager.startUpdatingLocation()
+//        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
+//            self.locationManager.requestLocation()
+//        }
+        while locationManager.location == nil {
+            self.locationManager.requestLocation()
+        }
+        locationArray.append(locationManager.location!) // first item goes into the array
         locationManager.distanceFilter = 5 // meters
         locationManager.pausesLocationUpdatesAutomatically = true
+        
         mainMap.mapType = MKMapType.standard
-        mainMap.showsUserLocation = true // 현재 위치에 마커로 표시됨
+        mainMap.showsUserLocation = true
+        myLocation(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, delta: 0.001)
+        
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
         }
-        myLocation(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, delta: 0.001)
     }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-    }
-    
+ 
     func myLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees, delta: Double){
         let coordinateLocation = CLLocationCoordinate2DMake(latitude, longitude)
         let spanValue = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
@@ -149,34 +145,32 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         mainMap.setRegion(locationRegion, animated: true)
     }
     
-    //업데이트 되는 위치정보 표시
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("update called")
-        guard let lastLocation = locations.last //가장 최근의 위치정보 저장
+        guard let lastLocation = locations.last
             else { return }
         locationArray.append(lastLocation)
         journeyData!.coordinateArray.append(lastLocation.coordinate)
         appendNewDirection()
-        myLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude, delta: 0.001) // 0.01은 100배확대
+        myLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude, delta: 0.001)
     }
     
     func appendNewDirection() {
-       let timeInterval = locationArray[locationArray.count - 1].timestamp.timeIntervalSince(locationArray[locationArray.count - 2].timestamp)
-        print(timeInterval)
         
         let lastLocation = locationArray[locationArray.count - 2]
         let newLocation = locationArray[locationArray.count - 1]
         HomeViewController.distanceToday += newLocation.distance(from: lastLocation)
-         self.distance.text = String(format: "%.2f", HomeViewController.distanceToday / 1000)
-        let newLine = MKPolyline(coordinates: [lastLocation.coordinate, newLocation.coordinate], count: 2)
+        self.distance.text = String(format: "%.2f", HomeViewController.distanceToday / 1000)
+        // TODO: 이거 실행되기 전에 distance traveled alpha 1 로 animate되면 이상한 숫자 먼저 뜸
         
+        let timeInterval = locationArray[locationArray.count - 1]
+            .timestamp.timeIntervalSince(locationArray[locationArray.count - 2].timestamp)
         let distanceInterval = newLocation.distance(from: lastLocation)
         
-        if distanceInterval/timeInterval < 7 {
-            print(distanceInterval/timeInterval)
+        if distanceInterval/timeInterval < 8 { // Speed limit
+            let newLine = MKPolyline(coordinates: [lastLocation.coordinate, newLocation.coordinate], count: 2)
             self.mainMap.addOverlay(newLine)
         } else {
-            print(distanceInterval/timeInterval)
             return
         }
     }
@@ -187,6 +181,10 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         polylineView.strokeColor = UIColor(named: "mainColor")
         polylineView.lineWidth = 10
         return polylineView
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 }
 

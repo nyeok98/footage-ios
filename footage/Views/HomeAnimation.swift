@@ -28,6 +28,7 @@ class HomeAnimation {
     static func homeStartAnimation(_ homeVC: HomeViewController) {
         // start button pressed
         
+        
         UIView.animate(withDuration: 1, animations: {
             homeVC.startButton.alpha = 0
         })
@@ -37,6 +38,9 @@ class HomeAnimation {
         UIView.animate(withDuration: 1, animations: {
             homeVC.startButton.setImage(#imageLiteral(resourceName: "stop_btn"), for: .normal)
         })
+        UIView.animate(withDuration: 1) {
+            homeVC.mainMap.alpha = 0
+        }
         
         // 0. Counting Rate
         homeVC.distanceView.alpha = 0
@@ -48,10 +52,10 @@ class HomeAnimation {
             homeVC.unitLabel.alpha = 1
         })
         homeVC.distance.setUpdateBlock { (value, label) in
-            label.text = String(format: "%.1f", value)
+            label.text = String(format: "%.2f", value)
         }
         homeVC.distance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
-        homeVC.distance.countFrom(0, to: CGFloat(HomeViewController.distanceToday), withDuration: 5)
+        homeVC.distance.countFrom(0, to: CGFloat(HomeViewController.distanceToday / 1000), withDuration: 5)
         
         // 1. Text Animation
         
@@ -121,6 +125,7 @@ class HomeAnimation {
 //MARK- homeStopAnimation
     
     static func homeStopAnimation(_ homeVC: HomeViewController) {
+        
         UIView.animate(withDuration: 1, animations: {
             homeVC.startButton.alpha = 0
         })
@@ -130,6 +135,10 @@ class HomeAnimation {
         UIView.animate(withDuration: 1, animations: {
             homeVC.startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
         })
+        UIView.animate(withDuration: 1) {
+            homeVC.mainMap.alpha = 0
+        }
+        
         // 0. Counting Rate
         homeVC.distanceView.alpha = 0
         UIView.animate(withDuration: 3.5, animations: {
