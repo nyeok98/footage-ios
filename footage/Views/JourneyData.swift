@@ -9,8 +9,11 @@
 import Foundation
 import MapKit
 
-struct JourneyData {
-    var coordinateArray: [CLLocationCoordinate2D] = []
-    var startTime: String = ""
+class JourneyData {
+    
+    var polylineArray: [[CLLocationCoordinate2D]] = []
+    var startTime: String = "today's date"
     var finishTime: String = ""
+    var previewImage: UIImage = UIImage()
+    
 }

@@ -8,9 +8,11 @@
 
 import UIKit
 
-class MapCell: UICollectionViewCell {
-
-    var mapImage = UIImageView() // this should be a preview of the map
+class MapCell: UICollectionViewCell {    
+    
+    var mapImage = UIImageView()
+    var journeyData = JourneyData()
+    
     static let reuseIdentifier = "map-cell-reuse-identifier"
 
     override init(frame: CGRect) {

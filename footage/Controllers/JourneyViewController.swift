@@ -23,11 +23,12 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     func configureMap() {
         mainMap.delegate = self
         mainMap.mapType = MKMapType.standard
-        if let coordinates = journeyData?.coordinateArray {
+        for coordinates in journeyData!.polylineArray {
             let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
-            mainMap.setRegion(MKCoordinateRegion(newLine.boundingMapRect), animated: true)
             self.mainMap.addOverlay(newLine)
         }
+        mainMap.setRegion(MKCoordinateRegion(newLine.boundingMapRect), animated: true)
+        mainMap.setRegion
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

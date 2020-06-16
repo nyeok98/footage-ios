@@ -19,14 +19,40 @@ class StatsViewController: UIViewController {
         case main
     }
     
-    var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
+    var dataSource: UICollectionViewDiffableDataSource<Section, MapCell>! = nil
     var collectionView: UICollectionView! = nil
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
+        var cellArray: [MapCell] = []
+        let journeyArray = StatsViewController.journeyArray
+        if !journeyArray.isEmpty {
+            for i in 0...journeyArray.count - 1 {
+                cellArray.append(MapCell())
+                cellArray[i].journeyData = journeyArray[i]
+            }
+            view.bringSubviewToFront(collectionView)
+        }
+        snapshot.appendSections([.main])
+        snapshot.appendItems(cellArray)
+        dataSource.apply(snapshot, animatingDifferences: false)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHierarchy()
         configureDataSource()
         configureOthers()
+        let labelFrame = CGRect(x: 0, y: 300, width: self.view.bounds.width, height: 100)
+        let label = UILabel(frame: labelFrame)
+        label.text = "새로운 발자취를 기록해 볼까요? 홈 화면으로 가서 start 눌러서 기록하고 다시오세요 동녘이 바보"
+        label.textAlignment = .center
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.backgroundColor = .clear
+        self.view.addSubview(label)
+        view.bringSubviewToFront(label)
     }
 }
 
@@ -72,7 +98,7 @@ extension StatsViewController {
         
         collectionView.isPagingEnabled = true
         // collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .white
         collectionView.allowsSelection = true
         collectionView.delegate = self
         
@@ -93,8 +119,8 @@ extension StatsViewController {
 
 extension StatsViewController {
     private func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, identifier: Int) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<Section, MapCell>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, identifier: MapCell) -> UICollectionViewCell? in
             
             // Get a cell of the desired kind.
             guard let cell = collectionView.dequeueReusableCell(
@@ -102,7 +128,7 @@ extension StatsViewController {
                 for: indexPath) as? MapCell else { fatalError("Could not create new cell") }
             
             // Populate the cell with our item description.
-            cell.mapImage.image = #imageLiteral(resourceName: "map1")
+            cell.mapImage.image = cell.journeyData.previewImage
             // cell.mapImage.layer.cornerRadius = 20
             // cell.mapImage.layer.masksToBounds = true
             
@@ -131,9 +157,18 @@ extension StatsViewController {
         }
         
         // initial data
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
+        var cellArray: [MapCell] = []
+        let journeyArray = StatsViewController.journeyArray
+        if !journeyArray.isEmpty {
+            for i in 0...journeyArray.count - 1 {
+                cellArray.append(MapCell())
+                cellArray[i].journeyData = journeyArray[i]
+            }
+        } else {
+        }
         snapshot.appendSections([.main])
-        snapshot.appendItems(Array(0..<10))
+        snapshot.appendItems(cellArray)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }

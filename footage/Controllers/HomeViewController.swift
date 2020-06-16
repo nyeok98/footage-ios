@@ -84,7 +84,11 @@ class HomeViewController: UIViewController {
             trackMapView()
             
         } else { // FROM STOP TO START
-            StatsViewController.journeyArray.append(journeyData!) // Save journey data
+            let snapShotter = MKMapSnapshotter()
+            snapShotter.start { (snap, error) in
+                let image = snap?.image
+                self.journeyData?.previewImage = image!
+            }
             timer!.invalidate()
             HomeAnimation.homeStopAnimation(self)
             locationArray = []
@@ -122,8 +126,18 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func trackMapView() {
-
-        journeyData = JourneyData() // create new data collection template
+        if let lastJourney = StatsViewController.journeyArray.last {
+            if lastJourney.startTime == "today's date" { // 같은 날 시작된 여행이 있다
+                journeyData = StatsViewController.journeyArray.last // continue to write on previous journey
+            } else {
+                journeyData = JourneyData() // initiate today's journey
+                StatsViewController.journeyArray.append(journeyData!)
+            }
+        } else {
+            journeyData = JourneyData() // initiate today's journey
+            StatsViewController.journeyArray.append(journeyData!)
+        }
+        journeyData!.polylineArray.append([]) // initiate new polyline
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
@@ -160,10 +174,11 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         guard let lastLocation = locations.last
             else { return }
         locationArray.append(lastLocation)
+        journeyData!.polylineArray[journeyData!.polylineArray.count - 1].append(lastLocation.coordinate)
         if locationArray.count == 1 { // didUpdateLocations is first called - append location twice
             locationArray.append(lastLocation)
+            journeyData!.polylineArray[journeyData!.polylineArray.count - 1].append(lastLocation.coordinate)
         }
-        journeyData!.coordinateArray.append(lastLocation.coordinate)
         appendNewDirection()
         myLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude, delta: 0.001)
     }
