@@ -8,14 +8,16 @@
 
 import UIKit
 import MapKit
+import EFCountingLabel
 
 class JourneyViewController: UIViewController, MKMapViewDelegate {
     
     //components which Wootae is gonna make it fuctuate.
     @IBOutlet weak var mainMap: MKMapView!
-    @IBOutlet weak var yearLabel: UILabel!
-    @IBOutlet weak var monthLabel: UILabel!
-    @IBOutlet weak var dayLabel: UILabel!
+    
+    @IBOutlet weak var yearLabel: EFCountingLabel!
+    @IBOutlet weak var monthLabel: EFCountingLabel!
+    @IBOutlet weak var dayLabel: EFCountingLabel!
     
     //Not related to you, Wootae!
     @IBOutlet weak var youLabel: UILabel!
@@ -27,20 +29,10 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(journeyIndex)
         configureMap()
         // Do any additional setup after loading the view.
-    }
-    
-    func setInitialAlpha() {
-        
-        yearLabel.alpha = 0
-        monthLabel.alpha = 0
-        dayLabel.alpha = 0
-        youLabel.alpha = 0
-        seeBackLabel.alpha = 0
-        
-        
+        setInitialAlpha()
+        JourneyAnimation.journeyActivate(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,6 +42,14 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         forReloadStatsVC.collectionView.reloadData()
     }
     
+    func setInitialAlpha() {
+        yearLabel.alpha = 0
+        monthLabel.alpha = 0
+        dayLabel.alpha = 0
+        youLabel.alpha = 0
+        seeBackLabel.alpha = 0
+        print("setIntitalAlpha is functuated")
+    }
     
     func configureMap() {
         mainMap.delegate = self
