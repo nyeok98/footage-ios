@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "untouchedDayIcon.png",
+      "filename" : "partitionLine.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "untouchedDayIcon@2x.png",
+      "filename" : "partitionLine@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "untouchedDayIcon@3x.png",
+      "filename" : "partitionLine@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

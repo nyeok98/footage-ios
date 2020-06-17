@@ -42,7 +42,7 @@ extension RecommendViewController {
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
-        collectionView.register(MapCell.self, forCellWithReuseIdentifier: MapCell.reuseIdentifier)
+        collectionView.register(UINib(nibName: "MapCell", bundle: nil), forCellWithReuseIdentifier: MapCell.reuseIdentifier)
         collectionView.register(
             TitleSupplementaryView.self,
             forSupplementaryViewOfKind: RecommendViewController.sectionHeaderElementKind,

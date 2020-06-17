@@ -104,7 +104,7 @@ extension StatsViewController {
         collectionView.allowsSelection = true
         
         // Register Components
-        collectionView.register(MapCell.self, forCellWithReuseIdentifier: MapCell.reuseIdentifier)
+        collectionView.register(UINib(nibName: "MapCell", bundle: nil), forCellWithReuseIdentifier: MapCell.reuseIdentifier)
         
         view.addSubview(collectionView)
         view.sendSubviewToBack(collectionView)

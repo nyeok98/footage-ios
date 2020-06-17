@@ -11,7 +11,15 @@ import MapKit
 
 class JourneyViewController: UIViewController, MKMapViewDelegate {
     
+    //components which Wootae is gonna make it fuctuate.
     @IBOutlet weak var mainMap: MKMapView!
+    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var dayLabel: UILabel!
+    
+    //Not related to you, Wootae!
+    @IBOutlet weak var youLabel: UILabel!
+    @IBOutlet weak var seeBackLabel: UILabel!
     
     var journeyData: JourneyData? = nil
     var journeyIndex = 0
@@ -24,16 +32,22 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         // Do any additional setup after loading the view.
     }
     
+    func setInitialAlpha() {
+        
+        yearLabel.alpha = 0
+        monthLabel.alpha = 0
+        dayLabel.alpha = 0
+        youLabel.alpha = 0
+        seeBackLabel.alpha = 0
+        
+        
+    }
     
-    
-    @IBAction func testButton(_ sender: UIButton) {
+    override func viewDidAppear(_ animated: Bool) {
         let image = takeScreenshot()
         StatsViewController.journeyArray[journeyIndex].previewImage = image
         
         forReloadStatsVC.collectionView.reloadData()
-        
-        self.dismiss(animated: true, completion: nil)
-        
     }
     
     

@@ -14,6 +14,8 @@
 		6EB475452496489000166A1D /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB475442496489000166A1D /* TitleSupplementaryView.swift */; };
 		B91161792499CFE200EFC75F /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B91161782499CFE200EFC75F /* SettingsCell.xib */; };
 		B911617B2499D12300EFC75F /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B911617A2499D12300EFC75F /* SettingsCell.swift */; };
+		B911617D249A1E2300EFC75F /* MapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B911617C249A1E2300EFC75F /* MapCell.xib */; };
+		B911617F249A36C600EFC75F /* JourneyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B911617E249A36C600EFC75F /* JourneyAnimation.swift */; };
 		B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */; };
 		B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */; };
 		B9A66FA6248F6BF3001EAF54 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA5248F6BF3001EAF54 /* HomeViewController.swift */; };
@@ -42,6 +44,8 @@
 		B62ECEFF6FF5C8333D8221B6 /* Pods-footage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-footage.debug.xcconfig"; path = "Target Support Files/Pods-footage/Pods-footage.debug.xcconfig"; sourceTree = "<group>"; };
 		B91161782499CFE200EFC75F /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		B911617A2499D12300EFC75F /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		B911617C249A1E2300EFC75F /* MapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapCell.xib; sourceTree = "<group>"; };
+		B911617E249A36C600EFC75F /* JourneyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyAnimation.swift; sourceTree = "<group>"; };
 		B9A66F9E248F6BF3001EAF54 /* footage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = footage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,11 +142,13 @@
 				B9A66FA7248F6BF3001EAF54 /* Main.storyboard */,
 				B9A66FAC248F6BF6001EAF54 /* LaunchScreen.storyboard */,
 				B9AC35B22491CAD700B5CBBD /* HomeAnimation.swift */,
+				B911617E249A36C600EFC75F /* JourneyAnimation.swift */,
 				6EB4753B2493B40F00166A1D /* MapCell.swift */,
 				6EB4753F2493CBB000166A1D /* DateSupplementaryView.swift */,
 				6EB475442496489000166A1D /* TitleSupplementaryView.swift */,
 				B911617A2499D12300EFC75F /* SettingsCell.swift */,
 				B91161782499CFE200EFC75F /* SettingsCell.xib */,
+				B911617C249A1E2300EFC75F /* MapCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -239,6 +245,7 @@
 				B9A66FAB248F6BF6001EAF54 /* Assets.xcassets in Resources */,
 				B9AC35A32490CC3500B5CBBD /* NanumSquareBold.ttf in Resources */,
 				B9A66FA9248F6BF3001EAF54 /* Main.storyboard in Resources */,
+				B911617D249A1E2300EFC75F /* MapCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +302,7 @@
 				6EB475412494BF8300166A1D /* DateSupplementaryView.swift in Sources */,
 				B9A66FA6248F6BF3001EAF54 /* HomeViewController.swift in Sources */,
 				B9A66FB9248F70AC001EAF54 /* RecommendViewController.swift in Sources */,
+				B911617F249A36C600EFC75F /* JourneyAnimation.swift in Sources */,
 				B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */,
 				B9A66FC0248F801B001EAF54 /* TabBarViewController.swift in Sources */,
 				B9AC35B32491CAD700B5CBBD /* HomeAnimation.swift in Sources */,

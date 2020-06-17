@@ -21,21 +21,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="147" height="177"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Kuh-pX-T3j">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basicStatsIcon" id="Kuh-pX-T3j">
                         <rect key="frame" x="0.0" y="0.0" width="147" height="147"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A54-mX-Yec">
                         <rect key="frame" x="0.0" y="147" width="147" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="NanumSquareR" family="NanumSquare" pointSize="10"/>
+                        <fontDescription key="fontDescription" name="NanumSquareR" family="NanumSquare" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </collectionViewCellContentView>
             <size key="customSize" width="147" height="177"/>
+            <connections>
+                <outlet property="label" destination="A54-mX-Yec" id="0V8-Zz-lPo"/>
+                <outlet property="mapImage" destination="Kuh-pX-T3j" id="Laa-ob-MSb"/>
+            </connections>
             <point key="canvasLocation" x="-4387.68115942029" y="250.11160714285714"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="basicStatsIcon" width="300.5" height="300.5"/>
+    </resources>
 </document>
