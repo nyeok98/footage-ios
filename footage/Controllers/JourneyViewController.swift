@@ -12,16 +12,28 @@ import MapKit
 class JourneyViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mainMap: MKMapView!
+    
     var journeyData: JourneyData? = nil
+    var forReloadStatsVC = StatsViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureMap()
-        print(StatsViewController.journeyArray[0].previewImage)
-        StatsViewController.journeyArray[0].previewImage = takeScreenshot()
-        print(StatsViewController.journeyArray[0].previewImage)
         // Do any additional setup after loading the view.
     }
+    
+    
+    
+    @IBAction func testButton(_ sender: UIButton) {
+        let image = takeScreenshot()
+        StatsViewController.journeyArray.last?.previewImage = image
+        
+        forReloadStatsVC.collectionView.reloadData()
+        
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
     
     func configureMap() {
         mainMap.delegate = self
@@ -34,6 +46,7 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         }
         let locationRegion = MKCoordinateRegion(center: center!, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mainMap.setRegion(locationRegion, animated: true)
+        
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -49,7 +62,7 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         UIGraphicsBeginImageContextWithOptions(mainMap.bounds.size, false, UIScreen.main.scale)
 
         // Draw view in that context
-        mainMap.drawHierarchy(in: mainMap.bounds, afterScreenUpdates: true)
+        mainMap.drawHierarchy(in: mainMap.bounds, afterScreenUpdates: false)
 
         // And finally, get image
         let image = UIGraphicsGetImageFromCurrentImageContext()

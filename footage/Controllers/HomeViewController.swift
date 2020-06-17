@@ -84,11 +84,7 @@ class HomeViewController: UIViewController {
             trackMapView()
             
         } else { // FROM STOP TO START
-            let snapShotter = MKMapSnapshotter()
-            snapShotter.start { (snap, error) in
-                let image = snap?.image
-                self.journeyData?.previewImage = image!
-            }
+            
             timer!.invalidate()
             HomeAnimation.homeStopAnimation(self)
             locationArray = []

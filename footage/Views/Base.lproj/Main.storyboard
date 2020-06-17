@@ -11,6 +11,9 @@
         <array key="NanumSquareBold.ttf">
             <string>NanumSquareB</string>
         </array>
+        <array key="NanumSquareRegular.ttf">
+            <string>NanumSquareR</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Settings View Controller-->
@@ -21,10 +24,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pU-X3-j73">
-                                <rect key="frame" x="129" y="396" width="117" height="21"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m7t-g4-Ax4">
+                                <rect key="frame" x="0.0" y="245" width="375" height="402"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="dV8-qs-aKT">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dV8-qs-aKT" id="HpI-k3-HLM">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZS-4a-yWl">
+                                <rect key="frame" x="142" y="112" width="91" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -33,10 +51,13 @@
                         <viewLayoutGuide key="safeArea" id="NaB-oV-11A"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="slider.horizontal.3" catalog="system" selectedImage="slider.horizontal.3" id="eRC-YB-kkY"/>
+                    <connections>
+                        <outlet property="tableView" destination="m7t-g4-Ax4" id="Abp-Un-a3P"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dfk-EY-56W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-30" y="-167"/>
+            <point key="canvasLocation" x="-31.199999999999999" y="-167.73399014778326"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="HDd-je-FcQ">
@@ -203,13 +224,24 @@
             <objects>
                 <viewController id="aF5-BU-2MZ" customClass="JourneyViewController" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eBS-b3-fsS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4zW-Wm-1JQ">
                                 <rect key="frame" x="37" y="219" width="300" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Vf-BQ-yaV">
+                                <rect key="frame" x="102" y="582" width="171" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NanumSquareR" family="NanumSquare" pointSize="20"/>
+                                <state key="normal" title="다른 날은 어땠나요?">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="testButton:" destination="aF5-BU-2MZ" eventType="touchUpInside" id="9i4-22-BfI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="OUN-gM-2us"/>
@@ -292,11 +324,12 @@
                         <viewLayoutGuide key="safeArea" id="zrw-kB-jRD"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="person.fill" catalog="system" selectedImage="person.fill" id="L63-ZD-f4q"/>
+                    <navigationItem key="navigationItem" id="fdo-RH-khC"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="profileImage" destination="gTf-Tc-gls" id="Urj-5v-AY2"/>
                         <outlet property="rangeControl" destination="Tcf-Qm-pfE" id="Vdn-OO-4wh"/>
-                        <segue destination="aF5-BU-2MZ" kind="showDetail" identifier="goToJourney" id="Ya3-9e-Zr7"/>
+                        <segue destination="aF5-BU-2MZ" kind="presentation" identifier="goToJourney" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="Ya3-9e-Zr7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XMn-d6-hXb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

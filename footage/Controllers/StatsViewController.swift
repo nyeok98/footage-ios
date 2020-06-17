@@ -24,7 +24,6 @@ class StatsViewController: UIViewController {
     var collectionView: UICollectionView! = nil
     
     override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear Called")
         super.viewWillAppear(false)
         var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
         var cellArray: [MapCell] = []
@@ -33,7 +32,7 @@ class StatsViewController: UIViewController {
             for i in 0...journeyArray.count - 1 {
                 cellArray.append(MapCell())
                 cellArray[i].journeyData = journeyArray[i]
-                cellArray[i].journeyData.previewImage = #imageLiteral(resourceName: "profile")
+                cellArray[i].journeyData.previewImage = journeyArray[i].previewImage
             }
             view.bringSubviewToFront(collectionView)
         }
@@ -50,10 +49,11 @@ class StatsViewController: UIViewController {
         configureOthers()
         let labelFrame = CGRect(x: 0, y: 300, width: self.view.bounds.width, height: 100)
         label.frame = labelFrame
-        label.text = "새로운 발자취를 기록해 볼까요? 홈 화면으로 가서 start 눌러서 기록하고 다시오세요 동녘이 바보"
+        label.text = "새로운 발자취를 기록해 볼까요?"
+        label.font = UIFont(name: "NanumSquare", size: 20)
         label.textAlignment = .center
         label.textColor = .black
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.backgroundColor = .clear
         self.view.addSubview(label)
         view.bringSubviewToFront(label)
@@ -124,9 +124,7 @@ extension StatsViewController {
                 for: indexPath) as? MapCell else { fatalError("Could not create new cell") }
             
             // Populate the cell with our item description.
-            cell.mapImage.image = cell.journeyData.previewImage
-            print(cell.journeyData.previewImage)
-            print(cell.mapImage.image)
+            cell.mapImage.image = StatsViewController.journeyArray.last!.previewImage
             let today = NSString(string: StatsViewController.journeyArray[indexPath.row].date)
             cell.label.text = today.substring(from: 5)
             // cell.mapImage.layer.cornerRadius = 20
@@ -157,13 +155,13 @@ extension StatsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        print("item selected")
         performSegue(withIdentifier: "goToJourney", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! JourneyViewController
-        destinationVC.journeyData = StatsViewController.journeyArray[0]
+        destinationVC.forReloadStatsVC = self
+        destinationVC.journeyData = StatsViewController.journeyArray.last
     }
     
     private func configureOthers() {
