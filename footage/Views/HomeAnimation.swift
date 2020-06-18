@@ -28,7 +28,6 @@ class HomeAnimation {
     static func homeStartAnimation(_ homeVC: HomeViewController) {
         // start button pressed
         
-        
         UIView.animate(withDuration: 1, animations: {
             homeVC.startButton.alpha = 0
         })
@@ -38,9 +37,9 @@ class HomeAnimation {
         UIView.animate(withDuration: 1, animations: {
             homeVC.startButton.setImage(#imageLiteral(resourceName: "stop_btn"), for: .normal)
         })
-        UIView.animate(withDuration: 1) {
-            homeVC.mainMap.alpha = 0
-        }
+//        UIView.animate(withDuration: 1) {
+//            homeVC.mainMap.alpha = 0
+//        }
         
         // 0. Counting Rate
         homeVC.distanceView.alpha = 0
@@ -65,6 +64,7 @@ class HomeAnimation {
         homeVC.todayString.alpha = 0.0
         homeVC.youString.alpha = 0.0
         homeVC.footString.alpha = 0.0
+        
         Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
             UIView.animate(withDuration: 1, animations: {
                 homeVC.todayString.alpha = 1
