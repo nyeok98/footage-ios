@@ -2,81 +2,87 @@
 //  JourneyAnimation.swift
 //  footage
 //
-//  Created by 녘 on 2020/06/17.
+//  Created by 녘 on 2020/06/15.
 //  Copyright © 2020 DreamPizza. All rights reserved.
 //
 
 import UIKit
 import EFCountingLabel
 
-
 class JourneyAnimation {
-
-    static func journeyActivate(_ journeyVC: JourneyViewController) {
-        
-        
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
-            UIView.animate(withDuration: 1, animations: {
-                journeyVC.yearLabel.alpha = 1
-            })
-        }
-
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
-            UIView.animate(withDuration: 1, animations: {
-                journeyVC.monthLabel.alpha = 1
-            })
-        }
-
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
-            UIView.animate(withDuration: 1, animations: {
-                journeyVC.dayLabel.alpha = 1
-            })
-        }
-        
-        Timer.scheduledTimer(withTimeInterval: 0.75, repeats: false) { (timer) in
-            UIView.animate(withDuration: 1, animations: {
-                journeyVC.youLabel.alpha = 1
-            })
-        }
-        
-        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
-            UIView.animate(withDuration: 1, animations: {
-                journeyVC.seeBackLabel.alpha = 1
-            })
-        }
-        
-        journeyVC.yearLabel.setUpdateBlock { (value, label) in
-            label.text = String(format: "%.f", value)
-        }
-        
-        if journeyVC.monthLabel.text! < "10" {
-            journeyVC.monthLabel.setUpdateBlock{ (value, label) in
-                label.text = String(format: "0%.f", value)
-            }
-        } else {
-            journeyVC.monthLabel.setUpdateBlock{ (value, label) in
-            label.text = String(format: "%.f", value)
-            }
-        }
-        if journeyVC.dayLabel.text! < "10" {
-            
-            journeyVC.dayLabel.setUpdateBlock { (value, label) in
-                label.text = String(format: "0%.f", value)
-            }
-        } else {
-            journeyVC.dayLabel.setUpdateBlock { (value, label) in
-                label.text = String(format: "%.f", value)
-            }
-        }
-        
-        journeyVC.yearLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
-        journeyVC.yearLabel.countFrom(0, to: 20, withDuration: 5)
-        
-        journeyVC.monthLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
-        journeyVC.monthLabel.countFrom(0, to: 6, withDuration: 5)
-        
-        journeyVC.dayLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
-        journeyVC.dayLabel.countFrom(0, to: 09, withDuration: 5)
-        
+    
+    init(journeyVC: JourneyViewController, journeyIndex: Int) {
+        self.journeyVC = journeyVC
+        self.journeyIndex = journeyIndex
     }
+    
+    var journeyVC: JourneyViewController = JourneyViewController()
+    var journeyIndex: Int = 0
+    var date: Int { // 20200604 || 202006 || 2020
+        get {
+            Int(StatsViewController.journeyArray[journeyIndex].date)!
+        }
+    }
+
+    func journeyActivate() {
+        alphaToOne(object: journeyVC.youText, time: 0.55)
+        alphaToOne(object: journeyVC.seeBackText, time: 1.5)
+        setNecessaryLabels()
+    }
+    
+    func alphaToOne(object: UIView, time: Double) {
+        Timer.scheduledTimer(withTimeInterval: time, repeats: false) { (_) in
+            object.alpha = 1
+        }
+    }
+    
+    func setNecessaryLabels() {
+        switch date {
+        case ...10000 : // journey for a year
+            journeyVC.dayLabel.removeFromSuperview()
+            journeyVC.dayText.removeFromSuperview()
+            journeyVC.monthLabel.removeFromSuperview()
+            journeyVC.monthText.removeFromSuperview()
+            journeyVC.yearLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            journeyVC.yearLabel.countFrom(2000, to: CGFloat(date), withDuration: 2)
+            alphaToOne(object: journeyVC.yearLabel, time: 0.5)
+            
+        case 10001...1000000 : // journey for a month
+            journeyVC.dayLabel.removeFromSuperview()
+            journeyVC.dayText.removeFromSuperview()
+            
+            addNecessaryZeros(date % 100, label: journeyVC.monthLabel) // get month
+            journeyVC.monthLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            journeyVC.monthLabel.countFrom(0, to: CGFloat(date % 100), withDuration: 2)
+            alphaToOne(object: journeyVC.monthLabel, time: 0.5)
+            
+            journeyVC.yearLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            journeyVC.yearLabel.countFrom(2000, to: CGFloat(date / 100), withDuration: 2)
+            alphaToOne(object: journeyVC.yearLabel, time: 0.5)
+            
+        default: // journey for a day
+            addNecessaryZeros(date % 100, label: journeyVC.dayLabel) // get day
+            journeyVC.dayLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            journeyVC.dayLabel.countFrom(0, to: CGFloat(date % 100), withDuration: 2)
+            alphaToOne(object: journeyVC.dayLabel, time: 0.5)
+            
+            addNecessaryZeros(date / 100 % 100, label: journeyVC.monthLabel) // get month
+            journeyVC.monthLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            journeyVC.monthLabel.countFrom(0, to: CGFloat(date / 100 % 100), withDuration: 2)
+            alphaToOne(object: journeyVC.monthLabel, time: 0.5)
+            
+            journeyVC.yearLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            journeyVC.yearLabel.countFrom(0, to: CGFloat(date / 10000 % 100), withDuration: 2)
+            alphaToOne(object: journeyVC.yearLabel, time: 0.5)
+        }
+    }
+    
+    func addNecessaryZeros(_ date: Int, label: EFCountingLabel) {
+        if date < 10 {
+            label.setUpdateBlock{ (value, label) in
+                label.text = String(format: "0%.f", value)
+            }
+        }
+    }
+    
 }

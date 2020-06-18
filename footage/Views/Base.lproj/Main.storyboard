@@ -291,11 +291,14 @@
                     <navigationItem key="navigationItem" id="vAJ-FJ-xVb"/>
                     <connections>
                         <outlet property="dayLabel" destination="pZY-F6-aQH" id="Yao-40-1v2"/>
+                        <outlet property="dayText" destination="4vl-0V-uyY" id="Ijt-bw-DdA"/>
                         <outlet property="mainMap" destination="4zW-Wm-1JQ" id="E6t-0m-HL0"/>
                         <outlet property="monthLabel" destination="0Eb-me-3pC" id="34f-Pq-YjT"/>
-                        <outlet property="seeBackLabel" destination="Csp-pO-7A6" id="iOx-wT-dgL"/>
+                        <outlet property="monthText" destination="Rsg-I3-QfH" id="rkE-h4-014"/>
+                        <outlet property="seeBackText" destination="Csp-pO-7A6" id="G74-bY-UrH"/>
                         <outlet property="yearLabel" destination="9hv-jW-AU9" id="Eld-5g-30b"/>
-                        <outlet property="youLabel" destination="EZz-ga-8yN" id="6W5-yK-2X5"/>
+                        <outlet property="yearText" destination="ro6-8J-zvA" id="CjC-fD-vbL"/>
+                        <outlet property="youText" destination="EZz-ga-8yN" id="pPi-qV-rHn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="728-bF-Bsk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -354,21 +357,14 @@
                                     <action selector="dateRangeChanged:" destination="nHf-mU-wXi" eventType="valueChanged" id="z7b-Ea-Ir8"/>
                                 </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="41m-24-mIU">
-                                <rect key="frame" x="165" y="145" width="115" height="67"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0m-Pp-jnb" customClass="EFCountingLabel" customModule="EFCountingLabel">
+                                <rect key="frame" x="163" y="141" width="115" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0m-Pp-jnb" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                        <rect key="frame" x="0.0" y="0.0" width="115" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="60"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
+                                <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="60"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="zrw-kB-jRD"/>

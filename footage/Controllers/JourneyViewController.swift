@@ -11,19 +11,19 @@ import MapKit
 import EFCountingLabel
 
 class JourneyViewController: UIViewController, MKMapViewDelegate {
-    
-    //components which Wootae is gonna make it fuctuate.
+
     @IBOutlet weak var mainMap: MKMapView!
     
     @IBOutlet weak var yearLabel: EFCountingLabel!
     @IBOutlet weak var monthLabel: EFCountingLabel!
     @IBOutlet weak var dayLabel: EFCountingLabel!
+    @IBOutlet weak var yearText: UILabel!
+    @IBOutlet weak var monthText: UILabel!
+    @IBOutlet weak var dayText: UILabel!
+    @IBOutlet weak var youText: UILabel!
+    @IBOutlet weak var seeBackText: UILabel!
     
-    //Not related to you, Wootae!
-    @IBOutlet weak var youLabel: UILabel!
-    @IBOutlet weak var seeBackLabel: UILabel!
-    
-    var journeyData: JourneyData? = nil
+    var journeyData: JourneyData = JourneyData()
     var journeyIndex = 0
     var forReloadStatsVC = StatsViewController()
     
@@ -31,7 +31,8 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         configureMap()
         setInitialAlpha()
-        JourneyAnimation.journeyActivate(self)
+        let animation = JourneyAnimation(journeyVC: self, journeyIndex: journeyIndex)
+        animation.journeyActivate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,8 +45,8 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         yearLabel.alpha = 0
         monthLabel.alpha = 0
         dayLabel.alpha = 0
-        youLabel.alpha = 0
-        seeBackLabel.alpha = 0
+        youText.alpha = 0
+        seeBackText.alpha = 0
     }
     
     func configureMap() {
@@ -53,7 +54,7 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         mainMap.mapType = MKMapType.standard
         var center: CLLocationCoordinate2D?
         
-        for route in journeyData!.footstepArray {
+        for route in journeyData.footstepArray {
             var coordinates: [CLLocationCoordinate2D] = []
             for footstep in route {
                 coordinates.append(footstep.coordinate)

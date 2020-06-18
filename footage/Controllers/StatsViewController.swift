@@ -116,7 +116,18 @@ extension StatsViewController {
             // Populate the cell with our item description.
             cell.mapImage.image = StatsViewController.journeyArray[indexPath.row].previewImage
             let date = NSString(string: StatsViewController.journeyArray[indexPath.row].date)
-            cell.label.text = String(date)
+            var dateLabel = ""
+            
+            switch date.length {
+            case 8: dateLabel = date.substring(with: NSRange(location: 4, length: 2)) + "월 "
+                + date.substring(with: NSRange(location: 6, length: 2)) + "일"
+            case 6: dateLabel = date.substring(with: NSRange(location: 0, length: 4)) + "년 "
+                + date.substring(with: NSRange(location: 4, length: 2)) + "월"
+            default:
+                dateLabel = date as String + "년"
+            }
+            
+            cell.label.text = dateLabel
             
             // Return the cell.
             return cell
@@ -188,9 +199,3 @@ extension StatsViewController: UICollectionViewDelegate {
     }
 
 }
-
-
-//                JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 37, longitude: 127), CLLocationCoordinate2D(latitude: 37.0001, longitude: 127.0001)]], date: "2017 06월 21일"),
-//                JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 36.1215, longitude: 126.3832),
-//                CLLocationCoordinate2D(latitude: 36.1217, longitude: 126.3823)]], date: "2018 12월 25일")]
-
