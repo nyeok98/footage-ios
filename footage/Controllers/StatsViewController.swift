@@ -10,52 +10,26 @@ import UIKit
 import MapKit
 
 class StatsViewController: UIViewController {
-    @IBOutlet weak var rangeControl: UIView!
+    @IBOutlet weak var rangeControl: UISegmentedControl!
     @IBOutlet weak var profileImage: UIImageView!
-    @IBAction func dateRangeChanged(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 { // day selected
-            StatsViewController.journeyArray = [
-                JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 37, longitude: 127), CLLocationCoordinate2D(latitude: 37.0001, longitude: 127.0001)]], date: "2017 06월 21일"),
-                JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 36.1215, longitude: 126.3832),
-                CLLocationCoordinate2D(latitude: 36.1217, longitude: 126.3823)]], date: "2018 12월 25일")]
-        }
-        
-//        if sender.selectedSegmentIndex == 1 { // month selected
-//            JourneyData = []
-//            for monthData in JourneyData.byMonth {
-//                JourneyData.init(polylines: <#T##[[CLLocationCoordinate2D]]#>, date: <#T##String#>)
-//            }
-//        }
-    }
     
     var label = UILabel()
     static var journeyArray: [JourneyData] = []
+    var dataSource: UICollectionViewDiffableDataSource<Section, MapCell>! = nil
+    var collectionView: UICollectionView! = nil
     
     static let badgeElementKind = "badge-element-kind"
     enum Section {
         case main
     }
     
-    var dataSource: UICollectionViewDiffableDataSource<Section, MapCell>! = nil
-    var collectionView: UICollectionView! = nil
+    @IBAction func dateRangeChanged(_ sender: UISegmentedControl) {
+        loadWithRange(sender.selectedSegmentIndex)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
-        var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
-        var cellArray: [MapCell] = []
-        let journeyArray = StatsViewController.journeyArray
-        if !journeyArray.isEmpty {
-            for i in 0...journeyArray.count - 1 {
-                cellArray.append(MapCell())
-                cellArray[i].journeyData = journeyArray[i]
-                //cellArray[i].journeyData.previewImage = journeyArray[i].previewImage
-            }
-            view.bringSubviewToFront(collectionView)
-        }
-        snapshot.appendSections([.main])
-        snapshot.appendItems(cellArray)
-        dataSource.apply(snapshot, animatingDifferences: false)
-        //collectionView.reloadData()
+        loadWithRange(rangeControl.selectedSegmentIndex)
     }
     
     override func viewDidLoad() {
@@ -141,10 +115,8 @@ extension StatsViewController {
             
             // Populate the cell with our item description.
             cell.mapImage.image = StatsViewController.journeyArray[indexPath.row].previewImage
-            let today = NSString(string: StatsViewController.journeyArray[indexPath.row].date)
-            cell.label.text = today.substring(from: 5)
-            // cell.mapImage.layer.cornerRadius = 20
-            // cell.mapImage.layer.masksToBounds = true
+            let date = NSString(string: StatsViewController.journeyArray[indexPath.row].date)
+            cell.label.text = String(date)
             
             // Return the cell.
             return cell
@@ -182,16 +154,43 @@ extension StatsViewController: UICollectionViewDelegate {
     
     private func configureOthers() {
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2.0
-//        let radius = bounds.width / 2.0
-//        layer.cornerRadius = radius
-//        layer.borderColor = UIColor.black.cgColor
-//        layer.borderWidth = 1.0
+    }
+    
+    private func loadWithRange(_ range: Int) {
+        StatsViewController.journeyArray = []
+        var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
+        var cellArray: [MapCell] = []
+        switch range {
+        case 0: for (_, journeyData) in JourneyDataManager.JourneyByDay {
+                StatsViewController.journeyArray.append(journeyData)
+            }
+        case 1: for (_, journeyData) in JourneyDataManager.JourneyByMonth {
+            StatsViewController.journeyArray.append(journeyData)
+        }
+        case 2: for (_, journeyData) in JourneyDataManager.JourneyByYear {
+            StatsViewController.journeyArray.append(journeyData)
+        }
+        default: for (_, journeyData) in JourneyDataManager.JourneyByDay {
+            StatsViewController.journeyArray.append(journeyData)
+        }
+        }
+        
+        if !StatsViewController.journeyArray.isEmpty {
+            for i in 0...StatsViewController.journeyArray.count - 1 {
+                cellArray.append(MapCell())
+                cellArray[i].journeyData = StatsViewController.journeyArray[i]
+            }
+            view.bringSubviewToFront(collectionView)
+        }
+        snapshot.appendSections([.main])
+        snapshot.appendItems(cellArray)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 
 }
 
-extension StatsViewController {
-    
-}
 
+//                JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 37, longitude: 127), CLLocationCoordinate2D(latitude: 37.0001, longitude: 127.0001)]], date: "2017 06월 21일"),
+//                JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 36.1215, longitude: 126.3832),
+//                CLLocationCoordinate2D(latitude: 36.1217, longitude: 126.3823)]], date: "2018 12월 25일")]
 

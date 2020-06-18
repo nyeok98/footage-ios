@@ -30,7 +30,6 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureMap()
-        // Do any additional setup after loading the view.
         setInitialAlpha()
         JourneyAnimation.journeyActivate(self)
     }
@@ -38,7 +37,6 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         let image = takeScreenshot()
         StatsViewController.journeyArray[journeyIndex].previewImage = image
-        
         forReloadStatsVC.collectionView.reloadData()
     }
     
@@ -48,14 +46,18 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         dayLabel.alpha = 0
         youLabel.alpha = 0
         seeBackLabel.alpha = 0
-        print("setIntitalAlpha is functuated")
     }
     
     func configureMap() {
         mainMap.delegate = self
         mainMap.mapType = MKMapType.standard
         var center: CLLocationCoordinate2D?
-        for coordinates in journeyData!.polylineArray {
+        
+        for route in journeyData!.footstepArray {
+            var coordinates: [CLLocationCoordinate2D] = []
+            for footstep in route {
+                coordinates.append(footstep.coordinate)
+            }
             let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
             self.mainMap.addOverlay(newLine)
             center = newLine.coordinate
@@ -90,16 +92,5 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         }
         return UIImage()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

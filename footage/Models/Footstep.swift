@@ -9,7 +9,8 @@
 import Foundation
 import MapKit
 
-struct CoordinateByTime {
+struct Footstep {
     var timestamp: Date
     var coordinate: CLLocationCoordinate2D
+    var isNewStartingPoint: Bool
 }

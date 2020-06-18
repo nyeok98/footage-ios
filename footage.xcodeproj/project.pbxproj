@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E4DE58D249F335700883E7E /* JourneyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4DE58B249F335700883E7E /* JourneyDataManager.swift */; };
+		6E4DE58E249F335700883E7E /* Footstep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4DE58C249F335700883E7E /* Footstep.swift */; };
 		6E99A9A82497B4FE00440E2A /* JourneyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E99A9A72497B4FE00440E2A /* JourneyData.swift */; };
 		6E99A9AC2497BAE200440E2A /* JourneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E99A9AB2497BAE200440E2A /* JourneyViewController.swift */; };
 		6EB4753C2493B40F00166A1D /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4753B2493B40F00166A1D /* MapCell.swift */; };
-		6EB475412494BF8300166A1D /* DateSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4753F2493CBB000166A1D /* DateSupplementaryView.swift */; };
 		6EB475452496489000166A1D /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB475442496489000166A1D /* TitleSupplementaryView.swift */; };
 		B91161792499CFE200EFC75F /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B91161782499CFE200EFC75F /* SettingsCell.xib */; };
 		B911617B2499D12300EFC75F /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B911617A2499D12300EFC75F /* SettingsCell.swift */; };
 		B911617D249A1E2300EFC75F /* MapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B911617C249A1E2300EFC75F /* MapCell.xib */; };
 		B911617F249A36C600EFC75F /* JourneyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B911617E249A36C600EFC75F /* JourneyAnimation.swift */; };
-		B9116181249B2F7C00EFC75F /* JourneyByMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9116180249B2F7C00EFC75F /* JourneyByMonth.swift */; };
 		B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */; };
 		B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */; };
 		B9A66FA6248F6BF3001EAF54 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA5248F6BF3001EAF54 /* HomeViewController.swift */; };
@@ -36,10 +36,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E4DE58B249F335700883E7E /* JourneyDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyDataManager.swift; sourceTree = "<group>"; };
+		6E4DE58C249F335700883E7E /* Footstep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Footstep.swift; sourceTree = "<group>"; };
 		6E99A9A72497B4FE00440E2A /* JourneyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JourneyData.swift; path = footage/Models/JourneyData.swift; sourceTree = SOURCE_ROOT; };
 		6E99A9AB2497BAE200440E2A /* JourneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyViewController.swift; sourceTree = "<group>"; };
 		6EB4753B2493B40F00166A1D /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
-		6EB4753F2493CBB000166A1D /* DateSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSupplementaryView.swift; sourceTree = "<group>"; };
 		6EB475442496489000166A1D /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
 		8D56ABB957378A50C8E81335 /* Pods_footage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_footage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B62ECEFF6FF5C8333D8221B6 /* Pods-footage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-footage.debug.xcconfig"; path = "Target Support Files/Pods-footage/Pods-footage.debug.xcconfig"; sourceTree = "<group>"; };
@@ -47,7 +48,6 @@
 		B911617A2499D12300EFC75F /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		B911617C249A1E2300EFC75F /* MapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapCell.xib; sourceTree = "<group>"; };
 		B911617E249A36C600EFC75F /* JourneyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyAnimation.swift; sourceTree = "<group>"; };
-		B9116180249B2F7C00EFC75F /* JourneyByMonth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyByMonth.swift; sourceTree = "<group>"; };
 		B9A66F9E248F6BF3001EAF54 /* footage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = footage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,7 +133,8 @@
 		B9A66FB5248F6C8D001EAF54 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B9116180249B2F7C00EFC75F /* JourneyByMonth.swift */,
+				6E4DE58C249F335700883E7E /* Footstep.swift */,
+				6E4DE58B249F335700883E7E /* JourneyDataManager.swift */,
 				6E99A9A72497B4FE00440E2A /* JourneyData.swift */,
 			);
 			path = Models;
@@ -144,11 +145,9 @@
 			children = (
 				B9A66FA7248F6BF3001EAF54 /* Main.storyboard */,
 				B9A66FAC248F6BF6001EAF54 /* LaunchScreen.storyboard */,
-				6E99A9AB2497BAE200440E2A /* JourneyViewController.swift */,
 				B9AC35B22491CAD700B5CBBD /* HomeAnimation.swift */,
 				B911617E249A36C600EFC75F /* JourneyAnimation.swift */,
 				6EB4753B2493B40F00166A1D /* MapCell.swift */,
-				6EB4753F2493CBB000166A1D /* DateSupplementaryView.swift */,
 				6EB475442496489000166A1D /* TitleSupplementaryView.swift */,
 				B911617A2499D12300EFC75F /* SettingsCell.swift */,
 				B91161782499CFE200EFC75F /* SettingsCell.xib */,
@@ -162,9 +161,10 @@
 			children = (
 				B9A66FA5248F6BF3001EAF54 /* HomeViewController.swift */,
 				B9A66FB8248F70AC001EAF54 /* RecommendViewController.swift */,
+				B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */,
+				6E99A9AB2497BAE200440E2A /* JourneyViewController.swift */,
 				B9A66FBD248F70E8001EAF54 /* SettingsViewController.swift */,
 				B9A66FBF248F801B001EAF54 /* TabBarViewController.swift */,
-				B9AC35AA24910FE300B5CBBD /* StatsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -302,7 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B911617B2499D12300EFC75F /* SettingsCell.swift in Sources */,
-				6EB475412494BF8300166A1D /* DateSupplementaryView.swift in Sources */,
+				6E4DE58D249F335700883E7E /* JourneyDataManager.swift in Sources */,
 				B9A66FA6248F6BF3001EAF54 /* HomeViewController.swift in Sources */,
 				B9A66FB9248F70AC001EAF54 /* RecommendViewController.swift in Sources */,
 				B911617F249A36C600EFC75F /* JourneyAnimation.swift in Sources */,
@@ -313,8 +313,8 @@
 				6E99A9A82497B4FE00440E2A /* JourneyData.swift in Sources */,
 				B9AC35AB24910FE300B5CBBD /* StatsViewController.swift in Sources */,
 				6EB4753C2493B40F00166A1D /* MapCell.swift in Sources */,
-				B9116181249B2F7C00EFC75F /* JourneyByMonth.swift in Sources */,
 				6EB475452496489000166A1D /* TitleSupplementaryView.swift in Sources */,
+				6E4DE58E249F335700883E7E /* Footstep.swift in Sources */,
 				B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */,
 				B9A66FBE248F70E8001EAF54 /* SettingsViewController.swift in Sources */,
 			);
@@ -462,7 +462,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GN72VLK2LR;
+				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = footage/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -482,7 +482,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GN72VLK2LR;
+				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = footage/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

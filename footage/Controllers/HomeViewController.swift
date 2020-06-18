@@ -13,11 +13,20 @@ import EFCountingLabel
 class HomeViewController: UIViewController {
     
     let locationManager = CLLocationManager()
-    var locationArray: [CLLocation] = []
-    var journeyData: JourneyData? = nil
+    var locationArray: [[CLLocation]] = [[]]
+    
     static var distanceToday: Double = 0
-    var dateFormatter = DateFormatter()
+    var dateFormatter =  DateFormatter()
     var locationTimer: Timer?
+    var setAsStart: Bool = true
+    
+    var speedLimit: Double = 8
+    var refreshRate: Double = 2.5
+    var distanceLimit: Double {
+        get {
+            return speedLimit * refreshRate
+        }
+    }
     
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var startButton: UIButton!
@@ -76,47 +85,70 @@ class HomeViewController: UIViewController {
     @IBAction func startButtonPressed(_ sender: UIButton) {
         
         if startButton.currentImage == #imageLiteral(resourceName: "start_btn") { // FROM START TO STOP
-            HomeAnimation.homeStartAnimation(self)
             
-            locationManager.requestWhenInUseAuthorization()
-            for _ in 1...10 { // wait for accurate location
-                self.locationManager.requestLocation()
+            
+            locationManager.requestAlwaysAuthorization()
+            
+            let status = CLLocationManager.authorizationStatus()
+            
+            if status == .notDetermined || status == .denied || status == .authorizedWhenInUse {
+                
+                // present an alert indicating location authorization required
+                // and offer to take the user to Settings for the app via
+                // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
+                
+                let alert = UIAlertController(title: "위치를 알 수 없어요", message: "소중한 발자취를 위해 위치서비스를 '항상'으로 켜주세요.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "설정", style: .default, handler: { (_) in
+                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                        return
+                    }
+                    
+                    if UIApplication.shared.canOpenURL(settingsUrl) {
+                        UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                            print("Settings opened: \(success)") // Prints true
+                        })
+                    }
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
+            } else {
+                HomeAnimation.homeStartAnimation(self)
+                trackMapView()
             }
-            trackMapView()
             
         } else { // FROM STOP TO START
-            
+            setAsStart = true
             locationTimer?.invalidate()
             HomeAnimation.homeStopAnimation(self)
             locationArray = []
             locationManager.pausesLocationUpdatesAutomatically = true
             locationManager.stopUpdatingLocation()
             configureInitialMapView()
+            
         }
     }
     
 }
 
-// MARK: Map Kit View
+// MARK: - Map Kit View
 
 extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     
-    
     func configureInitialMapView() {
         var coordinate: CLLocationCoordinate2D? = nil
-        mainMap.mapType = MKMapType.standard
         if CLLocationManager.authorizationStatus() == .authorizedAlways ||
             CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             while locationManager.location == nil {
                 locationManager.requestLocation()
             }
             coordinate = locationManager.location!.coordinate
-            //mainMap.showsUserLocation = true
-        } else {
+            mainMap.showsUserLocation = true
+        } else { // default location for when location data is not authorized
             coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(exactly: 36.5151)!, CLLocationDegrees(exactly: 127.2385)!)
         }
         let spanValue = MKCoordinateSpan(latitudeDelta: 120, longitudeDelta: 120)
         let locationRegion = MKCoordinateRegion(center: coordinate!, span: spanValue)
+        mainMap.mapType = MKMapType.standard
         mainMap.setRegion(locationRegion, animated: true)
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
@@ -126,88 +158,77 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     func trackMapView() {
         dateFormatter.dateFormat = "yyyy M월 dd일"
         
-        if let lastJourney = StatsViewController.journeyArray.last {
-            if lastJourney.date == dateFormatter.string(from: Date()) { // 같은 날 시작된 여행이 있다면?
-                journeyData = StatsViewController.journeyArray.last // continue to write on previous journey
-            } else {
-                // initiateNewJourney()
-                journeyData = JourneyData() // initiate today's journey
-                journeyData!.date = dateFormatter.string(from: Date())
-                
-                StatsViewController.journeyArray.append(journeyData!)
-            }
-        } else {
-            // initiateNewJourney()
-            journeyData = JourneyData() // initiate today's journey
-            journeyData!.date = dateFormatter.string(from: Date())
-            StatsViewController.journeyArray.append(journeyData!)
-        }
-        journeyData!.polylineArray.append([]) // initiate new polyline
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationTimer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: true) { (timer) in
-            self.locationManager.requestLocation()
-            print("timer is called")
-        }
-        while locationManager.location == nil {
-            self.locationManager.requestLocation()
-        }
-        
         locationManager.distanceFilter = 5 // meters
         locationManager.pausesLocationUpdatesAutomatically = true
-        
         mainMap.mapType = MKMapType.standard
         mainMap.showsUserLocation = true
-        myLocation(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, delta: 0.001)
+        
+        for _ in 1...10 { // wait for accurate location
+            locationManager.requestLocation()
+        }
+        
+        guard let location = locationManager.location
+            else { return }
+        
+//        while (locationManager.location != nil) {
+//            locationManager.requestLocation()
+//        }
+        
+        locationArray.append([location])
+        locationTimer = Timer.scheduledTimer(withTimeInterval: refreshRate, repeats: true) { (timer) in
+            self.locationManager.requestLocation()
+            self.setMapRegion(latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!, delta: 0.001)
+        }
         
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
         }
+        
     }
- 
-    func myLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees, delta: Double){
+    
+    // DID UPDATE
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let newLocation = locations.last
+            else { return }
+        guard let currentRoute = locationArray.last
+            else { return }
+        guard let lastLocation = currentRoute.last
+            else { return }
+        
+        if speedLimit < checkSpeed(lastLocation: lastLocation, newLocation: newLocation) {
+            // give user an alert for high speed
+            return
+        } else {
+            if distanceLimit < newLocation.distance(from: lastLocation) {
+                setAsStart = true
+            }
+            if setAsStart { //
+                locationArray.append([newLocation])
+                let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: true)
+                JourneyDataManager.collectJourneyData(footstep: footstep)
+                setAsStart = false
+            } else { // 계속 걷기
+                locationArray[locationArray.count - 1].append(newLocation)
+                HomeViewController.distanceToday += newLocation.distance(from: lastLocation)
+                extendPolyline(lastLocation: lastLocation, newLocation: newLocation)
+                let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: false)
+                JourneyDataManager.collectJourneyData(footstep: footstep)
+            }
+        }
+    }
+    
+    func extendPolyline(lastLocation: CLLocation, newLocation: CLLocation) {
+        let newLine = MKPolyline(coordinates: [lastLocation.coordinate, newLocation.coordinate], count: 2)
+        self.mainMap.addOverlay(newLine)
+    }
+    
+    func setMapRegion(latitude: CLLocationDegrees, longitude: CLLocationDegrees, delta: Double){
         let coordinateLocation = CLLocationCoordinate2DMake(latitude, longitude)
         let spanValue = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         let locationRegion = MKCoordinateRegion(center: coordinateLocation, span: spanValue)
         mainMap.setRegion(locationRegion, animated: true)
     }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("update called")
-        guard let lastLocation = locations.last
-            else { return }
-        locationArray.append(lastLocation)
-        if let journeydata = journeyData {
-            journeydata.polylineArray[journeydata.polylineArray.count - 1].append(lastLocation.coordinate)
-            if locationArray.count == 1 { // didUpdateLocations is first called - append location twice
-                locationArray.append(lastLocation)
-                journeydata.polylineArray[journeyData!.polylineArray.count - 1].append(lastLocation.coordinate)
-            }
-            appendNewDirection()
-            myLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude, delta: 0.001)
-        }
-    }
-    
-    func appendNewDirection() {
-        
-        let lastLocation = locationArray[locationArray.count - 2]
-        let newLocation = locationArray[locationArray.count - 1]
-        HomeViewController.distanceToday += newLocation.distance(from: lastLocation)
-        self.distance.text = String(format: "%.2f", HomeViewController.distanceToday / 1000)
-        // TODO: 이거 실행되기 전에 distance traveled alpha 1 로 animate되면 이상한 숫자 먼저 뜸
-        
-        let timeInterval = locationArray[locationArray.count - 1]
-            .timestamp.timeIntervalSince(locationArray[locationArray.count - 2].timestamp)
-        let distanceInterval = newLocation.distance(from: lastLocation)
-        
-        if distanceInterval/timeInterval < 8 { // Speed limit
-            let newLine = MKPolyline(coordinates: [lastLocation.coordinate, newLocation.coordinate], count: 2)
-            self.mainMap.addOverlay(newLine)
-        } else {
-            return
-        }
-    }
-    
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let polylineView = MKPolylineRenderer(overlay: overlay)
@@ -219,23 +240,11 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
-}
-
-extension HomeViewController {
-    func initiateNewJourney() {
-        journeyData = JourneyData()
-        journeyData!.date = dateFormatter.string(from: Date())
-        StatsViewController.journeyArray.append(journeyData!)
-
-        dateFormatter.dateFormat = "yyyy M"
-        let monthID = dateFormatter.string(from: Date())
-        if JourneyData.byMonth.keys.contains(monthID) {
-            JourneyData.byMonth[monthID]?.append(journeyData!)
-        } else {
-            JourneyData.byMonth[monthID] = [journeyData!]
-        }
-
+    
+    func checkSpeed(lastLocation: CLLocation, newLocation: CLLocation) -> Double {
+        let timeInterval = newLocation.timestamp.timeIntervalSince(lastLocation.timestamp)
+        let distanceInterval = newLocation.distance(from: lastLocation)
+        return distanceInterval / timeInterval
     }
 }
-
 

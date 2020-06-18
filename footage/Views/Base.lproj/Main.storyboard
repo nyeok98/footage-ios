@@ -350,6 +350,9 @@
                                     <segment title="월"/>
                                     <segment title="년"/>
                                 </segments>
+                                <connections>
+                                    <action selector="dateRangeChanged:" destination="nHf-mU-wXi" eventType="valueChanged" id="z7b-Ea-Ir8"/>
+                                </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="41m-24-mIU">
                                 <rect key="frame" x="165" y="145" width="115" height="67"/>
