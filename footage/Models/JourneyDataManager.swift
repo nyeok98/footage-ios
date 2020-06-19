@@ -8,49 +8,83 @@
 
 import Foundation
 import MapKit
+import RealmSwift
 
 class JourneyDataManager { // journey 저장 및 데이터 가공을 담당
     
-    static var JourneyByDay: [String: JourneyData] = [:]
-    static var JourneyByMonth: [String: JourneyData] = [:]
-    static var JourneyByYear: [String: JourneyData] = [:]
-    
+//    static var JourneyByDay: [Int: JourneyData] = [:]
+//    static var JourneyByMonth: [Int: JourneyData] = [:]
+//    static var JourneyByYear: [Int: JourneyData] = [:]
+
     static func collectJourneyData(footstep: Footstep) { //
-        
+        let realm = try! Realm()
         let dateFormatter = DateFormatter()
         let date = footstep.timestamp
         
         dateFormatter.dateFormat = "yyyyMMdd"  // 20200616
-        let day = dateFormatter.string(from: date)
+        let day = Int(dateFormatter.string(from: date))!
         dateFormatter.dateFormat = "yyyyMM" // 202006
-        let month = dateFormatter.string(from: date)
+        let month = Int(dateFormatter.string(from: date))!
         dateFormatter.dateFormat = "yyyy" // 2020
-        let year = dateFormatter.string(from: date)
+        let year = Int(dateFormatter.string(from: date))!
         
-        if JourneyDataManager.JourneyByDay.keys.contains(day) { // existing record for today already present
-            if footstep.isNewStartingPoint {
-                JourneyByDay[day]!.footstepArray.append([footstep]) // create new array
-                JourneyByMonth[month]!.footstepArray.append([footstep])
-                JourneyByYear[year]!.footstepArray.append([footstep])
-            } else {
-                JourneyByDay[day]!.footstepArray[JourneyByDay[day]!.footstepArray.count - 1].append(footstep)
-                JourneyByMonth[month]!.footstepArray[JourneyByMonth[month]!.footstepArray.count - 1].append(footstep)
-                JourneyByYear[year]!.footstepArray[JourneyByYear[year]!.footstepArray.count - 1].append(footstep)
-            }
-            
-        } else { // first footstep of the day!!
-            JourneyByDay[day] = JourneyData(polylines: [[footstep]], date: day)
-            if JourneyDataManager.JourneyByMonth.keys.contains(month) { // not first this month
-                JourneyByMonth[month]!.footstepArray.append([footstep])
-                JourneyByYear[year]!.footstepArray.append([footstep])
-            } else { // first footstep of the month!
-                JourneyByMonth[month] = JourneyData(polylines: [[footstep]], date: month)
-                if JourneyDataManager.JourneyByYear.keys.contains(year) {
-                    JourneyByYear[year]!.footstepArray.append([footstep])
-                } else { // first footstep of the year
-                    JourneyByYear[year] = JourneyData(polylines: [[footstep]], date: year)
+        do {
+            try realm.write {
+                let relatedJourneys = realm.objects(JourneyData.self)
+                    .filter("date IN {\(day), \(month), \(year)}")
+                switch relatedJourneys.count {
+                case 3: // record for today already created (오늘 처음 걷는거 아님)
+                    for journey in relatedJourneys {
+                        if footstep.isNewStartingPoint {
+                            journey.routes.append(Route(withSingle: footstep))
+                        } else {
+                            journey.routes[journey.routes.count - 1].footsteps.append(footstep)
+                        }
+                    }
+                case 2: // first time today, but not first this month
+                    for journey in relatedJourneys {
+                        journey.routes.append(Route(withSingle: footstep))
+                    }
+                    realm.add(JourneyData(route: Route(withSingle: footstep), date: day))
+                case 1: // first time this month, but not this year
+                    for journey in relatedJourneys {
+                        journey.routes.append(Route(withSingle: footstep))
+                    }
+                    realm.add(JourneyData(route: Route(withSingle: footstep), date: day))
+                    realm.add(JourneyData(route: Route(withSingle: footstep), date: month))
+                default: // first time this year
+                    realm.add(JourneyData(route: Route(withSingle: footstep), date: day))
+                    realm.add(JourneyData(route: Route(withSingle: footstep), date: month))
+                    realm.add(JourneyData(route: Route(withSingle: footstep), date: year))
                 }
             }
+        } catch {
+            print(error)
+        }
+    }
+    
+//    static func updateToRealm(_ day: Int, _ month: Int, _ year: Int) {
+//        let realm = try! Realm()
+//        do {
+//            try realm.write {
+//                realm.add(JourneyByDay[day]!)
+//                realm.add(JourneyByMonth[month]!)
+//                realm.add(JourneyByYear[year]!)
+//            }
+//        } catch {
+//            print(error)
+//        }
+//    }
+    
+    static func loadFromRealm(rangeOf: String = "") -> Results<JourneyData> {
+        let realm = try! Realm()
+        switch rangeOf {
+        case "day":
+            return realm.objects(JourneyData.self).filter("1000000 < date") // 20200604
+        case "month":
+            return realm.objects(JourneyData.self).filter("10000 < date && date < 1000000") // 202006
+        default: // year
+            return realm.objects(JourneyData.self).filter("date < 10000") // 2020
         }
     }
 }

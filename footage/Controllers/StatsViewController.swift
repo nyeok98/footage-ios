@@ -15,6 +15,8 @@ class StatsViewController: UIViewController {
     
     var label = UILabel()
     static var journeyArray: [JourneyData] = []
+    static var totalDistance = 0.0
+    
     var dataSource: UICollectionViewDiffableDataSource<Section, MapCell>! = nil
     var collectionView: UICollectionView! = nil
     
@@ -114,17 +116,19 @@ extension StatsViewController {
                 for: indexPath) as? MapCell else { fatalError("Could not create new cell") }
             
             // Populate the cell with our item description.
-            cell.mapImage.image = StatsViewController.journeyArray[indexPath.row].previewImage
-            let date = NSString(string: StatsViewController.journeyArray[indexPath.row].date)
+            if let imageData = StatsViewController.journeyArray[indexPath.row].previewImage {
+                cell.mapImage.image = UIImage(data: imageData)
+            } else {
+                cell.mapImage.image = #imageLiteral(resourceName: "basicStatsIcon")
+            }
+            let date = StatsViewController.journeyArray[indexPath.row].date
             var dateLabel = ""
             
-            switch date.length {
-            case 8: dateLabel = date.substring(with: NSRange(location: 4, length: 2)) + "월 "
-                + date.substring(with: NSRange(location: 6, length: 2)) + "일"
-            case 6: dateLabel = date.substring(with: NSRange(location: 0, length: 4)) + "년 "
-                + date.substring(with: NSRange(location: 4, length: 2)) + "월"
+            switch date {
+            case ...10000: dateLabel = String(date) + "년"
+            case 10001...1000000: dateLabel = String(date / 100) + "년 " + String(date % 100) + "월"
             default:
-                dateLabel = date as String + "년"
+                dateLabel =  String(date / 100 % 100) + "월 " + String(date % 100) + "일"
             }
             
             cell.label.text = dateLabel
@@ -172,16 +176,14 @@ extension StatsViewController: UICollectionViewDelegate {
         var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
         var cellArray: [MapCell] = []
         switch range {
-        case 0: for (_, journeyData) in JourneyDataManager.JourneyByDay {
+        case 0: for journeyData in JourneyDataManager.loadFromRealm(rangeOf: "day") {
                 StatsViewController.journeyArray.append(journeyData)
-            }
-        case 1: for (_, journeyData) in JourneyDataManager.JourneyByMonth {
+        }
+        case 1: for journeyData in JourneyDataManager.loadFromRealm(rangeOf: "month") {
             StatsViewController.journeyArray.append(journeyData)
         }
-        case 2: for (_, journeyData) in JourneyDataManager.JourneyByYear {
-            StatsViewController.journeyArray.append(journeyData)
-        }
-        default: for (_, journeyData) in JourneyDataManager.JourneyByDay {
+        // case 2
+        default: for journeyData in JourneyDataManager.loadFromRealm(rangeOf: "year") {
             StatsViewController.journeyArray.append(journeyData)
         }
         }

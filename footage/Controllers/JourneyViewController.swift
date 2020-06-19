@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import EFCountingLabel
+import RealmSwift
 
 class JourneyViewController: UIViewController, MKMapViewDelegate {
 
@@ -36,8 +37,15 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        let realm = try! Realm()
         let image = takeScreenshot()
-        StatsViewController.journeyArray[journeyIndex].previewImage = image
+        do {
+            try realm.write {
+                StatsViewController.journeyArray[journeyIndex].previewImage = image.pngData()
+            }
+        } catch {
+            print(error)
+        }
         forReloadStatsVC.collectionView.reloadData()
     }
     
@@ -54,9 +62,9 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         mainMap.mapType = MKMapType.standard
         var center: CLLocationCoordinate2D?
         
-        for route in journeyData.footstepArray {
+        for route in journeyData.routes {
             var coordinates: [CLLocationCoordinate2D] = []
-            for footstep in route {
+            for footstep in route.footsteps {
                 coordinates.append(footstep.coordinate)
             }
             let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)

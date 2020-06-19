@@ -86,9 +86,8 @@ class HomeViewController: UIViewController {
         
         if startButton.currentImage == #imageLiteral(resourceName: "start_btn") { // FROM START TO STOP
             
-            
             locationManager.requestAlwaysAuthorization()
-            
+
             let status = CLLocationManager.authorizationStatus()
             
             if status == .notDetermined || status == .denied || status == .authorizedWhenInUse {

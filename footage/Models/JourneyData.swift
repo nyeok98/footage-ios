@@ -8,19 +8,21 @@
 
 import Foundation
 import MapKit
+import RealmSwift
 
-class JourneyData: NSObject { // Stats 에서 하나의 셀 -> Journey 화면을 구성하는 데이터형
+class JourneyData: Object { // Stats 에서 하나의 셀 -> Journey 화면을 구성하는 데이터형
     
-    override init() {
+    required init() {
         super.init()
     }
     
-    init(polylines: [[Footstep]], date: String) {
-        self.footstepArray = polylines
+    init(route: Route, date: Int) {
+        super.init()
+        self.routes.append(route)
         self.date = date
     }
     
-    var footstepArray: [[Footstep]] = []
-    var date: String = ""
-    var previewImage: UIImage = #imageLiteral(resourceName: "basicStatsIcon")
+    @objc dynamic var date: Int = 0
+    @objc dynamic var previewImage = #imageLiteral(resourceName: "basicStatsIcon").pngData()
+    let routes = List<Route>()
 }
