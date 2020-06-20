@@ -12,13 +12,24 @@ import MapKit
 class StatsViewController: UIViewController {
     @IBOutlet weak var rangeControl: UIView!
     @IBOutlet weak var profileImage: UIImageView!
+    @IBAction func dateRangeChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 { // day selected
+            StatsViewController.journeyArray = [
+                JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 37, longitude: 127), CLLocationCoordinate2D(latitude: 37.0001, longitude: 127.0001)]], date: "2017 06월 21일"),
+                JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 36.1215, longitude: 126.3832),
+                CLLocationCoordinate2D(latitude: 36.1217, longitude: 126.3823)]], date: "2018 12월 25일")]
+        }
+        
+        if sender.selectedSegmentIndex == 1 { // month selected
+            JourneyData = []
+            for monthData in JourneyData.byMonth {
+                JourneyData.init(polylines: <#T##[[CLLocationCoordinate2D]]#>, date: <#T##String#>)
+            }
+        }
+    }
     
     var label = UILabel()
-    static var journeyArray: [JourneyData] = [
-        JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 37, longitude: 127), CLLocationCoordinate2D(latitude: 37.0001, longitude: 127.0001)]], date: "2017 06월 21일"),
-        JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 36.1215, longitude: 126.3832),
-                                 CLLocationCoordinate2D(latitude: 36.1217, longitude: 126.3823)]], date: "2018 12월 25일")
-    ]
+    static var journeyArray: [JourneyData] = []
     
     static let badgeElementKind = "badge-element-kind"
     enum Section {
@@ -177,6 +188,10 @@ extension StatsViewController: UICollectionViewDelegate {
 //        layer.borderWidth = 1.0
     }
 
+}
+
+extension StatsViewController {
+    
 }
 
 

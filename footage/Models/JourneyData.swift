@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-class JourneyData: NSObject {
+class JourneyData: NSObject { // collects journey by day
     
     override init() {
         super.init()
@@ -24,5 +24,8 @@ class JourneyData: NSObject {
     var date: String = ""
     var finishTime: String = ""
     var previewImage: UIImage = #imageLiteral(resourceName: "basicStatsIcon")
+    
+    static var byMonth: [String: [JourneyData]] = [:]
+    static var polylinebyMonth: [String: [CLLocationCoordinate2D]] = [:] // computed property from byMonth
     
 }

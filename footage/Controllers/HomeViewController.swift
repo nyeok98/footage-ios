@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
     var locationArray: [CLLocation] = []
     var journeyData: JourneyData? = nil
     static var distanceToday: Double = 0
+    var dateFormatter = DateFormatter()
     var timer: Timer?
     
     @IBOutlet weak var mainMap: MKMapView!
@@ -122,19 +123,20 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func trackMapView() {
-        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy M월 dd일"
         
         if let lastJourney = StatsViewController.journeyArray.last {
             if lastJourney.date == dateFormatter.string(from: Date()) { // 같은 날 시작된 여행이 있다면?
                 journeyData = StatsViewController.journeyArray.last // continue to write on previous journey
             } else {
+                // initiateNewJourney()
                 journeyData = JourneyData() // initiate today's journey
                 journeyData!.date = dateFormatter.string(from: Date())
                 
                 StatsViewController.journeyArray.append(journeyData!)
             }
         } else {
+            // initiateNewJourney()
             journeyData = JourneyData() // initiate today's journey
             journeyData!.date = dateFormatter.string(from: Date())
             StatsViewController.journeyArray.append(journeyData!)
@@ -217,6 +219,23 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+    }
+}
+
+extension HomeViewController {
+    func initiateNewJourney() {
+        journeyData = JourneyData()
+        journeyData!.date = dateFormatter.string(from: Date())
+        StatsViewController.journeyArray.append(journeyData!)
+        
+        dateFormatter.dateFormat = "yyyy M"
+        let monthID = dateFormatter.string(from: Date())
+        if JourneyData.byMonth.keys.contains(monthID) {
+            JourneyData.byMonth[monthID]?.append(journeyData!)
+        } else {
+            JourneyData.byMonth[monthID] = [journeyData!]
+        }
+        
     }
 }
 
