@@ -12,8 +12,8 @@ import MapKit
 class JourneyData {
     
     var polylineArray: [[CLLocationCoordinate2D]] = []
-    var startTime: String = "today's date"
+    var date: String = ""
     var finishTime: String = ""
-    var previewImage: UIImage = UIImage()
+    var previewImage: UIImage = #imageLiteral(resourceName: "basicStatsIcon")
     
 }

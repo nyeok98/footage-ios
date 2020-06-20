@@ -17,18 +17,23 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureMap()
+        print(StatsViewController.journeyArray[0].previewImage)
+        StatsViewController.journeyArray[0].previewImage = takeScreenshot()
+        print(StatsViewController.journeyArray[0].previewImage)
         // Do any additional setup after loading the view.
     }
     
     func configureMap() {
         mainMap.delegate = self
         mainMap.mapType = MKMapType.standard
+        var center: CLLocationCoordinate2D?
         for coordinates in journeyData!.polylineArray {
             let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
             self.mainMap.addOverlay(newLine)
+            center = newLine.coordinate
         }
-        mainMap.setRegion(MKCoordinateRegion(newLine.boundingMapRect), animated: true)
-        mainMap.setRegion
+        let locationRegion = MKCoordinateRegion(center: center!, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        mainMap.setRegion(locationRegion, animated: true)
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -37,7 +42,25 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         polylineView.lineWidth = 10
         return polylineView
     }
+    
+    func takeScreenshot() -> UIImage {
 
+        // Begin context
+        UIGraphicsBeginImageContextWithOptions(mainMap.bounds.size, false, UIScreen.main.scale)
+
+        // Draw view in that context
+        mainMap.drawHierarchy(in: mainMap.bounds, afterScreenUpdates: true)
+
+        // And finally, get image
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        if (image != nil)
+        {
+            return image!
+        }
+        return UIImage()
+    }
     
 
     /*

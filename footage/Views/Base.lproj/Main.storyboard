@@ -296,7 +296,7 @@
                     <connections>
                         <outlet property="profileImage" destination="gTf-Tc-gls" id="Urj-5v-AY2"/>
                         <outlet property="rangeControl" destination="Tcf-Qm-pfE" id="Vdn-OO-4wh"/>
-                        <segue destination="aF5-BU-2MZ" kind="show" identifier="goToJourney" id="Ya3-9e-Zr7"/>
+                        <segue destination="aF5-BU-2MZ" kind="showDetail" identifier="goToJourney" id="Ya3-9e-Zr7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XMn-d6-hXb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

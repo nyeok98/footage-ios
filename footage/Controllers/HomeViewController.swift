@@ -126,15 +126,21 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func trackMapView() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy M월 dd일"
+        
         if let lastJourney = StatsViewController.journeyArray.last {
-            if lastJourney.startTime == "today's date" { // 같은 날 시작된 여행이 있다
+            if lastJourney.date == dateFormatter.string(from: Date()) { // 같은 날 시작된 여행이 있다면?
                 journeyData = StatsViewController.journeyArray.last // continue to write on previous journey
             } else {
                 journeyData = JourneyData() // initiate today's journey
+                journeyData!.date = dateFormatter.string(from: Date())
+                
                 StatsViewController.journeyArray.append(journeyData!)
             }
         } else {
             journeyData = JourneyData() // initiate today's journey
+            journeyData!.date = dateFormatter.string(from: Date())
             StatsViewController.journeyArray.append(journeyData!)
         }
         journeyData!.polylineArray.append([]) // initiate new polyline

@@ -8,17 +8,19 @@
 
 import UIKit
 
-class MapCell: UICollectionViewCell {    
+class MapCell: UICollectionViewCell {
     
     var mapImage = UIImageView()
+    var label = UILabel()
     var journeyData = JourneyData()
+    var labelHeight = CGFloat(20)
     
     static let reuseIdentifier = "map-cell-reuse-identifier"
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(mapImage)
         mapImage.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(mapImage)
         let inset = CGFloat(0)
         NSLayoutConstraint.activate([ // set insets: mapImage vs. MapCell
             mapImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
@@ -26,8 +28,18 @@ class MapCell: UICollectionViewCell {
             mapImage.topAnchor.constraint(equalTo:
                 contentView.topAnchor, constant: inset),
             mapImage.bottomAnchor.constraint(equalTo:
-                contentView.bottomAnchor, constant: -inset)
+                contentView.bottomAnchor, constant: -labelHeight)
         ])
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont(name: "NanumSquareRegular", size: 10)
+        contentView.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.heightAnchor.constraint(equalToConstant: labelHeight),
+            label.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: 0),
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
+        ])
+        
     }
     
     required init?(coder: NSCoder) {

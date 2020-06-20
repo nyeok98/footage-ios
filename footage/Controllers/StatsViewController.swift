@@ -12,6 +12,7 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var rangeControl: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     
+    var label = UILabel()
     static var journeyArray: [JourneyData] = []
     
     static let badgeElementKind = "badge-element-kind"
@@ -23,6 +24,7 @@ class StatsViewController: UIViewController {
     var collectionView: UICollectionView! = nil
     
     override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear Called")
         super.viewWillAppear(false)
         var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
         var cellArray: [MapCell] = []
@@ -31,12 +33,14 @@ class StatsViewController: UIViewController {
             for i in 0...journeyArray.count - 1 {
                 cellArray.append(MapCell())
                 cellArray[i].journeyData = journeyArray[i]
+                cellArray[i].journeyData.previewImage = #imageLiteral(resourceName: "profile")
             }
             view.bringSubviewToFront(collectionView)
         }
         snapshot.appendSections([.main])
         snapshot.appendItems(cellArray)
         dataSource.apply(snapshot, animatingDifferences: false)
+        collectionView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -45,7 +49,7 @@ class StatsViewController: UIViewController {
         configureDataSource()
         configureOthers()
         let labelFrame = CGRect(x: 0, y: 300, width: self.view.bounds.width, height: 100)
-        let label = UILabel(frame: labelFrame)
+        label.frame = labelFrame
         label.text = "새로운 발자취를 기록해 볼까요? 홈 화면으로 가서 start 눌러서 기록하고 다시오세요 동녘이 바보"
         label.textAlignment = .center
         label.textColor = .black
@@ -59,16 +63,8 @@ class StatsViewController: UIViewController {
 extension StatsViewController {
     private func createLayout() -> UICollectionViewLayout {
         
-        let badgeAnchor = NSCollectionLayoutAnchor(edges: [.bottom], fractionalOffset: CGPoint(x: 0, y: 1))
-        let badgeSize = NSCollectionLayoutSize(widthDimension: .absolute(20),
-                                              heightDimension: .absolute(20))
-        let badge = NSCollectionLayoutSupplementaryItem(
-            layoutSize: badgeSize,
-            elementKind: StatsViewController.badgeElementKind,
-            containerAnchor: badgeAnchor)
-        
         let itemSize = NSCollectionLayoutSize(widthDimension:.fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize, supplementaryItems: [badge])
+        let item = NSCollectionLayoutItem(layoutSize: itemSize, supplementaryItems: [])
         item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.45))
@@ -92,7 +88,7 @@ extension StatsViewController {
 
 extension StatsViewController {
     private func configureHierarchy() {
-        let collectionFrame = CGRect(x: 0, y: 270, width: view.bounds.width, height: view.bounds.height - 400)
+        let collectionFrame = CGRect(x: 0, y: 270, width: view.bounds.width, height: view.bounds.height - 355)
         
         collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
         
@@ -104,12 +100,10 @@ extension StatsViewController {
         
         // Register Components
         collectionView.register(MapCell.self, forCellWithReuseIdentifier: MapCell.reuseIdentifier)
-        collectionView.register(DateSupplementaryView.self,
-        forSupplementaryViewOfKind: StatsViewController.badgeElementKind,
-        withReuseIdentifier: DateSupplementaryView.reuseIdentifier)
-        //
         
         view.addSubview(collectionView)
+        view.sendSubviewToBack(collectionView)
+        view.sendSubviewToBack(label)
     }
 }
 
@@ -119,6 +113,8 @@ extension StatsViewController {
 
 extension StatsViewController {
     private func configureDataSource() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM ddd"
         dataSource = UICollectionViewDiffableDataSource<Section, MapCell>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, identifier: MapCell) -> UICollectionViewCell? in
             
@@ -129,31 +125,15 @@ extension StatsViewController {
             
             // Populate the cell with our item description.
             cell.mapImage.image = cell.journeyData.previewImage
+            print(cell.journeyData.previewImage)
+            print(cell.mapImage.image)
+            let today = NSString(string: StatsViewController.journeyArray[indexPath.row].date)
+            cell.label.text = today.substring(from: 5)
             // cell.mapImage.layer.cornerRadius = 20
             // cell.mapImage.layer.masksToBounds = true
             
             // Return the cell.
             return cell
-        }
-        dataSource.supplementaryViewProvider = {
-            (
-            collectionView: UICollectionView,
-            kind: String,
-            indexPath: IndexPath) -> UICollectionReusableView? in
-
-            // Get a supplementary view of the desired kind.
-            if let badgeView = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: DateSupplementaryView.reuseIdentifier,
-                for: indexPath) as? DateSupplementaryView {
-                badgeView.label.text = "\(Int.random(in: 1...12))월 \(Int.random(in: 1...28))일"
-                //badgeView.isHidden = !hasBadgeCount
-
-                // Return the view.
-                return badgeView
-            } else {
-                fatalError("Cannot create new supplementary")
-            }
         }
         
         // initial data
