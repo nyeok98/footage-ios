@@ -8,5 +8,6 @@ target 'footage' do
   # Pods for footage
 
 pod 'EFCountingLabel'
+pod 'RealmSwift'
 
 end

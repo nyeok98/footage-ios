@@ -20,7 +20,7 @@ class JourneyAnimation {
     var journeyIndex: Int = 0
     var date: Int { // 20200604 || 202006 || 2020
         get {
-            Int(StatsViewController.journeyArray[journeyIndex].date)!
+            Int(StatsViewController.journeyArray[journeyIndex].date)
         }
     }
 

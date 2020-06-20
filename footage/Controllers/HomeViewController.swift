@@ -12,7 +12,7 @@ import EFCountingLabel
 
 class HomeViewController: UIViewController {
     
-    let locationManager = CLLocationManager()
+    static let locationManager = CLLocationManager()
     var locationArray: [[CLLocation]] = [[]]
     
     static var distanceToday: Double = 0
@@ -27,6 +27,8 @@ class HomeViewController: UIViewController {
             return speedLimit * refreshRate
         }
     }
+    static var currentStartButtonImage: UIImage?
+
     
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var startButton: UIButton!
@@ -49,9 +51,10 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mainMap.delegate = self
-        locationManager.delegate = self
+        HomeViewController.locationManager.delegate = self
         
         startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
+        HomeViewController.currentStartButtonImage = startButton.currentImage
         setInitialAlpha()
         setInitialPositionTriangle()
         HomeAnimation.homeStopAnimation(self)
@@ -86,7 +89,8 @@ class HomeViewController: UIViewController {
         
         if startButton.currentImage == #imageLiteral(resourceName: "start_btn") { // FROM START TO STOP
             
-            locationManager.requestAlwaysAuthorization()
+            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stop_btn")
+            HomeViewController.locationManager.requestAlwaysAuthorization()
 
             let status = CLLocationManager.authorizationStatus()
             
@@ -118,11 +122,13 @@ class HomeViewController: UIViewController {
         } else { // FROM STOP TO START
             setAsStart = true
             locationTimer?.invalidate()
+            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "start_btn")
             HomeAnimation.homeStopAnimation(self)
             locationArray = []
-            locationManager.pausesLocationUpdatesAutomatically = true
-            locationManager.stopUpdatingLocation()
+            HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
+            HomeViewController.locationManager.stopUpdatingLocation()
             configureInitialMapView()
+
             
         }
     }
@@ -137,10 +143,10 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         var coordinate: CLLocationCoordinate2D? = nil
         if CLLocationManager.authorizationStatus() == .authorizedAlways ||
             CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            while locationManager.location == nil {
-                locationManager.requestLocation()
+            while HomeViewController.locationManager.location == nil {
+                HomeViewController.locationManager.requestLocation()
             }
-            coordinate = locationManager.location!.coordinate
+            coordinate = HomeViewController.locationManager.location!.coordinate
             mainMap.showsUserLocation = true
         } else { // default location for when location data is not authorized
             coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(exactly: 36.5151)!, CLLocationDegrees(exactly: 127.2385)!)
@@ -157,17 +163,19 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     func trackMapView() {
         dateFormatter.dateFormat = "yyyy M월 dd일"
         
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 5 // meters
-        locationManager.pausesLocationUpdatesAutomatically = true
+        HomeViewController.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        HomeViewController.locationManager.distanceFilter = 5 // meters
+        HomeViewController.locationManager.pausesLocationUpdatesAutomatically = false
+        HomeViewController.locationManager.allowsBackgroundLocationUpdates = true
+
         mainMap.mapType = MKMapType.standard
         mainMap.showsUserLocation = true
         
         for _ in 1...10 { // wait for accurate location
-            locationManager.requestLocation()
+            HomeViewController.locationManager.requestLocation()
         }
         
-        guard let location = locationManager.location
+        guard let location = HomeViewController.locationManager.location
             else { return }
         
 //        while (locationManager.location != nil) {
@@ -176,8 +184,8 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         
         locationArray.append([location])
         locationTimer = Timer.scheduledTimer(withTimeInterval: refreshRate, repeats: true) { (timer) in
-            self.locationManager.requestLocation()
-            self.setMapRegion(latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!, delta: 0.001)
+            HomeViewController.locationManager.requestLocation()
+            self.setMapRegion(latitude: (HomeViewController.locationManager.location?.coordinate.latitude)!, longitude: (HomeViewController.locationManager.location?.coordinate.longitude)!, delta: 0.001)
         }
         
         UIView.animate(withDuration: 1) {
@@ -195,6 +203,11 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         guard let lastLocation = currentRoute.last
             else { return }
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let newDate = dateFormatter.string(from: newLocation.timestamp)
+        let lastDate = dateFormatter.string(from: lastLocation.timestamp)
+        
         if speedLimit < checkSpeed(lastLocation: lastLocation, newLocation: newLocation) {
             // give user an alert for high speed
             return
@@ -207,12 +220,21 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
                 let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: true)
                 JourneyDataManager.collectJourneyData(footstep: footstep)
                 setAsStart = false
+                
+                distance.text = String(format: "%.2f",(HomeViewController.distanceToday)/1000)
             } else { // 계속 걷기
                 locationArray[locationArray.count - 1].append(newLocation)
-                HomeViewController.distanceToday += newLocation.distance(from: lastLocation)
+                if newDate == lastDate {
+                    HomeViewController.distanceToday += newLocation.distance(from: lastLocation)
+                } else {
+                    HomeViewController.distanceToday = 0
+                } // Make distnaceToday '0' if it's newDay
                 extendPolyline(lastLocation: lastLocation, newLocation: newLocation)
                 let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: false)
                 JourneyDataManager.collectJourneyData(footstep: footstep)
+                
+                distance.text = String(format: "%.2f",(HomeViewController.distanceToday)/1000)
+
             }
         }
     }
