@@ -9,7 +9,16 @@
 import Foundation
 import MapKit
 
-class JourneyData {
+class JourneyData: NSObject {
+    
+    override init() {
+        super.init()
+    }
+    
+    init(polylines: [[CLLocationCoordinate2D]], date: String) {
+        self.polylineArray = polylines
+        self.date = date
+    }
     
     var polylineArray: [[CLLocationCoordinate2D]] = []
     var date: String = ""

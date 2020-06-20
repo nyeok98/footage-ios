@@ -13,7 +13,7 @@ class MapCell: UICollectionViewCell {
     var mapImage = UIImageView()
     var label = UILabel()
     var journeyData = JourneyData()
-    var labelHeight = CGFloat(20)
+    var labelHeight = CGFloat(30)
     
     static let reuseIdentifier = "map-cell-reuse-identifier"
 
@@ -21,6 +21,8 @@ class MapCell: UICollectionViewCell {
         super.init(frame: frame)
         mapImage.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(mapImage)
+//        let mapSize = CGSize(width: contentView.bounds.width * 0.8, height: contentView.bounds.width)
+//        mapImage.frame = CGRect(origin: contentView.bounds.origin, size: mapSize)
         let inset = CGFloat(0)
         NSLayoutConstraint.activate([ // set insets: mapImage vs. MapCell
             mapImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),

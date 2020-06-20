@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import MapKit
 
 class StatsViewController: UIViewController {
     @IBOutlet weak var rangeControl: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     
     var label = UILabel()
-    static var journeyArray: [JourneyData] = []
+    static var journeyArray: [JourneyData] = [
+        JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 37, longitude: 127), CLLocationCoordinate2D(latitude: 37.0001, longitude: 127.0001)]], date: "2017 06월 21일"),
+        JourneyData(polylines: [[CLLocationCoordinate2D(latitude: 36.1215, longitude: 126.3832),
+                                 CLLocationCoordinate2D(latitude: 36.1217, longitude: 126.3823)]], date: "2018 12월 25일")
+    ]
     
     static let badgeElementKind = "badge-element-kind"
     enum Section {
@@ -32,14 +37,14 @@ class StatsViewController: UIViewController {
             for i in 0...journeyArray.count - 1 {
                 cellArray.append(MapCell())
                 cellArray[i].journeyData = journeyArray[i]
-                cellArray[i].journeyData.previewImage = journeyArray[i].previewImage
+                //cellArray[i].journeyData.previewImage = journeyArray[i].previewImage
             }
             view.bringSubviewToFront(collectionView)
         }
         snapshot.appendSections([.main])
         snapshot.appendItems(cellArray)
         dataSource.apply(snapshot, animatingDifferences: false)
-        collectionView.reloadData()
+        //collectionView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -67,7 +72,7 @@ extension StatsViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize, supplementaryItems: [])
         item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.45))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.47))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
@@ -91,12 +96,12 @@ extension StatsViewController {
         let collectionFrame = CGRect(x: 0, y: 270, width: view.bounds.width, height: view.bounds.height - 355)
         
         collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
+        collectionView.delegate = self
         
         collectionView.isPagingEnabled = true
-        // collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        //collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .white
         collectionView.allowsSelection = true
-        collectionView.delegate = self
         
         // Register Components
         collectionView.register(MapCell.self, forCellWithReuseIdentifier: MapCell.reuseIdentifier)
@@ -124,7 +129,7 @@ extension StatsViewController {
                 for: indexPath) as? MapCell else { fatalError("Could not create new cell") }
             
             // Populate the cell with our item description.
-            cell.mapImage.image = StatsViewController.journeyArray.last!.previewImage
+            cell.mapImage.image = StatsViewController.journeyArray[indexPath.row].previewImage
             let today = NSString(string: StatsViewController.journeyArray[indexPath.row].date)
             cell.label.text = today.substring(from: 5)
             // cell.mapImage.layer.cornerRadius = 20
@@ -154,14 +159,14 @@ extension StatsViewController {
 extension StatsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        performSegue(withIdentifier: "goToJourney", sender: self)
+        performSegue(withIdentifier: "goToJourney", sender: indexPath.row)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! JourneyViewController
+        destinationVC.journeyIndex = sender as! Int
         destinationVC.forReloadStatsVC = self
-        destinationVC.journeyData = StatsViewController.journeyArray.last
+        destinationVC.journeyData = StatsViewController.journeyArray[sender as! Int]
     }
     
     private func configureOthers() {

@@ -14,10 +14,12 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mainMap: MKMapView!
     
     var journeyData: JourneyData? = nil
+    var journeyIndex = 0
     var forReloadStatsVC = StatsViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(journeyIndex)
         configureMap()
         // Do any additional setup after loading the view.
     }
@@ -26,7 +28,7 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func testButton(_ sender: UIButton) {
         let image = takeScreenshot()
-        StatsViewController.journeyArray.last?.previewImage = image
+        StatsViewController.journeyArray[journeyIndex].previewImage = image
         
         forReloadStatsVC.collectionView.reloadData()
         

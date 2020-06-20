@@ -176,13 +176,15 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         guard let lastLocation = locations.last
             else { return }
         locationArray.append(lastLocation)
-        journeyData!.polylineArray[journeyData!.polylineArray.count - 1].append(lastLocation.coordinate)
-        if locationArray.count == 1 { // didUpdateLocations is first called - append location twice
-            locationArray.append(lastLocation)
-            journeyData!.polylineArray[journeyData!.polylineArray.count - 1].append(lastLocation.coordinate)
+        if let journeydata = journeyData {
+            journeydata.polylineArray[journeydata.polylineArray.count - 1].append(lastLocation.coordinate)
+            if locationArray.count == 1 { // didUpdateLocations is first called - append location twice
+                locationArray.append(lastLocation)
+                journeydata.polylineArray[journeyData!.polylineArray.count - 1].append(lastLocation.coordinate)
+            }
+            appendNewDirection()
+            myLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude, delta: 0.001)
         }
-        appendNewDirection()
-        myLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude, delta: 0.001)
     }
     
     func appendNewDirection() {
