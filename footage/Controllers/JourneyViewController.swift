@@ -27,6 +27,7 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     var journeyData: JourneyData = JourneyData()
     var journeyIndex = 0
     var forReloadStatsVC = StatsViewController()
+    var photoView: PhotoCollection?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,9 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         setInitialAlpha()
         let animation = JourneyAnimation(journeyVC: self, journeyIndex: journeyIndex)
         animation.journeyActivate()
+        photoView = PhotoCollection(journey: journeyData)
+        addChild(photoView!)
+        view.addSubview(photoView!.collectionView)
     }
     
     override func viewDidAppear(_ animated: Bool) {
