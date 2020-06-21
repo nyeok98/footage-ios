@@ -12,11 +12,12 @@ import RealmSwift
 
 class Footstep: Object {
     
-    init(timestamp: Date, coordinate: CLLocationCoordinate2D, isNewStartingPoint: Bool) {
+    init(timestamp: Date, coordinate: CLLocationCoordinate2D, isNewStartingPoint: Bool, color: String = "63A5D9") {
         self.timestamp = timestamp
         self.latitude = coordinate.latitude
         self.longitude = coordinate.longitude
         self.isNewStartingPoint = isNewStartingPoint
+        self.color = color
     }
     
     required init() {
@@ -26,6 +27,7 @@ class Footstep: Object {
     @objc dynamic var timestamp: Date = Date()
     @objc dynamic var latitude = 0.0
     @objc dynamic var longitude = 0.0
+    @objc dynamic var color: String = "63A5D9"
     
     var coordinate: CLLocationCoordinate2D {
         get {

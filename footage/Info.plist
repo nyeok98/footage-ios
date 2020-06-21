@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSSupportsSuddenTermination</key>
+	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -21,9 +23,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>위치서비스를 '항상'으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
+	<string>위치서비스를 &apos;항상&apos;으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>위치서비스를 '항상'으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
+	<string>위치서비스를 &apos;항상&apos;으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NanumSquareBold.ttf</string>

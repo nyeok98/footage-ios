@@ -176,14 +176,14 @@ extension StatsViewController: UICollectionViewDelegate {
         var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
         var cellArray: [MapCell] = []
         switch range {
-        case 0: for journeyData in JourneyDataManager.loadFromRealm(rangeOf: "day") {
+        case 0: for journeyData in DataManager.loadFromRealm(rangeOf: "day") {
                 StatsViewController.journeyArray.append(journeyData)
         }
-        case 1: for journeyData in JourneyDataManager.loadFromRealm(rangeOf: "month") {
+        case 1: for journeyData in DataManager.loadFromRealm(rangeOf: "month") {
             StatsViewController.journeyArray.append(journeyData)
         }
         // case 2
-        default: for journeyData in JourneyDataManager.loadFromRealm(rangeOf: "year") {
+        default: for journeyData in DataManager.loadFromRealm(rangeOf: "year") {
             StatsViewController.journeyArray.append(journeyData)
         }
         }

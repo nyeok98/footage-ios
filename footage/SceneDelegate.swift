@@ -50,7 +50,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if HomeViewController.currentStartButtonImage == #imageLiteral(resourceName: "stop_btn") {
             HomeViewController.locationManager.startUpdatingLocation()
         }
-        
     }
     
     

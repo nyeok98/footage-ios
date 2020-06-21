@@ -96,9 +96,7 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         UIGraphicsEndImageContext()
 
         if (image != nil)
-        {
-            return image!
-        }
+        { return image! }
         return UIImage()
     }
 

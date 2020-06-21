@@ -10,26 +10,11 @@ import UIKit
 import MapKit
 import EFCountingLabel
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController { 
     
-    static let locationManager = CLLocationManager()
-    var locationArray: [[CLLocation]] = [[]]
-    
-    static var distanceToday: Double = 0
-    var dateFormatter =  DateFormatter()
-    var locationTimer: Timer?
-    var setAsStart: Bool = true
-    
-    var speedLimit: Double = 8
-    var refreshRate: Double = 2.5
-    var distanceLimit: Double {
-        get {
-            return speedLimit * refreshRate
-        }
-    }
+    // VARIABLES
+    /// 1. For Home Animation
     static var currentStartButtonImage: UIImage?
-
-    
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var youString: UILabel!
@@ -48,91 +33,61 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var distanceView: UIView!
     @IBOutlet weak var unitLabel: UILabel!
     
+    /// 2. For MapKit
+    static var distanceToday: Double = 0
+    static var distanceTotal: Double = 0
+    var dateFormatter =  DateFormatter()
+    static let locationManager = CLLocationManager()
+    var locationsToday: [[CLLocation]] = [[]]
+    var locationTimer: Timer?
+    var setAsStart: Bool = true
+    var speedLimit: Double = 8
+    var refreshRate: Double = 2.5
+    var distanceLimit: Double {
+        get {
+            return speedLimit * refreshRate
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // set delegates
         mainMap.delegate = self
         HomeViewController.locationManager.delegate = self
-        
+        // start animation
         startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
         HomeViewController.currentStartButtonImage = startButton.currentImage
-        setInitialAlpha()
-        setInitialPositionTriangle()
+        prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
-        
         configureInitialMapView()
-    }
-    
-    func setInitialAlpha() {
-        startButton.alpha = 0
-        square1.alpha = 0
-        square2.alpha = 0
-        square3.alpha = 0
-        square4.alpha = 0
-        triangle1.alpha = 0
-        triangle2.alpha = 0
-        triangle3.alpha = 0
-        triangle4.alpha = 0
-        triangle5.alpha = 0
-        distanceView.alpha = 0
-        unitLabel.alpha = 0
-    }
-    
-    func setInitialPositionTriangle() {
-        triangle1.frame.origin.y = -40
-        triangle2.frame.origin.y = -40
-        triangle3.frame.origin.y = -40
-        triangle4.frame.origin.y = -40
-        triangle5.frame.origin.y = -40
+        
     }
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
-        
         if startButton.currentImage == #imageLiteral(resourceName: "start_btn") { // FROM START TO STOP
-            
+            HomeViewController.distanceToday = DataManager.loadDistance(total: false)
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stop_btn")
             HomeViewController.locationManager.requestAlwaysAuthorization()
-
             let status = CLLocationManager.authorizationStatus()
-            
             if status == .notDetermined || status == .denied || status == .authorizedWhenInUse {
-                
-                // present an alert indicating location authorization required
-                // and offer to take the user to Settings for the app via
-                // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
-                
-                let alert = UIAlertController(title: "위치를 알 수 없어요", message: "소중한 발자취를 위해 위치서비스를 '항상'으로 켜주세요.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "설정", style: .default, handler: { (_) in
-                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                        return
-                    }
-                    
-                    if UIApplication.shared.canOpenURL(settingsUrl) {
-                        UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                            print("Settings opened: \(success)") // Prints true
-                        })
-                    }
-                }))
-                self.present(alert, animated: true, completion: nil)
-                
+                alertForAuthorization()
             } else {
                 HomeAnimation.homeStartAnimation(self)
                 trackMapView()
             }
             
         } else { // FROM STOP TO START
-            setAsStart = true
-            locationTimer?.invalidate()
-            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "start_btn")
-            HomeAnimation.homeStopAnimation(self)
-            locationArray = []
-            HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
+            locationTimer?.invalidate() // stop location request
             HomeViewController.locationManager.stopUpdatingLocation()
+            HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
+            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "start_btn")
+            setAsStart = true // next coordinate must be set as new start point
+            // locationsToday = []
+            // distance.text = String(format: "%.2f",(HomeViewController.distanceToday)/1000)
+            HomeAnimation.homeStopAnimation(self)
             configureInitialMapView()
-
-            
         }
     }
-    
 }
 
 // MARK: - Map Kit View
@@ -155,50 +110,62 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         let locationRegion = MKCoordinateRegion(center: coordinate!, span: spanValue)
         mainMap.mapType = MKMapType.standard
         mainMap.setRegion(locationRegion, animated: true)
+        // draw all routes
+        for journey in DataManager.loadFromRealm(rangeOf: "all") {
+            for route in journey.routes {
+                var coordinates: [CLLocationCoordinate2D] = []
+                for footstep in route.footsteps {
+                    coordinates.append(footstep.coordinate)
+                }
+                let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                self.mainMap.addOverlay(newLine)
+            }
+        }
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
         }
     }
     
     func trackMapView() {
-        dateFormatter.dateFormat = "yyyy M월 dd일"
-        
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let today = dateFormatter.string(from: Date())
         HomeViewController.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         HomeViewController.locationManager.distanceFilter = 5 // meters
         HomeViewController.locationManager.pausesLocationUpdatesAutomatically = false
         HomeViewController.locationManager.allowsBackgroundLocationUpdates = true
-
         mainMap.mapType = MKMapType.standard
         mainMap.showsUserLocation = true
-        
+        // draw previous routes from today
+        for journey in DataManager.loadFromRealm(rangeOf: today) {
+            for route in journey.routes {
+                var coordinates: [CLLocationCoordinate2D] = []
+                for footstep in route.footsteps {
+                    coordinates.append(footstep.coordinate)
+                }
+                let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                self.mainMap.addOverlay(newLine)
+            }
+        }
         for _ in 1...10 { // wait for accurate location
             HomeViewController.locationManager.requestLocation()
         }
-        
         guard let location = HomeViewController.locationManager.location
             else { return }
-        
-//        while (locationManager.location != nil) {
-//            locationManager.requestLocation()
-//        }
-        
-        locationArray.append([location])
+        locationsToday.append([location])
         locationTimer = Timer.scheduledTimer(withTimeInterval: refreshRate, repeats: true) { (timer) in
             HomeViewController.locationManager.requestLocation()
             self.setMapRegion(latitude: (HomeViewController.locationManager.location?.coordinate.latitude)!, longitude: (HomeViewController.locationManager.location?.coordinate.longitude)!, delta: 0.001)
         }
-        
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
         }
-        
     }
     
     // DID UPDATE
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last
             else { return }
-        guard let currentRoute = locationArray.last
+        guard let currentRoute = locationsToday.last
             else { return }
         guard let lastLocation = currentRoute.last
             else { return }
@@ -216,25 +183,26 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
                 setAsStart = true
             }
             if setAsStart { //
-                locationArray.append([newLocation])
+                locationsToday.append([newLocation])
                 let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: true)
-                JourneyDataManager.collectJourneyData(footstep: footstep)
+                DataManager.collectJourneyData(footstep: footstep)
                 setAsStart = false
                 
                 distance.text = String(format: "%.2f",(HomeViewController.distanceToday)/1000)
             } else { // 계속 걷기
-                locationArray[locationArray.count - 1].append(newLocation)
+                locationsToday[locationsToday.count - 1].append(newLocation)
                 if newDate == lastDate {
                     HomeViewController.distanceToday += newLocation.distance(from: lastLocation)
-                } else {
-                    HomeViewController.distanceToday = 0
-                } // Make distnaceToday '0' if it's newDay
+                    HomeViewController.distanceTotal += newLocation.distance(from: lastLocation)
+                    print(HomeViewController.distanceTotal) // TEST
+                } else { // 여기로 들어올 수 있는경우는 자정에 계속 걷고 있는 경우인데... 그럼 아예 polyline 리셋 해야되나?
+                    HomeViewController.distanceToday = 0 // Make distnaceToday '0' if it's newDay
+                }
                 extendPolyline(lastLocation: lastLocation, newLocation: newLocation)
                 let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: false)
-                JourneyDataManager.collectJourneyData(footstep: footstep)
-                
+                DataManager.collectJourneyData(footstep: footstep)
+                DataManager.saveTotalDistance(value: HomeViewController.distanceTotal)
                 distance.text = String(format: "%.2f",(HomeViewController.distanceToday)/1000)
-
             }
         }
     }
@@ -269,3 +237,44 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     }
 }
 
+// MARK: -Others
+extension HomeViewController {
+    
+    func prepareForAnimation() {
+        startButton.alpha = 0
+        square1.alpha = 0
+        square2.alpha = 0
+        square3.alpha = 0
+        square4.alpha = 0
+        triangle1.alpha = 0
+        triangle2.alpha = 0
+        triangle3.alpha = 0
+        triangle4.alpha = 0
+        triangle5.alpha = 0
+        distanceView.alpha = 0
+        unitLabel.alpha = 0
+        triangle1.frame.origin.y = -40
+        triangle2.frame.origin.y = -40
+        triangle3.frame.origin.y = -40
+        triangle4.frame.origin.y = -40
+        triangle5.frame.origin.y = -40
+    }
+    
+    func alertForAuthorization() { // present an alert indicating location authorization required
+    // and offer to take the user to Settings for the app via
+    // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
+        let alert = UIAlertController(title: "위치를 알 수 없어요", message: "소중한 발자취를 위해 위치서비스를 '항상'으로 켜주세요.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "설정", style: .default, handler: { (_) in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)") // Prints true
+                })
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+}

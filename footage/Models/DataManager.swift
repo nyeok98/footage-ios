@@ -10,11 +10,7 @@ import Foundation
 import MapKit
 import RealmSwift
 
-class JourneyDataManager { // journey 저장 및 데이터 가공을 담당
-    
-//    static var JourneyByDay: [Int: JourneyData] = [:]
-//    static var JourneyByMonth: [Int: JourneyData] = [:]
-//    static var JourneyByYear: [Int: JourneyData] = [:]
+class DataManager { // journey 저장 및 데이터 가공을 담당
 
     static func collectJourneyData(footstep: Footstep) { //
         let realm = try! Realm()
@@ -38,7 +34,9 @@ class JourneyDataManager { // journey 저장 및 데이터 가공을 담당
                         if footstep.isNewStartingPoint {
                             journey.routes.append(Route(withSingle: footstep))
                         } else {
-                            journey.routes[journey.routes.count - 1].footsteps.append(footstep)
+                            let latestRoute = journey.routes[journey.routes.count - 1]
+                            journey.routes[journey.routes.count - 1].distance += calculateDistance(from: latestRoute.footsteps[latestRoute.footsteps.count - 1], to: footstep)
+                            latestRoute.footsteps.append(footstep)
                         }
                     }
                 case 2: // first time today, but not first this month
@@ -63,28 +61,70 @@ class JourneyDataManager { // journey 저장 및 데이터 가공을 담당
         }
     }
     
-//    static func updateToRealm(_ day: Int, _ month: Int, _ year: Int) {
-//        let realm = try! Realm()
-//        do {
-//            try realm.write {
-//                realm.add(JourneyByDay[day]!)
-//                realm.add(JourneyByMonth[month]!)
-//                realm.add(JourneyByYear[year]!)
-//            }
-//        } catch {
-//            print(error)
-//        }
-//    }
-    
-    static func loadFromRealm(rangeOf: String = "") -> Results<JourneyData> {
+    static func loadFromRealm(rangeOf: String = "all") -> Results<JourneyData> {
         let realm = try! Realm()
         switch rangeOf {
         case "day":
             return realm.objects(JourneyData.self).filter("1000000 < date") // 20200604
         case "month":
             return realm.objects(JourneyData.self).filter("10000 < date && date < 1000000") // 202006
-        default: // year
+        case "year":
             return realm.objects(JourneyData.self).filter("date < 10000") // 2020
+        case "all":
+            return realm.objects(JourneyData.self)
+        default: // return all for homeVC
+            return realm.objects(JourneyData.self).filter("date = \(Int(rangeOf) ?? 0)")
         }
+    }
+}
+
+// MARK: - Distance
+extension DataManager {
+    
+    static func loadDistance(total: Bool) -> Double { // true: load total / false: load today
+        let realm = try! Realm()
+        if total { // return total distance
+            let distance = realm.objects(Distance.self)
+            if distance.isEmpty { // TotalDistance has not been initialized
+                do {
+                    try realm.write { realm.add(Distance()) }
+                    return 0
+                } catch {
+                    print(error)
+                }
+            } else { return distance[0].total }
+        } else { // return today distance
+            let date = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"  // 20200616
+            let day = Int(dateFormatter.string(from: date))!
+            let journeyToday = realm.objects(JourneyData.self).filter("date == \(day)")
+            if journeyToday.isEmpty { return 0 }
+            else {
+                var distance = 0.0
+                for route in journeyToday[0].routes {
+                    distance += route.distance
+                }
+                return distance
+            }
+        }
+        return 0 // unused
+    }
+    
+    static func saveTotalDistance(value: Double) {
+        let realm = try! Realm()
+        let distance = realm.objects(Distance.self)[0]
+        do {
+            try realm.write {
+                distance.total = value
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    static func calculateDistance(from: Footstep, to: Footstep) -> Double {
+        return CLLocation(latitude: to.latitude, longitude: to.longitude)
+            .distance(from: CLLocation(latitude: from.latitude, longitude: from.longitude))
     }
 }

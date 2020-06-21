@@ -149,10 +149,10 @@ class HomeAnimation {
             homeVC.unitLabel.alpha = 1
         })
         homeVC.distance.setUpdateBlock { (value, label) in
-            label.text = String(format: "%.f", value)
+            label.text = String(format: "%.2f", value)
         }
         homeVC.distance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
-        homeVC.distance.countFrom(0, to: 136, withDuration: 5)
+        homeVC.distance.countFrom(0, to: CGFloat(HomeViewController.distanceTotal / 1000), withDuration: 5)
         
         // 1. Text Animation
         homeVC.todayString.text = "오늘까지"

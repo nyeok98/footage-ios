@@ -23,4 +23,5 @@ class Route: Object {
     
     let footsteps = List<Footstep>()
     let owners = LinkingObjects(fromType: JourneyData.self, property: "routes")
+    @objc dynamic var distance: Double = 0
 }
