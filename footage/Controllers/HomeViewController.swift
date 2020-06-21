@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
     var journeyData: JourneyData? = nil
     static var distanceToday: Double = 0
     var dateFormatter = DateFormatter()
-    var timer: Timer?
+    var locationTimer: Timer?
     
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var startButton: UIButton!
@@ -86,10 +86,11 @@ class HomeViewController: UIViewController {
             
         } else { // FROM STOP TO START
             
-            timer!.invalidate()
+            locationTimer?.invalidate()
             HomeAnimation.homeStopAnimation(self)
             locationArray = []
-            // locationManager.pausesLocationUpdatesAutomatically = true
+            locationManager.pausesLocationUpdatesAutomatically = true
+            locationManager.stopUpdatingLocation()
             configureInitialMapView()
         }
     }
@@ -103,18 +104,18 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     
     func configureInitialMapView() {
         var coordinate: CLLocationCoordinate2D? = nil
-        mainMap.mapType = MKMapType.satelliteFlyover
-        let spanValue = MKCoordinateSpan(latitudeDelta: 120, longitudeDelta: 120)
+        mainMap.mapType = MKMapType.standard
         if CLLocationManager.authorizationStatus() == .authorizedAlways ||
             CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             while locationManager.location == nil {
                 locationManager.requestLocation()
             }
             coordinate = locationManager.location!.coordinate
-            mainMap.showsUserLocation = true
+            //mainMap.showsUserLocation = true
         } else {
             coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(exactly: 36.5151)!, CLLocationDegrees(exactly: 127.2385)!)
         }
+        let spanValue = MKCoordinateSpan(latitudeDelta: 120, longitudeDelta: 120)
         let locationRegion = MKCoordinateRegion(center: coordinate!, span: spanValue)
         mainMap.setRegion(locationRegion, animated: true)
         UIView.animate(withDuration: 1) {
@@ -144,12 +145,10 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         journeyData!.polylineArray.append([]) // initiate new polyline
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
+        locationTimer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: true) { (timer) in
             self.locationManager.requestLocation()
+            print("timer is called")
         }
-//        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
-//            self.locationManager.requestLocation()
-//        }
         while locationManager.location == nil {
             self.locationManager.requestLocation()
         }
@@ -227,7 +226,7 @@ extension HomeViewController {
         journeyData = JourneyData()
         journeyData!.date = dateFormatter.string(from: Date())
         StatsViewController.journeyArray.append(journeyData!)
-        
+
         dateFormatter.dateFormat = "yyyy M"
         let monthID = dateFormatter.string(from: Date())
         if JourneyData.byMonth.keys.contains(monthID) {
@@ -235,7 +234,7 @@ extension HomeViewController {
         } else {
             JourneyData.byMonth[monthID] = [journeyData!]
         }
-        
+
     }
 }
 

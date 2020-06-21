@@ -20,12 +20,12 @@ class StatsViewController: UIViewController {
                 CLLocationCoordinate2D(latitude: 36.1217, longitude: 126.3823)]], date: "2018 12월 25일")]
         }
         
-        if sender.selectedSegmentIndex == 1 { // month selected
-            JourneyData = []
-            for monthData in JourneyData.byMonth {
-                JourneyData.init(polylines: <#T##[[CLLocationCoordinate2D]]#>, date: <#T##String#>)
-            }
-        }
+//        if sender.selectedSegmentIndex == 1 { // month selected
+//            JourneyData = []
+//            for monthData in JourneyData.byMonth {
+//                JourneyData.init(polylines: <#T##[[CLLocationCoordinate2D]]#>, date: <#T##String#>)
+//            }
+//        }
     }
     
     var label = UILabel()
