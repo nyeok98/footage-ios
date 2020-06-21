@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="210 모던고딕OTF R.otf">
+            <string>OTModerngothicR</string>
+        </array>
         <array key="NanumSquareBold.ttf">
             <string>NanumSquareB</string>
         </array>
@@ -57,97 +60,141 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="오늘까지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H72-wm-f5e">
-                                <rect key="frame" x="28" y="102" width="110" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H72-wm-f5e">
+                                <rect key="frame" x="37" y="91" width="145" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="30"/>
-                                <nil key="textColor"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="오늘까지">
+                                        <attributes>
+                                            <font key="NSFont" size="30" name="OTModerngothicR"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="당신이 남긴" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJx-zr-y7Y">
-                                <rect key="frame" x="28" y="154" width="216" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJx-zr-y7Y">
+                                <rect key="frame" x="37" y="131" width="253" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="30"/>
-                                <nil key="textColor"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="당신이 남긴">
+                                        <attributes>
+                                            <font key="NSFont" size="30" name="OTModerngothicR"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="발자취" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeL-aW-bTF">
-                                <rect key="frame" x="28" y="207" width="82" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeL-aW-bTF">
+                                <rect key="frame" x="37" y="177" width="133" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="30"/>
-                                <nil key="textColor"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="발자취">
+                                        <attributes>
+                                            <font key="NSFont" size="30" name="OTModerngothicR"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5AW-RJ-lkU">
-                                <rect key="frame" x="95" y="323" width="184" height="65"/>
+                                <rect key="frame" x="203" y="262" width="140" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="시작" image="start_btn"/>
+                                <state key="normal" title="시작" image="startButton"/>
                                 <connections>
                                     <action selector="startButtonPressed:" destination="hbu-LT-T1p" eventType="touchUpInside" id="AGD-aU-c73"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="triangle" translatesAutoresizingMaskIntoConstraints="NO" id="ayF-dc-El5">
-                                <rect key="frame" x="225" y="95" width="23" height="22"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Dqc-ly-Rcj">
+                                <rect key="frame" x="37" y="400" width="300" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="triangle-1" translatesAutoresizingMaskIntoConstraints="NO" id="uAi-TR-6c4">
-                                <rect key="frame" x="252" y="150" width="16" height="16"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ak2-5v-9Pu">
+                                <rect key="frame" x="264" y="204" width="69" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="triangle-2" translatesAutoresizingMaskIntoConstraints="NO" id="ZT6-4V-TKK">
-                                <rect key="frame" x="294" y="44" width="23" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="triangle" translatesAutoresizingMaskIntoConstraints="NO" id="a0q-k1-loB" userLabel="triangle-5">
-                                <rect key="frame" x="316" y="102" width="28" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="triangle-4" translatesAutoresizingMaskIntoConstraints="NO" id="sdP-GN-8qX">
-                                <rect key="frame" x="307" y="194" width="23" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ak2-5v-9Pu">
-                                <rect key="frame" x="279" y="241" width="73" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="50"/>
-                                <nil key="textColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="km">
+                                        <attributes>
+                                            <font key="NSFont" size="50" name="OTModerngothicR"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vtI-px-9ux">
-                                <rect key="frame" x="123" y="234" width="150" height="67"/>
+                                <rect key="frame" x="123" y="197" width="135" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m0H-qt-p6W" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                        <rect key="frame" x="-42" y="0.0" width="192" height="67"/>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m0H-qt-p6W" customClass="EFCountingLabel" customModule="EFCountingLabel">
+                                        <rect key="frame" x="-59" y="-6" width="192" height="67"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="60"/>
-                                        <nil key="textColor"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="000">
+                                                <attributes>
+                                                    <font key="NSFont" size="65" name="OTModerngothicB"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="square1" translatesAutoresizingMaskIntoConstraints="NO" id="4vC-qo-2tq">
-                                <rect key="frame" x="247" y="90" width="19" height="19"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m8I-YT-JrB">
+                                <rect key="frame" x="285" y="36" width="58" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="square2" translatesAutoresizingMaskIntoConstraints="NO" id="7eb-23-zfn">
-                                <rect key="frame" x="316" y="64" width="14" height="14"/>
+                                <state key="normal" image="questionCircle"/>
+                                <connections>
+                                    <action selector="questionCircle:" destination="hbu-LT-T1p" eventType="touchUpInside" id="5pJ-t4-ahh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Kn-TN-VqP">
+                                <rect key="frame" x="37" y="295" width="59" height="91"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="square3" translatesAutoresizingMaskIntoConstraints="NO" id="3oq-4d-XNT">
-                                <rect key="frame" x="339" y="129" width="15" height="15"/>
+                                <state key="normal" image="button1"/>
+                                <connections>
+                                    <action selector="button1:" destination="hbu-LT-T1p" eventType="touchUpInside" id="8Cd-e2-jY5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3D-YK-dng">
+                                <rect key="frame" x="98" y="317" width="59" height="69"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="square4" translatesAutoresizingMaskIntoConstraints="NO" id="YC8-Cx-u0y">
-                                <rect key="frame" x="304" y="175" width="14" height="14"/>
+                                <state key="normal" title="Button" image="button2"/>
+                                <connections>
+                                    <action selector="button2:" destination="hbu-LT-T1p" eventType="touchUpInside" id="OQu-Ux-QA6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFq-Ts-vOH">
+                                <rect key="frame" x="165" y="326" width="59" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Dqc-ly-Rcj">
-                                <rect key="frame" x="37" y="400" width="300" height="300"/>
+                                <state key="normal" title="Button" image="button3"/>
+                                <connections>
+                                    <action selector="button3:" destination="hbu-LT-T1p" eventType="touchUpInside" id="Wmu-Ag-ft8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="34y-GI-ccP">
+                                <rect key="frame" x="232" y="335" width="44" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </mapView>
+                                <state key="normal" title="Button" image="button4"/>
+                                <connections>
+                                    <action selector="button4:" destination="hbu-LT-T1p" eventType="touchUpInside" id="bPT-oY-6BG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HSK-Zu-cEm">
+                                <rect key="frame" x="285" y="342" width="33" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="button5"/>
+                                <connections>
+                                    <action selector="button5:" destination="hbu-LT-T1p" eventType="touchUpInside" id="rxz-Hi-Rrz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ccO-dU-M1S"/>
@@ -158,17 +205,8 @@
                         <outlet property="distanceView" destination="vtI-px-9ux" id="5sK-xn-uuK"/>
                         <outlet property="footString" destination="OeL-aW-bTF" id="WvL-of-4yx"/>
                         <outlet property="mainMap" destination="Dqc-ly-Rcj" id="2af-5t-aVW"/>
-                        <outlet property="square1" destination="4vC-qo-2tq" id="hHx-fc-eWI"/>
-                        <outlet property="square2" destination="7eb-23-zfn" id="YNF-9a-glj"/>
-                        <outlet property="square3" destination="3oq-4d-XNT" id="rKH-DH-Qjw"/>
-                        <outlet property="square4" destination="YC8-Cx-u0y" id="OyU-wd-D7o"/>
                         <outlet property="startButton" destination="5AW-RJ-lkU" id="5Qr-Oq-b14"/>
                         <outlet property="todayString" destination="H72-wm-f5e" id="MBj-ww-EZz"/>
-                        <outlet property="triangle1" destination="ayF-dc-El5" id="1a8-HI-27a"/>
-                        <outlet property="triangle2" destination="uAi-TR-6c4" id="Qje-A8-1LX"/>
-                        <outlet property="triangle3" destination="ZT6-4V-TKK" id="P9g-z7-wQO"/>
-                        <outlet property="triangle4" destination="a0q-k1-loB" id="Gh2-fQ-s7C"/>
-                        <outlet property="triangle5" destination="sdP-GN-8qX" id="osK-w5-8Tc"/>
                         <outlet property="unitLabel" destination="Ak2-5v-9Pu" id="jEB-dA-ZYu"/>
                         <outlet property="youString" destination="BJx-zr-y7Y" id="dNN-Uo-Ar1"/>
                     </connections>
@@ -313,40 +351,64 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="홍길동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adC-1X-9p4">
-                                <rect key="frame" x="41" y="54" width="82" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adC-1X-9p4">
+                                <rect key="frame" x="162" y="61" width="171" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="30"/>
-                                <nil key="textColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="홍길동">
+                                        <attributes>
+                                            <font key="NSFont" size="35" name="OTModerngothicB"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="님의 발자취" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2Y-QT-wbW">
-                                <rect key="frame" x="131" y="62" width="111" height="26"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2Y-QT-wbW">
+                                <rect key="frame" x="167" y="115" width="166" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="23"/>
-                                <nil key="textColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="님의 발자취">
+                                        <attributes>
+                                            <font key="NSFont" size="26" name="OTModerngothicR"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="지금까지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytd-ae-qc2">
-                                <rect key="frame" x="177" y="109" width="84" height="26"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJd-is-mqD">
+                                <rect key="frame" x="198" y="157" width="135" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="23"/>
-                                <nil key="textColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="지금까지">
+                                        <attributes>
+                                            <font key="NSFont" size="26" name="OTModerngothicR"/>
+                                            <font key="NSOriginalFont" size="25" name="OTModerngothicR"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sGf-px-Xcf">
-                                <rect key="frame" x="286" y="152" width="73" height="56"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sGf-px-Xcf">
+                                <rect key="frame" x="264" y="204" width="69" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="50"/>
-                                <nil key="textColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="km">
+                                        <attributes>
+                                            <font key="NSFont" size="50" name="OTModerngothicR"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="gTf-Tc-gls">
-                                <rect key="frame" x="41" y="96" width="122" height="122"/>
+                                <rect key="frame" x="32" y="61" width="122" height="122"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Tcf-Qm-pfE">
-                                <rect key="frame" x="81" y="228" width="211" height="32"/>
+                                <rect key="frame" x="82" y="266" width="211" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="일"/>
@@ -357,14 +419,25 @@
                                     <action selector="dateRangeChanged:" destination="nHf-mU-wXi" eventType="valueChanged" id="z7b-Ea-Ir8"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0m-Pp-jnb" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                <rect key="frame" x="163" y="141" width="115" height="67"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0m-Pp-jnb" customClass="EFCountingLabel" customModule="EFCountingLabel">
+                                <rect key="frame" x="82" y="191" width="174" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="NanumSquareB" family="NanumSquare" pointSize="60"/>
-                                <nil key="textColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="000">
+                                        <attributes>
+                                            <font key="NSFont" size="65" name="OTModerngothicB"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLI-wy-uDk">
+                                <rect key="frame" x="123" y="141" width="48" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="button1"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="zrw-kB-jRD"/>
@@ -375,6 +448,7 @@
                     <connections>
                         <outlet property="profileImage" destination="gTf-Tc-gls" id="Urj-5v-AY2"/>
                         <outlet property="rangeControl" destination="Tcf-Qm-pfE" id="Vdn-OO-4wh"/>
+                        <outlet property="totalDistance" destination="u0m-Pp-jnb" id="XbZ-Cb-BbC"/>
                         <segue destination="aF5-BU-2MZ" kind="show" identifier="goToJourney" id="Ya3-9e-Zr7"/>
                     </connections>
                 </viewController>
@@ -416,21 +490,19 @@
     </scenes>
     <color key="tintColor" red="0.4334982745" green="0.74098281960000001" blue="0.47469925400000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
+        <image name="button1" width="59" height="91"/>
+        <image name="button2" width="53" height="69"/>
+        <image name="button3" width="49" height="60"/>
+        <image name="button4" width="43" height="53"/>
+        <image name="button5" width="31" height="44"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="partitionLine" width="84" height="1"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="profile" width="740" height="740"/>
+        <image name="questionCircle" width="58" height="58"/>
         <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
-        <image name="square1" width="12" height="12"/>
-        <image name="square2" width="12" height="12"/>
-        <image name="square3" width="12" height="12"/>
-        <image name="square4" width="12" height="12"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
-        <image name="start_btn" width="182" height="65"/>
-        <image name="triangle" width="21" height="18"/>
-        <image name="triangle-1" width="16" height="14"/>
-        <image name="triangle-2" width="18" height="16"/>
-        <image name="triangle-4" width="18" height="16"/>
+        <image name="startButton" width="144" height="63"/>
         <namedColor name="tabColor">
             <color red="0.15299999713897705" green="0.22400000691413879" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

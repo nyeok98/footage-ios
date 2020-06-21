@@ -28,6 +28,10 @@
 	<string>위치서비스를 &apos;항상&apos;으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>210 모던고딕OTF R.otf</string>
+		<string>210 모던고딕OTF L.otf</string>
+		<string>210 모던고딕OTF EB.otf</string>
+		<string>210 모던고딕OTF B.otf</string>
 		<string>NanumSquareBold.ttf</string>
 		<string>NanumSquareExtraBold.ttf</string>
 		<string>NanumSquareRegular.ttf</string>

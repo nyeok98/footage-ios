@@ -20,18 +20,26 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var youString: UILabel!
     @IBOutlet weak var todayString: UILabel!
     @IBOutlet weak var footString: UILabel!
-    @IBOutlet weak var triangle1: UIImageView!
-    @IBOutlet weak var triangle2: UIImageView!
-    @IBOutlet weak var triangle3: UIImageView!
-    @IBOutlet weak var triangle4: UIImageView!
-    @IBOutlet weak var triangle5: UIImageView!
-    @IBOutlet weak var square1: UIImageView!
-    @IBOutlet weak var square2: UIImageView!
-    @IBOutlet weak var square3: UIImageView!
-    @IBOutlet weak var square4: UIImageView!
     @IBOutlet weak var distance: EFCountingLabel!
     @IBOutlet weak var distanceView: UIView!
     @IBOutlet weak var unitLabel: UILabel!
+    @IBAction func questionCircle(_ sender: UIButton) {
+    }
+    @IBAction func button1(_ sender: UIButton) {
+        polyLineColor = "#EADE4Cff"
+    }
+    @IBAction func button2(_ sender: UIButton) {
+        polyLineColor = "#F5A997ff"
+    }
+    @IBAction func button3(_ sender: UIButton) {
+        polyLineColor = "#F0E7CFff"
+    }
+    @IBAction func button4(_ sender: UIButton) {
+        polyLineColor = "#FF6B39ff"
+    }
+    @IBAction func button5(_ sender: UIButton) {
+        polyLineColor = "#206491ff"
+    }
     
     /// 2. For MapKit
     static var distanceToday: Double = 0
@@ -48,6 +56,7 @@ class HomeViewController: UIViewController {
             return speedLimit * refreshRate
         }
     }
+    var polyLineColor: String = "#EADE4Cff"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +64,7 @@ class HomeViewController: UIViewController {
         mainMap.delegate = self
         HomeViewController.locationManager.delegate = self
         // start animation
-        startButton.setImage(#imageLiteral(resourceName: "start_btn"), for: .normal)
+        startButton.setImage(#imageLiteral(resourceName: "startButton"), for: .normal)
         HomeViewController.currentStartButtonImage = startButton.currentImage
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
@@ -64,9 +73,9 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
-        if startButton.currentImage == #imageLiteral(resourceName: "start_btn") { // FROM START TO STOP
+        if startButton.currentImage == #imageLiteral(resourceName: "startButton") { // FROM START TO STOP
             HomeViewController.distanceToday = DataManager.loadDistance(total: false)
-            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stop_btn")
+            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
             HomeViewController.locationManager.requestAlwaysAuthorization()
             let status = CLLocationManager.authorizationStatus()
             if status == .notDetermined || status == .denied || status == .authorizedWhenInUse {
@@ -80,7 +89,7 @@ class HomeViewController: UIViewController {
             locationTimer?.invalidate() // stop location request
             HomeViewController.locationManager.stopUpdatingLocation()
             HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
-            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "start_btn")
+            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
             setAsStart = true // next coordinate must be set as new start point
             // locationsToday = []
             // distance.text = String(format: "%.2f",(HomeViewController.distanceToday)/1000)
@@ -184,7 +193,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
             }
             if setAsStart { //
                 locationsToday.append([newLocation])
-                let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: true)
+                let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: true, color: polyLineColor)
                 DataManager.collectJourneyData(footstep: footstep)
                 setAsStart = false
                 
@@ -199,7 +208,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
                     HomeViewController.distanceToday = 0 // Make distnaceToday '0' if it's newDay
                 }
                 extendPolyline(lastLocation: lastLocation, newLocation: newLocation)
-                let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: false)
+                let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: false, color: polyLineColor)
                 DataManager.collectJourneyData(footstep: footstep)
                 DataManager.saveTotalDistance(value: HomeViewController.distanceTotal)
                 distance.text = String(format: "%.2f",(HomeViewController.distanceToday)/1000)
@@ -221,7 +230,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let polylineView = MKPolylineRenderer(overlay: overlay)
-        polylineView.strokeColor = UIColor(named: "mainColor")
+        polylineView.strokeColor = UIColor(hex: polyLineColor)
         polylineView.lineWidth = 10
         return polylineView
     }
@@ -242,22 +251,10 @@ extension HomeViewController {
     
     func prepareForAnimation() {
         startButton.alpha = 0
-        square1.alpha = 0
-        square2.alpha = 0
-        square3.alpha = 0
-        square4.alpha = 0
-        triangle1.alpha = 0
-        triangle2.alpha = 0
-        triangle3.alpha = 0
-        triangle4.alpha = 0
-        triangle5.alpha = 0
+        
         distanceView.alpha = 0
         unitLabel.alpha = 0
-        triangle1.frame.origin.y = -40
-        triangle2.frame.origin.y = -40
-        triangle3.frame.origin.y = -40
-        triangle4.frame.origin.y = -40
-        triangle5.frame.origin.y = -40
+        
     }
     
     func alertForAuthorization() { // present an alert indicating location authorization required
@@ -276,5 +273,33 @@ extension HomeViewController {
             }
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension UIColor {
+    public convenience init?(hex: String) {
+        let r, g, b, a: CGFloat
+
+        if hex.hasPrefix("#") {
+            let start = hex.index(hex.startIndex, offsetBy: 1)
+            let hexColor = String(hex[start...])
+
+            if hexColor.count == 8 {
+                let scanner = Scanner(string: hexColor)
+                var hexNumber: UInt64 = 0
+
+                if scanner.scanHexInt64(&hexNumber) {
+                    r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+                    g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+                    b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+                    a = CGFloat(hexNumber & 0x000000ff) / 255
+
+                    self.init(red: r, green: g, blue: b, alpha: a)
+                    return
+                }
+            }
+        }
+
+        return nil
     }
 }

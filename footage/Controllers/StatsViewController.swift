@@ -8,14 +8,15 @@
 
 import UIKit
 import MapKit
+import EFCountingLabel
 
 class StatsViewController: UIViewController {
     @IBOutlet weak var rangeControl: UISegmentedControl!
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var totalDistance: EFCountingLabel!
     
     var label = UILabel()
     static var journeyArray: [JourneyData] = []
-    static var totalDistance = 0.0
     
     var dataSource: UICollectionViewDiffableDataSource<Section, MapCell>! = nil
     var collectionView: UICollectionView! = nil
@@ -39,6 +40,11 @@ class StatsViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         configureOthers()
+        totalDistance.setUpdateBlock { (value, label) in
+            label.text = String(format: "%.f", value)
+        }
+        totalDistance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
+        totalDistance.countFrom(0, to: CGFloat(HomeViewController.distanceTotal / 1000), withDuration: 5)
         let labelFrame = CGRect(x: 0, y: 300, width: self.view.bounds.width, height: 100)
         label.frame = labelFrame
         label.text = "새로운 발자취를 기록해 볼까요?"
