@@ -39,7 +39,7 @@
                 <outlet property="label" destination="A54-mX-Yec" id="0V8-Zz-lPo"/>
                 <outlet property="mapImage" destination="Kuh-pX-T3j" id="Laa-ob-MSb"/>
             </connections>
-            <point key="canvasLocation" x="-4387.68115942029" y="250.11160714285714"/>
+            <point key="canvasLocation" x="-7347" y="261"/>
         </collectionViewCell>
     </objects>
     <resources>

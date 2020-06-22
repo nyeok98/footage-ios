@@ -77,7 +77,7 @@ extension PhotoCollection: UICollectionViewDataSource, UICollectionViewDelegate 
         if count == 0 {
             collectionView.backgroundColor = .clear
         }
-        return count
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

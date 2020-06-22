@@ -25,6 +25,7 @@ class MapCell: UICollectionViewCell {
         mapImage.layer.shadowOpacity = 1
         mapImage.layer.shadowOffset = .zero
         mapImage.layer.shadowRadius = 10
+        //contentView.frame = CGRect(x: 0, y: 0, width: 130, height: 130)
     }
 
 }
