@@ -16,7 +16,7 @@ class StatsViewController: UIViewController {
     var profileImage = #imageLiteral(resourceName: "profile")
     @IBOutlet weak var totalDistance: EFCountingLabel!
     
-    var label = UILabel()
+    //var label = UILabel()
     static var journeyArray: [JourneyData] = []
     
     var dataSource: UICollectionViewDiffableDataSource<Section, MapCell>! = nil
@@ -34,6 +34,11 @@ class StatsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         loadWithRange(rangeControl.selectedSegmentIndex)
+        totalDistance.setUpdateBlock { (value, label) in
+            label.text = String(format: "%.f", value)
+        }
+        totalDistance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
+        totalDistance.countFrom(0, to: CGFloat(HomeViewController.distanceTotal / 1000), withDuration: 5)
     }
     
     override func viewDidLoad() {
@@ -41,21 +46,7 @@ class StatsViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         reloadProfileImage()
-        totalDistance.setUpdateBlock { (value, label) in
-            label.text = String(format: "%.f", value)
-        }
-        totalDistance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
-        totalDistance.countFrom(0, to: CGFloat(HomeViewController.distanceTotal / 1000), withDuration: 5)
-        let labelFrame = CGRect(x: 0, y: 300, width: self.view.bounds.width, height: 100)
-        label.frame = labelFrame
-        label.text = "새로운 발자취를 기록해 볼까요?"
-        label.font = UIFont(name: "NanumSquare", size: 20)
-        label.textAlignment = .center
-        label.textColor = .black
-        label.numberOfLines = 2
-        label.backgroundColor = .clear
-        self.view.addSubview(label)
-        view.bringSubviewToFront(label)
+        configureLabel()
     }
 }
 
@@ -66,7 +57,7 @@ extension StatsViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize, supplementaryItems: [])
         item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.47))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.53))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
@@ -87,7 +78,7 @@ extension StatsViewController {
 
 extension StatsViewController {
     private func configureHierarchy() {
-        let collectionFrame = CGRect(x: 0, y: 270, width: view.bounds.width, height: view.bounds.height - 355)
+        let collectionFrame = CGRect(x: 0, y: 320, width: view.bounds.width, height: view.bounds.height - 405)
         
         collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
         collectionView.delegate = self
@@ -102,7 +93,7 @@ extension StatsViewController {
         
         view.addSubview(collectionView)
         view.sendSubviewToBack(collectionView)
-        view.sendSubviewToBack(label)
+        //view.sendSubviewToBack(label)
     }
 }
 
@@ -163,12 +154,28 @@ extension StatsViewController {
 
 extension StatsViewController {
     
+    func configureLabel() {
+        let label = UILabel()
+        let labelFrame = CGRect(x: 0, y: 300, width: self.view.bounds.width, height: 100)
+        label.frame = labelFrame
+        label.text = "새로운 발자취를 기록해 볼까요?"
+        label.font = UIFont(name: "NanumSquare", size: 20)
+        label.textAlignment = .center
+        label.textColor = .black
+        label.numberOfLines = 2
+        label.backgroundColor = .clear
+        self.view.addSubview(label)
+        view.bringSubviewToFront(label)
+    }
+    
     func reloadProfileImage() {
         profileView.layer.cornerRadius = profileView.bounds.width / 2.0
         profileView.image = profileImage
         //view.bringSubviewToFront(profileView)
         //print(profileImage)
     }
+    
+    
     
     private func loadWithRange(_ range: Int) {
         StatsViewController.journeyArray = []
