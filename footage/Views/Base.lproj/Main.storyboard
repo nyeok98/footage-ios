@@ -8,9 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="210 모던고딕OTF R.otf">
-            <string>OTModerngothicR</string>
-        </array>
         <array key="NanumSquareBold.ttf">
             <string>NanumSquareB</string>
         </array>
@@ -385,8 +382,8 @@
                                 <attributedString key="attributedText">
                                     <fragment content="지금까지">
                                         <attributes>
-                                            <font key="NSFont" size="30" name="OTOmniGothicT"/>
-                                            <font key="NSOriginalFont" size="25" name="OTModerngothicR"/>
+                                            <font key="NSFont" metaFont="system" size="30"/>
+                                            <font key="NSOriginalFont" metaFont="system" size="25"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -405,7 +402,7 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="gTf-Tc-gls">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gTf-Tc-gls">
                                 <rect key="frame" x="32" y="61" width="122" height="122"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -440,6 +437,9 @@
                                 <rect key="frame" x="123" y="141" width="48" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="button1"/>
+                                <connections>
+                                    <action selector="changePressed:" destination="nHf-mU-wXi" eventType="touchUpInside" id="1PR-Hm-zhj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -449,10 +449,11 @@
                     <navigationItem key="navigationItem" id="fdo-RH-khC"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="profileImage" destination="gTf-Tc-gls" id="Urj-5v-AY2"/>
+                        <outlet property="profileView" destination="gTf-Tc-gls" id="Urj-5v-AY2"/>
                         <outlet property="rangeControl" destination="Tcf-Qm-pfE" id="Vdn-OO-4wh"/>
                         <outlet property="totalDistance" destination="u0m-Pp-jnb" id="XbZ-Cb-BbC"/>
                         <segue destination="aF5-BU-2MZ" kind="show" identifier="goToJourney" id="Ya3-9e-Zr7"/>
+                        <segue destination="R2w-D7-1Qf" kind="show" identifier="goToProfile" id="bnB-Hy-6Pc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XMn-d6-hXb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -490,6 +491,61 @@
             </objects>
             <point key="canvasLocation" x="-1851" y="-956"/>
         </scene>
+        <!--Profile SelectionVC-->
+        <scene sceneID="eBc-zj-Vgm">
+            <objects>
+                <viewController id="R2w-D7-1Qf" customClass="ProfileSelectionVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cZv-2j-e5O">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="IoR-yD-m3C"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="MWA-xh-lRG"/>
+                    <connections>
+                        <segue destination="3WZ-UI-UlO" kind="show" identifier="goToPhotoEdit" id="rql-VR-XkS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kmn-Cx-iOC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-876" y="595"/>
+        </scene>
+        <!--Photo EditVC-->
+        <scene sceneID="CCd-k7-3PW">
+            <objects>
+                <viewController id="3WZ-UI-UlO" customClass="PhotoEditVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g9A-lr-LoL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IPr-Gw-meG">
+                                <rect key="frame" x="164" y="586" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="confirmPressed:" destination="3WZ-UI-UlO" eventType="touchUpInside" id="uga-Kv-ZcX"/>
+                                </connections>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9o-O9-Ry0">
+                                <rect key="frame" x="41" y="233" width="292" height="291"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="zPE-HC-9a1"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="fB7-Vh-pq7"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="RrP-bA-Ikb"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="McW-pn-Frl"/>
+                    <connections>
+                        <outlet property="confirmButton" destination="IPr-Gw-meG" id="id5-xw-Ps1"/>
+                        <outlet property="scrollView" destination="i9o-O9-Ry0" id="Mtr-QF-tUh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zWy-As-e3f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-31.199999999999999" y="594.82758620689663"/>
+        </scene>
     </scenes>
     <color key="tintColor" red="0.4334982745" green="0.74098281960000001" blue="0.47469925400000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
@@ -501,7 +557,6 @@
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="partitionLine" width="84" height="1"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="profile" width="740" height="740"/>
         <image name="questionCircle" width="58" height="58"/>
         <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>

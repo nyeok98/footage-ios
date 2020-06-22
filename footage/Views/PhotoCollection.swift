@@ -99,11 +99,8 @@ extension PhotoCollection: UICollectionViewDataSource, UICollectionViewDelegate 
 // MARK: - Image Manager
 
 final class LocalImageManager {
-    
     static var shared = LocalImageManager()
-    
     fileprivate let imageManager = PHImageManager()
-    
     var representedAssetIdentifier: String?
     
     func requestIamge(with asset: PHAsset?, thumbnailSize: CGSize, completion: @escaping (UIImage?) -> Void) {

@@ -70,9 +70,9 @@ class DataManager { // journey 저장 및 데이터 가공을 담당
             return realm.objects(JourneyData.self).filter("10000 < date && date < 1000000") // 202006
         case "year":
             return realm.objects(JourneyData.self).filter("date < 10000") // 2020
-        case "all":
+        case "all": // return all
             return realm.objects(JourneyData.self)
-        default: // return all for homeVC
+        default:
             return realm.objects(JourneyData.self).filter("date = \(Int(rangeOf) ?? 0)")
         }
     }

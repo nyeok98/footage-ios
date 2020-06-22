@@ -12,7 +12,8 @@ import EFCountingLabel
 
 class StatsViewController: UIViewController {
     @IBOutlet weak var rangeControl: UISegmentedControl!
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileView: UIImageView!
+    var profileImage = #imageLiteral(resourceName: "profile")
     @IBOutlet weak var totalDistance: EFCountingLabel!
     
     var label = UILabel()
@@ -39,7 +40,7 @@ class StatsViewController: UIViewController {
         super.viewDidLoad()
         configureHierarchy()
         configureDataSource()
-        configureOthers()
+        reloadProfileImage()
         totalDistance.setUpdateBlock { (value, label) in
             label.text = String(format: "%.f", value)
         }
@@ -160,21 +161,13 @@ extension StatsViewController {
     }
 }
 
-extension StatsViewController: UICollectionViewDelegate {
+extension StatsViewController {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToJourney", sender: indexPath.row)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! JourneyViewController
-        destinationVC.journeyIndex = sender as! Int
-        destinationVC.forReloadStatsVC = self
-        destinationVC.journeyData = StatsViewController.journeyArray[sender as! Int]
-    }
-    
-    private func configureOthers() {
-        profileImage.layer.cornerRadius = profileImage.bounds.width / 2.0
+    func reloadProfileImage() {
+        profileView.layer.cornerRadius = profileView.bounds.width / 2.0
+        profileView.image = profileImage
+        //view.bringSubviewToFront(profileView)
+        //print(profileImage)
     }
     
     private func loadWithRange(_ range: Int) {
@@ -206,4 +199,28 @@ extension StatsViewController: UICollectionViewDelegate {
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 
+}
+
+extension StatsViewController: UICollectionViewDelegate {
+    @IBAction func changePressed(_ sender: Any) {
+        performSegue(withIdentifier: "goToProfile", sender: self)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToJourney", sender: indexPath.row)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "goToProfile":
+            let destinationVC = segue.destination as! ProfileSelectionVC
+            destinationVC.parentVC = self
+        case "goToJourney":
+            let destinationVC = segue.destination as! JourneyViewController
+            destinationVC.journeyIndex = sender as! Int
+            destinationVC.forReloadStatsVC = self
+            destinationVC.journeyData = StatsViewController.journeyArray[sender as! Int]
+        default: break
+        }
+    }
 }
