@@ -121,11 +121,25 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         mainMap.setRegion(locationRegion, animated: true)
         // draw all routes
         for journey in DataManager.loadFromRealm(rangeOf: "all") {
+            var colorcheck: String = ""
             for route in journey.routes {
                 var coordinates: [CLLocationCoordinate2D] = []
+                polyLineColor = route.footsteps[0].color
                 for footstep in route.footsteps {
-                    coordinates.append(footstep.coordinate)
+                    if colorcheck != footstep.color {
+                        coordinates.append(footstep.coordinate)
+                        polyLineColor = colorcheck
+                        let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                        self.mainMap.addOverlay(newLine)
+                        coordinates = []
+                        coordinates.append(footstep.coordinate)
+                        colorcheck = footstep.color
+                    } else {
+                        coordinates.append(footstep.coordinate)
+                        
+                    }
                 }
+                polyLineColor = colorcheck
                 let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
                 self.mainMap.addOverlay(newLine)
             }
@@ -258,8 +272,8 @@ extension HomeViewController {
     }
     
     func alertForAuthorization() { // present an alert indicating location authorization required
-    // and offer to take the user to Settings for the app via
-    // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
+        // and offer to take the user to Settings for the app via
+        // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
         let alert = UIAlertController(title: "위치를 알 수 없어요", message: "소중한 발자취를 위해 위치서비스를 '항상'으로 켜주세요.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "설정", style: .default, handler: { (_) in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
@@ -279,27 +293,27 @@ extension HomeViewController {
 extension UIColor {
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
-
+        
         if hex.hasPrefix("#") {
             let start = hex.index(hex.startIndex, offsetBy: 1)
             let hexColor = String(hex[start...])
-
+            
             if hexColor.count == 8 {
                 let scanner = Scanner(string: hexColor)
                 var hexNumber: UInt64 = 0
-
+                
                 if scanner.scanHexInt64(&hexNumber) {
                     r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
                     g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
                     b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
                     a = CGFloat(hexNumber & 0x000000ff) / 255
-
+                    
                     self.init(red: r, green: g, blue: b, alpha: a)
                     return
                 }
             }
         }
-
+        
         return nil
     }
 }

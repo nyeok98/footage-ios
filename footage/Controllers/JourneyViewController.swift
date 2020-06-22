@@ -28,6 +28,7 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     var journeyIndex = 0
     var forReloadStatsVC = StatsViewController()
     var photoView: PhotoCollection?
+    var polyLineColor: String = "#EADE4Cff"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,15 +66,29 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         mainMap.delegate = self
         mainMap.mapType = MKMapType.standard
         var center: CLLocationCoordinate2D?
-        
+        var colorcheck: String = ""
         for route in journeyData.routes {
+            
             var coordinates: [CLLocationCoordinate2D] = []
+            polyLineColor = route.footsteps[0].color
             for footstep in route.footsteps {
-                coordinates.append(footstep.coordinate)
+                if colorcheck != footstep.color {
+                    coordinates.append(footstep.coordinate)
+                    polyLineColor = colorcheck
+                    let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                    self.mainMap.addOverlay(newLine)
+                    center = newLine.coordinate
+                    coordinates = []
+                    coordinates.append(footstep.coordinate)
+                    colorcheck = footstep.color
+                } else {
+                    coordinates.append(footstep.coordinate)
+                    
+                }
+                polyLineColor = colorcheck
+                let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                self.mainMap.addOverlay(newLine)
             }
-            let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
-            self.mainMap.addOverlay(newLine)
-            center = newLine.coordinate
         }
         let locationRegion = MKCoordinateRegion(center: center!, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mainMap.setRegion(locationRegion, animated: true)
@@ -82,7 +97,7 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let polylineView = MKPolylineRenderer(overlay: overlay)
-        polylineView.strokeColor = UIColor(named: "mainColor")
+        polylineView.strokeColor = UIColor(hex: polyLineColor)
         polylineView.lineWidth = 10
         return polylineView
     }
@@ -105,3 +120,4 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     }
 
 }
+
