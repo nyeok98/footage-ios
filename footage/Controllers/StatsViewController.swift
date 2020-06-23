@@ -169,10 +169,8 @@ extension StatsViewController {
     }
     
     func reloadProfileImage() {
-        profileView.layer.cornerRadius = profileView.bounds.width / 2.0
+//        profileView.layer.cornerRadius = profileView.bounds.width / 2.0
         profileView.image = profileImage
-        //view.bringSubviewToFront(profileView)
-        //print(profileImage)
     }
     
     

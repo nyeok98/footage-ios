@@ -402,7 +402,7 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gTf-Tc-gls">
+                            <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gTf-Tc-gls">
                                 <rect key="frame" x="32" y="61" width="122" height="122"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -518,27 +518,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IPr-Gw-meG">
-                                <rect key="frame" x="164" y="586" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IPr-Gw-meG">
+                                <rect key="frame" x="276" y="13" width="91" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" image="selectButton">
+                                    <attributedString key="attributedTitle"/>
+                                </state>
                                 <connections>
                                     <action selector="confirmPressed:" destination="3WZ-UI-UlO" eventType="touchUpInside" id="uga-Kv-ZcX"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9o-O9-Ry0">
-                                <rect key="frame" x="41" y="233" width="292" height="291"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9o-O9-Ry0">
+                                <rect key="frame" x="0.0" y="192" width="375" height="375"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ijg-JK-x1Q">
+                                        <rect key="frame" x="1" y="6" width="362" height="355"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
                                 <viewLayoutGuide key="contentLayoutGuide" id="zPE-HC-9a1"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="fB7-Vh-pq7"/>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-5T-Yrv">
+                                <rect key="frame" x="10" y="13" width="59" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="backButton">
+                                    <attributedString key="attributedTitle"/>
+                                </state>
+                                <connections>
+                                    <action selector="backPressed:" destination="3WZ-UI-UlO" eventType="touchUpInside" id="67g-bY-5jw"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="RrP-bA-Ikb"/>
                     </view>
                     <navigationItem key="navigationItem" id="McW-pn-Frl"/>
                     <connections>
+                        <outlet property="backButton" destination="NvK-5T-Yrv" id="DQL-0Q-2zk"/>
                         <outlet property="confirmButton" destination="IPr-Gw-meG" id="id5-xw-Ps1"/>
+                        <outlet property="imageView" destination="Ijg-JK-x1Q" id="nwr-fN-Ob5"/>
                         <outlet property="scrollView" destination="i9o-O9-Ry0" id="Mtr-QF-tUh"/>
                     </connections>
                 </viewController>
@@ -549,6 +569,7 @@
     </scenes>
     <color key="tintColor" red="0.4334982745" green="0.74098281960000001" blue="0.47469925400000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
+        <image name="backButton" width="58" height="58"/>
         <image name="button1" width="59" height="91"/>
         <image name="button2" width="53" height="69"/>
         <image name="button3" width="49" height="60"/>
@@ -558,6 +579,7 @@
         <image name="partitionLine" width="84" height="1"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="questionCircle" width="58" height="58"/>
+        <image name="selectButton" width="97" height="63"/>
         <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="startButton" width="144" height="63"/>
