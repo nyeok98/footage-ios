@@ -16,10 +16,10 @@ class ProfileSelectionVC: UIViewController {
     var dateFrom: NSDate = Date(timeIntervalSince1970: 0) as NSDate// TODO: change to long time ago
     var dateTo: NSDate = Date() as NSDate
     var parentVC: StatsViewController?
-    
+    let cacheManager = PHCachingImageManager()
     var allMedia: PHFetchResult<PHAsset>?
     let scale = UIScreen.main.scale
-    var thumbnailSize = CGSize.zero
+    var thumbnailSize = CGSize(width: 121 * 2, height: 121 * 2)
     
     enum Section {
         case main
@@ -28,10 +28,11 @@ class ProfileSelectionVC: UIViewController {
     override func viewDidLoad() {
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "creationDate < %@", dateTo)
-        self.allMedia = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
-        self.thumbnailSize = CGSize(width: 1024 * self.scale, height: 1024 * self.scale)
+        allMedia = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+        let indexSet = IndexSet(integersIn: 0..<allMedia!.count)
+        cacheManager.startCachingImages(for: (allMedia?.objects(at: indexSet))!, targetSize: thumbnailSize, contentMode: .default, options: nil)
         configureHierarchy()
-        self.collectionView.reloadData()
+        collectionView.reloadData()
     }
     
 }
@@ -56,7 +57,7 @@ extension ProfileSelectionVC {
         collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.reuseIdentifier)
+        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
         collectionView.isPagingEnabled = true
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .white
@@ -78,11 +79,12 @@ extension ProfileSelectionVC: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.reuseIdentifier, for: indexPath) as! ProfileCell
-        if let asset = self.allMedia?[indexPath.item] {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseIdentifier, for: indexPath) as! PhotoCell
+        if let asset = self.allMedia?[self.allMedia!.count - indexPath.item - 1] {
             let options = PHImageRequestOptions()
             options.isSynchronous = true
-            PHImageManager.default().requestImage(for: asset, targetSize: self.thumbnailSize, contentMode: .default, options: options) { (image, info) in
+                //PHImageManager.default()
+            cacheManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .default, options: options) { (image, info) in
                 cell.addImage(with: image)
             }
         }
@@ -90,7 +92,7 @@ extension ProfileSelectionVC: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToPhotoEdit", sender: indexPath.item)
+        performSegue(withIdentifier: "goToPhotoEdit", sender: self.allMedia!.count - indexPath.item - 1)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -101,24 +103,5 @@ extension ProfileSelectionVC: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
-// MARK: - ProfileCell
 
-private class ProfileCell: UICollectionViewCell {
-    
-    var imageView = UIImageView()
-    static let reuseIdentifier = "photo-cell-reuse-identifier"
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    required init?(coder: NSCoder) {
-        fatalError("not implemnted")
-    }
-    
-    func addImage(with image: UIImage?) {
-        contentView.addSubview(imageView)
-        imageView.frame = contentView.frame
-        imageView.image = image
-    }
-}
 

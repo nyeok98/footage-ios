@@ -45,6 +45,8 @@ class StatsViewController: UIViewController {
         super.viewDidLoad()
         configureHierarchy()
         configureDataSource()
+        if let profileData = UserDefaults.standard.data(forKey: "profileImage") {
+            profileImage = UIImage(data: profileData)!}
         reloadProfileImage()
         configureLabel()
     }
@@ -169,7 +171,7 @@ extension StatsViewController {
     }
     
     func reloadProfileImage() {
-//        profileView.layer.cornerRadius = profileView.bounds.width / 2.0
+        profileView.layer.cornerRadius = profileView.bounds.width / 2.0
         profileView.image = profileImage
     }
     

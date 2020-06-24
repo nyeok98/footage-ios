@@ -12,9 +12,8 @@ import EFCountingLabel
 import RealmSwift
 
 class JourneyViewController: UIViewController, MKMapViewDelegate {
-
-    @IBOutlet weak var mainMap: MKMapView!
     
+    @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var yearLabel: EFCountingLabel!
     @IBOutlet weak var monthLabel: EFCountingLabel!
     @IBOutlet weak var dayLabel: EFCountingLabel!
@@ -24,21 +23,19 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var youText: UILabel!
     @IBOutlet weak var seeBackText: UILabel!
     
-    var journeyData: JourneyData = JourneyData()
-    var journeyIndex = 0
+    var journeyData: JourneyData = JourneyData() // comes from previous VC (Stats)
+    var journeyIndex = 0 // comes from previous VC (Stats)
     var forReloadStatsVC = StatsViewController()
-    var photoView: PhotoCollection?
-    var polyLineColor: String = "#EADE4Cff"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        mainMap.delegate = self
         configureMap()
         setInitialAlpha()
-        let animation = JourneyAnimation(journeyVC: self, journeyIndex: journeyIndex)
-        animation.journeyActivate()
-        photoView = PhotoCollection(journey: journeyData)
-        addChild(photoView!)
-        view.addSubview(photoView!.collectionView)
+        JourneyAnimation(journeyVC: self, journeyIndex: journeyIndex).journeyActivate()
+        let photoVC = PhotoCollection(journey: journeyData)
+        addChild(photoVC)
+        view.addSubview(photoVC.collectionView)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,10 +45,68 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
             try realm.write {
                 StatsViewController.journeyArray[journeyIndex].previewImage = image.pngData()
             }
-        } catch {
-            print(error)
-        }
+        } catch { print(error)}
         forReloadStatsVC.collectionView.reloadData()
+    }
+    
+    
+    func configureMap() {
+        var overlays: [PolylineWithColor] = []
+        for route in journeyData.routes {
+            var lastColor: String = route.footsteps[0].color
+            var coordinates: [CLLocationCoordinate2D] = []
+            for footstep in route.footsteps {
+                coordinates.append(footstep.coordinate)
+                if lastColor != footstep.color { // new color
+                    let polyline = PolylineWithColor(coordinates: coordinates, count: coordinates.count)
+                    polyline.color = UIColor(hex: lastColor)!
+                    overlays.append(polyline)
+                    lastColor = footstep.color
+                    coordinates = []
+                }
+            }
+            let polyline = PolylineWithColor(coordinates: coordinates, count: coordinates.count)
+            polyline.color = UIColor(hex: lastColor)!
+            overlays.append(polyline)
+        }
+        var heading = CLLocationDirection(exactly: 0)
+        var firstPosition = journeyData.routes[0].footsteps[0].coordinate
+        var secondPosition = firstPosition
+        if journeyData.routes.count >= 2 {
+            secondPosition = journeyData.routes[1].footsteps[0].coordinate
+            let adjustments = calculateAdjustments(from: firstPosition, to: secondPosition)
+            heading = adjustments.0
+            firstPosition = CLLocationCoordinate2DMake(firstPosition.latitude + adjustments.1, firstPosition.longitude + adjustments.2)
+        }
+        let camera = MKMapCamera(lookingAtCenter: firstPosition, fromDistance: CLLocationDistance(exactly: 400)!, pitch: 70, heading: heading!)
+        mainMap.setCamera(camera, animated: false)
+        mainMap.addOverlays(overlays, level: .aboveRoads)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let overlayWithColor = overlay as! PolylineWithColor
+        let polylineView = MKPolylineRenderer(overlay: overlay)
+        polylineView.strokeColor = overlayWithColor.color
+        polylineView.lineWidth = 10
+        return polylineView
+    }
+    
+    func calculateAdjustments(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> (CLLocationDirection, Double, Double) { // TODO: 수학 너무 많아... 나중에 할래
+        let opposite = to.longitude.distance(to: from.longitude)
+        let adjacent = to.latitude.distance(to: from.latitude)
+        let degree = atan(opposite / adjacent)
+        return (CLLocationDirection(degree * 180 / Double.pi - 90), 0.0005 * cos(degree), 0.0005 * sin(degree))
+    }
+    
+    
+    func takeScreenshot() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(mainMap.bounds.size, false, UIScreen.main.scale)
+        mainMap.drawHierarchy(in: mainMap.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        if (image != nil)
+        { return image! }
+        return UIImage()
     }
     
     func setInitialAlpha() {
@@ -62,61 +117,8 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         seeBackText.alpha = 0
     }
     
-    func configureMap() {
-        mainMap.delegate = self
-        mainMap.mapType = MKMapType.standard
-        var center: CLLocationCoordinate2D?
-        var colorcheck: String = ""
-        for route in journeyData.routes {
-            
-            var coordinates: [CLLocationCoordinate2D] = []
-            polyLineColor = route.footsteps[0].color
-            for footstep in route.footsteps {
-                if colorcheck != footstep.color {
-                    coordinates.append(footstep.coordinate)
-                    polyLineColor = colorcheck
-                    let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                    self.mainMap.addOverlay(newLine)
-                    center = newLine.coordinate
-                    coordinates = []
-                    coordinates.append(footstep.coordinate)
-                    colorcheck = footstep.color
-                } else {
-                    coordinates.append(footstep.coordinate)
-                    
-                }
-                polyLineColor = colorcheck
-                let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                self.mainMap.addOverlay(newLine)
-            }
-        }
-        let locationRegion = MKCoordinateRegion(center: center!, latitudinalMeters: 1000, longitudinalMeters: 1000)
-        mainMap.setRegion(locationRegion, animated: true)
-        
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let polylineView = MKPolylineRenderer(overlay: overlay)
-        polylineView.strokeColor = UIColor(hex: polyLineColor)
-        polylineView.lineWidth = 10
-        return polylineView
-    }
-    
-    func takeScreenshot() -> UIImage {
-
-        // Begin context
-        UIGraphicsBeginImageContextWithOptions(mainMap.bounds.size, false, UIScreen.main.scale)
-
-        // Draw view in that context
-        mainMap.drawHierarchy(in: mainMap.bounds, afterScreenUpdates: false)
-
-        // And finally, get image
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        if (image != nil)
-        { return image! }
-        return UIImage()
+    class PolylineWithColor: MKPolyline {
+        var color: UIColor = .white
     }
 
 }

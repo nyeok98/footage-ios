@@ -23,6 +23,7 @@ class PhotoEditVC: UIViewController, UIScrollViewDelegate {
     
     @IBAction func confirmPressed(_ sender: UIButton) {
         statsVC?.profileImage = captureSelectedRegion()
+        UserDefaults.standard.setValue(statsVC?.profileImage.pngData(), forKey: "profileImage")
         statsVC?.reloadProfileImage()
         self.dismiss(animated: false) { }
         self.parentVC!.dismiss(animated: false) { }
@@ -96,7 +97,7 @@ class PhotoEditVC: UIViewController, UIScrollViewDelegate {
         return UIImage()
     }
     
-    func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
+    func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage { // TODO: leave only necessary parts
 
         let cgimage = image.cgImage!
         let contextImage: UIImage = UIImage(cgImage: cgimage)
@@ -115,10 +116,10 @@ class PhotoEditVC: UIViewController, UIScrollViewDelegate {
         } else {
             cgwidth = contextSize.width * 4/5
             cgheight = contextSize.width * 4/5
-            posX = 0
-            posY = 0
-            print(cgwidth)
+            posX = contextSize.width / 2 - (cgwidth/2)
+            posY = contextSize.height / 2 - (cgwidth/2)
             print(cgheight)
+            print(cgwidth)
         }
 
         let rect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)

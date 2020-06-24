@@ -14,10 +14,11 @@ class PhotoCollection: UIViewController {
 
     var collectionView: UICollectionView! = nil
     var journey: JourneyData = JourneyData()
-    
+    let dateFormatter = DateFormatter()
     var allMedia: PHFetchResult<PHAsset>?
     let scale = UIScreen.main.scale
-    var thumbnailSize = CGSize.zero
+    var thumbnailSize = CGSize(width: 1024, height: 680)
+    let cacheManager = PHCachingImageManager()
     
     enum Section {
         case main
@@ -29,14 +30,17 @@ class PhotoCollection: UIViewController {
 
     init(journey: JourneyData) {
         super.init(nibName: nil, bundle: nil)
+        dateFormatter.dateFormat = "yyyyMMdd"
         let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "creationDate < %@", Date() as NSDate)
+        if let today = dateFormatter.date(from: String(journey.date)) {
+        fetchOptions.predicate = NSPredicate(format: "creationDate >= %@ AND creationDate < %@", today as NSDate, Date() as NSDate) // TODO: fix for month and year
+        }
         self.allMedia = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
-        self.thumbnailSize = CGSize(width: 1024 * self.scale, height: 1024 * self.scale)
+        let indexSet = IndexSet(integersIn: 0..<allMedia!.count)
+        cacheManager.startCachingImages(for: (allMedia?.objects(at: indexSet))!, targetSize: thumbnailSize, contentMode: .default, options: nil)
         self.journey = journey
         configureHierarchy()
         self.collectionView.reloadData()
-        // loadData()
     }
 }
 
@@ -74,49 +78,21 @@ extension PhotoCollection {
 extension PhotoCollection: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let count = allMedia?.count ?? 0
-        if count == 0 {
-            collectionView.backgroundColor = .clear
-        }
-        return 5
+        if count == 0 { collectionView.backgroundColor = .clear }
+        if count > 50 { return 50 }
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseIdentifier, for: indexPath) as! PhotoCell
-        let asset = self.allMedia?[indexPath.item]
-        LocalImageManager.shared.requestIamge(with: asset, thumbnailSize: self.thumbnailSize) { (image) in
-            cell.configure(with: image)
-        }
-        // cell.layer.cornerRadius = 50 ??? 왜 안돼?
-        return cell
-    }
-    
-//    func loadData() {
-//        self.allMedia = PHAsset.fetchAssets(with: nil)
-//
-//    }
-}
-
-// MARK: - Image Manager
-
-final class LocalImageManager {
-    static var shared = LocalImageManager()
-    fileprivate let imageManager = PHImageManager()
-    var representedAssetIdentifier: String?
-    
-    func requestIamge(with asset: PHAsset?, thumbnailSize: CGSize, completion: @escaping (UIImage?) -> Void) {
-        guard let asset = asset else {
-            completion(nil)
-            return
-        }
-        self.representedAssetIdentifier = asset.localIdentifier
-        self.imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil, resultHandler: { image, info in
-            // UIKit may have recycled this cell by the handler's activation time.
-            //  print(info?["PHImageResultIsDegradedKey"])
-            // Set the cell's thumbnail image only if it's still showing the same asset.
-            if self.representedAssetIdentifier == asset.localIdentifier {
-                completion(image)
+        if let asset = self.allMedia?[indexPath.item] {
+            let options = PHImageRequestOptions()
+            options.isSynchronous = true
+            cacheManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .default, options: options) { (image, info) in
+                cell.addImage(with: image)
             }
-        })
+        }
+        return cell
     }
 }
 
