@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "basicStatsIcon.png",
+      "filename" : "currentColorIndicator.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "basicStatsIcon@2x.png",
+      "filename" : "currentColorIndicator@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "basicStatsIcon@3x.png",
+      "filename" : "currentColorIndicator@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

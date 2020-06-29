@@ -53,6 +53,7 @@ class HomeAnimation {
         homeVC.todayString.text = "오늘"
         homeVC.youString.text = "당신이 새로 남긴"
         homeVC.footString.text = "발자취"
+        
         homeVC.todayString.alpha = 0.0
         homeVC.youString.alpha = 0.0
         homeVC.footString.alpha = 0.0
@@ -130,5 +131,35 @@ class HomeAnimation {
             })
         }
         // 1
+    }
+    
+    static func buttonChanger(homeVC: HomeViewController, pressedbutton: UIButton) {
+        
+        let mainButtonClass = Buttons(className: homeVC.MainButton.restorationIdentifier!)
+        let pressedButtonClass = Buttons(className: pressedbutton.restorationIdentifier!)
+        
+        homeVC.MainButton.setImage(pressedButtonClass.imageBig, for: .normal)
+        pressedbutton.setImage(mainButtonClass.image, for: .normal)
+        
+        homeVC.MainButton.restorationIdentifier = pressedButtonClass.name
+        pressedbutton.restorationIdentifier = mainButtonClass.name
+        
+        homeVC.polyLineColor = pressedButtonClass.color
+        
+    }
+    
+    static func colorSelected(homeVC: HomeViewController) {
+        DispatchQueue.global().sync {
+            UIView.animate(withDuration: 0.3, animations: {
+                homeVC.currentColorIndicator.frame.origin.y -= 10
+            })
+        }
+        DispatchQueue.global().sync {
+            UIView.animate(withDuration: 1, animations: {
+                homeVC.currentColorIndicator.frame.origin.y += 10
+            })
+        }
+        
+        
     }
 }

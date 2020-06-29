@@ -10,35 +10,45 @@ import UIKit
 import MapKit
 import EFCountingLabel
 
-class HomeViewController: UIViewController { 
+class HomeViewController: UIViewController {
     
     // VARIABLES
     /// 1. For Home Animation
     static var currentStartButtonImage: UIImage?
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var StringStackView: UIStackView!
     @IBOutlet weak var youString: UILabel!
     @IBOutlet weak var todayString: UILabel!
     @IBOutlet weak var footString: UILabel!
+    @IBOutlet weak var startAboutStackView: UIStackView!
     @IBOutlet weak var distance: EFCountingLabel!
     @IBOutlet weak var distanceView: UIView!
     @IBOutlet weak var unitLabel: UILabel!
     @IBAction func questionCircle(_ sender: UIButton) {
     }
-    @IBAction func button1(_ sender: UIButton) {
-        polyLineColor = "#EADE4Cff"
+    @IBOutlet weak var currentColorIndicator: UIImageView!
+    @IBOutlet weak var MainButton: UIButton!
+    @IBOutlet weak var secondButton: UIButton!
+    @IBOutlet weak var thirdButton: UIButton!
+    @IBOutlet weak var fourthButton: UIButton!
+    @IBOutlet weak var fifthButton: UIButton!
+    
+    @IBAction func secondButtonPressed(_ sender: UIButton) {
+        HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
+        HomeAnimation.colorSelected(homeVC: self)
     }
-    @IBAction func button2(_ sender: UIButton) {
-        polyLineColor = "#F5A997ff"
+    @IBAction func thirdButtonPressed(_ sender: UIButton) {
+        HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
+        HomeAnimation.colorSelected(homeVC: self)
     }
-    @IBAction func button3(_ sender: UIButton) {
-        polyLineColor = "#F0E7CFff"
+    @IBAction func fourthButtonPressed(_ sender: UIButton) {
+        HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
+        HomeAnimation.colorSelected(homeVC: self)
     }
-    @IBAction func button4(_ sender: UIButton) {
-        polyLineColor = "#FF6B39ff"
-    }
-    @IBAction func button5(_ sender: UIButton) {
-        polyLineColor = "#206491ff"
+    @IBAction func fifthButtonPressed(_ sender: UIButton) {
+        HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
+        HomeAnimation.colorSelected(homeVC: self)
     }
     
     /// 2. For MapKit
@@ -82,6 +92,7 @@ class HomeViewController: UIViewController {
                 alertForAuthorization()
             } else {
                 HomeAnimation.homeStartAnimation(self)
+                polyLineColor = Buttons(className: MainButton.restorationIdentifier!).color
                 trackMapView()
             }
             
@@ -122,26 +133,30 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         // draw all routes
         for journey in DataManager.loadFromRealm(rangeOf: "all") {
             var colorcheck: String = ""
-            for route in journey.routes {
-                var coordinates: [CLLocationCoordinate2D] = []
-                polyLineColor = route.footsteps[0].color
-                for footstep in route.footsteps {
-                    if colorcheck != footstep.color {
-                        coordinates.append(footstep.coordinate)
-                        polyLineColor = colorcheck
-                        let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                        self.mainMap.addOverlay(newLine)
-                        coordinates = []
-                        coordinates.append(footstep.coordinate)
-                        colorcheck = footstep.color
-                    } else {
-                        coordinates.append(footstep.coordinate)
+            DispatchQueue.global().sync {
+                for route in journey.routes {
+                    var coordinates: [CLLocationCoordinate2D] = []
+                    
+                    self.polyLineColor = route.footsteps[0].color
+                    for footstep in route.footsteps {
+                        
+                        if colorcheck != footstep.color {
+                            coordinates.append(footstep.coordinate)
+                            self.polyLineColor = colorcheck
+                            let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                            self.mainMap.addOverlay(newLine)
+                            coordinates = []
+                            coordinates.append(footstep.coordinate)
+                            colorcheck = footstep.color
+                        } else {
+                            coordinates.append(footstep.coordinate)
+                        }
                         
                     }
+                    polyLineColor = colorcheck
+                    let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                    self.mainMap.addOverlay(newLine)
                 }
-                polyLineColor = colorcheck
-                let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                self.mainMap.addOverlay(newLine)
             }
         }
         UIView.animate(withDuration: 1) {
@@ -160,11 +175,25 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         mainMap.showsUserLocation = true
         // draw previous routes from today
         for journey in DataManager.loadFromRealm(rangeOf: today) {
+            var colorcheck: String = ""
             for route in journey.routes {
                 var coordinates: [CLLocationCoordinate2D] = []
+                polyLineColor = route.footsteps[0].color
                 for footstep in route.footsteps {
-                    coordinates.append(footstep.coordinate)
+                    if colorcheck != footstep.color {
+                        coordinates.append(footstep.coordinate)
+                        polyLineColor = colorcheck
+                        let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                        self.mainMap.addOverlay(newLine)
+                        coordinates = []
+                        coordinates.append(footstep.coordinate)
+                        colorcheck = footstep.color
+                    } else {
+                        coordinates.append(footstep.coordinate)
+                        
+                    }
                 }
+                polyLineColor = colorcheck
                 let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
                 self.mainMap.addOverlay(newLine)
             }
@@ -265,9 +294,17 @@ extension HomeViewController {
     
     func prepareForAnimation() {
         startButton.alpha = 0
-        
         distanceView.alpha = 0
         unitLabel.alpha = 0
+        todayString.font = todayString.font.withSize(0.043 * HomeAnimation.screenHeight)
+        youString.font = youString.font.withSize(0.043 * HomeAnimation.screenHeight)
+        footString.font = footString.font.withSize(0.043 * HomeAnimation.screenHeight)
+        unitLabel.font = unitLabel.font.withSize(0.061 * HomeAnimation.screenHeight)
+        distance.font = distance.font.withSize(0.08 * HomeAnimation.screenHeight)
+        self.view.bringSubviewToFront(StringStackView)
+        self.view.bringSubviewToFront(startAboutStackView)
+        print(startButton.frame.size)
+        print(mainMap.frame.size)
         
     }
     
