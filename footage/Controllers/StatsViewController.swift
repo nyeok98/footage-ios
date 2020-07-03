@@ -1,181 +1,85 @@
-//
-//  RecommandViewController.swift
-//  footage
-//
-//  Created by 녘 on 2020/06/09.
-//  Copyright © 2020 DreamPizza. All rights reserved.
-//
+
 
 import UIKit
+import EFCountingLabel
 
-class StatsViewController: UIViewController, UICollectionViewDelegate {
-    static let sectionHeaderElementKind = "section-header-element-kind"
+class StatsViewController: UIViewController {
     
-    enum Section: String, CaseIterable {
-        case nearby = "당신 근처의"
-        case travel = "여행"
-        case walk = "산책"
-    }
+    @IBOutlet weak var cityNickName: UILabel!
+    var temporaryCityName: String = "세종특별자치시"
     
-    var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
-    var collectionView: UICollectionView! = nil
-    
-//    var baseURL: URL?
-//
-////    convenience init(withAlbumsFromDirectory directory: URL) {
-////        self.init()
-////        baseURL = directory
-////    }
+    @IBOutlet weak var cityImage: UIImageView!
+    @IBOutlet weak var totalDistance: EFCountingLabel!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.title = "Your Albums"
-        configureHierachy()
-        configureDataSource()
-    }
-}
-
-extension StatsViewController {
-    func configureHierachy() {
-        let collectionFrame = CGRect(x: 10, y: 150, width: view.bounds.width - 20, height: view.bounds.height - 200)
-        collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
-        collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        collectionView.backgroundColor = .systemBackground
-        collectionView.delegate = self
-        collectionView.register(UINib(nibName: "MapCell", bundle: nil), forCellWithReuseIdentifier: MapCell.reuseIdentifier)
-        collectionView.register(
-            TitleSupplementaryView.self,
-            forSupplementaryViewOfKind: StatsViewController.sectionHeaderElementKind,
-            withReuseIdentifier: TitleSupplementaryView.reuseIdentifier)
-        view.addSubview(collectionView)
-    }
-}
-
-extension StatsViewController {
-    func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource
-            <Section, Int>(collectionView: collectionView) {
-                (collectionView: UICollectionView, indexPath: IndexPath, int: Int) -> UICollectionViewCell? in
-                let sectionType = Section.allCases[indexPath.section]
-                switch sectionType {
-                
-                case .travel:
-                  guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MapCell.reuseIdentifier, for: indexPath) as? MapCell
-                      else { fatalError("Cannot create new cell") }
-                  
-                  // Populate the cell with our item description.
-                  cell.mapImage.image = #imageLiteral(resourceName: "map1")
-                  // Return the cell.
-                  return cell
-
-                case .walk:
-                  guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MapCell.reuseIdentifier, for: indexPath) as? MapCell
-                      else { fatalError("Cannot create new cell") }
-                  
-                  // Populate the cell with our item description.
-                  cell.mapImage.image = #imageLiteral(resourceName: "map1")
-                  // Return the cell.
-                  return cell
-
-                case .nearby:
-                  guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MapCell.reuseIdentifier, for: indexPath) as? MapCell
-                      else { fatalError("Cannot create new cell") }
-                  
-                  // Populate the cell with our item description.
-                  cell.mapImage.image = #imageLiteral(resourceName: "map1")
-                  // Return the cell.
-                  return cell
-                
-                }
+        self.totalDistance.setUpdateBlock { (value, label) in
+            label.text = String(format: "%.f", value)
         }
-        
-        dataSource.supplementaryViewProvider = { (
-            collectionView: UICollectionView,
-            kind: String,
-            indexPath: IndexPath) -> UICollectionReusableView? in
-            
-            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: TitleSupplementaryView.reuseIdentifier,
-                for: indexPath) as? TitleSupplementaryView else { fatalError("Cannot create header view") }
-            
-            // Populate the cell
-            supplementaryView.label.text = Section.allCases[indexPath.section].rawValue
-            
-            return supplementaryView
-        }
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
-        snapshot.appendSections([.travel])
-        snapshot.appendItems(Array(0..<5))
-        snapshot.appendSections([.walk])
-        snapshot.appendItems(Array(5..<10))
-        snapshot.appendSections([.nearby])
-        snapshot.appendItems(Array(10..<15))
-        dataSource.apply(snapshot, animatingDifferences: false)
-        
-//        let snapshot = snapshotForCurrentState()
-//        dataSource.apply(snapshot, animatingDifferences: false)
-    }
-}
-
-extension StatsViewController {
-    private func createLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
-            layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-            let sectionLayoutKind = Section.allCases[sectionIndex]
-            switch (sectionLayoutKind) {
-            case .nearby: return self.generateSectionLayout()
-            case .travel: return self.generateSectionLayout()
-            case .walk: return self.generateSectionLayout()
-            }
-        }
-        return layout
+        self.totalDistance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
+        self.totalDistance.countFrom(0, to: CGFloat(HomeViewController.distanceTotal / 1000), withDuration: 5)
+        citySetter()
     }
     
-    func generateSectionLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+    
+    
+    func citySetter() {
+        switch temporaryCityName {
+        case "서울특별시", "Seoul":
+            cityImage.image = UIImage(named: "Seoul")
+            cityNickName.text = "\"프로서울러\""
+        case "세종특별자치시", "Sejong City":
+            cityImage.image = UIImage(named: "Sejong City")
+            cityNickName.text = "\"프로세종러\""
+        case "제주도", "Jeju":
+            cityImage.image = UIImage(named: "Jeju")
+            cityNickName.text = "\"프로제주러\""
+        case "경기도", "Gyeonggi-do":
+            cityImage.image = UIImage(named: "Gyeonggi-do")
+            cityNickName.text = "\"프로경기러\""
+        case "대전광역시", "Daejeon":
+            cityImage.image = UIImage(named: "Daejeon")
+            cityNickName.text = "\"프로대전러\""
+        case "울산광역시", "Ulsan":
+            cityImage.image = UIImage(named: "Ulsan")
+            cityNickName.text = "\"프로울산러\""
+        case "광주광역시", "Gwangju":
+            cityImage.image = UIImage(named: "Gwangju")
+            cityNickName.text = "\"프로광주러\""
+        case "부산광역시", "Busan":
+            cityImage.image = UIImage(named: "Busan")
+            cityNickName.text = "\"프로부산러\""
+        case "대구광역시", "Daegu":
+            cityImage.image = UIImage(named: "Daegu")
+            cityNickName.text = "\"프로대구러\""
+        case "강원도", "Gangwon":
+            cityImage.image = UIImage(named: "Gangwon")
+            cityNickName.text = "\"프로강원러\""
+        case "인천광역시", "Incheon":
+            cityImage.image = UIImage(named: "Incheon")
+            cityNickName.text = "\"프로인천러\""
+        case "충청북도", "North Chungcheong":
+            cityImage.image = UIImage(named: "North Chungcheong")
+            cityNickName.text = "\"프로충북러\""
+        case "경상북도", "North Gyeongsang":
+            cityImage.image = UIImage(named: "North Gyeongsang")
+            cityNickName.text = "\"프로경북러\""
+        case "전라북도", "North Jeolla":
+            cityImage.image = UIImage(named: "North Jeolla")
+            cityNickName.text = "\"프로전북러\""
+        case "충청남도", "South Chungcheong":
+            cityImage.image = UIImage(named: "South Chungcheong")
+            cityNickName.text = "\"프로충남러\""
+        case "경상남도", "South Gyeongsang":
+            cityImage.image = UIImage(named: "South Gyeongsang")
+            cityNickName.text = "\"프로경남러\""
+        case "전라남도", "South Jeolla":
+            cityImage.image = UIImage(named: "South Jeolla")
+            cityNickName.text = "\"프로전남러\""
+        default:
+            cityImage.image = UIImage(named: "Sejong City")
+            cityNickName.text = "\"프로세종러\""
+        }
         
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(140),
-            heightDimension: .absolute(140))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
-        
-        let headerSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(44))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: headerSize,
-            elementKind: StatsViewController.sectionHeaderElementKind,
-            alignment: .top)
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [sectionHeader]
-        section.orthogonalScrollingBehavior = .groupPaging
-
-        return section
     }
+    
 }
-
-//extension RecommendViewController {
-//    private func snapshotForCurrentState() -> NSDiffableDataSourceSnapshot<Section, MapCell> {
-////        let nearbySuggestions = [MapCell.self]
-////        let travelSuggestions = Array(MapCell)
-////        let walkSuggestions = Array(MapCell)
-//
-//
-//      var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
-////      snapshot.appendSections([Section.nearby])
-////      snapshot.appendItems(nearbySuggestions)
-////
-////      snapshot.appendSections([Section.travel])
-////      snapshot.appendItems(sharedAlbums)
-////
-////      snapshot.appendSections([Section.walk])
-////      snapshot.appendItems(allAlbums)
-//      return snapshot
-//    }
-//}
