@@ -6,4 +6,12 @@
 //  Copyright © 2020 DreamPizza. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ColorVC: UIViewController {
+    
+    @IBAction func goBackButton(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+}
