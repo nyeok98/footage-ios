@@ -37,4 +37,19 @@ class ColorManager {
         for day in result { distance += day.distance }
         return distance
     }
+    
+    static func getRankingDistance(startDate: Int, endDate: Int) -> Array<(key: String, value: Double)> {
+        var rank: [String: Double] = [:]
+        let realm = try! Realm()
+        let results = realm.objects(Color.self).filter("date >= \(startDate) AND date <= \(endDate)")
+        for result in results {
+            let key = result.hex
+            if rank.keys.contains(key) {
+                rank[key]! += result.distance
+            } else {
+                rank[key] = result.distance
+            }
+        }
+        return rank.sorted(by: {$0.value > $1.value})
+    }
 }

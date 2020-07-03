@@ -53,4 +53,38 @@ class DateConverter {
         dateFormatter.dateFormat = "yyyy"
         return Int(dateFormatter.string(from: date))!
     }
+    
+    static func lastMondaySunday() -> (Int, Int) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        let oneDay = -86400
+        var monday = 0
+        var sunday = 0
+        switch dateFormatter.string(from: Date()) {
+        case "Monday":
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 7)))
+            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 1)))
+        case "Tuesday":
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 8)))
+            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 2)))
+        case "Wednesday":
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 9)))
+            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 3)))
+        case "Thursday":
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 10)))
+            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 4)))
+        case "Friday":
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 11)))
+            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 5)))
+        case "Saturday":
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 12)))
+            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 6)))
+        case "Sunday":
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 13)))
+            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 7)))
+        default:
+            break
+        }
+        return (monday, sunday)
+    }
 }
