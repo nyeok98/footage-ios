@@ -1040,7 +1040,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="MWA-xh-lRG"/>
                     <connections>
-                        <segue destination="3WZ-UI-UlO" kind="show" identifier="goToPhotoEdit" id="rql-VR-XkS"/>
+                        <segue destination="3WZ-UI-UlO" kind="presentation" identifier="goToPhotoEdit" modalPresentationStyle="fullScreen" id="rql-VR-XkS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kmn-Cx-iOC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1052,25 +1052,15 @@
             <objects>
                 <viewController id="3WZ-UI-UlO" customClass="ProfileEditVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g9A-lr-LoL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IPr-Gw-meG">
-                                <rect key="frame" x="276" y="13" width="91" height="59"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="selectButton">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="confirmPressed:" destination="3WZ-UI-UlO" eventType="touchUpInside" id="uga-Kv-ZcX"/>
-                                </connections>
-                            </button>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9o-O9-Ry0">
-                                <rect key="frame" x="0.0" y="192" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="206" width="375" height="401"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ijg-JK-x1Q">
-                                        <rect key="frame" x="6" y="10" width="362" height="355"/>
+                                        <rect key="frame" x="6" y="10" width="362" height="381"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -1078,13 +1068,23 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="fB7-Vh-pq7"/>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-5T-Yrv">
-                                <rect key="frame" x="10" y="13" width="59" height="59"/>
+                                <rect key="frame" x="10" y="35" width="59" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="backButton">
                                     <attributedString key="attributedTitle"/>
                                 </state>
                                 <connections>
                                     <action selector="backPressed:" destination="3WZ-UI-UlO" eventType="touchUpInside" id="67g-bY-5jw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IPr-Gw-meG">
+                                <rect key="frame" x="276" y="35" width="91" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="selectButton">
+                                    <attributedString key="attributedTitle"/>
+                                </state>
+                                <connections>
+                                    <action selector="confirmPressed:" destination="3WZ-UI-UlO" eventType="touchUpInside" id="uga-Kv-ZcX"/>
                                 </connections>
                             </button>
                         </subviews>
