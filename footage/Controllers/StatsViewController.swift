@@ -1,5 +1,5 @@
 //
-//  StatViewController.swift
+//  RecommandViewController.swift
 //  footage
 //
 //  Created by 녘 on 2020/06/09.
@@ -7,227 +7,175 @@
 //
 
 import UIKit
-import MapKit
-import EFCountingLabel
 
-class StatsViewController: UIViewController {
-    @IBOutlet weak var rangeControl: UISegmentedControl!
-    @IBOutlet weak var profileView: UIImageView!
-    var profileImage = #imageLiteral(resourceName: "profile")
-    @IBOutlet weak var totalDistance: EFCountingLabel!
+class StatsViewController: UIViewController, UICollectionViewDelegate {
+    static let sectionHeaderElementKind = "section-header-element-kind"
     
-    //var label = UILabel()
-    static var journeyArray: [JourneyData] = []
+    enum Section: String, CaseIterable {
+        case nearby = "당신 근처의"
+        case travel = "여행"
+        case walk = "산책"
+    }
     
-    var dataSource: UICollectionViewDiffableDataSource<Section, MapCell>! = nil
+    var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     var collectionView: UICollectionView! = nil
     
-    static let badgeElementKind = "badge-element-kind"
-    enum Section {
-        case main
-    }
-    
-    @IBAction func dateRangeChanged(_ sender: UISegmentedControl) {
-        loadWithRange(sender.selectedSegmentIndex)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(false)
-        loadWithRange(rangeControl.selectedSegmentIndex)
-        totalDistance.setUpdateBlock { (value, label) in
-            label.text = String(format: "%.f", value)
-        }
-        totalDistance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
-        totalDistance.countFrom(0, to: CGFloat(HomeViewController.distanceTotal / 1000), withDuration: 5)
-    }
+//    var baseURL: URL?
+//
+////    convenience init(withAlbumsFromDirectory directory: URL) {
+////        self.init()
+////        baseURL = directory
+////    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureHierarchy()
+        navigationItem.title = "Your Albums"
+        configureHierachy()
         configureDataSource()
-        if let profileData = UserDefaults.standard.data(forKey: "profileImage") {
-            profileImage = UIImage(data: profileData)!}
-        reloadProfileImage()
-        configureLabel()
     }
 }
 
 extension StatsViewController {
-    private func createLayout() -> UICollectionViewLayout {
+    func configureHierachy() {
+        let collectionFrame = CGRect(x: 10, y: 150, width: view.bounds.width - 20, height: view.bounds.height - 200)
+        collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
+        collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        collectionView.backgroundColor = .systemBackground
+        collectionView.delegate = self
+        collectionView.register(UINib(nibName: "MapCell", bundle: nil), forCellWithReuseIdentifier: MapCell.reuseIdentifier)
+        collectionView.register(
+            TitleSupplementaryView.self,
+            forSupplementaryViewOfKind: StatsViewController.sectionHeaderElementKind,
+            withReuseIdentifier: TitleSupplementaryView.reuseIdentifier)
+        view.addSubview(collectionView)
+    }
+}
+
+extension StatsViewController {
+    func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource
+            <Section, Int>(collectionView: collectionView) {
+                (collectionView: UICollectionView, indexPath: IndexPath, int: Int) -> UICollectionViewCell? in
+                let sectionType = Section.allCases[indexPath.section]
+                switch sectionType {
+                
+                case .travel:
+                  guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MapCell.reuseIdentifier, for: indexPath) as? MapCell
+                      else { fatalError("Cannot create new cell") }
+                  
+                  // Populate the cell with our item description.
+                  cell.mapImage.image = #imageLiteral(resourceName: "map1")
+                  // Return the cell.
+                  return cell
+
+                case .walk:
+                  guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MapCell.reuseIdentifier, for: indexPath) as? MapCell
+                      else { fatalError("Cannot create new cell") }
+                  
+                  // Populate the cell with our item description.
+                  cell.mapImage.image = #imageLiteral(resourceName: "map1")
+                  // Return the cell.
+                  return cell
+
+                case .nearby:
+                  guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MapCell.reuseIdentifier, for: indexPath) as? MapCell
+                      else { fatalError("Cannot create new cell") }
+                  
+                  // Populate the cell with our item description.
+                  cell.mapImage.image = #imageLiteral(resourceName: "map1")
+                  // Return the cell.
+                  return cell
+                
+                }
+        }
         
-        let itemSize = NSCollectionLayoutSize(widthDimension:.fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize, supplementaryItems: [])
-        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        dataSource.supplementaryViewProvider = { (
+            collectionView: UICollectionView,
+            kind: String,
+            indexPath: IndexPath) -> UICollectionReusableView? in
+            
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: TitleSupplementaryView.reuseIdentifier,
+                for: indexPath) as? TitleSupplementaryView else { fatalError("Cannot create header view") }
+            
+            // Populate the cell
+            supplementaryView.label.text = Section.allCases[indexPath.section].rawValue
+            
+            return supplementaryView
+        }
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
+        snapshot.appendSections([.travel])
+        snapshot.appendItems(Array(0..<5))
+        snapshot.appendSections([.walk])
+        snapshot.appendItems(Array(5..<10))
+        snapshot.appendSections([.nearby])
+        snapshot.appendItems(Array(10..<15))
+        dataSource.apply(snapshot, animatingDifferences: false)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.53))
-        
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                       subitems: [item])
-        group.contentInsets.leading = 20
-        group.contentInsets.trailing = 20
-        group.contentInsets.bottom = 20
-        
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        
+//        let snapshot = snapshotForCurrentState()
+//        dataSource.apply(snapshot, animatingDifferences: false)
+    }
+}
+
+extension StatsViewController {
+    private func createLayout() -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
+            layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            let sectionLayoutKind = Section.allCases[sectionIndex]
+            switch (sectionLayoutKind) {
+            case .nearby: return self.generateSectionLayout()
+            case .travel: return self.generateSectionLayout()
+            case .walk: return self.generateSectionLayout()
+            }
+        }
         return layout
     }
-}
-
-
-
-// MARK: configure view frame hierarchy
-
-extension StatsViewController {
-    private func configureHierarchy() {
-        let collectionFrame = CGRect(x: 0, y: 320, width: view.bounds.width, height: view.bounds.height - 405)
+    
+    func generateSectionLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalWidth(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
         
-        collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
-        collectionView.delegate = self
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(140),
+            heightDimension: .absolute(140))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
         
-        collectionView.isPagingEnabled = true
-        //collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
-        collectionView.allowsSelection = true
+        let headerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(44))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: StatsViewController.sectionHeaderElementKind,
+            alignment: .top)
         
-        // Register Components
-        collectionView.register(UINib(nibName: "MapCell", bundle: nil), forCellWithReuseIdentifier: MapCell.reuseIdentifier)
-        
-        view.addSubview(collectionView)
-        view.sendSubviewToBack(collectionView)
-        //view.sendSubviewToBack(label)
-    }
-}
+        let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [sectionHeader]
+        section.orthogonalScrollingBehavior = .groupPaging
 
-
-
-// MARK: configure view data source
-
-extension StatsViewController {
-    private func configureDataSource() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM ddd"
-        dataSource = UICollectionViewDiffableDataSource<Section, MapCell>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, identifier: MapCell) -> UICollectionViewCell? in
-            
-            // Get a cell of the desired kind.
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: MapCell.reuseIdentifier,
-                for: indexPath) as? MapCell else { fatalError("Could not create new cell") }
-            
-            // Populate the cell with our item description.
-            if let imageData = StatsViewController.journeyArray[indexPath.row].previewImage {
-                cell.mapImage.image = UIImage(data: imageData)
-            } else {
-                cell.mapImage.image = #imageLiteral(resourceName: "basicStatsIcon")
-            }
-            let date = StatsViewController.journeyArray[indexPath.row].date
-            var dateLabel = ""
-            
-            switch date {
-            case ...10000: dateLabel = String(date) + "년"
-            case 10001...1000000: dateLabel = String(date / 100) + "년 " + String(date % 100) + "월"
-            default:
-                dateLabel =  String(date / 100 % 100) + "월 " + String(date % 100) + "일"
-            }
-            
-            cell.label.text = dateLabel
-            
-            // Return the cell.
-            return cell
-        }
-        
-        // initial data
-        var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
-        var cellArray: [MapCell] = []
-        let journeyArray = StatsViewController.journeyArray
-        if !journeyArray.isEmpty {
-            for i in 0...journeyArray.count - 1 {
-                cellArray.append(MapCell())
-                cellArray[i].journeyData = journeyArray[i]
-            }
-        } else {
-        }
-        snapshot.appendSections([.main])
-        snapshot.appendItems(cellArray)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        return section
     }
 }
 
-extension StatsViewController {
-    
-    func configureLabel() {
-        let label = UILabel()
-        let labelFrame = CGRect(x: 0, y: 300, width: self.view.bounds.width, height: 100)
-        label.frame = labelFrame
-        label.text = "새로운 발자취를 기록해 볼까요?"
-        label.font = UIFont(name: "NanumSquare", size: 20)
-        label.textAlignment = .center
-        label.textColor = .black
-        label.numberOfLines = 2
-        label.backgroundColor = .clear
-        self.view.addSubview(label)
-        view.bringSubviewToFront(label)
-    }
-    
-    func reloadProfileImage() {
-        profileView.layer.cornerRadius = profileView.bounds.width / 2.0
-        profileView.image = profileImage
-    }
-    
-    
-    
-    private func loadWithRange(_ range: Int) {
-        StatsViewController.journeyArray = []
-        var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
-        var cellArray: [MapCell] = []
-        switch range {
-        case 0: for journeyData in DataManager.loadFromRealm(rangeOf: "day") {
-                StatsViewController.journeyArray.append(journeyData)
-        }
-        case 1: for journeyData in DataManager.loadFromRealm(rangeOf: "month") {
-            StatsViewController.journeyArray.append(journeyData)
-        }
-        // case 2
-        default: for journeyData in DataManager.loadFromRealm(rangeOf: "year") {
-            StatsViewController.journeyArray.append(journeyData)
-        }
-        }
-        
-        if !StatsViewController.journeyArray.isEmpty {
-            for i in 0...StatsViewController.journeyArray.count - 1 {
-                cellArray.append(MapCell())
-                cellArray[i].journeyData = StatsViewController.journeyArray[i]
-            }
-            view.bringSubviewToFront(collectionView)
-        }
-        snapshot.appendSections([.main])
-        snapshot.appendItems(cellArray)
-        dataSource.apply(snapshot, animatingDifferences: false)
-    }
-
-}
-
-extension StatsViewController: UICollectionViewDelegate {
-    @IBAction func changePressed(_ sender: Any) {
-        performSegue(withIdentifier: "goToProfile", sender: self)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToJourney", sender: indexPath.row)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "goToProfile":
-            let destinationVC = segue.destination as! ProfileSelectionVC
-            destinationVC.parentVC = self
-        case "goToJourney":
-            let destinationVC = segue.destination as! JourneyViewController
-            destinationVC.journeyIndex = sender as! Int
-            destinationVC.forReloadStatsVC = self
-            destinationVC.journeyData = StatsViewController.journeyArray[sender as! Int]
-        default: break
-        }
-    }
-}
+//extension RecommendViewController {
+//    private func snapshotForCurrentState() -> NSDiffableDataSourceSnapshot<Section, MapCell> {
+////        let nearbySuggestions = [MapCell.self]
+////        let travelSuggestions = Array(MapCell)
+////        let walkSuggestions = Array(MapCell)
+//
+//
+//      var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
+////      snapshot.appendSections([Section.nearby])
+////      snapshot.appendItems(nearbySuggestions)
+////
+////      snapshot.appendSections([Section.travel])
+////      snapshot.appendItems(sharedAlbums)
+////
+////      snapshot.appendSections([Section.walk])
+////      snapshot.appendItems(allAlbums)
+//      return snapshot
+//    }
+//}
