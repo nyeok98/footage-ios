@@ -24,11 +24,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m7t-g4-Ax4">
-                                <rect key="frame" x="0.0" y="239.33333333333334" width="375" height="407.66666666666663"/>
+                                <rect key="frame" x="0.0" y="245" width="375" height="402"/>
                                 <sections/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZS-4a-yWl">
-                                <rect key="frame" x="144.33333333333334" y="111.99999999999999" width="86.666666666666657" height="58.333333333333329"/>
+                                <rect key="frame" x="150" y="112" width="75" height="64"/>
                                 <attributedString key="attributedText">
                                     <fragment content="설정">
                                         <attributes>
@@ -71,21 +71,21 @@
                                 <rect key="frame" x="35" y="54" width="262.66666666666669" height="164"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="오늘까지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H72-wm-f5e">
-                                        <rect key="frame" x="0.0" y="0.0" width="121.33333333333333" height="56.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="108.33333333333333" height="54.666666666666664"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="당신이 새로 남긴" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJx-zr-y7Y">
-                                        <rect key="frame" x="0.0" y="61.666666666666671" width="231.66666666666666" height="41"/>
+                                        <rect key="frame" x="0.0" y="59.666666666666671" width="208" height="44.666666666666671"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="발자취" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeL-aW-bTF">
-                                        <rect key="frame" x="0.0" y="107.66666666666664" width="91" height="56.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="109.33333333333336" width="82.333333333333329" height="54.666666666666671"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
@@ -98,16 +98,16 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="iGZ-I2-TSG">
-                                <rect key="frame" x="107.66666666666667" y="204.66666666666663" width="227.33333333333331" height="127"/>
+                                <rect key="frame" x="123" y="204.66666666666663" width="212" height="127"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXz-8V-14k">
-                                        <rect key="frame" x="0.0" y="0.0" width="227.33333333333334" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="212" height="64"/>
                                         <subviews>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vtI-px-9ux">
                                                 <rect key="frame" x="0.0" y="0.0" width="158.66666666666666" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m0H-qt-p6W" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                                        <rect key="frame" x="46.999999999999979" y="-9" width="108.66666666666669" height="76"/>
+                                                        <rect key="frame" x="60.666666666666657" y="-12.333333333333314" width="95" height="83"/>
                                                         <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="65"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -121,7 +121,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ak2-5v-9Pu">
-                                                <rect key="frame" x="158.66666666666663" y="0.0" width="68.666666666666686" height="64"/>
+                                                <rect key="frame" x="158.66666666666669" y="0.0" width="53.333333333333343" height="64"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="50"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <nil key="highlightedColor"/>
@@ -129,7 +129,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c38-vy-blr">
-                                        <rect key="frame" x="25.333333333333329" y="64.000000000000028" width="202" height="63"/>
+                                        <rect key="frame" x="10" y="64.000000000000028" width="202" height="63"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vwq-rP-WTh">
                                                 <rect key="frame" x="0.0" y="0.0" width="58" height="63"/>
@@ -297,21 +297,74 @@
                                                     <segue destination="GQ7-my-mr3" kind="presentation" modalPresentationStyle="overFullScreen" id="V7y-ed-UG2"/>
                                                 </connections>
                                             </button>
-                                            <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FIw-pQ-PuK">
-                                                <rect key="frame" x="111.66666666666664" y="64.666666666666657" width="185.33333333333337" height="64.333333333333343"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="V4o-qU-qhE">
+                                                <rect key="frame" x="188" y="107" width="109.33333333333331" height="65"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDM-Hj-MaO" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                                        <rect key="frame" x="0.0" y="0.0" width="122.33333333333333" height="64.333333333333329"/>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="55"/>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionCircle" translatesAutoresizingMaskIntoConstraints="NO" id="abk-nK-dLL">
+                                                        <rect key="frame" x="0.0" y="0.0" width="62" height="65"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="65" id="96c-wT-2NI"/>
+                                                            <constraint firstAttribute="width" constant="62" id="gpE-yP-B6s"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이며," textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gf6-Yp-3Wd">
+                                                        <rect key="frame" x="70" y="35.666666666666657" width="39.333333333333343" height="29.333333333333329"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                        </accessibility>
+                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="23"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nk6-VZ-Tt2">
-                                                        <rect key="frame" x="130.33333333333334" y="0.0" width="55" height="64.333333333333329"/>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="40"/>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="WM2-eK-gcc">
+                                                <rect key="frame" x="29.999999999999986" y="22.333333333333329" width="200.66666666666663" height="74"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="당신은 오늘까지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksk-zY-pd6">
+                                                        <rect key="frame" x="0.0" y="0.0" width="130.66666666666666" height="29.333333333333332"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                        </accessibility>
+                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="23"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FIw-pQ-PuK">
+                                                        <rect key="frame" x="0.0" y="29.333333333333339" width="200.66666666666666" height="44.666666666666657"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRU-64-zrN">
+                                                                <rect key="frame" x="0.0" y="0.0" width="18" height="44.666666666666664"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                                </accessibility>
+                                                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="23"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDM-Hj-MaO" customClass="EFCountingLabel" customModule="EFCountingLabel">
+                                                                <rect key="frame" x="26" y="0.0" width="68.333333333333329" height="44.666666666666664"/>
+                                                                <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="35"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nk6-VZ-Tt2">
+                                                                <rect key="frame" x="102.33333333333334" y="0.0" width="32" height="44.666666666666664"/>
+                                                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="를 걸어" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufu-Gv-7zl">
+                                                                <rect key="frame" x="142.33333333333334" y="0.0" width="58.333333333333343" height="44.666666666666664"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                                </accessibility>
+                                                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="23"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -320,9 +373,11 @@
                                             <constraint firstItem="GvV-jI-142" firstAttribute="width" secondItem="Kb7-on-Y3p" secondAttribute="width" id="3Dz-Zc-1XV"/>
                                             <constraint firstItem="GvV-jI-142" firstAttribute="height" secondItem="Kb7-on-Y3p" secondAttribute="height" multiplier="1.07917" id="7dw-cN-Jat"/>
                                             <constraint firstItem="GvV-jI-142" firstAttribute="centerX" secondItem="Kb7-on-Y3p" secondAttribute="centerX" id="AUv-Yw-FAB"/>
-                                            <constraint firstAttribute="trailing" secondItem="FIw-pQ-PuK" secondAttribute="trailing" constant="30" id="SLM-eE-bet"/>
-                                            <constraint firstItem="FIw-pQ-PuK" firstAttribute="centerY" secondItem="Kb7-on-Y3p" secondAttribute="centerY" id="qrI-Jx-cPw"/>
+                                            <constraint firstItem="GvV-jI-142" firstAttribute="leading" secondItem="WM2-eK-gcc" secondAttribute="leading" constant="-30" id="BMC-gM-bNX"/>
+                                            <constraint firstItem="GvV-jI-142" firstAttribute="top" secondItem="WM2-eK-gcc" secondAttribute="top" constant="-30" id="GgJ-dn-STR"/>
+                                            <constraint firstItem="V4o-qU-qhE" firstAttribute="top" secondItem="GvV-jI-142" secondAttribute="bottom" constant="-94.333333333333343" id="Ihj-c0-nDj"/>
                                             <constraint firstItem="GvV-jI-142" firstAttribute="centerY" secondItem="Kb7-on-Y3p" secondAttribute="centerY" id="uiS-ga-2Hj"/>
+                                            <constraint firstItem="V4o-qU-qhE" firstAttribute="leading" secondItem="GvV-jI-142" secondAttribute="trailing" constant="-139" id="vkQ-Aj-lY8"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAp-JH-5lw" userLabel="Color Section">
@@ -335,43 +390,84 @@
                                                     <segue destination="oqR-7m-0MZ" kind="presentation" identifier="goToColor" modalPresentationStyle="fullScreen" id="Bcr-eZ-s6b"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="지난주 당신이" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6VS-mU-2ZP">
-                                                <rect key="frame" x="33" y="56.333333333333314" width="159" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                </accessibility>
-                                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="23"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="자욱지은 색깔" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6UQ-DQ-dee">
-                                                <rect key="frame" x="33" y="95" width="140" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                </accessibility>
-                                                <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="23"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xb3-de-XMu">
                                                 <rect key="frame" x="167" y="40.333333333333314" width="116" height="128"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P8v-z0-ckR">
-                                                        <rect key="frame" x="50" y="20" width="82" height="77"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                    </imageView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="FpH-WZ-7Eu">
+                                                        <rect key="frame" x="0.0" y="0.0" width="78.666666666666671" height="129.33333333333334"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="색깔로" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6VS-mU-2ZP">
+                                                                <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="29.333333333333332"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                                </accessibility>
+                                                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="23"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세상을" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJa-lv-gF0">
+                                                                <rect key="frame" x="0.0" y="33.333333333333314" width="54.666666666666664" height="29.333333333333329"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                                </accessibility>
+                                                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="23"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가장 많이" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RDt-rS-YCW">
+                                                                <rect key="frame" x="0.0" y="66.666666666666686" width="78.666666666666671" height="29.333333333333329"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                                </accessibility>
+                                                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="23"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="물들였고," textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRN-jE-vJt">
+                                                                <rect key="frame" x="0.0" y="100" width="75" height="29.333333333333343"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                                </accessibility>
+                                                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="23"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                                 </accessibility>
                                             </view>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P8v-z0-ckR">
+                                                <rect key="frame" x="44" y="65.000000000000057" width="82" height="77"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                                </accessibility>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvG-IH-Evy">
+                                                <rect key="frame" x="36" y="65.000000000000057" width="29" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                </accessibility>
+                                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdS-B3-Fn6">
+                                                <rect key="frame" x="119" y="65.000000000000057" width="29" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                </accessibility>
+                                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
@@ -385,46 +481,37 @@
                                         <rect key="frame" x="0.0" y="449.33333333333343" width="327" height="193.66666666666669"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKo-sf-gkK">
-                                                <rect key="frame" x="2" y="2" width="323" height="189.66666666666666"/>
+                                                <rect key="frame" x="2" y="-7.0000000000000568" width="323" height="207.66666666666666"/>
                                                 <state key="normal" image="StatsVCButton"/>
                                                 <connections>
                                                     <segue destination="YAy-10-AoK" kind="presentation" identifier="goToPlace" modalPresentationStyle="fullScreen" id="FCo-Lj-spd"/>
                                                 </connections>
                                             </button>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SOd-Fb-gyL">
-                                                <rect key="frame" x="31" y="40.000000000000007" width="131" height="113.66666666666669"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ayZ-90-r2M">
+                                                <rect key="frame" x="101.66666666666666" y="16" width="123.66666666666666" height="28.666666666666671"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Seoul" translatesAutoresizingMaskIntoConstraints="NO" id="3Ii-1b-TgB">
-                                                        <rect key="frame" x="0.0" y="8" width="131" height="101"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;서울특별시&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQz-0p-9me">
+                                                        <rect key="frame" x="0.0" y="0.0" width="105" height="28.666666666666668"/>
                                                         <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                                         </accessibility>
-                                                    </imageView>
+                                                        <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="23"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="에" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uN8-xw-Zn3">
+                                                        <rect key="frame" x="104.99999999999999" y="0.0" width="18.666666666666671" height="28.666666666666668"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                        </accessibility>
+                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="23"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <accessibilityTraits key="traits" notEnabled="YES"/>
-                                                </accessibility>
-                                                <constraints>
-                                                    <constraint firstItem="3Ii-1b-TgB" firstAttribute="centerY" secondItem="SOd-Fb-gyL" secondAttribute="centerY" id="AWA-no-2lW"/>
-                                                    <constraint firstItem="3Ii-1b-TgB" firstAttribute="centerX" secondItem="SOd-Fb-gyL" secondAttribute="centerX" id="Dsc-Kh-wTL"/>
-                                                    <constraint firstItem="3Ii-1b-TgB" firstAttribute="height" secondItem="SOd-Fb-gyL" secondAttribute="height" multiplier="0.888563" id="NwF-yP-QaM"/>
-                                                    <constraint firstItem="3Ii-1b-TgB" firstAttribute="width" secondItem="SOd-Fb-gyL" secondAttribute="width" id="Syj-17-b7U"/>
-                                                </constraints>
-                                            </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;프로서울러&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQz-0p-9me">
-                                                <rect key="frame" x="170" y="99" width="140" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                </accessibility>
-                                                <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="23"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="당신은" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Uk-DT-c8G">
-                                                <rect key="frame" x="215" y="63" width="54" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="가장 많은 발자취를 남겼습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Mj-Pe-SuS">
+                                                <rect key="frame" x="38" y="147.00000000000006" width="256" height="30"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                                 </accessibility>
@@ -432,16 +519,30 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Seoul" translatesAutoresizingMaskIntoConstraints="NO" id="3Ii-1b-TgB">
+                                                <rect key="frame" x="111" y="57.333333333333258" width="105" height="79"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                                </accessibility>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="105" id="LWA-VG-GkE"/>
+                                                    <constraint firstAttribute="height" constant="79" id="lm3-9m-jvA"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
+                                            <constraint firstItem="3Ii-1b-TgB" firstAttribute="centerX" secondItem="ayZ-90-r2M" secondAttribute="centerX" id="1Ew-Lb-N1s"/>
+                                            <constraint firstItem="2Mj-Pe-SuS" firstAttribute="centerX" secondItem="KKo-sf-gkK" secondAttribute="centerX" id="2AY-Xg-WF6"/>
+                                            <constraint firstItem="3Ii-1b-TgB" firstAttribute="top" secondItem="ayZ-90-r2M" secondAttribute="bottom" constant="12.666666666666671" id="3BF-7p-d9i"/>
+                                            <constraint firstItem="3Ii-1b-TgB" firstAttribute="centerY" secondItem="59a-89-cYK" secondAttribute="centerY" id="5gx-1V-kO2"/>
                                             <constraint firstItem="KKo-sf-gkK" firstAttribute="centerX" secondItem="59a-89-cYK" secondAttribute="centerX" id="79e-YJ-cLW"/>
-                                            <constraint firstItem="KKo-sf-gkK" firstAttribute="leading" secondItem="SOd-Fb-gyL" secondAttribute="trailing" constant="-160" id="Jou-rC-Zir"/>
-                                            <constraint firstItem="SOd-Fb-gyL" firstAttribute="top" secondItem="59a-89-cYK" secondAttribute="top" constant="40" id="UNm-Ie-29I"/>
-                                            <constraint firstItem="SOd-Fb-gyL" firstAttribute="height" secondItem="KKo-sf-gkK" secondAttribute="height" multiplier="0.599297" id="cdD-cn-TeN"/>
-                                            <constraint firstItem="SOd-Fb-gyL" firstAttribute="leading" secondItem="59a-89-cYK" secondAttribute="leading" constant="31" id="gzh-re-qM3"/>
+                                            <constraint firstItem="ayZ-90-r2M" firstAttribute="centerX" secondItem="KKo-sf-gkK" secondAttribute="centerX" id="B1D-sH-9ly"/>
+                                            <constraint firstItem="3Ii-1b-TgB" firstAttribute="centerY" secondItem="KKo-sf-gkK" secondAttribute="centerY" id="OLr-hT-1zw"/>
+                                            <constraint firstItem="2Mj-Pe-SuS" firstAttribute="top" secondItem="KKo-sf-gkK" secondAttribute="bottom" constant="-54.333333333333258" id="Rdc-qC-kwh"/>
+                                            <constraint firstItem="ayZ-90-r2M" firstAttribute="top" secondItem="59a-89-cYK" secondAttribute="top" constant="15.999999999999996" id="YHG-Ek-9eu"/>
                                             <constraint firstItem="KKo-sf-gkK" firstAttribute="centerY" secondItem="59a-89-cYK" secondAttribute="centerY" id="hln-wH-piL"/>
-                                            <constraint firstItem="SOd-Fb-gyL" firstAttribute="centerY" secondItem="KKo-sf-gkK" secondAttribute="centerY" id="qAy-T1-59j"/>
+                                            <constraint firstItem="2Mj-Pe-SuS" firstAttribute="top" secondItem="3Ii-1b-TgB" secondAttribute="bottom" constant="10.000000000000057" id="p8t-c1-kmr"/>
                                             <constraint firstItem="KKo-sf-gkK" firstAttribute="width" secondItem="59a-89-cYK" secondAttribute="width" multiplier="0.987768" id="vzy-dE-1iz"/>
                                         </constraints>
                                     </view>
@@ -774,16 +875,16 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="hyx-Tl-uZC">
-                                        <rect key="frame" x="9.9999999999999858" y="29" width="274.66666666666669" height="29.333333333333332"/>
+                                        <rect key="frame" x="9.9999999999999716" y="29" width="245.66666666666666" height="32"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1위." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L0A-lg-Nya">
-                                                <rect key="frame" x="0.0" y="0.0" width="42.666666666666664" height="29.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="32.333333333333336" height="32"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세종특별자치시 / 보람동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDr-NW-Utn">
-                                                <rect key="frame" x="64.666666666666686" y="0.0" width="210" height="29.333333333333332"/>
+                                                <rect key="frame" x="54.333333333333329" y="0.0" width="191.33333333333337" height="32"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -831,16 +932,16 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="GMl-Vn-yAC">
-                                        <rect key="frame" x="38" y="29" width="235.66666666666666" height="29.333333333333332"/>
+                                        <rect key="frame" x="37.999999999999986" y="29" width="212" height="32"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2위." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c61-u4-bjh">
-                                                <rect key="frame" x="0.0" y="0.0" width="42.666666666666664" height="29.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="35" height="32"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서울특별시 / 동작구" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JcP-xK-2Lm">
-                                                <rect key="frame" x="63.666666666666686" y="0.0" width="172" height="29.333333333333332"/>
+                                                <rect key="frame" x="56" y="0.0" width="156" height="32"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -888,16 +989,16 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="cKZ-kz-Es5">
-                                        <rect key="frame" x="38.000000000000014" y="21" width="240.66666666666666" height="29.333333333333332"/>
+                                        <rect key="frame" x="38.000000000000014" y="21" width="217.33333333333334" height="32"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3위." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Unz-jb-T0r">
-                                                <rect key="frame" x="0.0" y="0.0" width="42.666666666666664" height="29.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="35.333333333333336" height="32"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서울특별시 / 동작구" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMA-sE-6Pu">
-                                                <rect key="frame" x="68.666666666666686" y="0.0" width="172" height="29.333333333333332"/>
+                                                <rect key="frame" x="61.333333333333314" y="0.0" width="156" height="32"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1030,10 +1131,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="APd-Wn-8Ja">
-                                <rect key="frame" x="69" y="55" width="237" height="46.666666666666657"/>
+                                <rect key="frame" x="85.666666666666686" y="55" width="204" height="51"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hv-jW-AU9" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                        <rect key="frame" x="0.0" y="0.0" width="44.666666666666664" height="46.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="37" height="51"/>
                                         <attributedString key="attributedText">
                                             <fragment content="00">
                                                 <attributes>
@@ -1044,7 +1145,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ro6-8J-zvA">
-                                        <rect key="frame" x="49.666666666666671" y="0.0" width="26" height="46.666666666666664"/>
+                                        <rect key="frame" x="42" y="0.0" width="22.666666666666671" height="51"/>
                                         <attributedString key="attributedText">
                                             <fragment content="년">
                                                 <attributes>
@@ -1055,7 +1156,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Eb-me-3pC" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                        <rect key="frame" x="80.666666666666657" y="0.0" width="44.666666666666657" height="46.666666666666664"/>
+                                        <rect key="frame" x="69.666666666666671" y="0.0" width="37" height="51"/>
                                         <attributedString key="attributedText">
                                             <fragment content="00">
                                                 <attributes>
@@ -1066,7 +1167,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rsg-I3-QfH">
-                                        <rect key="frame" x="130.33333333333334" y="0.0" width="26" height="46.666666666666664"/>
+                                        <rect key="frame" x="111.66666666666667" y="0.0" width="22.666666666666671" height="51"/>
                                         <attributedString key="attributedText">
                                             <fragment content="월">
                                                 <attributes>
@@ -1077,7 +1178,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZY-F6-aQH" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                        <rect key="frame" x="161.33333333333334" y="0.0" width="44.666666666666657" height="46.666666666666664"/>
+                                        <rect key="frame" x="139.33333333333331" y="0.0" width="37" height="51"/>
                                         <attributedString key="attributedText">
                                             <fragment content="00">
                                                 <attributes>
@@ -1088,7 +1189,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vl-0V-uyY">
-                                        <rect key="frame" x="211" y="0.0" width="26" height="46.666666666666664"/>
+                                        <rect key="frame" x="181.33333333333331" y="0.0" width="22.666666666666657" height="51"/>
                                         <attributedString key="attributedText">
                                             <fragment content="일">
                                                 <attributes>
@@ -1166,10 +1267,10 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="7go-zN-0go">
-                                <rect key="frame" x="196.66666666666663" y="48.000000000000007" width="138.33333333333337" height="124.66666666666669"/>
+                                <rect key="frame" x="211.66666666666666" y="48" width="123.33333333333334" height="135.66666666666666"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adC-1X-9p4">
-                                        <rect key="frame" x="34.333333333333343" y="0.0" width="104" height="46.666666666666664"/>
+                                        <rect key="frame" x="31.666666666666693" y="0.0" width="91.666666666666686" height="51"/>
                                         <attributedString key="attributedText">
                                             <fragment content="홍길동">
                                                 <attributes>
@@ -1182,7 +1283,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2Y-QT-wbW">
-                                        <rect key="frame" x="0.0" y="50.666666666666671" width="138.33333333333334" height="35"/>
+                                        <rect key="frame" x="0.0" y="55" width="123.33333333333333" height="38.333333333333343"/>
                                         <attributedString key="attributedText">
                                             <fragment content="님의 발자취">
                                                 <attributes>
@@ -1194,7 +1295,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJd-is-mqD">
-                                        <rect key="frame" x="34.333333333333343" y="89.666666666666657" width="104" height="35"/>
+                                        <rect key="frame" x="30.999999999999993" y="97.333333333333343" width="92.333333333333314" height="38.333333333333343"/>
                                         <attributedString key="attributedText">
                                             <fragment content="지금까지">
                                                 <attributes>
@@ -1212,7 +1313,7 @@
                                 <rect key="frame" x="154" y="181" width="181" height="96"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cur-KH-Zzs">
-                                        <rect key="frame" x="0.0" y="0.0" width="108.33333333333333" height="96"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="123.66666666666667" height="96"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0m-Pp-jnb" customClass="EFCountingLabel" customModule="EFCountingLabel">
                                                 <rect key="frame" x="-43" y="-4" width="163" height="100"/>
@@ -1239,7 +1340,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sGf-px-Xcf">
-                                        <rect key="frame" x="112.33333333333331" y="0.0" width="68.666666666666686" height="96"/>
+                                        <rect key="frame" x="127.66666666666667" y="0.0" width="53.333333333333329" height="96"/>
                                         <attributedString key="attributedText">
                                             <fragment content="km">
                                                 <attributes>
