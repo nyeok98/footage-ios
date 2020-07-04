@@ -107,6 +107,7 @@ class HomeAnimation {
         }
         homeVC.distance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
         homeVC.distance.countFrom(0, to: CGFloat(HomeViewController.distanceTotal / 1000), withDuration: 5)
+        print(HomeViewController.distanceTotal)
         
         // 1. Text Animation
         homeVC.todayString.text = "오늘까지"

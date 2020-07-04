@@ -11,7 +11,7 @@ import MapKit
 import EFCountingLabel
 import RealmSwift
 
-class JourneyViewController: UIViewController, MKMapViewDelegate {
+class JourneyViewController: UIViewController {
     
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var yearLabel: EFCountingLabel!
@@ -23,9 +23,9 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var youText: UILabel!
     @IBOutlet weak var seeBackText: UILabel!
     
-    var journeyData: JourneyData = JourneyData() // comes from previous VC (Stats)
+    var journey: Journey! = nil // comes from previous VC (Stats)
     var journeyIndex = 0 // comes from previous VC (Stats)
-    var forReloadStatsVC = StatsViewController()
+    var forReloadStatsVC = DateViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,54 +33,48 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         configureMap()
         setInitialAlpha()
         JourneyAnimation(journeyVC: self, journeyIndex: journeyIndex).journeyActivate()
-        let photoVC = PhotoCollection(journey: journeyData)
+        let photoVC = PhotoCollectionVC()
         addChild(photoVC)
         view.addSubview(photoVC.collectionView)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) { // create preview image using screenshot
         let realm = try! Realm()
-        let image = takeScreenshot()
+        let imageData = takeScreenshot().pngData()!
+        DateViewController.journeys[journeyIndex].preview = imageData
         do {
             try realm.write {
-                StatsViewController.journeyArray[journeyIndex].previewImage = image.pngData()
+                let object = DateViewController.journeys[journeyIndex].reference
+                if let day = object as? DayData {
+                    day.preview = imageData
+                } else if let month = object as? Month {
+                    month.preview = imageData
+                } else if let year = object as? Year {
+                    year.preview = imageData
+                }
             }
         } catch { print(error)}
         forReloadStatsVC.collectionView.reloadData()
     }
-    
+}
+
+// MARK: -Maps
+
+extension JourneyViewController: MKMapViewDelegate {
     
     func configureMap() {
-        var overlays: [PolylineWithColor] = []
-        for route in journeyData.routes {
-            var lastColor: String = route.footsteps[0].color
-            var coordinates: [CLLocationCoordinate2D] = []
-            for footstep in route.footsteps {
-                coordinates.append(footstep.coordinate)
-                if lastColor != footstep.color { // new color
-                    let polyline = PolylineWithColor(coordinates: coordinates, count: coordinates.count)
-                    polyline.color = UIColor(hex: lastColor)!
-                    overlays.append(polyline)
-                    lastColor = footstep.color
-                    coordinates = []
-                }
-            }
-            let polyline = PolylineWithColor(coordinates: coordinates, count: coordinates.count)
-            polyline.color = UIColor(hex: lastColor)!
-            overlays.append(polyline)
-        }
         var heading = CLLocationDirection(exactly: 0)
-        var firstPosition = journeyData.routes[0].footsteps[0].coordinate
+        var firstPosition = journey.footsteps[0].coordinate
         var secondPosition = firstPosition
-        if journeyData.routes.count >= 2 {
-            secondPosition = journeyData.routes[1].footsteps[0].coordinate
-            let adjustments = calculateAdjustments(from: firstPosition, to: secondPosition)
-            heading = adjustments.0
-            firstPosition = CLLocationCoordinate2DMake(firstPosition.latitude + adjustments.1, firstPosition.longitude + adjustments.2)
-        }
+//        if journey.footsteps.count >= 2 {
+//            secondPosition = journey.footsteps[1].coordinate
+//            let adjustments = calculateAdjustments(from: firstPosition, to: secondPosition)
+//            heading = adjustments.0
+//            firstPosition = CLLocationCoordinate2DMake(firstPosition.latitude + adjustments.1, firstPosition.longitude + adjustments.2)
+//        }
         let camera = MKMapCamera(lookingAtCenter: firstPosition, fromDistance: CLLocationDistance(exactly: 400)!, pitch: 70, heading: heading!)
         mainMap.setCamera(camera, animated: false)
-        mainMap.addOverlays(overlays, level: .aboveRoads)
+        DrawOnMap.polylineFromJourney(journey, on: mainMap)
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -97,7 +91,11 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         let degree = atan(opposite / adjacent)
         return (CLLocationDirection(degree * 180 / Double.pi - 90), 0.0005 * cos(degree), 0.0005 * sin(degree))
     }
-    
+}
+
+// MARK:- Others
+
+extension JourneyViewController {
     
     func takeScreenshot() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(mainMap.bounds.size, false, UIScreen.main.scale)
@@ -117,9 +115,14 @@ class JourneyViewController: UIViewController, MKMapViewDelegate {
         seeBackText.alpha = 0
     }
     
-    class PolylineWithColor: MKPolyline {
-        var color: UIColor = .white
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! PhotoSelectionVC
+        destinationVC.dateFrom = DateConverter.stringToDate(int: journey.date, start: true) as NSDate
+        destinationVC.dateTo = DateConverter.stringToDate(int: journey.date, start: false) as NSDate
     }
+}
 
+class PolylineWithColor: MKPolyline {
+    var color: UIColor = .white
 }
 

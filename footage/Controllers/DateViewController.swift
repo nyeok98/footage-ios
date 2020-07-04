@@ -1,5 +1,5 @@
 //
-//  StatViewController.swift
+//  DateViewController.swift
 //  footage
 //
 //  Created by 녘 on 2020/06/09.
@@ -16,8 +16,7 @@ class DateViewController: UIViewController {
     var profileImage = #imageLiteral(resourceName: "profile")
     @IBOutlet weak var totalDistance: EFCountingLabel!
     
-    //var label = UILabel()
-    static var journeyArray: [JourneyData] = []
+    static var journeys: [Journey] = []
     
     var dataSource: UICollectionViewDiffableDataSource<Section, MapCell>! = nil
     var collectionView: UICollectionView! = nil
@@ -74,9 +73,7 @@ extension DateViewController {
     }
 }
 
-
-
-// MARK: configure view frame hierarchy
+// MARK: -configure view frame hierarchy
 
 extension DateViewController {
     private func configureHierarchy() {
@@ -115,36 +112,27 @@ extension DateViewController {
                 withReuseIdentifier: MapCell.reuseIdentifier,
                 for: indexPath) as? MapCell else { fatalError("Could not create new cell") }
             
-            // Populate the cell with our item description.
-            if let imageData = DateViewController.journeyArray[indexPath.row].previewImage {
-                cell.mapImage.image = UIImage(data: imageData)
-            } else {
-                cell.mapImage.image = #imageLiteral(resourceName: "basicStatsIcon")
-            }
-            let date = DateViewController.journeyArray[indexPath.row].date
-            var dateLabel = ""
+            cell.mapImage.image = UIImage(data: DateViewController.journeys[indexPath.row].preview)
+            let date = DateViewController.journeys[indexPath.row].date
             
             switch date {
-            case ...10000: dateLabel = String(date) + "년"
-            case 10001...1000000: dateLabel = String(date / 100) + "년 " + String(date % 100) + "월"
+            case ...10000: cell.label.text = String(date) + "년"
+            case 10001...1000000: cell.label.text = String(date / 100) + "년 " + String(date % 100) + "월"
             default:
-                dateLabel =  String(date / 100 % 100) + "월 " + String(date % 100) + "일"
+                cell.label.text =  String(date / 100 % 100) + "월 " + String(date % 100) + "일"
             }
             
-            cell.label.text = dateLabel
-            
-            // Return the cell.
             return cell
         }
         
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
         var cellArray: [MapCell] = []
-        let journeyArray = DateViewController.journeyArray
-        if !journeyArray.isEmpty {
-            for i in 0...journeyArray.count - 1 {
+        let journeys = DateViewController.journeys
+        if !journeys.isEmpty {
+            for i in 0...journeys.count - 1 {
                 cellArray.append(MapCell())
-                cellArray[i].journeyData = journeyArray[i]
+                cellArray[i].journey = journeys[i]
             }
         } else {
         }
@@ -175,29 +163,27 @@ extension DateViewController {
         profileView.image = profileImage
     }
     
-    
-    
     private func loadWithRange(_ range: Int) {
-        DateViewController.journeyArray = []
+        DateViewController.journeys = []
         var snapshot = NSDiffableDataSourceSnapshot<Section, MapCell>()
         var cellArray: [MapCell] = []
         switch range {
-        case 0: for journeyData in DataManager.loadFromRealm(rangeOf: "day") {
-                DateViewController.journeyArray.append(journeyData)
+        case 0: for journey in DateManager.loadFromRealm(rangeOf: "day") {
+            DateViewController.journeys.append(journey)
         }
-        case 1: for journeyData in DataManager.loadFromRealm(rangeOf: "month") {
-            DateViewController.journeyArray.append(journeyData)
+        case 1: for journey in DateManager.loadFromRealm(rangeOf: "month") {
+            DateViewController.journeys.append(journey)
         }
         // case 2
-        default: for journeyData in DataManager.loadFromRealm(rangeOf: "year") {
-            DateViewController.journeyArray.append(journeyData)
+        default: for journey in DateManager.loadFromRealm(rangeOf: "year") {
+            DateViewController.journeys.append(journey)
         }
         }
         
-        if !DateViewController.journeyArray.isEmpty {
-            for i in 0...DateViewController.journeyArray.count - 1 {
+        if !DateViewController.journeys.isEmpty {
+            for i in 0...DateViewController.journeys.count - 1 {
                 cellArray.append(MapCell())
-                cellArray[i].journeyData = DateViewController.journeyArray[i]
+                cellArray[i].journey = DateViewController.journeys[i]
             }
             view.bringSubviewToFront(collectionView)
         }
@@ -226,7 +212,7 @@ extension DateViewController: UICollectionViewDelegate {
             let destinationVC = segue.destination as! JourneyViewController
             destinationVC.journeyIndex = sender as! Int
             destinationVC.forReloadStatsVC = self
-            destinationVC.journeyData = DateViewController.journeyArray[sender as! Int]
+            destinationVC.journey = DateViewController.journeys[sender as! Int]
         default: break
         }
     }

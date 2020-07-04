@@ -14,7 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        HomeViewController.distanceTotal = DataManager.loadDistance(total: true)
+        HomeViewController.distanceTotal = DateManager.loadDistance(total: true)
+        DateManager.loadTodayData()
         return true
     }
 
@@ -33,8 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        
-        print("applicationWillTerminate")
     }
 
 }

@@ -13,7 +13,7 @@ import Photos
 class ProfileSelectionVC: UIViewController {
 
     var collectionView: UICollectionView! = nil
-    var dateFrom: NSDate = Date(timeIntervalSince1970: 0) as NSDate// TODO: change to long time ago
+    var dateFrom: NSDate = Date(timeIntervalSince1970: 0) as NSDate
     var dateTo: NSDate = Date() as NSDate
     var parentVC: DateViewController?
     let cacheManager = PHCachingImageManager()
@@ -27,7 +27,7 @@ class ProfileSelectionVC: UIViewController {
     
     override func viewDidLoad() {
         let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "creationDate < %@", dateTo)
+        fetchOptions.predicate = NSPredicate(format: "creationDate < %@ AND creationDate >= %@", dateTo, dateFrom)
         allMedia = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
         let indexSet = IndexSet(integersIn: 0..<allMedia!.count)
         cacheManager.startCachingImages(for: (allMedia?.objects(at: indexSet))!, targetSize: thumbnailSize, contentMode: .default, options: nil)
@@ -96,7 +96,7 @@ extension ProfileSelectionVC: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! PhotoEditVC
+        let destinationVC = segue.destination as! ProfileEditVC
         destinationVC.imageAsset = allMedia?[sender as! Int]
         destinationVC.parentVC = self
         destinationVC.statsVC = self.parentVC

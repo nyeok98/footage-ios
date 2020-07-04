@@ -12,28 +12,25 @@ import RealmSwift
 
 class Footstep: Object {
     
-    init(timestamp: Date, coordinate: CLLocationCoordinate2D, isNewStartingPoint: Bool, color: String = "#EADE4Cff") {
+    @objc dynamic var timestamp: Date = Date()
+    @objc dynamic var latitude = 0.0
+    @objc dynamic var longitude = 0.0
+    @objc dynamic var color = "#EADE4Cff"
+    @objc dynamic var setAsStart = false
+    var coordinate: CLLocationCoordinate2D {
+        get { return CLLocationCoordinate2D(latitude: latitude, longitude: longitude) }
+    }
+    let owners = LinkingObjects(fromType: DayData.self, property: "footsteps")
+    
+    init(_ timestamp: Date, _ latitude: Double, _ longitude: Double, _ color: String, _ setAsStart: Bool) {
         self.timestamp = timestamp
-        self.latitude = coordinate.latitude
-        self.longitude = coordinate.longitude
-        self.isNewStartingPoint = isNewStartingPoint
+        self.latitude = latitude
+        self.longitude = longitude
         self.color = color
+        self.setAsStart = setAsStart
     }
     
     required init() {
         super.init()
     }
-    
-    @objc dynamic var timestamp: Date = Date()
-    @objc dynamic var latitude = 0.0
-    @objc dynamic var longitude = 0.0
-    @objc dynamic var color: String = "#EADE4Cff"
-    
-    var coordinate: CLLocationCoordinate2D {
-        get {
-            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        }
-    }
-    @objc dynamic var isNewStartingPoint: Bool = false
-    let owners = LinkingObjects(fromType: Route.self, property: "footsteps")
 }

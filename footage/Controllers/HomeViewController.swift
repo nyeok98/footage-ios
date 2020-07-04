@@ -56,7 +56,8 @@ class HomeViewController: UIViewController {
     static var distanceTotal: Double = 0
     var dateFormatter =  DateFormatter()
     static let locationManager = CLLocationManager()
-    var locationsToday: [[CLLocation]] = [[]]
+     var locations: [CLLocation] = []
+    var lastLocation: CLLocation?
     var locationTimer: Timer?
     var setAsStart: Bool = true
     var speedLimit: Double = 8
@@ -67,6 +68,7 @@ class HomeViewController: UIViewController {
         }
     }
     var polyLineColor: String = "#EADE4Cff"
+    var noSpeedCounter: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +86,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
         if startButton.currentImage == #imageLiteral(resourceName: "startButton") { // FROM START TO STOP
-            HomeViewController.distanceToday = DataManager.loadDistance(total: false)
+            HomeViewController.distanceToday = DateManager.loadDistance(total: false)
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
             HomeViewController.locationManager.requestAlwaysAuthorization()
             let status = CLLocationManager.authorizationStatus()
@@ -102,8 +104,6 @@ class HomeViewController: UIViewController {
             HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
             setAsStart = true // next coordinate must be set as new start point
-            // locationsToday = []
-            // distance.text = String(format: "%.2f",(HomeViewController.distanceToday)/1000)
             HomeAnimation.homeStopAnimation(self)
             configureInitialMapView()
         }
@@ -131,33 +131,11 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         mainMap.mapType = MKMapType.standard
         mainMap.setRegion(locationRegion, animated: true)
         // draw all routes
-        for journey in DataManager.loadFromRealm(rangeOf: "all") {
-            var colorcheck: String = ""
-            DispatchQueue.global().sync {
-                for route in journey.routes {
-                    var coordinates: [CLLocationCoordinate2D] = []
-                    
-                    self.polyLineColor = route.footsteps[0].color
-                    for footstep in route.footsteps {
-                        
-                        if colorcheck != footstep.color {
-                            coordinates.append(footstep.coordinate)
-                            self.polyLineColor = colorcheck
-                            let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                            self.mainMap.addOverlay(newLine)
-                            coordinates = []
-                            coordinates.append(footstep.coordinate)
-                            colorcheck = footstep.color
-                        } else {
-                            coordinates.append(footstep.coordinate)
-                        }
-                        
-                    }
-                    polyLineColor = colorcheck
-                    let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                    self.mainMap.addOverlay(newLine)
-                }
+        for journey in DateManager.loadFromRealm(rangeOf: "year") {
+            for footstep in journey.footsteps {
+                print(footstep.color)
             }
+            DrawOnMap.polylineFromJourney(journey, on: mainMap)
         }
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
@@ -174,38 +152,17 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         mainMap.mapType = MKMapType.standard
         mainMap.showsUserLocation = true
         // draw previous routes from today
-        for journey in DataManager.loadFromRealm(rangeOf: today) {
-            var colorcheck: String = ""
-            for route in journey.routes {
-                var coordinates: [CLLocationCoordinate2D] = []
-                polyLineColor = route.footsteps[0].color
-                for footstep in route.footsteps {
-                    if colorcheck != footstep.color {
-                        coordinates.append(footstep.coordinate)
-                        polyLineColor = colorcheck
-                        let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                        self.mainMap.addOverlay(newLine)
-                        coordinates = []
-                        coordinates.append(footstep.coordinate)
-                        colorcheck = footstep.color
-                    } else {
-                        coordinates.append(footstep.coordinate)
-                        
-                    }
-                }
-                polyLineColor = colorcheck
-                let newLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
-                self.mainMap.addOverlay(newLine)
-            }
+        for journey in DateManager.loadFromRealm(rangeOf: today) {
+            DrawOnMap.polylineFromJourney(journey, on: mainMap)
         }
         for _ in 1...10 { // wait for accurate location
             HomeViewController.locationManager.requestLocation()
         }
         guard let location = HomeViewController.locationManager.location
             else { return }
-        locationsToday.append([location])
+        lastLocation = location
         locationTimer = Timer.scheduledTimer(withTimeInterval: refreshRate, repeats: true) { (timer) in
-            HomeViewController.locationManager.requestLocation()
+            HomeViewController.locationManager.requestLocation() // request location and move to center every 5 sec
             self.setMapRegion(latitude: (HomeViewController.locationManager.location?.coordinate.latitude)!, longitude: (HomeViewController.locationManager.location?.coordinate.longitude)!, delta: 0.001)
         }
         UIView.animate(withDuration: 1) {
@@ -215,47 +172,45 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     
     // DID UPDATE
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let newLocation = locations.last
-            else { return }
-        guard let currentRoute = locationsToday.last
-            else { return }
-        guard let lastLocation = currentRoute.last
-            else { return }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        let newDate = dateFormatter.string(from: newLocation.timestamp)
-        let lastDate = dateFormatter.string(from: lastLocation.timestamp)
-        
-        if speedLimit < checkSpeed(lastLocation: lastLocation, newLocation: newLocation) {
-            // give user an alert for high speed
-            return
-        } else {
-            if distanceLimit < newLocation.distance(from: lastLocation) {
-                setAsStart = true
-            }
-            if setAsStart { //
-                locationsToday.append([newLocation])
-                let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: true, color: polyLineColor)
-                DataManager.collectJourneyData(footstep: footstep)
+        let newLocation = locations[0]
+        checkForMovement(location: newLocation)
+        if isValid(location: newLocation) {
+            if setAsStart { // now began to walk
+                LocationUpdate.processNewLocation(location: newLocation, distance: 0, setAsStart: true, color: polyLineColor)
                 setAsStart = false
+            } else { // continue walking
+                let newDistance = newLocation.distance(from: lastLocation!)
+                LocationUpdate.processNewLocation(location: newLocation, distance: newDistance, setAsStart: false, color: polyLineColor)
+                extendPolyline(lastLocation: lastLocation!, newLocation: newLocation)
                 
-                distance.text = String(format: "%.2f",(HomeViewController.distanceToday)/1000)
-            } else { // 계속 걷기
-                locationsToday[locationsToday.count - 1].append(newLocation)
-                if newDate == lastDate {
-                    HomeViewController.distanceToday += newLocation.distance(from: lastLocation)
-                    HomeViewController.distanceTotal += newLocation.distance(from: lastLocation)
-                    print(HomeViewController.distanceTotal) // TEST
-                } else { // 여기로 들어올 수 있는경우는 자정에 계속 걷고 있는 경우인데... 그럼 아예 polyline 리셋 해야되나?
-                    HomeViewController.distanceToday = 0 // Make distnaceToday '0' if it's newDay
-                }
-                extendPolyline(lastLocation: lastLocation, newLocation: newLocation)
-                let footstep = Footstep(timestamp: newLocation.timestamp, coordinate: newLocation.coordinate, isNewStartingPoint: false, color: polyLineColor)
-                DataManager.collectJourneyData(footstep: footstep)
-                DataManager.saveTotalDistance(value: HomeViewController.distanceTotal)
-                distance.text = String(format: "%.2f",(HomeViewController.distanceToday)/1000)
+                HomeViewController.distanceToday += newDistance
+                distance.text = String(format: "%.2f", (HomeViewController.distanceToday)/1000)
+                HomeViewController.distanceTotal += newDistance
             }
+        } else { setAsStart = true } // you are on a bus
+        lastLocation = newLocation
+        
+    }
+    
+    func isValid(location: CLLocation) -> Bool { // check speed, distance etc with lastLocation
+        if checkSpeed(lastLocation: lastLocation ?? location, newLocation: location) > speedLimit || location.distance(from: lastLocation ?? location) > distanceLimit {
+            return false
+        } else { noSpeedCounter = 0; return true }
+    }
+    
+    func checkForMovement(location: CLLocation) {
+        if location.speed < 0 {
+            noSpeedCounter += 1
+        }
+        if noSpeedCounter > 4 {
+            locationTimer?.invalidate() // stop location request
+            HomeViewController.locationManager.stopUpdatingLocation()
+            HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
+            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
+            setAsStart = true // next coordinate must be set as new start point
+            HomeAnimation.homeStopAnimation(self)
+            configureInitialMapView()
+            noSpeedCounter = 0
         }
     }
     
@@ -264,18 +219,25 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         self.mainMap.addOverlay(newLine)
     }
     
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let overlayWithColor = overlay as? PolylineWithColor {
+            let polylineView = MKPolylineRenderer(overlay: overlay)
+            polylineView.strokeColor = overlayWithColor.color
+            polylineView.lineWidth = 10
+            return polylineView
+        } else {
+        let polylineView = MKPolylineRenderer(overlay: overlay)
+        polylineView.strokeColor = UIColor(hex: polyLineColor)
+        polylineView.lineWidth = 10
+        return polylineView
+        }
+    }
+    
     func setMapRegion(latitude: CLLocationDegrees, longitude: CLLocationDegrees, delta: Double){
         let coordinateLocation = CLLocationCoordinate2DMake(latitude, longitude)
         let spanValue = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         let locationRegion = MKCoordinateRegion(center: coordinateLocation, span: spanValue)
         mainMap.setRegion(locationRegion, animated: true)
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let polylineView = MKPolylineRenderer(overlay: overlay)
-        polylineView.strokeColor = UIColor(hex: polyLineColor)
-        polylineView.lineWidth = 10
-        return polylineView
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

@@ -10,9 +10,7 @@ import UIKit
 
 class MapCell: UICollectionViewCell {
     
-
-    var journeyData = JourneyData()
-    
+    var journey: Journey?
     
     @IBOutlet weak var mapImage: UIImageView!
     @IBOutlet weak var label: UILabel!
