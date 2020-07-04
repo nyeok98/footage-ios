@@ -17,7 +17,7 @@ class PlaceManager {
     
     static func update(latitude: Double, longitude: Double, distance: Double) {
         let realm = try! Realm()
-        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: latitude, longitude: longitude), preferredLocale: Locale(identifier: "kr")) { (placemarks, error) in
+        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: latitude, longitude: longitude), preferredLocale: Locale(identifier: "ko_KR")) { (placemarks, error) in
             let placemark = placemarks![0]
             do { try realm.write {
                 if lastLocality == "" || placemark.locality != lastLocality { // first walk of the day or new region
@@ -49,10 +49,7 @@ class PlaceManager {
         let realm = try! Realm()
         let results = realm.objects(Place.self).filter("date >= \(startDate) AND date <= \(endDate)")
         for result in results {
-            var key = result.administrativeArea + " / " + result.locality
-            if result.administrativeArea == "세종특별자치시" { //  세종시 예외처리
-                key = result.administrativeArea + " / " + result.subLocality
-            }
+            let key = result.administrativeArea + " / " + result.locality
             if rank.keys.contains(key) {
                 rank[key]! += result.distance
             } else {

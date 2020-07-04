@@ -30,7 +30,11 @@ class Place: Object { // footsteps for a day
         self.country = placemark.country ?? ""
         self.administrativeArea = placemark.administrativeArea ?? ""
         self.subAdministrativeArea = placemark.subAdministrativeArea ?? ""
-        self.locality = placemark.locality ?? ""
+        if placemark.locality == "세종특별자치시" {
+            self.locality = placemark.subLocality ?? ""
+        } else {
+            self.locality = placemark.locality ?? ""
+        }
         self.subLocality = placemark.subLocality ?? ""
     }
 }
