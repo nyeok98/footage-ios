@@ -5,14 +5,16 @@ import EFCountingLabel
 
 class StatsViewController: UIViewController {
     
-    @IBOutlet weak var cityNickName: UILabel!
     var firstPlace: String = "세종특별자치시"
     var firstColor: String = ""
     var colorRank: Array<(key: String, value: Double)> = []
     var placeRank: Array<(key: String, value: Double)> = []
     
-    @IBOutlet weak var cityImage: UIImageView!
     @IBOutlet weak var totalDistance: EFCountingLabel!
+    @IBOutlet weak var colorImage: UIImageView!
+    // add color text label
+    @IBOutlet weak var cityImage: UIImageView!
+    @IBOutlet weak var cityNickName: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         self.totalDistance.setUpdateBlock { (value, label) in
@@ -25,6 +27,7 @@ class StatsViewController: UIViewController {
         placeRank = PlaceManager.getRankingDistance(startDate: days.0, endDate: days.1)
         if !colorRank.isEmpty {
             firstColor = colorRank[0].key
+            colorImage.image = UIImage(named: firstColor + "Big")
         }
         if !placeRank.isEmpty {
             firstPlace = placeRank[0].key.components(separatedBy: " ").first ?? ""
