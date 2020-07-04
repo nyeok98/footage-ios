@@ -67,7 +67,7 @@ class HomeViewController: UIViewController {
             return speedLimit * refreshRate
         }
     }
-    var polyLineColor: String = "#EADE4Cff"
+    static var selectedColor: String = "#EADE4Cff"
     var noSpeedCounter: Int = 0
     
     override func viewDidLoad() {
@@ -94,7 +94,7 @@ class HomeViewController: UIViewController {
                 alertForAuthorization()
             } else {
                 HomeAnimation.homeStartAnimation(self)
-                polyLineColor = Buttons(className: MainButton.restorationIdentifier!).color
+                HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
                 trackMapView()
             }
             
@@ -132,10 +132,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         mainMap.setRegion(locationRegion, animated: true)
         // draw all routes
         for journey in DateManager.loadFromRealm(rangeOf: "year") {
-            for footstep in journey.footsteps {
-                print(footstep.color)
-            }
-            DrawOnMap.polylineFromJourney(journey, on: mainMap)
+            DrawOnMap.polylineFromFootsteps(journey.footsteps, on: mainMap)
         }
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
@@ -153,7 +150,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         mainMap.showsUserLocation = true
         // draw previous routes from today
         for journey in DateManager.loadFromRealm(rangeOf: today) {
-            DrawOnMap.polylineFromJourney(journey, on: mainMap)
+            DrawOnMap.polylineFromFootsteps(journey.footsteps, on: mainMap)
         }
         for _ in 1...10 { // wait for accurate location
             HomeViewController.locationManager.requestLocation()
@@ -176,16 +173,16 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
         checkForMovement(location: newLocation)
         if isValid(location: newLocation) {
             if setAsStart { // now began to walk
-                LocationUpdate.processNewLocation(location: newLocation, distance: 0, setAsStart: true, color: polyLineColor)
+                LocationUpdate.processNewLocation(location: newLocation, distance: 0, setAsStart: true, color: HomeViewController.selectedColor)
                 setAsStart = false
             } else { // continue walking
                 let newDistance = newLocation.distance(from: lastLocation!)
-                LocationUpdate.processNewLocation(location: newLocation, distance: newDistance, setAsStart: false, color: polyLineColor)
+                LocationUpdate.processNewLocation(location: newLocation, distance: newDistance, setAsStart: false, color: HomeViewController.selectedColor)
                 extendPolyline(lastLocation: lastLocation!, newLocation: newLocation)
-                
                 HomeViewController.distanceToday += newDistance
                 distance.text = String(format: "%.2f", (HomeViewController.distanceToday)/1000)
                 HomeViewController.distanceTotal += newDistance
+                DateManager.saveTotalDistance(value: HomeViewController.distanceTotal)
             }
         } else { setAsStart = true } // you are on a bus
         lastLocation = newLocation
@@ -227,7 +224,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
             return polylineView
         } else {
         let polylineView = MKPolylineRenderer(overlay: overlay)
-        polylineView.strokeColor = UIColor(hex: polyLineColor)
+        polylineView.strokeColor = UIColor(hex: HomeViewController.selectedColor)
         polylineView.lineWidth = 10
         return polylineView
         }

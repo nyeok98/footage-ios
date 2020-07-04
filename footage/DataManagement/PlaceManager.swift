@@ -44,11 +44,12 @@ class PlaceManager {
     }
     
     static func getRankingDistance(startDate: Int, endDate: Int) -> Array<(key: String, value: Double)> {
+        // returns [(key: "서울특별시 / 동작구", value: 3.2), (key: "서울특별시 / 강남구", value: 2.2) ... ]
         var rank: [String: Double] = [:]
         let realm = try! Realm()
         let results = realm.objects(Place.self).filter("date >= \(startDate) AND date <= \(endDate)")
         for result in results {
-            let key = result.administrativeArea + result.subLocality
+            let key = result.administrativeArea + " / " + result.locality // TODO: subLocality?
             if rank.keys.contains(key) {
                 rank[key]! += result.distance
             } else {

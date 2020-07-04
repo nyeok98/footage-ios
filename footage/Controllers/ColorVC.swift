@@ -20,33 +20,48 @@ class ColorVC: UIViewController {
     @IBOutlet weak var thirdColorDistance: EFCountingLabel!
     @IBOutlet weak var fourthColorDistance: EFCountingLabel!
     @IBOutlet weak var fifthColorDistance: EFCountingLabel!
+    var ranking: Array<(key: String, value: Double)> = []
+    
+    override func viewDidLoad() {
+        loadData()
+    }
     
     @IBAction func goBackButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    override func viewDidLoad() {
-        let days = DateConverter.lastMondaySunday()
-        let result = ColorManager.getRankingDistance(startDate: days.0, endDate: days.1)
-        if result.count > 0 {
-            firstColor.image = UIImage(named: result[0].key)
-            //firstColorDistance.text = String(format: "%.2f", (result[0].value) / 1000)
+    @IBAction func colorPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToColoredJourney", sender: sender)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let button = sender as! UIButton
+        let destinationVC = segue.destination as! ColoredJourneyVC
+        destinationVC.color = ranking[button.tag].key
+        
+    }
+    
+    
+    func loadData() {
+        if ranking.count > 0 {
+            firstColor.image = UIImage(named: ranking[0].key)
+            firstColorDistance.text = String(format: "%.2f", (ranking[0].value) / 1000)
         }
-        if result.count > 1 {
-            secondColor.image = UIImage(named: result[1].key)
-            //secondColorDistance.text = String(format: "%.2f", (result[1].value) / 1000)
+        if ranking.count > 1 {
+            secondColor.image = UIImage(named: ranking[1].key)
+            secondColorDistance.text = String(format: "%.2f", (ranking[1].value) / 1000)
         }
-        if result.count > 2 {
-            thirdColor.image = UIImage(named: result[2].key)
-            //thirdColorDistance.text = String(format: "%.2f", (result[2].value) / 1000)
+        if ranking.count > 2 {
+            thirdColor.image = UIImage(named: ranking[2].key)
+            thirdColorDistance.text = String(format: "%.2f", (ranking[2].value) / 1000)
         }
-        if result.count > 3 {
-            fourthColor.image = UIImage(named: result[3].key)
-            //fourthColorDistance.text = String(format: "%.2f", (result[3].value) / 1000)
+        if ranking.count > 3 {
+            fourthColor.image = UIImage(named: ranking[3].key)
+            fourthColorDistance.text = String(format: "%.2f", (ranking[3].value) / 1000)
         }
-        if result.count > 4 {
-            fifthColor.image = UIImage(named: result[4].key)
-            //fifthColorDistance.text = String(format: "%.2f", (result[4].value) / 1000)
+        if ranking.count > 4 {
+            fifthColor.image = UIImage(named: ranking[4].key)
+            fifthColorDistance.text = String(format: "%.2f", (ranking[4].value) / 1000)
         }
     }
 }

@@ -6,24 +6,46 @@ import EFCountingLabel
 class StatsViewController: UIViewController {
     
     @IBOutlet weak var cityNickName: UILabel!
-    var temporaryCityName: String = "세종특별자치시"
+    var firstPlace: String = "세종특별자치시"
+    var firstColor: String = ""
+    var colorRank: Array<(key: String, value: Double)> = []
+    var placeRank: Array<(key: String, value: Double)> = []
     
     @IBOutlet weak var cityImage: UIImageView!
     @IBOutlet weak var totalDistance: EFCountingLabel!
     
-    override func viewDidLoad() {
+    override func viewWillAppear(_ animated: Bool) {
         self.totalDistance.setUpdateBlock { (value, label) in
             label.text = String(format: "%.f", value)
         }
         self.totalDistance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
         self.totalDistance.countFrom(0, to: CGFloat(HomeViewController.distanceTotal / 1000), withDuration: 5)
-        citySetter()
+        let days = DateConverter.lastMondayToday()
+        colorRank = ColorManager.getRankingDistance(startDate: days.0, endDate: days.1)
+        placeRank = PlaceManager.getRankingDistance(startDate: days.0, endDate: days.1)
+        if !colorRank.isEmpty {
+            firstColor = colorRank[0].key
+        }
+        if !placeRank.isEmpty {
+            firstPlace = placeRank[0].key.components(separatedBy: " ").first ?? ""
+            setCityImage()
+        }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "goToColor":
+            let colorVC = segue.destination as! ColorVC
+            colorVC.ranking = colorRank
+        case "goToPlace":
+            let placeVC = segue.destination as! PlaceVC
+            placeVC.ranking = placeRank
+        default: break
+        }
+    }
     
-    
-    func citySetter() {
-        switch temporaryCityName {
+    func setCityImage() {
+        switch firstPlace {
         case "서울특별시", "Seoul":
             cityImage.image = UIImage(named: "Seoul")
             cityNickName.text = "\"프로서울러\""

@@ -39,6 +39,7 @@ class ColorManager {
     }
     
     static func getRankingDistance(startDate: Int, endDate: Int) -> Array<(key: String, value: Double)> {
+        // returns [(key: "#2E45DF91", value: 3.2), (key: "#DF7E235D", value: 2.2) ... ]
         var rank: [String: Double] = [:]
         let realm = try! Realm()
         let results = realm.objects(Color.self).filter("date >= \(startDate) AND date <= \(endDate)")
@@ -51,5 +52,19 @@ class ColorManager {
             }
         }
         return rank.sorted(by: {$0.value > $1.value})
+    }
+    
+    static func footstepsWithColor(color: String, from: Int, to:Int) -> List<Footstep> {
+        var footsteps = List<Footstep>()
+        let realm = try! Realm()
+        let result = realm.objects(DayData.self).filter("date >= \(from) AND date <= \(to)")
+        for day in result {
+            for footstep in day.footsteps {
+                if footstep.color == color {
+                    footsteps.append(footstep)
+                }
+            }
+        }
+        return footsteps
     }
 }

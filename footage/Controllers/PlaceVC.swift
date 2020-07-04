@@ -10,7 +10,7 @@ import UIKit
 import EFCountingLabel
 
 class PlaceVC: UIViewController {
-    
+    // for layout
     @IBOutlet weak var firstView: UIView!
     @IBOutlet weak var secondView: UIView!
     @IBOutlet weak var thirdView: UIView!
@@ -23,7 +23,17 @@ class PlaceVC: UIViewController {
     @IBOutlet weak var firstStack: UIStackView!
     @IBOutlet weak var secondStack: UIStackView!
     @IBOutlet weak var thirdStack: UIStackView!
-    
+    // for displaying data
+    @IBOutlet weak var firstMap: UIImageView!
+    @IBOutlet weak var firstDistance: EFCountingLabel!
+    @IBOutlet weak var secondMap: UIImageView!
+    @IBOutlet weak var secondDistance: EFCountingLabel!
+    @IBOutlet weak var thirdMap: UIImageView!
+    @IBOutlet weak var thirdDistance: EFCountingLabel!
+    @IBOutlet weak var firstCityName: UILabel!
+    @IBOutlet weak var secondCityName: UILabel!
+    @IBOutlet weak var thirdCityName: UILabel!
+    var ranking: Array<(key: String, value: Double)> = []
     
     @IBAction func goBackButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
@@ -47,7 +57,7 @@ class PlaceVC: UIViewController {
         firstStack.bounds.origin.y -= 20
         secondStack.bounds.origin.y -= 20
         thirdStack.bounds.origin.y -= 20
-        
+        loadData()
     }
     
     @IBAction func firstplaceButtonPressed(_ sender: UIButton) {
@@ -61,7 +71,21 @@ class PlaceVC: UIViewController {
     }
     
     func loadData() {
-        
+        if ranking.count > 0 {
+            firstMap.image = UIImage(named: ranking[0].key.components(separatedBy: " / ").first!)
+            firstDistance.text = String(format: "%.2f", (ranking[0].value) / 1000)
+            firstCityName.text = ranking[0].key // "서울특별시 / 동작구"
+        }
+        if ranking.count > 1 {
+            secondMap.image = UIImage(named: ranking[1].key.components(separatedBy: " / ").first!)
+            secondDistance.text = String(format: "%.2f", (ranking[1].value) / 1000)
+            secondCityName.text = ranking[1].key // "서울특별시 / 동작구"
+        }
+        if ranking.count > 2 {
+            thirdMap.image = UIImage(named: ranking[2].key.components(separatedBy: " / ").first!)
+            thirdDistance.text = String(format: "%.2f", (ranking[2].value) / 1000)
+            thirdCityName.text = ranking[2].key // "서울특별시 / 동작구"
+        }
     }
     
 }

@@ -8,14 +8,15 @@
 
 import Foundation
 import MapKit
+import RealmSwift
 
 class DrawOnMap {
     
-    static func polylineFromJourney(_ journey: Journey, on map: MKMapView) {
+    static func polylineFromFootsteps(_ footsteps: List<Footstep>, on map: MKMapView) {
         var overlays: [PolylineWithColor] = []
-        var lastColor = ""
+        var lastColor = footsteps[0].color
         var coordinates: [CLLocationCoordinate2D] = []
-        for footstep in journey.footsteps {
+        for footstep in footsteps {
             if footstep.setAsStart {
                 if !coordinates.isEmpty {
                     let polyline = PolylineWithColor(coordinates: coordinates, count: coordinates.count)
@@ -39,5 +40,19 @@ class DrawOnMap {
         polyline.color = UIColor(hex: lastColor)!
         overlays.append(polyline)
         map.addOverlays(overlays, level: .aboveRoads)
+    }
+    
+    static func setCamera(_ footsteps: List<Footstep>, on map: MKMapView) {
+        var heading = CLLocationDirection(exactly: 0)
+        var firstPosition = footsteps[0].coordinate
+        var secondPosition = firstPosition
+        //        if journey.footsteps.count >= 2 {
+        //            secondPosition = journey.footsteps[1].coordinate
+        //            let adjustments = calculateAdjustments(from: firstPosition, to: secondPosition)
+        //            heading = adjustments.0
+        //            firstPosition = CLLocationCoordinate2DMake(firstPosition.latitude + adjustments.1, firstPosition.longitude + adjustments.2)
+        //        }
+        let camera = MKMapCamera(lookingAtCenter: firstPosition, fromDistance: CLLocationDistance(exactly: 400)!, pitch: 70, heading: heading!)
+        map.setCamera(camera, animated: false)
     }
 }

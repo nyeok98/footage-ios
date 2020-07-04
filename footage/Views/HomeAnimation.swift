@@ -145,7 +145,7 @@ class HomeAnimation {
         homeVC.MainButton.restorationIdentifier = pressedButtonClass.name
         pressedbutton.restorationIdentifier = mainButtonClass.name
         
-        homeVC.polyLineColor = pressedButtonClass.color
+        HomeViewController.selectedColor = pressedButtonClass.color
         
     }
     

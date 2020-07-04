@@ -63,18 +63,8 @@ class JourneyViewController: UIViewController {
 extension JourneyViewController: MKMapViewDelegate {
     
     func configureMap() {
-        var heading = CLLocationDirection(exactly: 0)
-        var firstPosition = journey.footsteps[0].coordinate
-        var secondPosition = firstPosition
-//        if journey.footsteps.count >= 2 {
-//            secondPosition = journey.footsteps[1].coordinate
-//            let adjustments = calculateAdjustments(from: firstPosition, to: secondPosition)
-//            heading = adjustments.0
-//            firstPosition = CLLocationCoordinate2DMake(firstPosition.latitude + adjustments.1, firstPosition.longitude + adjustments.2)
-//        }
-        let camera = MKMapCamera(lookingAtCenter: firstPosition, fromDistance: CLLocationDistance(exactly: 400)!, pitch: 70, heading: heading!)
-        mainMap.setCamera(camera, animated: false)
-        DrawOnMap.polylineFromJourney(journey, on: mainMap)
+        DrawOnMap.setCamera(journey.footsteps, on: mainMap)
+        DrawOnMap.polylineFromFootsteps(journey.footsteps, on: mainMap)
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

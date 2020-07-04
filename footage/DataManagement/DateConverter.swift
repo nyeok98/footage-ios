@@ -54,37 +54,37 @@ class DateConverter {
         return Int(dateFormatter.string(from: date))!
     }
     
-    static func lastMondaySunday() -> (Int, Int) {
+    static func lastMondayToday() -> (Int, Int) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
         let oneDay = -86400
         var monday = 0
-        var sunday = 0
+        var today = 0
         switch dateFormatter.string(from: Date()) {
         case "Monday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 7)))
-            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 1)))
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 0)))
+            today = dateToDay(date: Date())
         case "Tuesday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 8)))
-            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 2)))
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 1)))
+            today = dateToDay(date: Date())
         case "Wednesday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 9)))
-            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 3)))
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 2)))
+            today = dateToDay(date: Date())
         case "Thursday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 10)))
-            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 4)))
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 3)))
+            today = dateToDay(date: Date())
         case "Friday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 11)))
-            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 5)))
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 4)))
+            today = dateToDay(date: Date())
         case "Saturday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 12)))
-            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 6)))
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 5)))
+            today = dateToDay(date: Date())
         case "Sunday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 13)))
-            sunday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 7)))
+            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 6)))
+            today = dateToDay(date: Date())
         default:
             break
         }
-        return (monday, sunday)
+        return (monday, today)
     }
 }
