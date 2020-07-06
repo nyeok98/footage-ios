@@ -12,12 +12,13 @@ import MapKit
 class ColoredJourneyVC: UIViewController, MKMapViewDelegate {
     var color: String = ""
     @IBOutlet weak var mainMap: MKMapView!
+    @IBOutlet weak var colorImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mainMap.delegate = self
-        loadJourney()
         configureMap()
+        setColorImage(name: color)
     }
     
     func loadJourney() {
@@ -40,5 +41,9 @@ class ColoredJourneyVC: UIViewController, MKMapViewDelegate {
         polylineView.strokeColor = overlayWithColor.color
         polylineView.lineWidth = 10
         return polylineView
+    }
+    
+    func setColorImage(name: String) {
+        colorImage.image = UIImage(named: name)
     }
 }

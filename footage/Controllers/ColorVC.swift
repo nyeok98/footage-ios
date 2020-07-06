@@ -43,25 +43,37 @@ class ColorVC: UIViewController {
     
     
     func loadData() {
+        
+        let imageList = [firstColor, secondColor, thirdColor, fourthColor, fifthColor]
+        var colorList: Set = ["#EADE4Cff", "#F0E7CFff", "#F5A997ff", "#FF6B39ff", "#206491ff"]
+        
         if ranking.count > 0 {
             firstColor.image = UIImage(named: ranking[0].key)
             firstColorDistance.text = String(format: "%.2f", (ranking[0].value) / 1000)
+            colorList.remove(ranking[0].key)
         }
         if ranking.count > 1 {
             secondColor.image = UIImage(named: ranking[1].key)
             secondColorDistance.text = String(format: "%.2f", (ranking[1].value) / 1000)
+            colorList.remove(ranking[1].key)
         }
         if ranking.count > 2 {
             thirdColor.image = UIImage(named: ranking[2].key)
             thirdColorDistance.text = String(format: "%.2f", (ranking[2].value) / 1000)
+            colorList.remove(ranking[2].key)
         }
         if ranking.count > 3 {
             fourthColor.image = UIImage(named: ranking[3].key)
             fourthColorDistance.text = String(format: "%.2f", (ranking[3].value) / 1000)
+            colorList.remove(ranking[3].key)
         }
         if ranking.count > 4 {
             fifthColor.image = UIImage(named: ranking[4].key)
             fifthColorDistance.text = String(format: "%.2f", (ranking[4].value) / 1000)
+            colorList.remove(ranking[4].key)
+        }
+        for index in 0..<colorList.count {
+            imageList[4 - index]!.image = UIImage(named: colorList.removeFirst())
         }
     }
 }

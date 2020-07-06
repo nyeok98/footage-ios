@@ -262,8 +262,6 @@ extension HomeViewController {
         distance.font = distance.font.withSize(0.08 * HomeAnimation.screenHeight)
         self.view.bringSubviewToFront(StringStackView)
         self.view.bringSubviewToFront(startAboutStackView)
-        print(startButton.frame.size)
-        print(mainMap.frame.size)
         
     }
     

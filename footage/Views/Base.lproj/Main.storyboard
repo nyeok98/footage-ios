@@ -302,6 +302,9 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionCircle" translatesAutoresizingMaskIntoConstraints="NO" id="abk-nK-dLL">
                                                         <rect key="frame" x="0.0" y="0.0" width="62" height="65"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                                        </accessibility>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="65" id="96c-wT-2NI"/>
                                                             <constraint firstAttribute="width" constant="62" id="gpE-yP-B6s"/>
@@ -318,7 +321,7 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="WM2-eK-gcc">
+                                            <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="WM2-eK-gcc">
                                                 <rect key="frame" x="29.999999999999986" y="22.333333333333329" width="200.66666666666663" height="74"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="당신은 오늘까지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksk-zY-pd6">
@@ -394,7 +397,7 @@
                                                 <rect key="frame" x="167" y="40.333333333333314" width="116" height="128"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="FpH-WZ-7Eu">
+                                                    <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="FpH-WZ-7Eu">
                                                         <rect key="frame" x="0.0" y="0.0" width="78.666666666666671" height="129.33333333333334"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="색깔로" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6VS-mU-2ZP">
@@ -611,8 +614,8 @@
                                             <action selector="colorPressed:" destination="oqR-7m-0MZ" eventType="touchUpInside" id="L26-cd-Uc7"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfk-L7-Q2Z" userLabel="Second Distance" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                        <rect key="frame" x="204.66666666666663" y="17" width="65" height="45"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfk-L7-Q2Z" userLabel="Second Distance" customClass="EFCountingLabel" customModule="EFCountingLabel">
+                                        <rect key="frame" x="214.66666666666663" y="17" width="55" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
@@ -651,8 +654,8 @@
                                             <action selector="colorPressed:" destination="oqR-7m-0MZ" eventType="touchUpInside" id="M25-uF-3Al"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOF-qU-ImT" userLabel="Second Distance" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                        <rect key="frame" x="204.66666666666663" y="17" width="65" height="45"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOF-qU-ImT" userLabel="Second Distance" customClass="EFCountingLabel" customModule="EFCountingLabel">
+                                        <rect key="frame" x="214.66666666666663" y="17" width="55" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
@@ -691,8 +694,8 @@
                                             <action selector="colorPressed:" destination="oqR-7m-0MZ" eventType="touchUpInside" id="MNF-Nj-igW"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A18-GI-Ugv" userLabel="Second Distance" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                        <rect key="frame" x="204.66666666666663" y="17" width="65" height="45"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A18-GI-Ugv" userLabel="Second Distance" customClass="EFCountingLabel" customModule="EFCountingLabel">
+                                        <rect key="frame" x="214.66666666666663" y="17" width="55" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
@@ -731,8 +734,8 @@
                                             <action selector="colorPressed:" destination="oqR-7m-0MZ" eventType="touchUpInside" id="r5i-n2-e4x"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOl-HQ-7Rz" userLabel="Second Distance" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                        <rect key="frame" x="204.66666666666663" y="17" width="65" height="45"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOl-HQ-7Rz" userLabel="Second Distance" customClass="EFCountingLabel" customModule="EFCountingLabel">
+                                        <rect key="frame" x="214.66666666666663" y="17" width="55" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
@@ -771,8 +774,8 @@
                                             <action selector="colorPressed:" destination="oqR-7m-0MZ" eventType="touchUpInside" id="fRi-Ne-otf"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lc9-0R-lAl" userLabel="Second Distance" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                        <rect key="frame" x="204.66666666666663" y="17" width="65" height="45"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lc9-0R-lAl" userLabel="Second Distance" customClass="EFCountingLabel" customModule="EFCountingLabel">
+                                        <rect key="frame" x="214.66666666666663" y="17" width="55" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
@@ -833,12 +836,52 @@
                                 <rect key="frame" x="16" y="235" width="343" height="343"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zGn-oO-bfS">
+                                <rect key="frame" x="143.66666666666666" y="16" width="88" height="21"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zGn-oO-bfS" secondAttribute="height" multiplier="88:35" id="F5a-gX-i9j"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5VC-ap-fZI">
+                                <rect key="frame" x="146" y="103" width="82" height="77"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                </accessibility>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyk-K0-CUg">
+                                <rect key="frame" x="220" y="103" width="29" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHL-Xw-Bjd">
+                                <rect key="frame" x="143" y="103" width="29" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="35"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="zGn-oO-bfS" firstAttribute="width" secondItem="vtn-eb-T6N" secondAttribute="width" multiplier="0.234667" id="6V0-P9-Yhh"/>
+                            <constraint firstItem="zGn-oO-bfS" firstAttribute="centerX" secondItem="vtn-eb-T6N" secondAttribute="centerX" id="Rvu-lc-GPY"/>
+                            <constraint firstItem="zGn-oO-bfS" firstAttribute="top" secondItem="xds-QB-Uhb" secondAttribute="top" constant="9" id="U2z-fx-DYL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="xds-QB-Uhb"/>
                     </view>
                     <navigationItem key="navigationItem" id="Wjz-Yf-D0D"/>
                     <connections>
+                        <outlet property="colorImage" destination="5VC-ap-fZI" id="8my-N9-5pa"/>
                         <outlet property="mainMap" destination="uqZ-Cu-xTJ" id="GYg-TT-CXB"/>
                     </connections>
                 </viewController>
@@ -875,7 +918,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="hyx-Tl-uZC">
-                                        <rect key="frame" x="9.9999999999999716" y="29" width="245.66666666666666" height="32"/>
+                                        <rect key="frame" x="9.9999999999999858" y="29" width="245.66666666666666" height="32"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1위." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L0A-lg-Nya">
                                                 <rect key="frame" x="0.0" y="0.0" width="32.333333333333336" height="32"/>
@@ -932,7 +975,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="GMl-Vn-yAC">
-                                        <rect key="frame" x="37.999999999999986" y="29" width="212" height="32"/>
+                                        <rect key="frame" x="38" y="29" width="212" height="32"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2위." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c61-u4-bjh">
                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="32"/>
