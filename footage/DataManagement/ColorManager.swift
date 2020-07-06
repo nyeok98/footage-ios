@@ -54,14 +54,23 @@ class ColorManager {
         return rank.sorted(by: {$0.value > $1.value})
     }
     
-    static func footstepsWithColor(color: String, from: Int, to:Int) -> List<Footstep> {
-        var footsteps = List<Footstep>()
+    static func footstepsWithColor(color: String, from: Int, to:Int) -> [List<Footstep>] {
+        var footsteps: [List<Footstep>] = []
         let realm = try! Realm()
+        var colorChanged = false
+        var arrayIndex = 0
+        footsteps.append(List<Footstep>())
         let result = realm.objects(DayData.self).filter("date >= \(from) AND date <= \(to)")
         for day in result {
             for footstep in day.footsteps {
                 if footstep.color == color {
-                    footsteps.append(footstep)
+                    footsteps[arrayIndex].append(footstep)
+                } else {
+                    if !colorChanged {
+                        colorChanged = true
+                        footsteps.append(List<Footstep>())
+                        arrayIndex += 1
+                    }
                 }
             }
         }

@@ -28,11 +28,13 @@ class ColoredJourneyVC: UIViewController, MKMapViewDelegate {
     func configureMap() {
         let heading = CLLocationDirection(exactly: 0)
         let days = DateConverter.lastMondayToday()
-        let footsteps = ColorManager.footstepsWithColor(color: color, from: days.0, to: days.1)
-        let firstPosition = footsteps[0].coordinate
+        let footstepsArray = ColorManager.footstepsWithColor(color: color, from: days.0, to: days.1)
+        let firstPosition = footstepsArray[0][0].coordinate
         let camera = MKMapCamera(lookingAtCenter: firstPosition, fromDistance: CLLocationDistance(exactly: 400)!, pitch: 70, heading: heading!)
         mainMap.setCamera(camera, animated: false)
-        DrawOnMap.polylineFromFootsteps(footsteps, on: mainMap)
+        for footsteps in footstepsArray {
+            DrawOnMap.polylineFromFootsteps(footsteps, on: mainMap)
+        }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
