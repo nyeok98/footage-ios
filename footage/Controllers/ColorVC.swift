@@ -31,12 +31,15 @@ class ColorVC: UIViewController {
     }
     
     @IBAction func colorPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "goToColoredJourney", sender: sender)
+        if sender.tag < ranking.count {
+            performSegue(withIdentifier: "goToColoredJourney", sender: sender)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let button = sender as! UIButton
         let destinationVC = segue.destination as! ColoredJourneyVC
+        
         destinationVC.color = ranking[button.tag].key
         
     }

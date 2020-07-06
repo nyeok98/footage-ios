@@ -61,6 +61,8 @@ class JourneyViewController: UIViewController {
     @IBAction func addPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "goToPhotoSelection", sender: self)
     }
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
+    }
 }
 
 // MARK: -Maps

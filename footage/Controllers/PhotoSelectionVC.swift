@@ -37,6 +37,9 @@ class PhotoSelectionVC: UIViewController {
         configureHierarchy()
         collectionView.reloadData()
     }
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func completePressed(_ sender: UIButton) {
         let selectedAssets = fetchResult?.objects(at: selected) ?? []
