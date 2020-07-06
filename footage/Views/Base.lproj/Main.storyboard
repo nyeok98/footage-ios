@@ -1348,7 +1348,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="postAddButton"/>
                                 <connections>
-                                    <action selector="addPressed:" destination="aF5-BU-2MZ" eventType="touchUpInside" id="w8S-rH-7WP"/>
+                                    <action selector="addPressed:" destination="aF5-BU-2MZ" eventType="touchUpInside" id="T5L-Bh-dam"/>
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="iKq-qv-VBP">
