@@ -27,7 +27,7 @@ class PhotoSelectionVC: UIViewController {
         case main
     }
     
-    override func viewDidLoad() {
+    override func viewDidLoad() { // FIX: Fetch must wait until permission granted!
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "creationDate < %@ AND creationDate >= %@", dateTo, dateFrom)
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
@@ -39,9 +39,11 @@ class PhotoSelectionVC: UIViewController {
     }
     
     @IBAction func completePressed(_ sender: UIButton) {
-        photoCollectionVC.assets = fetchResult?.objects(at: selected) ?? []
+        let selectedAssets = fetchResult?.objects(at: selected) ?? []
+        PhotoManager.saveAssets(assets: selectedAssets, date: DateConverter.dateToDay(date: dateFrom as Date))
+        // fix: date?
+        photoCollectionVC.assets = selectedAssets
         photoCollectionVC.configureDataSource()
-        // TODO: save photos to Realm
         self.dismiss(animated: true) { }
     }
 }
@@ -65,10 +67,12 @@ extension PhotoSelectionVC: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: highlight and/or display check badge
         selected.insert(indexPath.row)
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = .black
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selected.remove(indexPath.row)
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = .white
     }
     
 }
@@ -89,7 +93,7 @@ extension PhotoSelectionVC { // collection view configuration
     }
     
     private func configureHierarchy() {
-        let collectionFrame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+        let collectionFrame = CGRect(x: 0, y: 100, width: view.bounds.width, height: view.bounds.height - 100)
         collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
         collectionView.delegate = self
         collectionView.dataSource = self

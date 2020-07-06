@@ -16,7 +16,7 @@ class ProfileEditVC: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     var profileView = UIView() // container for the selected portion
-    var parentVC: UIViewController?
+    var parentVC: ProfileSelectionVC?
     var statsVC: DateViewController?
     var imageAsset: PHAsset?
     @IBOutlet weak var confirmButton: UIButton!
@@ -27,10 +27,10 @@ class ProfileEditVC: UIViewController, UIScrollViewDelegate {
         statsVC?.reloadProfileImage()
         self.dismiss(animated: false) { }
         self.parentVC!.dismiss(animated: false) { }
+        parentVC?.cacheManager.stopCachingImagesForAllAssets()
     }
     
     @IBAction func backPressed(_ sender: UIButton) {self.dismiss(animated: true){}}
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

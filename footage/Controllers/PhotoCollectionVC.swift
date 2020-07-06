@@ -15,6 +15,7 @@ class PhotoCollectionVC: UIViewController {
     var collectionView: UICollectionView! = nil
     var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     var assets: [PHAsset] = []
+    var dateForPhoto = 0
     
     let scale = UIScreen.main.scale
     var thumbnailSize = CGSize(width: 1024, height: 680)
@@ -28,8 +29,11 @@ class PhotoCollectionVC: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    init() {
+    init(date: Int) {
         super.init(nibName: nil, bundle: nil)
+        let fetchResult = PhotoManager.loadAssets(date: date)
+        let indexSet = IndexSet(integersIn: 0..<fetchResult.count)
+        self.assets = PhotoManager.loadAssets(date: date).objects(at: indexSet)
         configureHierarchy()
         configureDataSource()
         // load from realm and occupy assets with selected photos
@@ -38,15 +42,15 @@ class PhotoCollectionVC: UIViewController {
 
 extension PhotoCollectionVC {
     private func createLayout() -> UICollectionViewLayout {
-        let badgeAnchor = NSCollectionLayoutAnchor(edges: [.top, .trailing], fractionalOffset: CGPoint(x: 0.3, y: -0.3))
-        let badgeSize = NSCollectionLayoutSize(widthDimension: .absolute(20),
-                                               heightDimension: .absolute(20))
-        let badge = NSCollectionLayoutSupplementaryItem(
-            layoutSize: badgeSize,
-            elementKind: "badge-element-kind",
-            containerAnchor: badgeAnchor)
+//        let badgeAnchor = NSCollectionLayoutAnchor(edges: [.top, .trailing], fractionalOffset: CGPoint(x: 0.3, y: -0.3))
+//        let badgeSize = NSCollectionLayoutSize(widthDimension: .absolute(20),
+//                                               heightDimension: .absolute(20))
+//        let badge = NSCollectionLayoutSupplementaryItem(
+//            layoutSize: badgeSize,
+//            elementKind: "badge-element-kind",
+//            containerAnchor: badgeAnchor)
         let itemSize = NSCollectionLayoutSize(widthDimension:.fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize, supplementaryItems: [badge])
+        let item = NSCollectionLayoutItem(layoutSize: itemSize, supplementaryItems: [])
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.85), heightDimension: .fractionalHeight(1))

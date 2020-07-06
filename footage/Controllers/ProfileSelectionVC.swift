@@ -13,8 +13,8 @@ import Photos
 class ProfileSelectionVC: UIViewController {
 
     var collectionView: UICollectionView! = nil
-    var dateFrom: NSDate = Date(timeIntervalSince1970: 0) as NSDate
-    var dateTo: NSDate = Date() as NSDate
+    var dateFrom: NSDate = Date(timeIntervalSince1970: 0) as NSDate // long time ago
+    var dateTo: NSDate = Date() as NSDate // today
     var parentVC: DateViewController?
     let cacheManager = PHCachingImageManager()
     var allMedia: PHFetchResult<PHAsset>?
@@ -33,6 +33,11 @@ class ProfileSelectionVC: UIViewController {
         cacheManager.startCachingImages(for: (allMedia?.objects(at: indexSet))!, targetSize: thumbnailSize, contentMode: .default, options: nil)
         configureHierarchy()
         collectionView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(false)
+        cacheManager.stopCachingImagesForAllAssets() // important!
     }
     
 }

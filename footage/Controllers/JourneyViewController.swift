@@ -26,6 +26,7 @@ class JourneyViewController: UIViewController {
     var journey: Journey! = nil // comes from previous VC (Stats)
     var journeyIndex = 0 // comes from previous VC (Stats)
     var forReloadStatsVC = DateViewController()
+    var photoVC: PhotoCollectionVC! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,7 @@ class JourneyViewController: UIViewController {
         configureMap()
         setInitialAlpha()
         JourneyAnimation(journeyVC: self, journeyIndex: journeyIndex).journeyActivate()
-        let photoVC = PhotoCollectionVC()
+        photoVC = PhotoCollectionVC(date: journey.date)
         addChild(photoVC)
         view.addSubview(photoVC.collectionView)
     }
@@ -55,6 +56,10 @@ class JourneyViewController: UIViewController {
             }
         } catch { print(error)}
         forReloadStatsVC.collectionView.reloadData()
+    }
+    
+    @IBAction func addPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToPhotoSelection", sender: self)
     }
 }
 
@@ -109,6 +114,7 @@ extension JourneyViewController {
         let destinationVC = segue.destination as! PhotoSelectionVC
         destinationVC.dateFrom = DateConverter.stringToDate(int: journey.date, start: true) as NSDate
         destinationVC.dateTo = DateConverter.stringToDate(int: journey.date, start: false) as NSDate
+        destinationVC.photoCollectionVC = photoVC
     }
 }
 

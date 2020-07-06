@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let realm = try! Realm()
+        print("Realm is located at:", realm.configuration.fileURL!)
         HomeViewController.distanceTotal = DateManager.loadDistance(total: true)
 //        if let lastColor = UserDefaults.standard.string(forKey: "lastColor") {
 //            HomeViewController.selectedColor = lastColor
