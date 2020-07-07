@@ -20,8 +20,6 @@ class JourneyViewController: UIViewController {
     @IBOutlet weak var yearText: UILabel!
     @IBOutlet weak var monthText: UILabel!
     @IBOutlet weak var dayText: UILabel!
-    @IBOutlet weak var youText: UILabel!
-    @IBOutlet weak var seeBackText: UILabel!
     @IBOutlet weak var slider: UISlider!
     
     var journey: Journey! = nil // comes from previous VC (Stats)
