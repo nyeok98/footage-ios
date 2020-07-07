@@ -16,7 +16,11 @@ class PhotoSelectionVC: UIViewController {
     var dateFrom: NSDate! = nil
     var dateTo: NSDate! = nil
     var photoCollectionVC: PhotoCollectionVC! = nil
+    var journeyVC: JourneyViewController! = nil
+    
     var selected = IndexSet()
+    var footstep: Footstep! = nil
+    var footstepIndex = 0
     
     let cacheManager = PHCachingImageManager()
     var fetchResult: PHFetchResult<PHAsset>?
@@ -29,6 +33,7 @@ class PhotoSelectionVC: UIViewController {
     
     override func viewDidLoad() { // FIX: Fetch must wait until permission granted!
         let fetchOptions = PHFetchOptions()
+        dateFrom = NSDate(timeIntervalSince1970: 0) // DELETE!
         fetchOptions.predicate = NSPredicate(format: "creationDate < %@ AND creationDate >= %@", dateTo, dateFrom)
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         fetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
@@ -43,10 +48,14 @@ class PhotoSelectionVC: UIViewController {
     
     @IBAction func completePressed(_ sender: UIButton) {
         let selectedAssets = fetchResult?.objects(at: selected) ?? []
-        PhotoManager.saveAssets(assets: selectedAssets, date: DateConverter.dateToDay(date: dateFrom as Date))
-        // fix: date?
-        photoCollectionVC.assets = selectedAssets
-        photoCollectionVC.configureDataSource()
+        PhotoManager.savePhotos(assets: selectedAssets, footstep: footstep)
+        for phasset in selectedAssets {
+            photoCollectionVC.assets.append(Asset(photoFlag: true, content: phasset.localIdentifier, index: footstepIndex))
+            journeyVC.bookmark.append(footstepIndex)
+        }
+        journeyVC.bookmark.sort()
+        photoCollectionVC.assets.sort()
+        photoCollectionVC.collectionView.reloadData() // 이거 조금 더 효율적으로... 나중애 생각해볼것
         self.dismiss(animated: true) { }
     }
 }
@@ -104,8 +113,8 @@ extension PhotoSelectionVC { // collection view configuration
         collectionView.isPagingEnabled = true
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .white
-        collectionView.allowsSelection = false
         collectionView.allowsSelection = true
+        collectionView.allowsMultipleSelection = true
         view.addSubview(collectionView)
     }
 }

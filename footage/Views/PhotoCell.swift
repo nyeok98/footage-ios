@@ -16,6 +16,7 @@ class PhotoCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
+    
     required init?(coder: NSCoder) {
         fatalError("not implemnted")
     }
@@ -26,4 +27,5 @@ class PhotoCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
     }
+
 }

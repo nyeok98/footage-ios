@@ -22,21 +22,28 @@ class JourneyViewController: UIViewController {
     @IBOutlet weak var dayText: UILabel!
     @IBOutlet weak var youText: UILabel!
     @IBOutlet weak var seeBackText: UILabel!
+    @IBOutlet weak var slider: UISlider!
     
     var journey: Journey! = nil // comes from previous VC (Stats)
     var journeyIndex = 0 // comes from previous VC (Stats)
     var forReloadStatsVC = DateViewController()
     var photoVC: PhotoCollectionVC! = nil
-
+    var bookmark: [Int] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mainMap.delegate = self
         configureMap()
         setInitialAlpha()
         JourneyAnimation(journeyVC: self, journeyIndex: journeyIndex).journeyActivate()
-        photoVC = PhotoCollectionVC(date: journey.date)
+        configureButtons()
+        let results = PhotoManager.loadAssetsAndBookmark(footsteps: journey.footsteps)
+        photoVC = PhotoCollectionVC(date: journey.date, assets: results.0, journeyVC: self)
+        bookmark = results.1
         addChild(photoVC)
         view.addSubview(photoVC.collectionView)
+        slider.maximumValue = Float(journey.footsteps.count - 1)
+        slider.value = 0
     }
     
     override func viewDidAppear(_ animated: Bool) { // create preview image using screenshot
@@ -58,10 +65,33 @@ class JourneyViewController: UIViewController {
         forReloadStatsVC.collectionView.reloadData()
     }
     
-    @IBAction func addPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "goToPhotoSelection", sender: self)
-    }
     @IBAction func sliderValueChanged(_ sender: UISlider) {
+        DrawOnMap.centerToFootstep(journey.footsteps[Int(sender.value)], on: mainMap)
+        if let nextItem = bookmark.firstIndex(of: Int(sender.value)) {
+            photoVC.collectionView.scrollToItem(at: IndexPath(item: nextItem + 1, section: 0), at: .centeredHorizontally, animated: false)
+        }
+    }
+    @IBAction func sliderPressed(_ sender: UISlider) {
+        PhotoCollectionVC.sliderIsMoving = true
+    }
+    
+    @IBAction func sliderFinished(_ sender: UISlider) {
+        PhotoCollectionVC.sliderIsMoving = false
+    }
+    
+    func moveSliderTo(value: Int) {
+        DrawOnMap.centerToFootstep(journey.footsteps[value], on: mainMap)
+        slider.value = Float(value)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! PhotoSelectionVC
+        destinationVC.dateFrom = DateConverter.stringToDate(int: journey.date, start: true) as NSDate
+        destinationVC.dateTo = DateConverter.stringToDate(int: journey.date, start: false) as NSDate
+        destinationVC.photoCollectionVC = photoVC
+        destinationVC.journeyVC = self
+        destinationVC.footstep = journey.footsteps[Int(slider.value)]
+        destinationVC.footstepIndex = Int(slider.value)
     }
 }
 
@@ -94,6 +124,28 @@ extension JourneyViewController: MKMapViewDelegate {
 
 extension JourneyViewController {
     
+    private func configureButtons() {
+        let photoButton = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 50))
+        photoButton.setImage(#imageLiteral(resourceName: "postAddButton"), for: .normal)
+        photoButton.addTarget(self, action: #selector(goToSelection), for: .touchUpInside)
+        
+        let button = UIButton()
+        button.frame = CGRect(x: 100, y: 0, width: 50, height: 50)
+        button.setImage(#imageLiteral(resourceName: "addWritingButton"), for: .normal)
+        button.addTarget(self, action: #selector(activateTextField), for: .touchUpInside)
+        
+        view.addSubview(button)
+        view.addSubview(photoButton)
+    }
+    
+    @objc func goToSelection() {
+        performSegue(withIdentifier: "goToPhotoSelection", sender: self)
+    }
+    
+    @objc func activateTextField() {
+        photoVC.addNoteCell()
+    }
+    
     func takeScreenshot() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(mainMap.bounds.size, false, UIScreen.main.scale)
         mainMap.drawHierarchy(in: mainMap.bounds, afterScreenUpdates: true)
@@ -108,16 +160,11 @@ extension JourneyViewController {
         yearLabel.alpha = 0
         monthLabel.alpha = 0
         dayLabel.alpha = 0
-        youText.alpha = 0
-        seeBackText.alpha = 0
+        //youText.alpha = 0
+        //seeBackText.alpha = 0
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! PhotoSelectionVC
-        destinationVC.dateFrom = DateConverter.stringToDate(int: journey.date, start: true) as NSDate
-        destinationVC.dateTo = DateConverter.stringToDate(int: journey.date, start: false) as NSDate
-        destinationVC.photoCollectionVC = photoVC
-    }
+    
 }
 
 class PolylineWithColor: MKPolyline {

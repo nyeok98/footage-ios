@@ -60,7 +60,6 @@ class DateManager { // journey 저장 및 데이터 가공을 담당
         case "day":
             let result = realm.objects(DayData.self) // 20200604
             for day in result {
-                print(day.footsteps)
                 let journey = Journey.init(footsteps: day.footsteps, preview: day.preview, reference: day, date: day.date)
                 journeys.append(journey)
             }

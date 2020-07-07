@@ -55,4 +55,11 @@ class DrawOnMap {
         let camera = MKMapCamera(lookingAtCenter: firstPosition, fromDistance: CLLocationDistance(exactly: 400)!, pitch: 70, heading: heading!)
         map.setCamera(camera, animated: false)
     }
+    
+    static func centerToFootstep (_ footstep: Footstep, on map: MKMapView) {
+        let camera = MKMapCamera(lookingAtCenter: footstep.coordinate, fromDistance: CLLocationDistance(exactly: 200)!, pitch: 70, heading: CLLocationDirection(exactly: 90)!)
+        map.setCamera(camera, animated: false)
+    }
+    
+    static func createPin() { }
 }

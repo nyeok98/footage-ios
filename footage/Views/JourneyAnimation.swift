@@ -25,8 +25,8 @@ class JourneyAnimation {
     }
 
     func journeyActivate() {
-        alphaToOne(object: journeyVC.youText, time: 0.55)
-        alphaToOne(object: journeyVC.seeBackText, time: 1.5)
+        //alphaToOne(object: journeyVC.youText, time: 0.55)
+        //alphaToOne(object: journeyVC.seeBackText, time: 1.5)
         setNecessaryLabels()
     }
     
