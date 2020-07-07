@@ -25,9 +25,18 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var distance: EFCountingLabel!
     @IBOutlet weak var distanceView: UIView!
     @IBOutlet weak var unitLabel: UILabel!
+    @IBOutlet weak var selectedButtonLabel: UILabel!
+    @IBOutlet weak var exampleImageView: UIImageView!
     @IBAction func questionCircle(_ sender: UIButton) {
+        exampleImageView.isHidden = true
+    }
+    @IBAction func questionCirclePressed(_ sender: UIButton) {
+        exampleImageView.isHidden = false
+        UIApplication.shared.keyWindow!.addSubview(exampleImageView)
+        UIApplication.shared.keyWindow!.bringSubviewToFront(exampleImageView)
     }
     @IBOutlet weak var currentColorIndicator: UIImageView!
+    @IBOutlet weak var selectedButtonStackView: UIStackView!
     @IBOutlet weak var MainButton: UIButton!
     @IBOutlet weak var secondButton: UIButton!
     @IBOutlet weak var thirdButton: UIButton!
@@ -36,19 +45,19 @@ class HomeViewController: UIViewController {
     
     @IBAction func secondButtonPressed(_ sender: UIButton) {
         HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
-        HomeAnimation.colorSelected(homeVC: self)
+        HomeAnimation.colorSelected(homeVC: self, pressedbutton: sender)
     }
     @IBAction func thirdButtonPressed(_ sender: UIButton) {
         HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
-        HomeAnimation.colorSelected(homeVC: self)
+        HomeAnimation.colorSelected(homeVC: self, pressedbutton: sender)
     }
     @IBAction func fourthButtonPressed(_ sender: UIButton) {
         HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
-        HomeAnimation.colorSelected(homeVC: self)
+        HomeAnimation.colorSelected(homeVC: self, pressedbutton: sender)
     }
     @IBAction func fifthButtonPressed(_ sender: UIButton) {
         HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
-        HomeAnimation.colorSelected(homeVC: self)
+        HomeAnimation.colorSelected(homeVC: self, pressedbutton: sender)
     }
     
     /// 2. For MapKit
@@ -72,12 +81,14 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        exampleImageView.isHidden = true
         // set delegates
         mainMap.delegate = self
         HomeViewController.locationManager.delegate = self
         // start animation
         startButton.setImage(#imageLiteral(resourceName: "startButton"), for: .normal)
         HomeViewController.currentStartButtonImage = startButton.currentImage
+        selectedButtonLabel.text = UserDefaults.standard.string(forKey: "#EADE4Cff")
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
         configureInitialMapView()

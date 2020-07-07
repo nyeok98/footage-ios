@@ -20,14 +20,11 @@ class Settings_GeneralVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = UIColor.white
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(SettingsCell.self, forCellReuseIdentifier: "cellId")
-        
-        tableView.separatorColor = UIColor.white
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
         
     }
@@ -41,14 +38,16 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! SettingsCell
-        cell.backgroundColor = UIColor.white
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 50
     }
 
 }

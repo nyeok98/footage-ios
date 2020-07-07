@@ -138,6 +138,8 @@ class HomeAnimation {
         
         let mainButtonClass = Buttons(className: homeVC.MainButton.restorationIdentifier!)
         let pressedButtonClass = Buttons(className: pressedbutton.restorationIdentifier!)
+        print(mainButtonClass.name)
+        print(pressedButtonClass.name)
         
         homeVC.MainButton.setImage(pressedButtonClass.imageBig, for: .normal)
         pressedbutton.setImage(mainButtonClass.image, for: .normal)
@@ -145,19 +147,24 @@ class HomeAnimation {
         homeVC.MainButton.restorationIdentifier = pressedButtonClass.name
         pressedbutton.restorationIdentifier = mainButtonClass.name
         
+        homeVC.selectedButtonLabel.text = UserDefaults.standard.string(forKey:pressedButtonClass.color)
+        
         HomeViewController.selectedColor = pressedButtonClass.color
         
     }
     
-    static func colorSelected(homeVC: HomeViewController) {
+    static func colorSelected(homeVC: HomeViewController, pressedbutton: UIButton) {
+        
         DispatchQueue.global().sync {
             UIView.animate(withDuration: 0.3, animations: {
                 homeVC.currentColorIndicator.frame.origin.y -= 10
+                homeVC.selectedButtonStackView.frame.origin.y -= 10
             })
         }
         DispatchQueue.global().sync {
             UIView.animate(withDuration: 1, animations: {
                 homeVC.currentColorIndicator.frame.origin.y += 10
+                homeVC.selectedButtonStackView.frame.origin.y += 10
             })
         }
         
