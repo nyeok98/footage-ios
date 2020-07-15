@@ -17,8 +17,7 @@ class Footstep: Object {
     @objc dynamic var longitude = 0.0
     @objc dynamic var color = "#EADE4Cff"
     @objc dynamic var setAsStart = false
-    let photos = List<String>()
-    let notes = List<String>()
+    let assets = List<String>()
     var coordinate: CLLocationCoordinate2D {
         get { return CLLocationCoordinate2D(latitude: latitude, longitude: longitude) }
     }

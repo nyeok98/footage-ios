@@ -9,11 +9,12 @@
 import Foundation
 
 struct Asset: Comparable {
-    var photoFlag: Bool // true for photo, false for note
-    var content: String // PHAssetID for photo, content for note
-    var index: Int // index of footstep related to this asset
+    var localID: String // true for photo, false for note
+    var note: String // PHAssetID for photo, content for note
+    var footstepNumber: Int // index of footstep related to this asset
+    // var showingPhoto = true
     
     static func < (lhs: Asset, rhs: Asset) -> Bool {
-         return lhs.index < rhs.index
+         return lhs.footstepNumber < rhs.footstepNumber
     }
 }

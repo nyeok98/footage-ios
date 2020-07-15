@@ -21,9 +21,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>위치서비스를 '항상'으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
+	<string>위치서비스를 &apos;항상&apos;으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>위치서비스를 '항상'으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
+	<string>위치서비스를 &apos;항상&apos;으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>동녘이 사진 좀 주세여</string>
 	<key>NSSupportsSuddenTermination</key>
@@ -32,14 +32,6 @@
 	<array>
 		<string>NanumBarunpenRegular.ttf</string>
 		<string>NanumBarunpenBold.ttf</string>
-		<string>210 모던고딕OTF R.otf</string>
-		<string>210 모던고딕OTF L.otf</string>
-		<string>210 모던고딕OTF EB.otf</string>
-		<string>210 모던고딕OTF B.otf</string>
-		<string>NanumSquareBold.ttf</string>
-		<string>NanumSquareExtraBold.ttf</string>
-		<string>NanumSquareRegular.ttf</string>
-		<string>NanumSquareLight.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
