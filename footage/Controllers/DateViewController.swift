@@ -11,10 +11,11 @@ import MapKit
 import EFCountingLabel
 
 class DateViewController: UIViewController {
+    
+    var profileImage: UIImage?
+    
     @IBOutlet weak var rangeControl: UISegmentedControl!
     @IBOutlet weak var profileView: UIImageView!
-    var profileImage = #imageLiteral(resourceName: "profile")
-    @IBOutlet weak var totalDistance: EFCountingLabel!
     
     static var journeys: [Journey] = []
     
@@ -28,6 +29,10 @@ class DateViewController: UIViewController {
     
     @IBAction func dateRangeChanged(_ sender: UISegmentedControl) {
         loadWithRange(sender.selectedSegmentIndex)
+    }
+    @IBAction func recordButtonPressed(_ sender: UIButton) {
+        self.tabBarController?.selectedIndex = 0
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +52,6 @@ class DateViewController: UIViewController {
         if let profileData = UserDefaults.standard.data(forKey: "profileImage") {
             profileImage = UIImage(data: profileData)!}
         reloadProfileImage()
-        configureLabel()
     }
 }
 
@@ -109,8 +113,8 @@ extension DateViewController {
             
             // Get a cell of the desired kind.
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: MapCell.reuseIdentifier,
-                for: indexPath) as? MapCell else { fatalError("Could not create new cell") }
+                    withReuseIdentifier: MapCell.reuseIdentifier,
+                    for: indexPath) as? MapCell else { fatalError("Could not create new cell") }
             
             cell.mapImage.image = UIImage(data: DateViewController.journeys[indexPath.row].preview)
             let date = DateViewController.journeys[indexPath.row].date
@@ -143,20 +147,6 @@ extension DateViewController {
 }
 
 extension DateViewController {
-    
-    func configureLabel() {
-        let label = UILabel()
-        let labelFrame = CGRect(x: 0, y: 300, width: self.view.bounds.width, height: 100)
-        label.frame = labelFrame
-        label.text = "새로운 발자취를 기록해 볼까요?"
-        label.font = UIFont(name: "NanumSquare", size: 20)
-        label.textAlignment = .center
-        label.textColor = .black
-        label.numberOfLines = 2
-        label.backgroundColor = .clear
-        self.view.addSubview(label)
-        view.bringSubviewToFront(label)
-    }
     
     func reloadProfileImage() {
         profileView.layer.cornerRadius = profileView.bounds.width / 2.0
@@ -191,7 +181,7 @@ extension DateViewController {
         snapshot.appendItems(cellArray)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
-
+    
 }
 
 extension DateViewController: UICollectionViewDelegate {
@@ -210,9 +200,8 @@ extension DateViewController: UICollectionViewDelegate {
             destinationVC.parentVC = self
         case "goToJourney":
             let destinationVC = segue.destination as! JourneyViewController
-            destinationVC.journeyIndex = sender as! Int
-            destinationVC.forReloadStatsVC = self
-            destinationVC.journey = DateViewController.journeys[sender as! Int]
+            destinationVC.journeyManager = JourneyManager(journeyIndex: sender as! Int)
+            destinationVC.dateVC = self
         default: break
         }
     }

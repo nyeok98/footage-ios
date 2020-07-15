@@ -15,7 +15,7 @@ class ProfileSelectionVC: UIViewController {
     var collectionView: UICollectionView! = nil
     var dateFrom: NSDate = Date(timeIntervalSince1970: 0) as NSDate // long time ago
     var dateTo: NSDate = Date() as NSDate // today
-    var parentVC: DateViewController?
+    var parentVC: UIViewController?
     let cacheManager = PHCachingImageManager()
     var allMedia: PHFetchResult<PHAsset>?
     let scale = UIScreen.main.scale

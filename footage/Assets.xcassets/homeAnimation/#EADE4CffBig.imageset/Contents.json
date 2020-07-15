@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "button1Big.png",
+      "filename" : "#EADE4CffBig.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "button1Big@2x.png",
+      "filename" : "#EADE4CffBig@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "button1Big@3x.png",
+      "filename" : "#EADE4CffBig@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

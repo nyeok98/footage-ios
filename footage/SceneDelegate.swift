@@ -42,7 +42,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-        HomeViewController.locationManager.stopUpdatingLocation()
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if launchedBefore  {
+            HomeViewController.locationManager.stopUpdatingLocation()
+        } else {
+            UserDefaults.standard.set("노란색", forKey: "#EADE4Cff")
+            UserDefaults.standard.set("분홍색", forKey: "#F5A997ff")
+            UserDefaults.standard.set("흰  색", forKey: "#F0E7CFff")
+            UserDefaults.standard.set("주황색", forKey: "#FF6B39ff")
+            UserDefaults.standard.set("파란색", forKey: "#206491ff")
+            
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let FLProfileSettingsVC = storyBoard.instantiateViewController(withIdentifier: "FL_ProfileSettingsVC") as! FL_ProfileSettingsVC
+            self.window?.rootViewController = FLProfileSettingsVC
+        }
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {

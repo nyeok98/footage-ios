@@ -17,17 +17,28 @@ class ProfileEditVC: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     var profileView = UIView() // container for the selected portion
     var parentVC: ProfileSelectionVC?
-    var statsVC: DateViewController?
+    var statsVC: UIViewController?
     var imageAsset: PHAsset?
     @IBOutlet weak var confirmButton: UIButton!
     
     @IBAction func confirmPressed(_ sender: UIButton) {
-        statsVC?.profileImage = captureSelectedRegion()
-        UserDefaults.standard.setValue(statsVC?.profileImage.pngData(), forKey: "profileImage")
-        statsVC?.reloadProfileImage()
-        self.dismiss(animated: false) { }
-        self.parentVC!.dismiss(animated: false) { }
-        parentVC?.cacheManager.stopCachingImagesForAllAssets()
+        if statsVC is DateViewController {
+            let setVC = statsVC as! DateViewController
+            setVC.profileImage = captureSelectedRegion()
+            UserDefaults.standard.setValue(setVC.profileImage!.pngData(), forKey: "profileImage")
+            setVC.reloadProfileImage()
+            self.dismiss(animated: false) { }
+            self.parentVC!.dismiss(animated: false) { }
+            parentVC?.cacheManager.stopCachingImagesForAllAssets()
+        } else if statsVC is FL_ProfileSettingsVC {
+            let setVC = statsVC as! FL_ProfileSettingsVC
+            setVC.profileImage = captureSelectedRegion()
+            UserDefaults.standard.setValue(setVC.profileImage!.pngData(), forKey: "profileImage")
+            setVC.reloadProfileImage()
+            self.dismiss(animated: false) { }
+            self.parentVC!.dismiss(animated: false) { }
+            parentVC?.cacheManager.stopCachingImagesForAllAssets()
+        }
     }
     
     @IBAction func backPressed(_ sender: UIButton) {self.dismiss(animated: true){}}

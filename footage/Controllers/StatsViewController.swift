@@ -10,6 +10,23 @@ class StatsViewController: UIViewController {
     var colorRank: Array<(key: String, value: Double)> = []
     var placeRank: Array<(key: String, value: Double)> = []
     
+    @IBOutlet weak var formLastView: UIView!
+    @IBOutlet weak var lastButton: UIButton!
+    @IBOutlet weak var formStackView: UIStackView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var firstBlockFirstLine: UILabel!
+    @IBOutlet weak var firstBlockSecondLineFirst: UILabel!
+    @IBOutlet weak var firstBlockUnit: UILabel!
+    @IBOutlet weak var firstBlockSecondLineSecond: UILabel!
+    @IBOutlet weak var firstBlockThirdLine: UILabel!
+    @IBOutlet weak var secondBlockFirstLine: UILabel!
+    @IBOutlet weak var secondBlockSecondLine: UILabel!
+    @IBOutlet weak var secondBlockThirdLine: UILabel!
+    @IBOutlet weak var secondBlockFourthLine: UILabel!
+    @IBOutlet weak var thirdBlockfirstLineFirst: UILabel!
+    @IBOutlet weak var thirdBlockfirstLineSecond: UILabel!
+    @IBOutlet weak var thirdBlockSecondLine: UILabel!
+    
     @IBOutlet weak var totalDistance: EFCountingLabel!
     @IBOutlet weak var colorImage: UIImageView!
     // add color text label
@@ -33,6 +50,12 @@ class StatsViewController: UIViewController {
             firstPlace = placeRank[0].key.components(separatedBy: " ").first ?? ""
             setCityImage()
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setFontSize()
+        setScrollView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -107,4 +130,58 @@ class StatsViewController: UIViewController {
         
     }
     
+    func setFontSize() {
+        let screenSize = UIScreen.main.bounds
+        let screenHeight = screenSize.height
+        firstBlockFirstLine.font = firstBlockFirstLine.font.withSize(0.0283 * screenHeight)
+        firstBlockSecondLineFirst.font = firstBlockSecondLineFirst.font.withSize(0.0283 * screenHeight)
+        firstBlockUnit.font = firstBlockUnit.font.withSize(0.0369 * screenHeight)
+        firstBlockSecondLineSecond.font = firstBlockSecondLineSecond.font.withSize(0.0283 * screenHeight)
+        firstBlockThirdLine.font = firstBlockThirdLine.font.withSize(0.0283 * screenHeight)
+        secondBlockFirstLine.font = secondBlockFirstLine.font.withSize(0.0283 * screenHeight)
+        secondBlockSecondLine.font = secondBlockSecondLine.font.withSize(0.0283 * screenHeight)
+        secondBlockThirdLine.font = secondBlockThirdLine.font.withSize(0.0283 * screenHeight)
+        secondBlockFourthLine.font = secondBlockFourthLine.font.withSize(0.0283 * screenHeight)
+        thirdBlockfirstLineFirst.font = thirdBlockfirstLineFirst.font.withSize(0.0283 * screenHeight)
+        thirdBlockfirstLineSecond.font = thirdBlockfirstLineSecond.font.withSize(0.0283 * screenHeight)
+        thirdBlockSecondLine.font = thirdBlockSecondLine.font.withSize(0.0283 * screenHeight)
+    }
+    
+    func setScrollView() {
+        let screenSize = UIScreen.main.bounds
+        let screenHeight = screenSize.height
+        
+        self.formStackView.distribution = .fillEqually
+        self.scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
+        self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 100).isActive = true
+        
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
+        self.formStackView.translatesAutoresizingMaskIntoConstraints = false
+        self.formLastView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.formStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.formLastView.leadingAnchor.constraint(equalTo: self.formStackView.leadingAnchor).isActive = true
+        
+        self.formStackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
+        self.formLastView.topAnchor.constraint(equalTo: self.formStackView.bottomAnchor, constant: 20 * screenHeight).isActive = true
+        self.formStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        self.formLastView.widthAnchor.constraint(equalTo: self.formStackView.widthAnchor).isActive = true
+        self.formLastView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -150).isActive = true
+        self.scrollView.heightAnchor.constraint(equalToConstant: 1500).isActive = true
+        
+        self.scrollView.alwaysBounceVertical = true
+        self.scrollView.isScrollEnabled = true
+        self.scrollView.delaysContentTouches = true
+        self.formLastView.isExclusiveTouch = true
+        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2)
+        
+        self.scrollView.addSubview(formLastView)
+        self.scrollView.addSubview(formStackView)
+        self.view.addSubview(scrollView)
+        
+//        self.view.bringSubviewToFront(scrollView)
+//        self.view.bringSubviewToFront(formLastView)
+        
+    }
 }
