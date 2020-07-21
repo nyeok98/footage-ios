@@ -87,4 +87,22 @@ class DateConverter {
         }
         return (monday, today)
     }
+    
+    static func tagToMonth(year: Int, tag: Int, start: Bool) -> Int {
+        var toReturn = 0
+        if tag < 10 {
+            toReturn = year * 100 + tag // 202006
+        } else {
+            toReturn = year * 100 + tag // 202010
+        }
+        if start { return toReturn * 100 + 1 } // 20200601
+        else {
+            if tag == 2 { // February
+                if (year / 100) % 4 == 0 { return toReturn * 100 + 29 } // leap year
+                else { return toReturn * 100 + 28 }
+            } else if [1, 3, 5, 7, 8, 10, 12].contains(tag) {
+                return toReturn * 100 + 31
+            } else { return toReturn * 100 + 30 }
+        }
+    }
 }

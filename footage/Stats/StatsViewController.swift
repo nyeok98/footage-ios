@@ -10,6 +10,7 @@ class StatsViewController: UIViewController {
     var colorRank: Array<(key: String, value: Double)> = []
     var placeRank: Array<(key: String, value: Double)> = []
     
+    @IBOutlet weak var currentBadge: UIImageView!
     @IBOutlet weak var formLastView: UIView!
     @IBOutlet weak var lastButton: UIButton!
     @IBOutlet weak var formStackView: UIStackView!
@@ -54,12 +55,16 @@ class StatsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentBadge.image = UIImage(named: UserDefaults.standard.string(forKey: "todayBadge") ?? "")
         setFontSize()
         setScrollView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
+        case "goToLevel":
+            let levelVC = segue.destination as! LevelVC
+            levelVC.statsVC = self
         case "goToColor":
             let colorVC = segue.destination as! ColorVC
             colorVC.ranking = colorRank

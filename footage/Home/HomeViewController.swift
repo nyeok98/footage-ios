@@ -69,7 +69,7 @@ class HomeViewController: UIViewController {
     var lastLocation: CLLocation?
     var locationTimer: Timer?
     var setAsStart: Bool = true
-    var speedLimit: Double = 8
+    var speedLimit: Double = 10
     var refreshRate: Double = 2.5
     var distanceLimit: Double {
         get {
@@ -77,6 +77,7 @@ class HomeViewController: UIViewController {
         }
     }
     static var selectedColor: String = "#EADE4Cff"
+    var speedCounter: Int = 0
     var noSpeedCounter: Int = 0
     
     override func viewDidLoad() {
@@ -89,6 +90,7 @@ class HomeViewController: UIViewController {
         startButton.setImage(#imageLiteral(resourceName: "startButton"), for: .normal)
         HomeViewController.currentStartButtonImage = startButton.currentImage
         selectedButtonLabel.text = UserDefaults.standard.string(forKey: "#EADE4Cff")
+        mainMap.tintColor = UIColor(hex: "#EADE4Cff")
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
         configureInitialMapView()
@@ -96,12 +98,18 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
+        if UserDefaults.standard.bool(forKey: "startedBefore") == false {
+            UserDefaults.standard.setValue(true, forKey: "startedBefore")
+            LevelManager.firstLaunch()
+        } else {
+            
+        }
         if startButton.currentImage == #imageLiteral(resourceName: "startButton") { // FROM START TO STOP
             HomeViewController.distanceToday = DateManager.loadDistance(total: false)
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
             HomeViewController.locationManager.requestAlwaysAuthorization()
             let status = CLLocationManager.authorizationStatus()
-            if status == .notDetermined || status == .denied || status == .authorizedWhenInUse {
+            if status == .notDetermined || status == .denied {
                 alertForAuthorization()
             } else {
                 HomeAnimation.homeStartAnimation(self)
@@ -193,6 +201,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
                 HomeViewController.distanceToday += newDistance
                 distance.text = String(format: "%.2f", (HomeViewController.distanceToday)/1000)
                 HomeViewController.distanceTotal += newDistance
+                BadgeGiver.checkDistance()
                 DateManager.saveTotalDistance(value: HomeViewController.distanceTotal)
             }
         } else { setAsStart = true } // you are on a bus
@@ -203,14 +212,21 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     func isValid(location: CLLocation) -> Bool { // check speed, distance etc with lastLocation
         if checkSpeed(lastLocation: lastLocation ?? location, newLocation: location) > speedLimit || location.distance(from: lastLocation ?? location) > distanceLimit {
             return false
-        } else { noSpeedCounter = 0; return true }
+        } else if location.speed < 0 && lastLocation!.speed < 0 { return false }
+        else { noSpeedCounter = 0; return true }
     }
     
     func checkForMovement(location: CLLocation) {
-        if location.speed < 0 {
-            noSpeedCounter += 1
-        }
-        if noSpeedCounter > 4 {
+        
+        print(location.speed)
+        print(noSpeedCounter)
+        
+        if location.speed > speedLimit { speedCounter += 1 }
+        
+        if location.speed < 0 { noSpeedCounter += 1 }
+        else { noSpeedCounter = 0 }
+
+        if speedCounter > 4 || noSpeedCounter > 10 {
             locationTimer?.invalidate() // stop location request
             HomeViewController.locationManager.stopUpdatingLocation()
             HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
@@ -218,7 +234,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
             setAsStart = true // next coordinate must be set as new start point
             HomeAnimation.homeStopAnimation(self)
             configureInitialMapView()
-            noSpeedCounter = 0
+            speedCounter = 0
         }
     }
     

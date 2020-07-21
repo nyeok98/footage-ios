@@ -107,7 +107,6 @@ class HomeAnimation {
         }
         homeVC.distance.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 7)
         homeVC.distance.countFrom(0, to: CGFloat(HomeViewController.distanceTotal / 1000), withDuration: 5)
-        print(HomeViewController.distanceTotal)
         
         // 1. Text Animation
         homeVC.todayString.text = "오늘까지"
@@ -138,8 +137,6 @@ class HomeAnimation {
         
         let mainButtonClass = Buttons(className: homeVC.MainButton.restorationIdentifier!)
         let pressedButtonClass = Buttons(className: pressedbutton.restorationIdentifier!)
-        print(mainButtonClass.name)
-        print(pressedButtonClass.name)
         
         homeVC.MainButton.setImage(pressedButtonClass.imageBig, for: .normal)
         pressedbutton.setImage(mainButtonClass.image, for: .normal)
@@ -149,6 +146,7 @@ class HomeAnimation {
         
         homeVC.selectedButtonLabel.text = UserDefaults.standard.string(forKey:pressedButtonClass.color)
         
+        homeVC.mainMap.tintColor = UIColor(hex: pressedButtonClass.color)
         HomeViewController.selectedColor = pressedButtonClass.color
         
     }

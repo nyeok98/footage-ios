@@ -46,6 +46,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if launchedBefore  {
             HomeViewController.locationManager.stopUpdatingLocation()
         } else {
+            UserDefaults.standard.set("", forKey: "todayBadge")
+            UserDefaults.standard.set(0, forKey: "minimumTotalDistance")
+            UserDefaults.standard.set(false, forKey: "startedBefore")
             UserDefaults.standard.set("노란색", forKey: "#EADE4Cff")
             UserDefaults.standard.set("분홍색", forKey: "#F5A997ff")
             UserDefaults.standard.set("흰  색", forKey: "#F0E7CFff")

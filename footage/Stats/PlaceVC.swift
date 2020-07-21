@@ -57,7 +57,11 @@ class PlaceVC: UIViewController {
         firstStack.bounds.origin.y -= 20
         secondStack.bounds.origin.y -= 20
         thirdStack.bounds.origin.y -= 20
+//        firstContent.bottomAnchor.constraint(equalTo: firstView.bottomAnchor, constant: 50).isActive = true
         loadData()
+        firstButton.isUserInteractionEnabled = true
+        secondButton.isUserInteractionEnabled = true
+        thirdButton.isUserInteractionEnabled = true
     }
     
     @IBAction func firstplaceButtonPressed(_ sender: UIButton) {
