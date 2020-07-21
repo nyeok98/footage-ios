@@ -3022,6 +3022,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" image="pip.fill" catalog="system" selectedImage="pip.fill" id="M2Q-kI-rp5"/>
+                    <connections>
+                        <outlet property="mapView" destination="mHi-4w-GmC" id="7tD-cv-31g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ssL-Dt-uPt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
