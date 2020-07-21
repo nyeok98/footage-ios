@@ -35,9 +35,15 @@ class ReportDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         monthLabel.text = whichMonth
-        if let badgeArray = LevelManager.callMonthlyBadge(month: "2020\(whichMonth)") {
-            badgeList = badgeArray
-        } else { badgeList = [Badge(type: "", imageName: "", detail: "")] }
+        if Int(whichMonth)! >= 10 {
+            if let badgeArray = LevelManager.callMonthlyBadge(month: "2020\(whichMonth)") {
+                badgeList = badgeArray
+            } else { badgeList = [Badge(type: "", imageName: "", detail: "")] }
+        } else {
+            if let badgeArray = LevelManager.callMonthlyBadge(month: "20200\(whichMonth)") {
+                badgeList = badgeArray
+            } else { badgeList = [Badge(type: "", imageName: "", detail: "")] }
+        }
         badgeCollectionView.dataSource = self
         badgeCollectionView.delegate = self
         badgeCollectionView.register(ReportBadgeCell.self, forCellWithReuseIdentifier: ReportBadgeCell.reuseIdentifier)

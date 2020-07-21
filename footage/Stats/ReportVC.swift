@@ -38,9 +38,6 @@ class ReportVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         januaryButton.isEnabled = false
-        let days = DateConverter.lastMondayToday()
-        colorRank = ColorManager.getRankingDistance(startDate: days.0, endDate: days.1)
-        placeRank = PlaceManager.getRankingDistance(startDate: days.0, endDate: days.1)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

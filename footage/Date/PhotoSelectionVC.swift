@@ -32,7 +32,7 @@ class PhotoSelectionVC: UIViewController {
         let dateFrom = DateConverter.stringToDate(int: date, start: true)
         //let dateFrom = NSDate(timeIntervalSince1970: 0) // DELETE!
         let dateTo = DateConverter.stringToDate(int: date, start: false) as NSDate
-        fetchOptions.predicate = NSPredicate(format: "creationDate < %@ AND creationDate >= %@", dateTo, dateFrom)
+        fetchOptions.predicate = NSPredicate(format: "creationDate < %@ AND creationDate >= %@", dateTo, dateFrom as NSDate)
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         fetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
         let indexSet = IndexSet(integersIn: 0..<fetchResult!.count)

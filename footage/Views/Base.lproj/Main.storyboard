@@ -2571,6 +2571,7 @@
                     <connections>
                         <segue destination="hbu-LT-T1p" kind="relationship" relationship="viewControllers" id="aaN-7V-Lbm"/>
                         <segue destination="ycr-8l-2eS" kind="relationship" relationship="viewControllers" id="gEM-e4-acn"/>
+                        <segue destination="G27-Lh-kjI" kind="relationship" relationship="viewControllers" id="NjA-Dr-oVO"/>
                         <segue destination="nHf-mU-wXi" kind="relationship" relationship="viewControllers" id="pfi-NL-XhK"/>
                         <segue destination="cUF-MF-BT5" kind="relationship" relationship="viewControllers" id="822-bT-ohP"/>
                     </connections>
@@ -2998,6 +2999,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QoY-1u-kTY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1826" y="-1210"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="8mo-cV-p2G">
+            <objects>
+                <viewController id="G27-Lh-kjI" customClass="MapViewController" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DyI-hy-HhV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mHi-4w-GmC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FlY-FL-Rdw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mHi-4w-GmC" firstAttribute="width" secondItem="DyI-hy-HhV" secondAttribute="width" id="aZg-fH-LCg"/>
+                            <constraint firstItem="mHi-4w-GmC" firstAttribute="height" secondItem="DyI-hy-HhV" secondAttribute="height" id="gkA-yl-cRS"/>
+                            <constraint firstItem="mHi-4w-GmC" firstAttribute="centerX" secondItem="DyI-hy-HhV" secondAttribute="centerX" id="owo-NX-H0C"/>
+                            <constraint firstItem="mHi-4w-GmC" firstAttribute="centerY" secondItem="DyI-hy-HhV" secondAttribute="centerY" id="rpg-hj-Msv"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" image="pip.fill" catalog="system" selectedImage="pip.fill" id="M2Q-kI-rp5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ssL-Dt-uPt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-938.39999999999998" y="-1031.5270935960591"/>
         </scene>
         <!--ReportVC-->
         <scene sceneID="mic-Co-y65">
@@ -3927,6 +3955,7 @@
         <image name="house.fill" catalog="system" width="32" height="32"/>
         <image name="partitionLine" width="84" height="1"/>
         <image name="person.fill" catalog="system" width="32" height="32"/>
+        <image name="pip.fill" catalog="system" width="32" height="32"/>
         <image name="placeSection" width="327" height="79"/>
         <image name="questionCircle" width="58" height="58"/>
         <image name="selectButton" width="97" height="63"/>
