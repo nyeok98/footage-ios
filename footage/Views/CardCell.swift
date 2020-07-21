@@ -9,14 +9,15 @@
 import UIKit
 import Photos
 
-class CardCell: UICollectionViewCell, UITextViewDelegate { // 사용자가 사진 지우면 어떡할꺼?
+class CardCell: UICollectionViewCell, UITextViewDelegate {
     
     static let reuseIdentifier = "photo-cell-reuse-identifier"
     var showingPhoto = true
-    var imageView = UIImageView()
-    var textView = UITextView()
     var tap: UITapGestureRecognizer!
-    var button = UIButton()
+    var imageView: UIImageView! = nil
+    var textView: UITextView! = nil
+    var noteButton: UIButton! = nil
+    var removeButton: UIButton! = nil
     
     var journeyManager: JourneyManager! = nil
     var section = 0
@@ -25,65 +26,80 @@ class CardCell: UICollectionViewCell, UITextViewDelegate { // 사용자가 사�
     let cacheManager = PHCachingImageManager()
     let scale = UIScreen.main.scale
     var thumbnailSize = CGSize(width: 1024, height: 680)
+    var cellWidth: CGFloat = PhotoCollectionLayout.cardWidth
+    var cellHeight: CGFloat = PhotoCollectionLayout.cellHeight
     
     var asset: Asset { return journeyManager.assets[section][item] }
-    var photo: UIImage {
-        get {
-            var toReturn = UIImage()
-            let options = PHImageRequestOptions()
-            options.isSynchronous = true
-            options.version = .original
-            cacheManager.requestImage(for: PHAsset.fetchAssets(withLocalIdentifiers: [asset.localID], options: nil)[0], targetSize: self.thumbnailSize, contentMode: .default, options: options) { (image, info) in
-                toReturn = image ?? UIImage() // change to default photo?
-            }
-            return toReturn
-        }
-    }
+    var photo: UIImage? { return journeyManager.downsample(imageData: asset.photo, to: contentView.frame.size, scale: UIScreen.main.scale) }
     var note: String { return asset.note }
     var color: String { return journeyManager.journey.footsteps[asset.footstepNumber].color }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(imageView)
-        imageView.frame = contentView.frame
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: cellWidth, height: cellHeight))
+        imageView.isUserInteractionEnabled = false
+        self.addSubview(imageView)
     }
     
     required init?(coder: NSCoder) {
-        fatalError("not implemnted")
+        fatalError("not implemented")
+    }
+    
+    func showRemove() {
+        if removeButton == nil {
+            removeButton = UIButton(frame: CGRect(x: cellWidth - (35 * 1.5), y: 35 / 2, width: 35, height: 35))
+            removeButton.setImage(#imageLiteral(resourceName: "delete_button"), for: .normal)
+            removeButton.addTarget(self, action: #selector(removeAsset), for: .touchUpInside)
+        }
+        self.addSubview(removeButton)
+    }
+    func hideRemove() {
+        if let removeButton = removeButton {
+            removeButton.removeFromSuperview()
+        }
     }
     
     func showPhoto() {
         showingPhoto = true
+        if let textView = textView, let noteButton = noteButton {
+            textView.removeFromSuperview()
+            noteButton.removeFromSuperview()
+        }
         imageView.contentMode = .scaleAspectFit
         imageView.image = photo
-        textView.removeFromSuperview()
-        button.removeFromSuperview()
     }
     
     func showNote() {
         showingPhoto = false
         imageView.contentMode = .scaleToFill
         imageView.image = UIImage(named: color + "Paper")
-        button.frame = CGRect(x: frame.width * 0.8, y: frame.height * 0.75, width: 50, height: 50)
-        button.setImage(#imageLiteral(resourceName: "addWritingButton"), for: .normal)
-        button.addTarget(self, action: #selector(activateTextField), for: .touchUpInside)
+        
+        if textView == nil {
+            textView = UITextView(frame: CGRect(x: 10, y: 10, width: cellWidth - 20, height: cellHeight - 20))
+            textView.font = UIFont(name: "NanumBarunpen-Bold", size: 25)
+            textView.autocorrectionType = .no
+            textView.backgroundColor = .clear
+            textView.isEditable = false
+            textView.isUserInteractionEnabled = false
+            textView.delegate = self
+        }
         textView.text = note
-        textView.frame = CGRect(x: 10, y: 10, width: frame.width - 20, height: frame.height - 20)
-        textView.font = UIFont(name: "NanumBarunpen-Bold", size: 25)
-        textView.autocorrectionType = .no
-        textView.backgroundColor = .clear
-        textView.isEditable = false
-        textView.isUserInteractionEnabled = false
-        textView.delegate = self
-        tap = UITapGestureRecognizer(target: self, action: #selector(dismissAndSave))
-        contentView.addSubview(textView)
-        contentView.addSubview(button)
+        self.addSubview(textView)
+        
+        if noteButton == nil {
+            noteButton = UIButton(frame: CGRect(x: cellWidth - (35 * 1.5), y: cellHeight - (35 * 1.5), width: 35, height: 35))
+            noteButton.setImage(#imageLiteral(resourceName: "addWritingButton"), for: .normal)
+            noteButton.addTarget(self, action: #selector(activateTextField), for: .touchUpInside)
+        }
+        self.addSubview(noteButton)
     }
     
     @objc func activateTextField() {
         textView.becomeFirstResponder()
         textView.isEditable = true
         textView.isUserInteractionEnabled = true
+        
+        tap = UITapGestureRecognizer(target: self, action: #selector(dismissAndSave))
         textView.addGestureRecognizer(tap)
     }
         
@@ -92,9 +108,11 @@ class CardCell: UICollectionViewCell, UITextViewDelegate { // 사용자가 사�
         textView.isEditable = false
         textView.isUserInteractionEnabled = false
         textView.removeGestureRecognizer(tap)
-        journeyManager.assets[section][item].note = textView.text
+        journeyManager.saveNewNote(content: textView.text, section: section, item: item)
     }
     
-//    let frame = CGRect(x: view.bounds.width * 0.05 , y: 130, width: view.bounds.width * 0.9, height: view.bounds.height - 600)
+    @objc func removeAsset() {
+        journeyManager.removeAsset(section: section, item: item)
+    }
 
 }

@@ -6,13 +6,12 @@
 //  Copyright © 2020 DreamPizza. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Asset: Comparable {
-    var localID: String // true for photo, false for note
-    var note: String // PHAssetID for photo, content for note
-    var footstepNumber: Int // index of footstep related to this asset
-    // var showingPhoto = true
+    var photo: Data
+    var note: String
+    var footstepNumber: Int
     
     static func < (lhs: Asset, rhs: Asset) -> Bool {
          return lhs.footstepNumber < rhs.footstepNumber

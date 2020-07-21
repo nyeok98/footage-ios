@@ -66,11 +66,14 @@ class DrawOnMap {
 }
 
 class FootAnnotation: MKPointAnnotation {
+    var number: Int! = nil
+    
     init(footstep: Footstep, number: Int) {
         super.init()
-        self.title = "# " + String(number)
+        self.title = "사진 추가하기"
         self.coordinate = footstep.coordinate
-        self.subtitle = String(number)
+        self.subtitle = "# " + String(number)
+        self.number = number
     }
 }
 
@@ -82,10 +85,8 @@ class FootAnnotationView: MKAnnotationView {
         self.canShowCallout = true
         self.isEnabled = true
         self.image = UIImage(named: "pin")
-        let addPhoto = UIButton(type: .detailDisclosure)
-        let addNote = UIButton(type: .contactAdd)
+        let addPhoto = UIButton(type: .contactAdd)
         self.rightCalloutAccessoryView = addPhoto
-        self.leftCalloutAccessoryView = addNote
     }
     
     required init?(coder aDecoder: NSCoder) {

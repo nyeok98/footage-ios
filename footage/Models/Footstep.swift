@@ -17,10 +17,12 @@ class Footstep: Object {
     @objc dynamic var longitude = 0.0
     @objc dynamic var color = "#EADE4Cff"
     @objc dynamic var setAsStart = false
-    let assets = List<String>()
     var coordinate: CLLocationCoordinate2D {
         get { return CLLocationCoordinate2D(latitude: latitude, longitude: longitude) }
     }
+    
+    let photos = List<Data>()
+    let notes = List<String>()
     let owners = LinkingObjects(fromType: DayData.self, property: "footsteps")
     
     init(_ timestamp: Date, _ latitude: Double, _ longitude: Double, _ color: String, _ setAsStart: Bool) {

@@ -7,24 +7,23 @@ Simple example of a self-sizing supplementary title view
 
 import UIKit
 
-class TitleSupplementaryView: UICollectionReusableView {
+class SectionHeader: UICollectionReusableView {
     let label = UILabel()
-    static let reuseIdentifier = "title-supplementary-reuse-identifier"
+    static let reuseIdentifier = "section-supplementary-reuse-identifier"
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
     }
     required init?(coder: NSCoder) {
         fatalError()
     }
-}
-
-extension TitleSupplementaryView {
-    func configure() {
+    
+    func configure(footstepNumber: Int) {
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont(name: "NanumBarunpenRegular", size: 25)
+        label.text = "# " + String(footstepNumber)
         let inset = CGFloat(10)
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),
@@ -32,6 +31,6 @@ extension TitleSupplementaryView {
             label.topAnchor.constraint(equalTo: topAnchor, constant: inset),
             label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -inset)
         ])
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        
     }
 }

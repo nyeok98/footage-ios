@@ -15,44 +15,51 @@ class GroupCell: UICollectionViewCell {
     var assets: [Asset] = []
     var section = 0
     var journeyManager: JourneyManager! = nil
-    var imageSize = CGSize(width: 1024, height: 680)
-    var randomDegree: CGFloat {
-        get { return CGFloat.random(in: -0.3...0.3) }
-    }
+    var removeButton: UIButton! = nil
+    var groupImage: UIView! = nil
     
     required init?(coder: NSCoder) {
-        fatalError("not implemnted")
+        fatalError("not ")
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(expandPhotos))
+        addGestureRecognizer(tap)
     }
     
-    func configureCell() { // render image with stacked photos + add tap recongnizer
-        assets = journeyManager.assets[section]
-        let options = PHImageRequestOptions()
-        options.isSynchronous = true
-        options.version = .original
-        for asset in assets {
-            var assetImage: UIImage!
-            cacheManager.requestImage(for: PHAsset.fetchAssets(withLocalIdentifiers: [asset.localID], options: nil)[0], targetSize: imageSize, contentMode: .default, options: options) { (image, info) in
-                assetImage = image
-            }
-            let imageView = UIImageView(frame: CGRect(x: (frame.width - 200) / 2, y: (frame.height - 150) / 2,
-                                                      width: 200, height: 150))
-            imageView.image = assetImage
-            imageView.transform = imageView.transform.rotated(by: randomDegree)
-            imageView.isUserInteractionEnabled = false // for tap recognizer
-            contentView.addSubview(imageView)
-            contentView.sendSubviewToBack(imageView)
-        }
-        let tap = UITapGestureRecognizer(target: self, action: #selector(expandPhotos))
-        contentView.addGestureRecognizer(tap)
+    func addGroupImage() {
+        groupImage = journeyManager.groupImages[section]
+        addSubview(groupImage)
     }
     
     @objc func expandPhotos() {
         journeyManager.expandedSection = section
         journeyManager.photoVC.collectionView.reloadSections(IndexSet(integer: section))
-        // reload current section and display each asset
+        journeyManager.photoVC.collectionView.scrollToItem(at: IndexPath(item: 0, section: section), at: .centeredHorizontally, animated: true)
+    }
+    
+    func showRemove() {
+        if removeButton == nil {
+            removeButton = UIButton(frame: CGRect(x: PhotoCollectionLayout.groupWidth - 35, y: 35, width: 35, height: 35))
+            removeButton.setImage(#imageLiteral(resourceName: "delete_button"), for: .normal)
+            removeButton.addTarget(self, action: #selector(removeSection), for: .touchUpInside)
+        }
+        addSubview(removeButton)
+    }
+    
+    func hideRemove() {
+        if let removeButton = removeButton {
+            removeButton.removeFromSuperview()
+        }
+    }
+    
+    @objc func removeSection() {
+        journeyManager.removeSection(section: section)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        groupImage.removeFromSuperview()
     }
 }

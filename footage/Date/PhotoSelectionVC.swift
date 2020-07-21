@@ -29,8 +29,8 @@ class PhotoSelectionVC: UIViewController {
     override func viewDidLoad() { // FIX: Fetch must wait until permission granted!
         let fetchOptions = PHFetchOptions()
         let date = journeyManager.journey.date
-        //dateFrom = DateConverter.stringToDate(int: date, start: true)
-        let dateFrom = NSDate(timeIntervalSince1970: 0) // DELETE!
+        let dateFrom = DateConverter.stringToDate(int: date, start: true)
+        //let dateFrom = NSDate(timeIntervalSince1970: 0) // DELETE!
         let dateTo = DateConverter.stringToDate(int: date, start: false) as NSDate
         fetchOptions.predicate = NSPredicate(format: "creationDate < %@ AND creationDate >= %@", dateTo, dateFrom)
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
@@ -48,18 +48,12 @@ class PhotoSelectionVC: UIViewController {
     
     @IBAction func completePressed(_ sender: UIButton) {
         cacheManager.stopCachingImagesForAllAssets()
-        let section = journeyManager.currentIndexPath.section
         let selectedPHAssets = fetchResult?.objects(at: selected) ?? []
         if selectedPHAssets.isEmpty {
             self.dismiss(animated: true)
             return
         }
-        let selectedAssets = selectedPHAssets.map { (phAsset) -> Asset in
-            Asset(localID: phAsset.localIdentifier, note: "", footstepNumber: footstepNumber)
-        }
-        journeyManager.assets[section].append(contentsOf: selectedAssets)
-        journeyManager.photoVC.collectionView.reloadData() // 이거 조금 더 효율적으로... 나중애 생각해볼것
-        journeyManager.savePhotos(assets: selectedPHAssets, footstepNumber: footstepNumber, at: 0)
+        journeyManager.saveNewPhotos(pHAssets: selectedPHAssets, footstepNumber: footstepNumber)
         self.dismiss(animated: true) { }
     }
 }
