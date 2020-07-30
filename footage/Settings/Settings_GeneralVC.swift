@@ -80,7 +80,7 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
     
     @objc func switchChanged(_ sender : UISwitch!){
         
-        if sender.tag == 1 && sender.isOn {
+        if sender.tag == 1 && sender.isOn { // remove password
             performSegue(withIdentifier: "goToPasswordSettings", sender: sender)
         } else if sender.tag == 1 && !sender.isOn {
             let youSureAlert = UIAlertController.init(title: "주의", message: "정말 비밀번호를 삭제하시겠습니까?", preferredStyle:  .alert)
@@ -103,7 +103,7 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
             self.present(youSureAlert, animated: true, completion: nil)
         }
         
-        if sender.tag == 2 && sender.isOn {
+        if sender.tag == 2 && sender.isOn { // turn on bio id
             if let cellObj =  self.tableView.cellForRow(at: IndexPath(row: sender.tag-1, section: 0)) {
                 let switchView = cellObj.accessoryView as! UISwitch
                 if switchView.isOn {
@@ -115,7 +115,7 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-        } else if sender.tag == 2 && !sender.isOn {
+        } else if sender.tag == 2 && !sender.isOn { // turn on password
             UserDefaults.standard.setValue("hasPassword", forKey: "UserState")
         }
     }

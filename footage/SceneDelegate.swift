@@ -48,8 +48,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else if userState == "hasPassword" || userState == "hasBioId"  {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let passwordVC = storyBoard.instantiateViewController(withIdentifier: "PasswordVC") as! PasswordVC
-            self.window?.rootViewController = passwordVC
-        } else {
+            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+            if var topController = keyWindow?.rootViewController {
+                while let presentedViewController = topController.presentedViewController {
+                    topController = presentedViewController
+                }
+                topController.addChild(passwordVC)
+                topController.view.addSubview(passwordVC.view)
+            }
+        } else { // userState == nil (first launch)
             UserDefaults.standard.set("", forKey: "todayBadge")
             UserDefaults.standard.set(0, forKey: "minimumTotalDistance")
             UserDefaults.standard.set(false, forKey: "startedBefore")
