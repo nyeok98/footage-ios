@@ -54,6 +54,7 @@ class ReportDetailVC: UIViewController {
         badgeCollectionView.alwaysBounceHorizontal = true
         badgeCollectionView.bounces = true
         badgeCollectionView.contentInset = UIEdgeInsets(top: 0, left: CGFloat(CGFloat(badgeList.count) * ReportBadgeCell().bounds.width), bottom: 0, right: CGFloat(CGFloat(badgeList.count) * ReportBadgeCell().bounds.width))
+        setDefaultData()
         loadColorData()
         loadPlaceData()
     }
@@ -147,9 +148,21 @@ class ReportDetailVC: UIViewController {
         case "전라남도", "South Jeolla":
             return UIImage(named: "South Jeolla")
         default:
-            return UIImage(named: "Sejong City")
+            return UIImage(named: "noDataImage")
         }
         
+    }
+    
+    func setDefaultData() {
+        firstCityName.text = "-"
+        secondCityName.text = "-"
+        thirdCityName.text = "-"
+        firstCityImage.image = UIImage(named: "noDataImage")
+        firstColorDistance.text = "- km"
+        secondColorDistance.text = "- km"
+        thirdColorDistance.text = "- km"
+        fourthColorDistance.text = "- km"
+        fifthColorDistance.text = "- km"
     }
     
     

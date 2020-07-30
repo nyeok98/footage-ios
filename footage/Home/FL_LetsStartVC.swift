@@ -15,8 +15,9 @@ class FL_LetsStartVC: UIViewController {
     }
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
-        UserDefaults.standard.set(true, forKey: "launchedBefore")
+        UserDefaults.standard.set("noPassword", forKey: "UserState")
         let tabBarController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
-        UIApplication.shared.keyWindow?.rootViewController = tabBarController
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        keyWindow?.rootViewController = tabBarController
     }
 }

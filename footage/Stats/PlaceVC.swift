@@ -58,6 +58,7 @@ class PlaceVC: UIViewController {
         secondStack.bounds.origin.y -= 20
         thirdStack.bounds.origin.y -= 20
 //        firstContent.bottomAnchor.constraint(equalTo: firstView.bottomAnchor, constant: 50).isActive = true
+        setDefaultData()
         loadData()
         firstButton.isUserInteractionEnabled = true
         secondButton.isUserInteractionEnabled = true
@@ -129,10 +130,21 @@ class PlaceVC: UIViewController {
         case "전라남도", "South Jeolla":
             return UIImage(named: "South Jeolla")
         default:
-            return UIImage(named: "Sejong City")
+            return UIImage(named: "noDataImage")
         }
         
     }
     
+    func setDefaultData() {
+        firstMap.image = UIImage(named: "noDataImage")
+        secondMap.image = UIImage(named: "noDataImage")
+        thirdMap.image = UIImage(named: "noDataImage")
+        firstDistance.text = "-"
+        firstCityName.text = "-"
+        secondDistance.text = "-"
+        secondCityName.text = "-"
+        thirdDistance.text = "-"
+        thirdCityName.text = "-"
+    }
     
 }

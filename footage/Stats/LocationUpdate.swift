@@ -27,5 +27,9 @@ class LocationUpdate {
         }
         LocationUpdate.lastLocation = location
     }
+    
+    func newplaceChecker(currentLoc: Footstep, lastLoc: Footstep) -> Bool {
+        return true
+    }
 }
 

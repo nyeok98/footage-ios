@@ -16,6 +16,7 @@ class DateViewController: UIViewController {
     
     @IBOutlet weak var rangeControl: UISegmentedControl!
     @IBOutlet weak var profileView: UIImageView!
+    @IBOutlet weak var profileName: UILabel!
     
     static var journeys: [Journey] = []
     
@@ -45,7 +46,11 @@ class DateViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         if let profileData = UserDefaults.standard.data(forKey: "profileImage") {
-            profileImage = UIImage(data: profileData)!}
+            profileImage = UIImage(data: profileData)!
+        }
+        if let profileID = UserDefaults.standard.string(forKey: "userName") {
+            profileName.text = profileID
+        }
         reloadProfileImage()
     }
 }

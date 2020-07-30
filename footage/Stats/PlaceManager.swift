@@ -11,9 +11,14 @@ import RealmSwift
 import MapKit
 
 class PlaceManager {
-
+    
     static var lastLocality = ""
     static var lastData: Place! = nil
+    static var localityList: [String]?
+    static var currentAdministrativeArea: String = ""
+    static var isAppended: Bool = false
+    static var lastAdministrativeArea: String = ""
+    static var needToLoadData = true
     
     static func update(latitude: Double, longitude: Double, distance: Double) {
         let realm = try! Realm()
@@ -21,6 +26,7 @@ class PlaceManager {
             let placemark = placemarks![0]
             do { try realm.write {
                 if lastLocality == "" || placemark.locality != lastLocality { // first walk of the day or new region
+                    isAppended = false
                     let today = DateConverter.dateToDay(date: Date())
                     let result = realm.objects(Place.self)
                         .filter("\(today) == date && '\(placemark.locality ?? "")' == locality")
@@ -29,8 +35,19 @@ class PlaceManager {
                         realm.add(lastData)
                     } else { lastData = result[0] }
                     lastLocality = placemark.locality ?? ""
+                } else {
+                    if !localityList!.contains(placemark.locality!) { localityList?.append(placemark.locality!)
+                        isAppended = true
+                    }
+                }
+                currentAdministrativeArea = placemark.administrativeArea ?? ""
+                if currentAdministrativeArea != lastAdministrativeArea { localityList = []; needToLoadData = true }
+                if needToLoadData {
+                    PlaceManager.setLocalityList(cityName: PlaceManager.currentAdministrativeArea)
+                    needToLoadData = false
                 }
                 lastData.distance += distance
+                lastAdministrativeArea = currentAdministrativeArea
             }} catch { print(error) }
         }
     }
@@ -58,5 +75,12 @@ class PlaceManager {
         }
         return rank.sorted(by: {$0.value > $1.value})
     }
-
+    
+    static func setLocalityList(cityName: String) {
+        let realm = try! Realm()
+        let results = realm.objects(Place.self).filter("'\(cityName)' == administrativeArea")
+        for result in results {
+            localityList?.append(result.locality)
+        }
+    }
 }

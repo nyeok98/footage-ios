@@ -42,9 +42,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        if launchedBefore  {
+        let userState = UserDefaults.standard.string(forKey: "UserState")
+        if userState == "noPassword" {
             HomeViewController.locationManager.stopUpdatingLocation()
+        } else if userState == "hasPassword" || userState == "hasBioId"  {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let passwordVC = storyBoard.instantiateViewController(withIdentifier: "PasswordVC") as! PasswordVC
+            self.window?.rootViewController = passwordVC
         } else {
             UserDefaults.standard.set("", forKey: "todayBadge")
             UserDefaults.standard.set(0, forKey: "minimumTotalDistance")

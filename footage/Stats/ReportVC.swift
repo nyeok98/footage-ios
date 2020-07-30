@@ -34,19 +34,40 @@ class ReportVC: UIViewController {
     
     var colorRank: Array<(key: String, value: Double)> = []
     var placeRank: Array<(key: String, value: Double)> = []
+    var startDate: Int?
+    var endDate: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        januaryButton.isEnabled = false
+        setButtons()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ReportDetailVC
         guard let selectedButton = sender as? UIButton else { return }
-        let startDate = DateConverter.tagToMonth(year: 2020, tag: selectedButton.tag, start: true)
-        let endDate = DateConverter.tagToMonth(year: 2020, tag: selectedButton.tag, start: false)
+        setStartEndDate(tag: selectedButton.tag)
         destinationVC.whichMonth = String(selectedButton.tag)
-        destinationVC.colorRanking = ColorManager.getRankingDistance(startDate: startDate, endDate: endDate)
-        destinationVC.placeRanking = PlaceManager.getRankingDistance(startDate: startDate, endDate: endDate)
+        destinationVC.colorRanking = ColorManager.getRankingDistance(startDate: startDate!, endDate: endDate!)
+        destinationVC.placeRanking = PlaceManager.getRankingDistance(startDate: startDate!, endDate: endDate!)
+    }
+    
+    func setButtons() {
+        let monthButtonList = [januaryButton, februaryButton, marchButton, aprilButton, mayButton, juneButton, julyButton, augustButton, septemberButton, octoberButton, novemberButton, decemberButton]
+        for index in 0...11 {
+            setStartEndDate(tag: (index+1))
+            if ColorManager.getRankingDistance(startDate: startDate!, endDate: endDate!).isEmpty {
+                monthButtonList[index]!.isEnabled = false
+                monthButtonList[index]!.alpha = 0.4
+            } else {
+                monthButtonList[index]!.isEnabled = true
+                monthButtonList[index]!.alpha = 1
+            }
+            
+        }
+    }
+    
+    func setStartEndDate(tag: Int) {
+        startDate = DateConverter.tagToMonth(year: 2020, tag: tag, start: true)
+        endDate = DateConverter.tagToMonth(year: 2020, tag: tag, start: false)
     }
 }

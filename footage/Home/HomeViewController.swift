@@ -8,11 +8,13 @@
 
 import UIKit
 import MapKit
+import UserNotifications
 import EFCountingLabel
 
 class HomeViewController: UIViewController {
     
     // VARIABLES
+    let userNotificationCenter = UNUserNotificationCenter.current()
     /// 1. For Home Animation
     static var currentStartButtonImage: UIImage?
     @IBOutlet weak var mainMap: MKMapView!
@@ -32,8 +34,9 @@ class HomeViewController: UIViewController {
     }
     @IBAction func questionCirclePressed(_ sender: UIButton) {
         exampleImageView.isHidden = false
-        UIApplication.shared.keyWindow!.addSubview(exampleImageView)
-        UIApplication.shared.keyWindow!.bringSubviewToFront(exampleImageView)
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        keyWindow?.addSubview(exampleImageView)
+        keyWindow?.bringSubviewToFront(exampleImageView)
     }
     @IBOutlet weak var currentColorIndicator: UIImageView!
     @IBOutlet weak var selectedButtonStackView: UIStackView!
@@ -65,11 +68,11 @@ class HomeViewController: UIViewController {
     static var distanceTotal: Double = 0
     var dateFormatter =  DateFormatter()
     static let locationManager = CLLocationManager()
-     var locations: [CLLocation] = []
+    var locations: [CLLocation] = []
     var lastLocation: CLLocation?
     var locationTimer: Timer?
     var setAsStart: Bool = true
-    var speedLimit: Double = 10
+    var speedLimit: Double = 100
     var refreshRate: Double = 2.5
     var distanceLimit: Double {
         get {
@@ -79,31 +82,33 @@ class HomeViewController: UIViewController {
     static var selectedColor: String = "#EADE4Cff"
     var speedCounter: Int = 0
     var noSpeedCounter: Int = 0
+    var isWalking: Int = 0
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("viewWillAppear")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        exampleImageView.isHidden = true
-        // set delegates
-        mainMap.delegate = self
-        HomeViewController.locationManager.delegate = self
+        
+        setDelegates()
         // start animation
-        startButton.setImage(#imageLiteral(resourceName: "startButton"), for: .normal)
-        HomeViewController.currentStartButtonImage = startButton.currentImage
-        selectedButtonLabel.text = UserDefaults.standard.string(forKey: "#EADE4Cff")
-        mainMap.tintColor = UIColor(hex: "#EADE4Cff")
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
         configureInitialMapView()
-        
+        //        setPassword()
     }
+    //
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        print("homeViewDidAppear")
+    //        DispatchQueue.main.async {
+    //            self.setPassword()
+    //        }
+    //    }
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
-        if UserDefaults.standard.bool(forKey: "startedBefore") == false {
-            UserDefaults.standard.setValue(true, forKey: "startedBefore")
-            LevelManager.firstLaunch()
-        } else {
-            
-        }
+        
         if startButton.currentImage == #imageLiteral(resourceName: "startButton") { // FROM START TO STOP
             HomeViewController.distanceToday = DateManager.loadDistance(total: false)
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
@@ -112,6 +117,11 @@ class HomeViewController: UIViewController {
             if status == .notDetermined || status == .denied {
                 alertForAuthorization()
             } else {
+                if UserDefaults.standard.bool(forKey: "startedBefore") == false {
+                    UserDefaults.standard.setValue(true, forKey: "startedBefore")
+                    LevelManager.firstLaunch()
+                    BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "starter_level", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
+                }
                 HomeAnimation.homeStartAnimation(self)
                 HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
                 trackMapView()
@@ -131,7 +141,7 @@ class HomeViewController: UIViewController {
 
 // MARK: - Map Kit View
 
-extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
+extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     
     func configureInitialMapView() {
         var coordinate: CLLocationCoordinate2D? = nil
@@ -175,7 +185,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
             HomeViewController.locationManager.requestLocation()
         }
         guard let location = HomeViewController.locationManager.location
-            else { return }
+        else { return }
         lastLocation = location
         locationTimer = Timer.scheduledTimer(withTimeInterval: refreshRate, repeats: true) { (timer) in
             HomeViewController.locationManager.requestLocation() // request location and move to center every 5 sec
@@ -201,7 +211,8 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
                 HomeViewController.distanceToday += newDistance
                 distance.text = String(format: "%.2f", (HomeViewController.distanceToday)/1000)
                 HomeViewController.distanceTotal += newDistance
-                BadgeGiver.checkDistance()
+                BadgeGiver.checkDistance(view: view)
+                BadgeGiver.cityCheck(view: view)
                 DateManager.saveTotalDistance(value: HomeViewController.distanceTotal)
             }
         } else { setAsStart = true } // you are on a bus
@@ -212,20 +223,20 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     func isValid(location: CLLocation) -> Bool { // check speed, distance etc with lastLocation
         if checkSpeed(lastLocation: lastLocation ?? location, newLocation: location) > speedLimit || location.distance(from: lastLocation ?? location) > distanceLimit {
             return false
-        } else if location.speed < 0 && lastLocation!.speed < 0 { return false }
+        } else if let lastLocation = lastLocation {
+            if location.speed < 0 && lastLocation.speed < 0 { return false }
+            else { return true }
+        }
         else { noSpeedCounter = 0; return true }
     }
     
     func checkForMovement(location: CLLocation) {
         
-        print(location.speed)
-        print(noSpeedCounter)
-        
         if location.speed > speedLimit { speedCounter += 1 }
         
         if location.speed < 0 { noSpeedCounter += 1 }
         else { noSpeedCounter = 0 }
-
+        
         if speedCounter > 4 || noSpeedCounter > 10 {
             locationTimer?.invalidate() // stop location request
             HomeViewController.locationManager.stopUpdatingLocation()
@@ -250,10 +261,10 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
             polylineView.lineWidth = 10
             return polylineView
         } else {
-        let polylineView = MKPolylineRenderer(overlay: overlay)
-        polylineView.strokeColor = UIColor(hex: HomeViewController.selectedColor)
-        polylineView.lineWidth = 10
-        return polylineView
+            let polylineView = MKPolylineRenderer(overlay: overlay)
+            polylineView.strokeColor = UIColor(hex: HomeViewController.selectedColor)
+            polylineView.lineWidth = 10
+            return polylineView
         }
     }
     
@@ -279,6 +290,11 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate {
 extension HomeViewController {
     
     func prepareForAnimation() {
+        exampleImageView.isHidden = true
+        startButton.setImage(#imageLiteral(resourceName: "startButton"), for: .normal)
+        HomeViewController.currentStartButtonImage = startButton.currentImage
+        selectedButtonLabel.text = UserDefaults.standard.string(forKey: "#EADE4Cff")
+        mainMap.tintColor = UIColor(hex: "#EADE4Cff")
         startButton.alpha = 0
         distanceView.alpha = 0
         unitLabel.alpha = 0
@@ -289,8 +305,24 @@ extension HomeViewController {
         distance.font = distance.font.withSize(0.08 * HomeAnimation.screenHeight)
         self.view.bringSubviewToFront(StringStackView)
         self.view.bringSubviewToFront(startAboutStackView)
-        
     }
+    
+    func setDelegates() {
+        mainMap.delegate = self
+        HomeViewController.locationManager.delegate = self
+        self.requestNotificationAuthorization()
+        self.userNotificationCenter.delegate = self
+    }
+//
+//    public func setPassword() {
+//        if UserDefaults.standard.bool(forKey: "needPassword") {
+//            let userState = UserDefaults.standard.string(forKey: "UserState")
+//            if userState == "hasPassword" || userState == "hasBioId" {
+//                UserDefaults.standard.setValue(false, forKey: "needPassword")
+//                performSegue(withIdentifier: "goToPasswordVC", sender: self)
+//            }
+//        }
+//    }
     
     func alertForAuthorization() { // present an alert indicating location authorization required
         // and offer to take the user to Settings for the app via
@@ -309,6 +341,56 @@ extension HomeViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
+}
+
+extension HomeViewController: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
+    }
+    
+    func requestNotificationAuthorization() {
+        let authOptions = UNAuthorizationOptions.init(arrayLiteral: .alert, .badge, .sound)
+        self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
+            if let error = error {
+                print("Error: ", error)
+            }
+        }
+    }
+    
+    func sendNotification() {
+        
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "당신의 발자취"
+        notificationContent.body = "오늘도 세상에 당신의 발자취를 남겨보아요."
+        notificationContent.badge = NSNumber(value: 3)
+        //
+        //        if let url = Bundle.main.url(forResource: "dune",
+        //                                     withExtension: "png") {
+        //            if let attachment = try? UNNotificationAttachment(identifier: "dune",
+        //                                                              url: url,
+        //                                                              options: nil) {
+        //                notificationContent.attachments = [attachment]
+        //            }
+        //        }
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1,
+                                                        repeats: false)
+        let request = UNNotificationRequest(identifier: "testNotification",
+                                            content: notificationContent,
+                                            trigger: trigger)
+        
+        userNotificationCenter.add(request) { (error) in
+            if let error = error {
+                print("Notification Error: ", error)
+            }
+        }
+    }
+    
 }
 
 extension UIColor {

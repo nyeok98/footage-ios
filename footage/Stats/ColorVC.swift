@@ -10,6 +10,7 @@ import UIKit
 import EFCountingLabel
 
 class ColorVC: UIViewController {
+    
     @IBOutlet weak var firstColor: UIImageView!
     @IBOutlet weak var secondColor: UIImageView!
     @IBOutlet weak var thirdColor: UIImageView!
@@ -20,9 +21,11 @@ class ColorVC: UIViewController {
     @IBOutlet weak var thirdColorDistance: EFCountingLabel!
     @IBOutlet weak var fourthColorDistance: EFCountingLabel!
     @IBOutlet weak var fifthColorDistance: EFCountingLabel!
+    
     var ranking: Array<(key: String, value: Double)> = []
     
     override func viewDidLoad() {
+        setDefaultData()
         loadData()
     }
     
@@ -34,6 +37,9 @@ class ColorVC: UIViewController {
         if sender.tag < ranking.count {
             performSegue(withIdentifier: "goToColoredJourney", sender: sender)
         }
+    }
+    @IBAction func alertTest(_ sender: UIButton) {
+        BadgeGiver.gotBadge(view: view, badge: Badge(type: "distance", imageName: "total_1000", detail: "1000km. 더이상 거리 재는건 무의미하네요. 그저 당신이 추억한, 추억할 발걸음이 아름다울 뿐입니다."))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -78,5 +84,13 @@ class ColorVC: UIViewController {
         for index in 0..<colorList.count {
             imageList[4 - index]!.image = UIImage(named: colorList.removeFirst())
         }
+    }
+    
+    func setDefaultData() {
+        firstColorDistance.text = "-"
+        secondColorDistance.text = "-"
+        thirdColorDistance.text = "-"
+        fourthColorDistance.text = "-"
+        fifthColorDistance.text = "-"
     }
 }
