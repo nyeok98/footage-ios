@@ -174,6 +174,6 @@ class FirstCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("not implemnted")
+        fatalError("not implemented")
     }
 }
