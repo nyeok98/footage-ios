@@ -160,7 +160,7 @@ class BadgeGiver {
     }
     
     static func gotBadge(view: UIView, badge: Badge) {
-        
+        noti_gotBadge()
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
@@ -197,6 +197,25 @@ class BadgeGiver {
             LevelManager.appendBadge(badge: Badge(type: "place", imageName: "\(cityName.cityName())_master", detail: "이 지역의 모든 행정구역을 만나보았어요!\n이 지역은 당신의 발자취로 가득합니다."))
             BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "\(cityName.cityName())_master", detail: "이 지역의 모든 행정구역을 만나보았어요!\n이 지역은 당신의 발자취로 가득합니다."))
             PlaceManager.isAppended = false
+        }
+    }
+    
+    static func noti_gotBadge() {
+        if UserDefaults.standard.bool(forKey: "wantPush") {
+            let content = UNMutableNotificationContent()
+            content.title = "새로운 뱃지를 획득하였습니다!"
+            content.badge = 1
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+            let randomIdentifier = UUID().uuidString
+            let request = UNNotificationRequest(identifier: randomIdentifier, content: content, trigger: trigger)
+
+            // 3
+            UNUserNotificationCenter.current().add(request) { error in
+              if error != nil {
+                print("something went wrong")
+              }
+            }
         }
     }
 }

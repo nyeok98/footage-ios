@@ -23,7 +23,7 @@ class PlaceManager {
     static func update(latitude: Double, longitude: Double, distance: Double) {
         let realm = try! Realm()
         CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: latitude, longitude: longitude), preferredLocale: Locale(identifier: "ko_KR")) { (placemarks, error) in
-            let placemark = placemarks![0]
+            if let placemark = placemarks?[0] {
             do { try realm.write {
                 if lastLocality == "" || placemark.locality != lastLocality { // first walk of the day or new region
                     isAppended = false
@@ -49,6 +49,7 @@ class PlaceManager {
                 lastData.distance += distance
                 lastAdministrativeArea = currentAdministrativeArea
             }} catch { print(error) }
+            }
         }
     }
     

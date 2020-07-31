@@ -17,9 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let realm = try! Realm()
         print("Realm is located at:", realm.configuration.fileURL!)
         HomeViewController.distanceTotal = DateManager.loadDistance(total: true)
-//        if let lastColor = UserDefaults.standard.string(forKey: "lastColor") {
-//            HomeViewController.selectedColor = lastColor
-//        }
+        //        if let lastColor = UserDefaults.standard.string(forKey: "lastColor") {
+        //            HomeViewController.selectedColor = lastColor
+        //        }
         DateManager.loadTodayData()
         return true
     }

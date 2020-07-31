@@ -13,8 +13,6 @@ import EFCountingLabel
 
 class HomeViewController: UIViewController {
     
-    // VARIABLES
-    let userNotificationCenter = UNUserNotificationCenter.current()
     /// 1. For Home Animation
     static var currentStartButtonImage: UIImage?
     @IBOutlet weak var mainMap: MKMapView!
@@ -72,7 +70,7 @@ class HomeViewController: UIViewController {
     var lastLocation: CLLocation?
     var locationTimer: Timer?
     var setAsStart: Bool = true
-    var speedLimit: Double = 100
+    var speedLimit: Double = 10
     var refreshRate: Double = 2.5
     var distanceLimit: Double {
         get {
@@ -91,7 +89,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setDelegates()
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
@@ -110,6 +107,9 @@ class HomeViewController: UIViewController {
             } else {
                 if UserDefaults.standard.bool(forKey: "startedBefore") == false {
                     UserDefaults.standard.setValue(true, forKey: "startedBefore")
+                    Settings_GeneralVC.registerNoti()
+                    Settings_GeneralVC.noti_everydayAlert()
+                    UserDefaults.standard.setValue(true, forKey: "wantPush")
                     LevelManager.firstLaunch()
                     BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "starter_level", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
                 }
@@ -229,6 +229,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         else { noSpeedCounter = 0 }
         
         if speedCounter > 4 || noSpeedCounter > 10 {
+            noti_recordStopped()
             locationTimer?.invalidate() // stop location request
             HomeViewController.locationManager.stopUpdatingLocation()
             HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
@@ -275,6 +276,26 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         let distanceInterval = newLocation.distance(from: lastLocation)
         return distanceInterval / timeInterval
     }
+    
+    func noti_recordStopped() {
+        if UserDefaults.standard.bool(forKey: "wantPush") {
+            let content = UNMutableNotificationContent()
+            content.title = "속도 제한 초과"
+            content.body = "발자취를 남긴다는 건, 주위를 온전히 담아낼 수 있어야 한다는 것."
+            content.badge = 1
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+            let randomIdentifier = UUID().uuidString
+            let request = UNNotificationRequest(identifier: randomIdentifier, content: content, trigger: trigger)
+
+            // 3
+            UNUserNotificationCenter.current().add(request) { error in
+              if error != nil {
+                print("something went wrong")
+              }
+            }
+        }
+    }
 }
 
 // MARK: -Others
@@ -301,8 +322,7 @@ extension HomeViewController {
     func setDelegates() {
         mainMap.delegate = self
         HomeViewController.locationManager.delegate = self
-        self.requestNotificationAuthorization()
-        self.userNotificationCenter.delegate = self
+//        self.requestNotificationAuthorization()
     }
     
     func alertForAuthorization() { // present an alert indicating location authorization required
@@ -322,46 +342,6 @@ extension HomeViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
-}
-
-extension HomeViewController: UNUserNotificationCenterDelegate {
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        completionHandler()
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .badge, .sound])
-    }
-    
-    func requestNotificationAuthorization() {
-        let authOptions = UNAuthorizationOptions.init(arrayLiteral: .alert, .badge, .sound)
-        self.userNotificationCenter.requestAuthorization(options: authOptions) { (success, error) in
-            if let error = error {
-                print("Error: ", error)
-            }
-        }
-    }
-    
-    func sendNotification() {
-        
-        let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = "오늘도 세상에 당신의 발자취를 남겨보아요."
-//        notificationContent.body = ""
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1,
-                                                        repeats: false)
-        let request = UNNotificationRequest(identifier: "testNotification",
-                                            content: notificationContent,
-                                            trigger: trigger)
-        
-        userNotificationCenter.add(request) { (error) in
-            if let error = error {
-                print("Notification Error: ", error)
-            }
-        }
-    }
-    
 }
 
 extension UIColor {

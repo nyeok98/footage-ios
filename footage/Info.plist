@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSMotionUsageDescription</key>
-	<string>발자취를 남길지를 결정하기 위해 필요합니다.</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>당신의 기록을 소중히 보관하기 위해 필요합니다.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -24,12 +18,16 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSFaceIDUsageDescription</key>
+	<string>당신의 기록을 소중히 보관하기 위해 필요합니다.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>위치서비스를 &apos;항상&apos;으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
+	<string>위치서비스를 '항상'으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>위치서비스를 &apos;항상&apos;으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
+	<string>위치서비스를 '항상'으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>발자취에 빛을 입히기 위해 사진을 더해볼 수 있도록 해주세요.</string>
 	<key>NSSupportsSuddenTermination</key>

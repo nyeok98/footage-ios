@@ -45,6 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let userState = UserDefaults.standard.string(forKey: "UserState")
         if userState == "noPassword" {
             HomeViewController.locationManager.stopUpdatingLocation()
+            UIApplication.shared.applicationIconBadgeNumber = 0
         } else if userState == "hasPassword" || userState == "hasBioId"  {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let passwordVC = storyBoard.instantiateViewController(withIdentifier: "PasswordVC") as! PasswordVC
