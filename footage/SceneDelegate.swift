@@ -53,8 +53,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 while let presentedViewController = topController.presentedViewController {
                     topController = presentedViewController
                 }
+                let screenSize = UIScreen.main.bounds
                 topController.addChild(passwordVC)
                 topController.view.addSubview(passwordVC.view)
+                passwordVC.view.translatesAutoresizingMaskIntoConstraints = false
+                passwordVC.view.widthAnchor.constraint(equalToConstant: screenSize.width).isActive = true
+                passwordVC.view.heightAnchor.constraint(equalToConstant: screenSize.height).isActive = true
+                passwordVC.view.topAnchor.constraint(equalTo: topController.view.safeAreaLayoutGuide.topAnchor).isActive = true
+                passwordVC.view.bottomAnchor.constraint(equalTo: topController.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
             }
         } else { // userState == nil (first launch)
             UserDefaults.standard.set("", forKey: "todayBadge")

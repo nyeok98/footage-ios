@@ -134,14 +134,38 @@ class PasswordVC: UIViewController {
 extension PasswordVC {
     
     func authenticateUser() {
-        let localAuthenticationContext = LAContext()
-        localAuthenticationContext.localizedFallbackTitle = "Please use your Passcode"
-        var authorizationError: NSError?
-        let reason = "Authentication is required for you to continue"
-        if localAuthenticationContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthentication, error: &authorizationError) {
-            localAuthenticationContext.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: reason) { (success, evaluationError) in
-                if success { DispatchQueue.main.async { self.view.removeFromSuperview() }}
-                else { print(evaluationError) } }
-        } else { print("User has not enrolled into using Biometrics") }
+        let laContext = LAContext()
+            var error: NSError?
+            let biometricsPolicy = LAPolicy.deviceOwnerAuthenticationWithBiometrics
+            if (laContext.canEvaluatePolicy(biometricsPolicy, error: &error)) {
+                if let laError = error {
+                    print("laError - \(laError)")
+                    return
+                }
+                var localizedReason = "Unlock device"
+                if #available(iOS 11.0, *) {
+                    switch laContext.biometryType {
+                    case .faceID: localizedReason = "Unlock using Face ID"; print("FaceId support")
+                    case .touchID: localizedReason = "Unlock using Touch ID"; print("TouchId support")
+                    case .none: print("No Biometric support")
+                    @unknown default:
+                        fatalError()
+                    }
+                } else {
+                    // Fallback on earlier versions
+                }
+                laContext.evaluatePolicy(biometricsPolicy, localizedReason: localizedReason, reply: { (isSuccess, error) in
+                    DispatchQueue.main.async(execute: {
+                        if let laError = error {
+                            print("laError - \(laError)")
+                        } else {
+                            if isSuccess { print("sucess")
+                                self.view.removeFromSuperview()
+                            }
+                            else { print("failure") }
+                        }
+                    })
+                })
+            }
     }
 }

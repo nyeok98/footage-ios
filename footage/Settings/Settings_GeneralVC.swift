@@ -26,13 +26,15 @@ class Settings_GeneralVC: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! Settings_General_PasswordVC
-        destinationVC.generalVC = self
-        if let sender = sender as? UISwitch {
-            if sender.tag == 1 {
-                destinationVC.whereAreYouFrom = "passcode"
-            } else if sender.tag == 2 {
-                destinationVC.whereAreYouFrom = "faceId"
+        if segue.identifier == "goToPasswordSettings" {
+            let destinationVC = segue.destination as! Settings_General_PasswordVC
+            destinationVC.generalVC = self
+            if let sender = sender as? UISwitch {
+                if sender.tag == 1 {
+                    destinationVC.whereAreYouFrom = "passcode"
+                } else if sender.tag == 2 {
+                    destinationVC.whereAreYouFrom = "faceId"
+                }
             }
         }
     }

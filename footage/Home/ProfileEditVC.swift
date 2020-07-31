@@ -38,6 +38,14 @@ class ProfileEditVC: UIViewController, UIScrollViewDelegate {
             self.dismiss(animated: false) { }
             self.parentVC!.dismiss(animated: false) { }
             parentVC?.cacheManager.stopCachingImagesForAllAssets()
+        } else if statsVC is Settings_General_ProfileVC {
+            let setVC = statsVC as! Settings_General_ProfileVC
+            setVC.profileImage = captureSelectedRegion()
+            UserDefaults.standard.setValue(setVC.profileImage!.pngData(), forKey: "profileImage")
+            setVC.reloadProfileImage()
+            self.dismiss(animated: false) { }
+            self.parentVC!.dismiss(animated: false) { }
+            parentVC?.cacheManager.stopCachingImagesForAllAssets()
         }
     }
     
