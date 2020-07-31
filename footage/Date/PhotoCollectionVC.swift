@@ -32,7 +32,7 @@ class PhotoCollectionVC: UIViewController {
     }
 
     func configureHierarchy() {
-        let collectionFrame = CGRect(x: 0, y: 130, width: view.bounds.width, height: view.bounds.height - 600)
+        let collectionFrame = CGRect(x: 0, y: K.screenHeight * 0.15, width: view.bounds.width, height: K.screenHeight * 0.3)
         collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: PhotoCollectionLayout(journeyManager: journeyManager))
         collectionView.dataSource = self
         collectionView.delegate = self

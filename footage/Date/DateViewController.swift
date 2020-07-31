@@ -39,6 +39,7 @@ class DateViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         loadWithRange(rangeControl.selectedSegmentIndex)
+        reloadProfileImage()
     }
     
     override func viewDidLoad() {
@@ -58,19 +59,16 @@ class DateViewController: UIViewController {
 extension DateViewController {
     private func createLayout() -> UICollectionViewLayout {
         
-        let itemSize = NSCollectionLayoutSize(widthDimension:.fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(widthDimension:.absolute(147), heightDimension: .absolute(177))
         let item = NSCollectionLayoutItem(layoutSize: itemSize, supplementaryItems: [])
-        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.53))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(300), heightDimension: .estimated(177))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
-        group.contentInsets.leading = 20
-        group.contentInsets.trailing = 20
-        group.contentInsets.bottom = 20
-        
+        group.interItemSpacing = .fixed(20)
         let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 30
         let layout = UICollectionViewCompositionalLayout(section: section)
         
         return layout
@@ -81,22 +79,20 @@ extension DateViewController {
 
 extension DateViewController {
     private func configureHierarchy() {
-        let collectionFrame = CGRect(x: 0, y: 320, width: view.bounds.width, height: view.bounds.height - 405)
-        
+        let collectionFrame = CGRect(x: 30, y: rangeControl.frame.maxY + view.safeAreaInsets.top + 30, width: view.bounds.width - 60, height: view.bounds.height)
         collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
         collectionView.delegate = self
-        
-        collectionView.isPagingEnabled = true
-        //collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
-        collectionView.allowsSelection = true
-        
-        // Register Components
         collectionView.register(UINib(nibName: "MapCell", bundle: nil), forCellWithReuseIdentifier: MapCell.reuseIdentifier)
+        collectionView.isPagingEnabled = true
+        collectionView.allowsSelection = true
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .white
+        collectionView.layer.borderColor = .init(srgbRed: 100, green: 0, blue: 0, alpha: 1)
+        collectionView.layer.borderWidth = 3
         
         view.addSubview(collectionView)
         view.sendSubviewToBack(collectionView)
-        //view.sendSubviewToBack(label)
+        view.addConstraint(.init(item: collectionView, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: rangeControl, attribute: .bottom, multiplier: 1, constant: 20))
     }
 }
 
@@ -151,6 +147,7 @@ extension DateViewController {
     func reloadProfileImage() {
         profileView.layer.cornerRadius = profileView.bounds.width / 2.0
         profileView.image = profileImage
+        profileName.text = UserDefaults.standard.string(forKey: "userName")
     }
     
     private func loadWithRange(_ range: Int) {

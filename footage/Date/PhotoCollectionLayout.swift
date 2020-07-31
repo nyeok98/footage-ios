@@ -29,7 +29,7 @@ class PhotoCollectionLayout: UICollectionViewFlowLayout {
         self.scrollDirection = .horizontal
         self.sectionInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
