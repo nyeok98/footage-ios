@@ -93,19 +93,10 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         setDelegates()
-        // start animation
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
         configureInitialMapView()
-        //        setPassword()
     }
-    //
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        print("homeViewDidAppear")
-    //        DispatchQueue.main.async {
-    //            self.setPassword()
-    //        }
-    //    }
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
         
@@ -313,16 +304,6 @@ extension HomeViewController {
         self.requestNotificationAuthorization()
         self.userNotificationCenter.delegate = self
     }
-//
-//    public func setPassword() {
-//        if UserDefaults.standard.bool(forKey: "needPassword") {
-//            let userState = UserDefaults.standard.string(forKey: "UserState")
-//            if userState == "hasPassword" || userState == "hasBioId" {
-//                UserDefaults.standard.setValue(false, forKey: "needPassword")
-//                performSegue(withIdentifier: "goToPasswordVC", sender: self)
-//            }
-//        }
-//    }
     
     func alertForAuthorization() { // present an alert indicating location authorization required
         // and offer to take the user to Settings for the app via
@@ -365,18 +346,8 @@ extension HomeViewController: UNUserNotificationCenterDelegate {
     func sendNotification() {
         
         let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = "당신의 발자취"
-        notificationContent.body = "오늘도 세상에 당신의 발자취를 남겨보아요."
-        notificationContent.badge = NSNumber(value: 3)
-        //
-        //        if let url = Bundle.main.url(forResource: "dune",
-        //                                     withExtension: "png") {
-        //            if let attachment = try? UNNotificationAttachment(identifier: "dune",
-        //                                                              url: url,
-        //                                                              options: nil) {
-        //                notificationContent.attachments = [attachment]
-        //            }
-        //        }
+        notificationContent.title = "오늘도 세상에 당신의 발자취를 남겨보아요."
+//        notificationContent.body = ""
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1,
                                                         repeats: false)
