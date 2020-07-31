@@ -87,12 +87,9 @@ extension DateViewController {
         collectionView.allowsSelection = true
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .white
-        collectionView.layer.borderColor = .init(srgbRed: 100, green: 0, blue: 0, alpha: 1)
-        collectionView.layer.borderWidth = 3
         
         view.addSubview(collectionView)
         view.sendSubviewToBack(collectionView)
-        view.addConstraint(.init(item: collectionView, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: rangeControl, attribute: .bottom, multiplier: 1, constant: 20))
     }
 }
 
