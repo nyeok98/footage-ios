@@ -56,36 +56,10 @@ class DateConverter {
     
     static func lastMondayToday() -> (Int, Int) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        let oneDay = -86400
-        var monday = 0
-        var today = 0
-        switch dateFormatter.string(from: Date()) {
-        case "Monday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 0)))
-            today = dateToDay(date: Date())
-        case "Tuesday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 1)))
-            today = dateToDay(date: Date())
-        case "Wednesday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 2)))
-            today = dateToDay(date: Date())
-        case "Thursday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 3)))
-            today = dateToDay(date: Date())
-        case "Friday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 4)))
-            today = dateToDay(date: Date())
-        case "Saturday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 5)))
-            today = dateToDay(date: Date())
-        case "Sunday":
-            monday = dateToDay(date: Date(timeIntervalSinceNow: TimeInterval(oneDay * 6)))
-            today = dateToDay(date: Date())
-        default:
-            break
-        }
-        return (monday, today)
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let today = Int(dateFormatter.string(from: Date()))!
+        let firstDay = today - (today % 100) + 01
+        return (firstDay, today)
     }
     
     static func tagToMonth(year: Int, tag: Int, start: Bool) -> Int {

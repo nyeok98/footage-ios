@@ -81,6 +81,7 @@ class HomeViewController: UIViewController {
     var speedCounter: Int = 0
     var noSpeedCounter: Int = 0
     var isWalking: Int = 0
+    var timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -217,7 +218,8 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     }
     
     func checkForMovement(location: CLLocation) {
-        
+        print("isCalled")
+        print(noSpeedCounter)
         if location.speed > speedLimit { speedCounter += 1 }
         
         if location.speed < 0 { noSpeedCounter += 1 }
@@ -234,7 +236,8 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             configureInitialMapView()
             speedCounter = 0
             return
-        } else if noSpeedCounter > 10 {
+            
+        } else if noSpeedCounter > 7 {
             noti_recordStoppedByNoSpeed()
             locationTimer?.invalidate() // stop location request
             HomeViewController.locationManager.stopUpdatingLocation()
