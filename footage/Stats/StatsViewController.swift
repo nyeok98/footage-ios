@@ -155,35 +155,34 @@ class StatsViewController: UIViewController {
     func setScrollView() {
         let screenSize = UIScreen.main.bounds
         let screenHeight = screenSize.height
+        scrollView.alwaysBounceVertical = true
+        scrollView.isScrollEnabled = true
+        scrollView.delaysContentTouches = true
+        formLastView.isExclusiveTouch = true
+        scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight)
         
-        self.formStackView.distribution = .fillEqually
-        self.scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
-        self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 100).isActive = true
+//        self.formStackView.distribution = .fillEqually
+//        self.scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
+//        self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 100).isActive = true
         
-        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
-        self.formStackView.translatesAutoresizingMaskIntoConstraints = false
-        self.formLastView.translatesAutoresizingMaskIntoConstraints = false
+//        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
+//        self.formStackView.translatesAutoresizingMaskIntoConstraints = false
+//        self.formLastView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.formStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.formLastView.leadingAnchor.constraint(equalTo: self.formStackView.leadingAnchor).isActive = true
+//        self.formStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        self.formLastView.leadingAnchor.constraint(equalTo: self.formStackView.leadingAnchor).isActive = true
         
-        self.formStackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
-        self.formLastView.topAnchor.constraint(equalTo: self.formStackView.bottomAnchor, constant: 20 * screenHeight).isActive = true
-        self.formStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        self.formLastView.widthAnchor.constraint(equalTo: self.formStackView.widthAnchor).isActive = true
-        self.formLastView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -150).isActive = true
-        self.scrollView.heightAnchor.constraint(equalToConstant: 1500).isActive = true
+//        self.formStackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
+//        self.formLastView.topAnchor.constraint(equalTo: self.formStackView.bottomAnchor, constant: 20 * screenHeight).isActive = true
+//        self.formStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+//        self.formLastView.widthAnchor.constraint(equalTo: self.formStackView.widthAnchor).isActive = true
+//        self.formLastView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -150).isActive = true
+//        self.scrollView.heightAnchor.constraint(equalToConstant: 1500).isActive = true
         
-        self.scrollView.alwaysBounceVertical = true
-        self.scrollView.isScrollEnabled = true
-        self.scrollView.delaysContentTouches = true
-        self.formLastView.isExclusiveTouch = true
-        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2)
-        
-        self.scrollView.addSubview(formLastView)
-        self.scrollView.addSubview(formStackView)
-        self.view.addSubview(scrollView)
+//        self.scrollView.addSubview(formLastView)
+//        self.scrollView.addSubview(formStackView)
+//        self.view.addSubview(scrollView)
         
 //        self.view.bringSubviewToFront(scrollView)
 //        self.view.bringSubviewToFront(formLastView)

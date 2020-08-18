@@ -58,7 +58,7 @@ class DateManager { // journey 저장 및 데이터 가공을 담당
         var journeys: [Journey] = []
         switch rangeOf {
         case "day":
-            let result = realm.objects(DayData.self) // 20200604
+            let result = realm.objects(DayData.self).sorted(byKeyPath: "date", ascending: false) // 20200604
             for day in result {
                 let journey = Journey.init(footsteps: day.footsteps, preview: day.preview, reference: day, date: day.date)
                 journeys.append(journey)

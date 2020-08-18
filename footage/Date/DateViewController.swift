@@ -62,7 +62,7 @@ extension DateViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension:.absolute(147), heightDimension: .absolute(177))
         let item = NSCollectionLayoutItem(layoutSize: itemSize, supplementaryItems: [])
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(300), heightDimension: .estimated(177))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(315), heightDimension: .estimated(177))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
@@ -79,13 +79,15 @@ extension DateViewController {
 
 extension DateViewController {
     private func configureHierarchy() {
-        let collectionFrame = CGRect(x: 30, y: rangeControl.frame.maxY + view.safeAreaInsets.top + 30, width: view.bounds.width - 60, height: view.bounds.height)
+        let minY = rangeControl.frame.maxY + view.safeAreaInsets.top + 50
+        let collectionFrame = CGRect(x: 30, y: minY, width: view.bounds.width - 60, height: view.bounds.height - minY - 30)
+        print(view.bounds.width - 60)
         collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
         collectionView.delegate = self
         collectionView.register(UINib(nibName: "MapCell", bundle: nil), forCellWithReuseIdentifier: MapCell.reuseIdentifier)
         collectionView.isPagingEnabled = true
         collectionView.allowsSelection = true
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        //collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .white
         
         view.addSubview(collectionView)

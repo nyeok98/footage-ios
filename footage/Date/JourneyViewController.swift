@@ -23,11 +23,8 @@ class JourneyViewController: UIViewController {
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var addButton: UIButton!
     var centerMark = MKPointAnnotation()
-    //var addButton = UIButton()
     @IBOutlet weak var removeButton: UIButton!
-    //var removeButton = UIButton()
     @IBOutlet weak var footstepLabel: UILabel!
-    //var footstepLabel = UILabel()
     var journeyManager: JourneyManager! = nil
     var dateVC: DateViewController! = nil
     
@@ -38,7 +35,6 @@ class JourneyViewController: UIViewController {
         JourneyAnimation(journeyManager: journeyManager).journeyActivate()
         configureMap()
         setInitialAlpha()
-        //configureButtons()
         journeyManager.photoVC = PhotoCollectionVC(journeyManager: journeyManager)
         addChild(journeyManager.photoVC)
         view.addSubview(journeyManager.photoVC.collectionView)
@@ -88,11 +84,11 @@ class JourneyViewController: UIViewController {
     
     @IBAction func addPressed(_ sender: UIButton) {
         let footstepNumber = Int(slider.value)
-               let footstep = journeyManager.journey.footsteps[footstepNumber]
-               let newAnnotation = FootAnnotation(footstep: footstep, number: footstepNumber)
-               mainMap.addAnnotation(newAnnotation)
-               DrawOnMap.moveCenterTo(footstep.coordinate, on: mainMap, centerMark: centerMark)
-               journeyManager.prepareNewFootstep(footstepNumber: footstepNumber, annotation: newAnnotation)
+        let footstep = journeyManager.journey.footsteps[footstepNumber]
+        let newAnnotation = FootAnnotation(footstep: footstep, number: footstepNumber)
+        mainMap.addAnnotation(newAnnotation)
+        DrawOnMap.moveCenterTo(footstep.coordinate, on: mainMap, centerMark: centerMark)
+        journeyManager.prepareNewFootstep(footstepNumber: footstepNumber, annotation: newAnnotation)
     }
     
     @IBAction func removePressed(_ sender: UIButton) {
@@ -126,8 +122,17 @@ extension JourneyViewController: MKMapViewDelegate {
         mainMap.register(FootTransparentView.self, forAnnotationViewWithReuseIdentifier: FootTransparentView.reuseIdentifier)
         mainMap.addAnnotation(centerMark) // shows where the slider points
         mainMap.addAnnotations(journeyManager.loadAnnotations())
-        DrawOnMap.moveCenterTo(journeyManager.journey.footsteps[0].coordinate, on: mainMap, centerMark: centerMark)
+        let firstCoordinate = journeyManager.journey.footsteps[0].coordinate
+        mainMap.setCenter(firstCoordinate, animated: false)
+        centerMark.coordinate = firstCoordinate
+        //DrawOnMap.moveCenterTo(journeyManager.journey.footsteps[0].coordinate, on: mainMap, centerMark: centerMark)
         DrawOnMap.polylineFromFootsteps(journeyManager.journey.footsteps, on: mainMap)
+        guard let initial = mainMap.overlays.first?.boundingMapRect else { return }
+        let mapRect = mainMap.overlays
+            .dropFirst()
+            .reduce(initial) { $0.union($1.boundingMapRect) }
+        let insets = UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50)
+        mainMap.setVisibleMapRect(mapRect, edgePadding: insets, animated: true)
     }
     
     @objc func createPin() {
