@@ -228,8 +228,8 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         if location.speed < 0 { noSpeedCounter += 1 }
         else { noSpeedCounter = 0 }
         
-        if speedCounter > 4 || noSpeedCounter > 10 {
-            noti_recordStopped()
+        if speedCounter > 4 {
+            noti_recordStoppedBySpeed()
             locationTimer?.invalidate() // stop location request
             HomeViewController.locationManager.stopUpdatingLocation()
             HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
@@ -238,6 +238,18 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             HomeAnimation.homeStopAnimation(self)
             configureInitialMapView()
             speedCounter = 0
+            return
+        } else if noSpeedCounter > 10 {
+            noti_recordStoppedByNoSpeed()
+            locationTimer?.invalidate() // stop location request
+            HomeViewController.locationManager.stopUpdatingLocation()
+            HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
+            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
+            setAsStart = true // next coordinate must be set as new start point
+            HomeAnimation.homeStopAnimation(self)
+            configureInitialMapView()
+            speedCounter = 0
+            return
         }
     }
     
@@ -277,11 +289,31 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         return distanceInterval / timeInterval
     }
     
-    func noti_recordStopped() {
+    func noti_recordStoppedBySpeed() {
         if UserDefaults.standard.bool(forKey: "wantPush") {
             let content = UNMutableNotificationContent()
             content.title = "속도 제한 초과"
             content.body = "발자취를 남긴다는 건, 주위를 온전히 담아낼 수 있어야 한다는 것."
+            content.badge = 1
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+            let randomIdentifier = UUID().uuidString
+            let request = UNNotificationRequest(identifier: randomIdentifier, content: content, trigger: trigger)
+
+            // 3
+            UNUserNotificationCenter.current().add(request) { error in
+              if error != nil {
+                print("something went wrong")
+              }
+            }
+        }
+    }
+    
+    func noti_recordStoppedByNoSpeed() {
+        if UserDefaults.standard.bool(forKey: "wantPush") {
+            let content = UNMutableNotificationContent()
+            content.title = "기록 중지"
+            content.body = "어딘가에 머물러 짙은 발자취를 남기시나보군요. 잠시 기록을 중단하겠습니다."
             content.badge = 1
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
