@@ -25,6 +25,7 @@ class MapViewController: UIViewController {
         getCurrentLocation()
         initializeMapView()
         M.tableVC.reloadWithNewLocation(coordinate: currentLocation, selected: nil)
+        mapView.register(AppleClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         addChild(M.bottomVC)
         view.addSubview(M.bottomVC.view)
     }
@@ -73,6 +74,14 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let cluster = annotation as? MKClusterAnnotation {
+            var view = mapView.dequeueReusableAnnotationView(withIdentifier: "cluster") as? AppleClusterAnnotationView
+            if view == nil {
+                view = AppleClusterAnnotationView(annotation: cluster, reuseIdentifier: "cluster")
+            }
+            return view
+            
+        }
         if annotation.isKind(of: NearbyAnnotation.self) {
             guard let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: NearbyAnnotationView.reuseIdentifier) else { fatalError("Cannot create new cell") }
             return annotationView
@@ -125,4 +134,44 @@ class NearbyAnnotationView: MKAnnotationView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override var annotation: MKAnnotation? {
+        willSet {
+            clusteringIdentifier = "ClusteredAnnotation"
+        }
+    }
 }
+
+class AppleClusterAnnotationView: MKAnnotationView {
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        displayPriority = .defaultLow
+        //collisionMode = .circle
+        centerOffset = CGPoint(x: 0, y: -10) // Offset center point to animate better with marker annotations
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var annotation: MKAnnotation? {
+        willSet {
+            if let cluster = newValue as? MKClusterAnnotation {
+                let renderer = UIGraphicsImageRenderer(size: CGSize(width: 100, height: 100))
+                let count = cluster.memberAnnotations.count
+                image = renderer.image { _ in
+                    // Fill inner circle with white color
+                    UIColor.white.setFill()
+                    UIBezierPath(ovalIn: CGRect(x: 8, y: 8, width: 50, height: 50)).fill()
+                    
+                    // Finally draw count text vertically and horizontally centered
+                    let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.black,
+                                       NSAttributedString.Key.font: UIFont(name: "NanumBarunPen-Bold", size: 20)]
+                    let text = "\(count)"
+                    let size = text.size(withAttributes: attributes as [NSAttributedString.Key : Any])
+                    let rect = CGRect(x: 33 - size.width / 2, y: 33 - size.height / 2, width: size.width, height: size.height)
+                    text.draw(in: rect, withAttributes: attributes as [NSAttributedString.Key : Any])
+                    
+                }
+            }
+        }
+    }}
