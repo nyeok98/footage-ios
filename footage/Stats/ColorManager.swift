@@ -57,7 +57,7 @@ class ColorManager {
     static func footstepsWithColor(color: String, from: Int, to:Int) -> [List<Footstep>] {
         var footsteps: [List<Footstep>] = []
         let realm = try! Realm()
-        var colorChanged = false
+        var colorChanged = true
         var arrayIndex = 0
         footsteps.append(List<Footstep>())
         let result = realm.objects(DayData.self).filter("date >= \(from) AND date <= \(to)")

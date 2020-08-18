@@ -45,9 +45,7 @@ class ColorVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let button = sender as! UIButton
         let destinationVC = segue.destination as! ColoredJourneyVC
-        
         destinationVC.color = ranking[button.tag].key
-        
     }
     
     
