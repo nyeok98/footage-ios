@@ -82,11 +82,6 @@ class HomeViewController: UIViewController {
     var noSpeedCounter: Int = 0
     var isWalking: Int = 0
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        print("viewWillAppear")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setDelegates()

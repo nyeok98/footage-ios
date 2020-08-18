@@ -42,24 +42,26 @@ class JourneyViewController: UIViewController {
         slider.value = 0
     }
     
-//    override func viewDidAppear(_ animated: Bool) { // create preview image using screenshot
-//        let realm = try! Realm()
-//        let imageData = takeScreenshot().pngData()!
-//        DateViewController.journeys[journeyManager.journeyIndex].preview = imageData // Is this Okay?
-//        do {
-//            try realm.write {
-//                let object = DateViewController.journeys[journeyManager.journeyIndex].reference
-//                if let day = object as? DayData {
-//                    day.preview = imageData
-//                } else if let month = object as? Month {
-//                    month.preview = imageData
-//                } else if let year = object as? Year {
-//                    year.preview = imageData
-//                }
-//            }
-//        } catch { print(error)}
-//        dateVC.collectionView.reloadData()
-//    }
+    override func viewDidAppear(_ animated: Bool) { // create preview image using screenshot
+        let realm = try! Realm()
+        let imageData = takeScreenshot().pngData()!
+        DateViewController.journeys[journeyManager.journeyIndex].preview = imageData // Is this Okay?
+        do {
+            try realm.write {
+                let object = DateViewController.journeys[journeyManager.journeyIndex].reference
+                if let day = object as? DayData {
+                    day.preview = imageData
+                    removeButton.isHidden = false
+                    addButton.isHidden = false
+                } else if let month = object as? Month {
+                    month.preview = imageData
+                } else if let year = object as? Year {
+                    year.preview = imageData
+                }
+            }
+        } catch { print(error)}
+        dateVC.collectionView.reloadData()
+    }
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         addButton.alpha = 1

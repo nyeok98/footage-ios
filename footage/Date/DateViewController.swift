@@ -81,7 +81,6 @@ extension DateViewController {
     private func configureHierarchy() {
         let minY = rangeControl.frame.maxY + view.safeAreaInsets.top + 50
         let collectionFrame = CGRect(x: 30, y: minY, width: view.bounds.width - 60, height: view.bounds.height - minY - 30)
-        print(view.bounds.width - 60)
         collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
         collectionView.delegate = self
         collectionView.register(UINib(nibName: "MapCell", bundle: nil), forCellWithReuseIdentifier: MapCell.reuseIdentifier)

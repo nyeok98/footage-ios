@@ -57,7 +57,7 @@ class ReportVC: UIViewController {
             setStartEndDate(tag: (index+1))
             if ColorManager.getRankingDistance(startDate: startDate!, endDate: endDate!).isEmpty {
                 monthButtonList[index]!.isEnabled = false
-                monthButtonList[index]!.alpha = 0.4
+                monthButtonList[index]!.alpha = 0.1
             } else {
                 monthButtonList[index]!.isEnabled = true
                 monthButtonList[index]!.alpha = 1

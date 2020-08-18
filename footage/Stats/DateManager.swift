@@ -32,7 +32,7 @@ class DateManager { // journey 저장 및 데이터 가공을 담당
             } else { // first walk of the day!
                 let today = DateConverter.dateToDay(date: Date())
                 lastData = DayData(date: today)
-                lastData?.footsteps.append(footstep)
+                //lastData?.footsteps.append(footstep)
                 lastData?.footsteps.append(footstep) // 이거 왜 했는지는 모르지만 알고 있자!!!
                 realm.add(lastData!) //
                 let thisMonth = DateConverter.dateToMonth(date: Date())

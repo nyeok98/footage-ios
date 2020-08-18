@@ -20,14 +20,13 @@ class MapCollectionCell: UICollectionViewCell {
     let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: cellWidth, height: MapCollectionCell.photoHeight))
     let noteBackground = UIImageView(frame: CGRect(x: -8, y: MapCollectionCell.photoHeight + 10,
                                                    width: cellWidth + 16, height: MapCollectionCell.photoHeight))
-    let noteView = UITextView(frame: CGRect(x: 0, y: MapCollectionCell.photoHeight + 10,
-                                            width: cellWidth, height: MapCollectionCell.photoHeight))
-    
+    let noteView = UITextView(frame: CGRect(x: 10, y: MapCollectionCell.photoHeight + 20,
+                                            width: cellWidth - 20, height: MapCollectionCell.photoHeight - 20))
     func showNote() {
         noteBackground.contentMode = .scaleToFill
         noteBackground.image = UIImage(named: color + "Paper")
         addSubview(noteBackground)
-        noteView.font = UIFont(name: "NanumBarunpen", size: 25)
+        noteView.font = UIFont(name: "NanumBarunpen-Bold", size: 15)
         noteView.text = asset.note
         noteView.isEditable = false
         noteView.isSelectable = false

@@ -44,6 +44,7 @@ class MapTableVC: UIViewController {
             return toLocation.distance(from: fromLocation)
         }
         
+        M.bottomVC.showTable()
         footstepDistance.removeAll()
         for footstep in allFootsteps {
             if footstep.timestamp == selected?.timestamp { // selected footstep must not show on the table

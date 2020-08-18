@@ -43,8 +43,9 @@ class DrawOnMap {
     }
     
     static func moveCenterTo (_ coordinate: CLLocationCoordinate2D, on map: MKMapView, centerMark: MKPointAnnotation?) {
-        let camera = MKMapCamera(lookingAtCenter: coordinate, fromDistance: CLLocationDistance(exactly: 200)!, pitch: 70, heading: CLLocationDirection(exactly: 0)!)
-        map.setCamera(camera, animated: false)
+//        let camera = MKMapCamera(lookingAtCenter: coordinate, fromDistance: CLLocationDistance(exactly: 200)!, pitch: 70, heading: CLLocationDirection(exactly: 0)!)
+//        map.setCamera(camera, animated: false)
+        map.setCenter(coordinate, animated: false)
         centerMark?.coordinate = coordinate
     }
     

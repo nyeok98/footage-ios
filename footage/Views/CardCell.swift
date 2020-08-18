@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class CardCell: UICollectionViewCell, UITextViewDelegate {
+class CardCell: UICollectionViewCell {
     
     static let reuseIdentifier = "photo-cell-reuse-identifier"
     var showingPhoto = true
@@ -33,6 +33,8 @@ class CardCell: UICollectionViewCell, UITextViewDelegate {
     var photo: UIImage? { return journeyManager.downsample(imageData: asset.photo, to: contentView.frame.size, scale: UIScreen.main.scale) }
     var note: String { return asset.note }
     var color: String { return journeyManager.journey.footsteps[asset.footstepNumber].color }
+    
+    var editingText = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,6 +71,15 @@ class CardCell: UICollectionViewCell, UITextViewDelegate {
         imageView.image = photo
     }
     
+    @objc func removeAsset() {
+        journeyManager.removeAsset(section: section, item: item)
+    }
+
+}
+
+extension CardCell: UITextViewDelegate {
+    
+    
     func showNote() {
         showingPhoto = false
         imageView.contentMode = .scaleToFill
@@ -76,11 +87,12 @@ class CardCell: UICollectionViewCell, UITextViewDelegate {
         
         if textView == nil {
             textView = UITextView(frame: CGRect(x: 10, y: 10, width: cellWidth - 20, height: cellHeight - 20))
-            textView.font = UIFont(name: "NanumBarunpen-Bold", size: 25)
+            textView.font = UIFont(name: "NanumBarunpen", size: 12)
             textView.autocorrectionType = .no
             textView.backgroundColor = .clear
             textView.isEditable = false
             textView.isUserInteractionEnabled = false
+            textView.textContainer.maximumNumberOfLines = 9
             textView.delegate = self
         }
         textView.text = note
@@ -89,30 +101,41 @@ class CardCell: UICollectionViewCell, UITextViewDelegate {
         if noteButton == nil {
             noteButton = UIButton(frame: CGRect(x: cellWidth - (35 * 1.5), y: cellHeight - (35 * 1.5), width: 35, height: 35))
             noteButton.setImage(#imageLiteral(resourceName: "addWritingButton"), for: .normal)
-            noteButton.addTarget(self, action: #selector(activateTextField), for: .touchUpInside)
+            noteButton.addTarget(self, action: #selector(flipTextState), for: .touchUpInside)
         }
         self.addSubview(noteButton)
     }
     
-    @objc func activateTextField() {
-        textView.becomeFirstResponder()
+    @objc func flipTextState() {
+        if editingText {
+            dismissAndSave()
+            editingText = false
+        } else {
+            activateTextField()
+            editingText = true
+        }
+    }
+    
+    func activateTextField() {
         textView.isEditable = true
         textView.isUserInteractionEnabled = true
-        
-        tap = UITapGestureRecognizer(target: self, action: #selector(dismissAndSave))
-        textView.addGestureRecognizer(tap)
+        textView.becomeFirstResponder()
+        noteButton.frame = CGRect(x: cellWidth - (40 * 1.5), y: cellHeight - (30 * 1.5), width: 45, height: 30)
+        noteButton.setImage(#imageLiteral(resourceName: "complete_button"), for: .normal)
     }
-        
-    @objc func dismissAndSave() {
+    
+    func dismissAndSave() {
         textView.resignFirstResponder()
         textView.isEditable = false
         textView.isUserInteractionEnabled = false
-        textView.removeGestureRecognizer(tap)
         journeyManager.saveNewNote(content: textView.text, section: section, item: item)
+        noteButton.frame = CGRect(x: cellWidth - (35 * 1.5), y: cellHeight - (35 * 1.5), width: 35, height: 35)
+        noteButton.setImage(#imageLiteral(resourceName: "addWritingButton"), for: .normal)
     }
     
-    @objc func removeAsset() {
-        journeyManager.removeAsset(section: section, item: item)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.setContentOffset(.zero, animated: false)
+        textView.text.removeLast()
     }
-
+    
 }
