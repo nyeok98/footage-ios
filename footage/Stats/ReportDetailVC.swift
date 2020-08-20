@@ -179,10 +179,8 @@ extension ReportDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "reportBadge-cell-reuse-identifier",for: indexPath) as! ReportBadgeCell
         cell.backgroundColor = .clear
         cell.badgeImageView.image = UIImage(named: badgeList[indexPath.row].imageName)
-        
         return cell
     }
-    
     
 }
 

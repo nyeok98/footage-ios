@@ -11,16 +11,48 @@ import StoreKit
 
 class Settings_DonateVC: UIViewController {
     
-    @IBOutlet weak var firstSectionLabel: UILabel!
-    @IBOutlet weak var firstPrice: UILabel!
-    @IBOutlet weak var secondSectionLabel: UILabel!
-    @IBOutlet weak var secondPrice: UILabel!
-    @IBOutlet weak var thirdSectionLabel: UILabel!
-    @IBOutlet weak var thirdPrice: UILabel!
+    let productID = "ConsumableTest"
+
     @IBAction func backButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func requestPurchase(_ sender: UIButton) {
+        requestBikePurchase()
+    }
+ 
+    func requestBikePurchase() {
+        let productRequest = SKProductsRequest(productIdentifiers: .init(arrayLiteral: productID))
+        productRequest.delegate = self
+        productRequest.start()
+    }
     
+}
+
+extension Settings_DonateVC: SKPaymentTransactionObserver {
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .deferred: print("defer")
+            case .failed: print("fail")
+            case .purchased: print("complete")
+            case .purchasing: print("ing")
+            case .restored: print("restored")
+            default:
+                break
+            }
+        }
+    }
+    
+}
+
+extension Settings_DonateVC: SKProductsRequestDelegate {
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        let product = response.products[0]
+        let payment = SKPayment(product: product)
+        SKPaymentQueue.default().add(payment)
+    }
     
 }
