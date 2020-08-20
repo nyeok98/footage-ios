@@ -32,7 +32,7 @@ class JourneyViewController: UIViewController {
         super.viewDidLoad()
         journeyManager.journeyVC = self
         mainMap.delegate = self
-        JourneyAnimation(journeyManager: journeyManager).journeyActivate()
+        animateDateLabel()
         configureMap()
         setInitialAlpha()
         journeyManager.photoVC = PhotoCollectionVC(journeyManager: journeyManager)

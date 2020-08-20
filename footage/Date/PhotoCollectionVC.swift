@@ -13,7 +13,7 @@ import RealmSwift
 
 class PhotoCollectionVC: UIViewController {
 
-    var journeyManager: JourneyManager! = nil
+    weak var journeyManager: JourneyManager! = nil
     var collectionView: UICollectionView! = nil
     
     let scale = UIScreen.main.scale

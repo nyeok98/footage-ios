@@ -9,26 +9,12 @@
 import UIKit
 import EFCountingLabel
 
-class JourneyAnimation {
+extension JourneyViewController {
     
-    init(journeyManager: JourneyManager) {
-        self.journeyManager = journeyManager
-        self.journeyVC = journeyManager.journeyVC
-    }
-    
-    var journeyManager: JourneyManager! = nil
-    var journeyVC: JourneyViewController! = nil
-    var journeyIndex: Int = 0
     var date: Int { // 20200604 || 202006 || 2020
         get {
             Int(journeyManager.journey.date)
         }
-    }
-
-    func journeyActivate() {
-        //alphaToOne(object: journeyVC.youText, time: 0.55)
-        //alphaToOne(object: journeyVC.seeBackText, time: 1.5)
-        setNecessaryLabels()
     }
     
     func alphaToOne(object: UIView, time: Double) {
@@ -37,44 +23,44 @@ class JourneyAnimation {
         }
     }
     
-    func setNecessaryLabels() {
+    func animateDateLabel() {
         switch date {
         case ...10000 : // journey for a year
-            journeyVC.dayLabel.removeFromSuperview()
-            journeyVC.dayText.removeFromSuperview()
-            journeyVC.monthLabel.removeFromSuperview()
-            journeyVC.monthText.removeFromSuperview()
-            journeyVC.yearLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
-            journeyVC.yearLabel.countFrom(2000, to: CGFloat(date), withDuration: 2)
-            alphaToOne(object: journeyVC.yearLabel, time: 0.5)
+            dayLabel.removeFromSuperview()
+            dayText.removeFromSuperview()
+            monthLabel.removeFromSuperview()
+            monthText.removeFromSuperview()
+            yearLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            yearLabel.countFrom(2000, to: CGFloat(date), withDuration: 2)
+            alphaToOne(object: yearLabel, time: 0.5)
             
         case 10001...1000000 : // journey for a month
-            journeyVC.dayLabel.removeFromSuperview()
-            journeyVC.dayText.removeFromSuperview()
+            dayLabel.removeFromSuperview()
+            dayText.removeFromSuperview()
             
-            addNecessaryZeros(date % 100, label: journeyVC.monthLabel) // get month
-            journeyVC.monthLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
-            journeyVC.monthLabel.countFrom(0, to: CGFloat(date % 100), withDuration: 2)
-            alphaToOne(object: journeyVC.monthLabel, time: 0.5)
+            addNecessaryZeros(date % 100, label: monthLabel) // get month
+            monthLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            monthLabel.countFrom(0, to: CGFloat(date % 100), withDuration: 2)
+            alphaToOne(object: monthLabel, time: 0.5)
             
-            journeyVC.yearLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
-            journeyVC.yearLabel.countFrom(2000, to: CGFloat(date / 100), withDuration: 2)
-            alphaToOne(object: journeyVC.yearLabel, time: 0.5)
+            yearLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            yearLabel.countFrom(2000, to: CGFloat(date / 100), withDuration: 2)
+            alphaToOne(object: yearLabel, time: 0.5)
             
         default: // journey for a day
-            addNecessaryZeros(date % 100, label: journeyVC.dayLabel) // get day
-            journeyVC.dayLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
-            journeyVC.dayLabel.countFrom(0, to: CGFloat(date % 100), withDuration: 2)
-            alphaToOne(object: journeyVC.dayLabel, time: 0.5)
+            addNecessaryZeros(date % 100, label: dayLabel) // get day
+            dayLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            dayLabel.countFrom(0, to: CGFloat(date % 100), withDuration: 2)
+            alphaToOne(object: dayLabel, time: 0.5)
             
-            addNecessaryZeros(date / 100 % 100, label: journeyVC.monthLabel) // get month
-            journeyVC.monthLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
-            journeyVC.monthLabel.countFrom(0, to: CGFloat(date / 100 % 100), withDuration: 2)
-            alphaToOne(object: journeyVC.monthLabel, time: 0.5)
+            addNecessaryZeros(date / 100 % 100, label: monthLabel) // get month
+            monthLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            monthLabel.countFrom(0, to: CGFloat(date / 100 % 100), withDuration: 2)
+            alphaToOne(object: monthLabel, time: 0.5)
             
-            journeyVC.yearLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
-            journeyVC.yearLabel.countFrom(0, to: CGFloat(date / 10000 % 100), withDuration: 2)
-            alphaToOne(object: journeyVC.yearLabel, time: 0.5)
+            yearLabel.counter.timingFunction = EFTimingFunction.easeOut(easingRate: 3)
+            yearLabel.countFrom(0, to: CGFloat(date / 10000 % 100), withDuration: 2)
+            alphaToOne(object: yearLabel, time: 0.5)
         }
     }
     

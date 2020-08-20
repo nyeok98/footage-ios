@@ -12,9 +12,8 @@ import Photos
 import MapKit
 
 class JourneyManager {
-    
     // shared variables among JourneyVC, PhotoCollection, PhotoSelection
-    var journeyVC: JourneyViewController! = nil
+    weak var journeyVC: JourneyViewController?
     var journeyIndex = 0
     var photoVC: PhotoCollectionVC! = nil
     let cacheManager = PHCachingImageManager()
@@ -43,15 +42,15 @@ class JourneyManager {
     var currentIndexPath: IndexPath = IndexPath(item: 0, section: 0) {
         didSet {
             if currentIndexPath.section != 0 { // scrolled to one of the footsteps
-                journeyVC.addButton.alpha = 0.5
-                journeyVC.addButton.isUserInteractionEnabled = false
-                journeyVC.footstepLabel.alpha = 1
+                journeyVC?.addButton.alpha = 0.5
+                journeyVC?.addButton.isUserInteractionEnabled = false
+                journeyVC?.footstepLabel.alpha = 1
             }
             if oldValue.section != currentIndexPath.section {
                 let newFootstepNumber = bookmark[currentIndexPath.section]
-                journeyVC.footstepLabel.text = "# " + String(newFootstepNumber)
-                journeyVC.slider.value = Float(newFootstepNumber)
-                DrawOnMap.moveCenterTo(journey.footsteps[newFootstepNumber].coordinate, on: journeyVC.mainMap, centerMark: journeyVC.centerMark)
+                journeyVC?.footstepLabel.text = "# " + String(newFootstepNumber)
+                journeyVC?.slider.value = Float(newFootstepNumber)
+                DrawOnMap.moveCenterTo(journey.footsteps[newFootstepNumber].coordinate, on: (journeyVC?.mainMap)!, centerMark: journeyVC?.centerMark)
             }
         }
     }
@@ -71,8 +70,8 @@ class JourneyManager {
     }
     
     func moveSliderTo(value: Int) {
-        DrawOnMap.moveCenterTo(journey.footsteps[value].coordinate, on: journeyVC.mainMap, centerMark: journeyVC.centerMark)
-        journeyVC.slider.value = Float(value)
+        DrawOnMap.moveCenterTo(journey.footsteps[value].coordinate, on: (journeyVC?.mainMap)!, centerMark: journeyVC?.centerMark)
+        journeyVC?.slider.value = Float(value)
     }
     
     func loadAssets(footsteps: List<Footstep>) { // TODO: ASYNC?
@@ -120,7 +119,7 @@ class JourneyManager {
     }
     
     @objc func goToSelection() {
-        journeyVC.performSegue(withIdentifier: "goToPhotoSelection", sender: journeyVC)
+        journeyVC?.performSegue(withIdentifier: "goToPhotoSelection", sender: journeyVC)
     }
     
     func loadAnnotations() -> [FootAnnotation] {
@@ -208,7 +207,7 @@ class JourneyManager {
         assets.remove(at: section)
         bookmark.remove(at: section)
         groupImages.remove(at: section)
-        journeyVC.mainMap.removeAnnotation(annotations[section - 1])
+        journeyVC?.mainMap.removeAnnotation(annotations[section - 1])
         annotations.remove(at: section - 1)
         photoVC.collectionView.reloadData()
     }

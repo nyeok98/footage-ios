@@ -25,7 +25,6 @@ class MapViewController: UIViewController {
         getCurrentLocation()
         initializeMapView()
         M.tableVC.reloadWithNewLocation(coordinate: currentLocation, selected: nil)
-        mapView.register(AppleClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         addChild(M.bottomVC)
         view.addSubview(M.bottomVC.view)
     }
@@ -58,6 +57,8 @@ class MapViewController: UIViewController {
         allFootsteps = Array(realm.objects(Footstep.self)).filter({(footstep) -> Bool in !footstep.notes.isEmpty })
         M.tableVC.allFootsteps = allFootsteps
         mapView.register(NearbyAnnotationView.self, forAnnotationViewWithReuseIdentifier: NearbyAnnotationView.reuseIdentifier)
+        mapView.register(AppleClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
+        
         let annotations = allFootsteps.map { (footstep) -> NearbyAnnotation in
             return NearbyAnnotation(footstep: footstep, distance: 0)
         }
@@ -80,10 +81,10 @@ extension MapViewController: MKMapViewDelegate {
                 view = AppleClusterAnnotationView(annotation: cluster, reuseIdentifier: "cluster")
             }
             return view
-            
         }
+        
         if annotation.isKind(of: NearbyAnnotation.self) {
-            guard let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: NearbyAnnotationView.reuseIdentifier) else { fatalError("Cannot create new cell") }
+            guard let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: NearbyAnnotationView.reuseIdentifier) else { fatalError("Cannot create new annotation") }
             return annotationView
         } else {
             return nil
@@ -170,8 +171,11 @@ class AppleClusterAnnotationView: MKAnnotationView {
                     let size = text.size(withAttributes: attributes as [NSAttributedString.Key : Any])
                     let rect = CGRect(x: 33 - size.width / 2, y: 33 - size.height / 2, width: size.width, height: size.height)
                     text.draw(in: rect, withAttributes: attributes as [NSAttributedString.Key : Any])
-                    
                 }
             }
         }
-    }}
+    }
+    
+    
+    
+}

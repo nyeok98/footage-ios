@@ -12,7 +12,7 @@ import Photos
 
 class PhotoSelectionVC: UIViewController {
     
-    var journeyManager: JourneyManager! = nil
+    weak var journeyManager: JourneyManager! = nil
     var footstepNumber = 0
     
     var collectionView: UICollectionView! = nil

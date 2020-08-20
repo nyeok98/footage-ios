@@ -13,7 +13,7 @@ class PhotoCollectionLayout: UICollectionViewFlowLayout {
     static let cardWidth = UIScreen.main.bounds.width * 0.65
     static let cellHeight = UIScreen.main.bounds.height * 0.22
     static let groupWidth = UIScreen.main.bounds.width * 0.5
-    var journeyManager: JourneyManager! = nil
+    weak var journeyManager: JourneyManager! = nil
     let activeDistance: CGFloat = 200
     let zoomFactor: CGFloat = 0.3
     var sideCellWidth: CGFloat { // width of next cell that appears on screen

@@ -33,7 +33,6 @@ class DateViewController: UIViewController {
     }
     @IBAction func recordButtonPressed(_ sender: UIButton) {
         self.tabBarController?.selectedIndex = 0
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
