@@ -77,6 +77,8 @@ class HomeViewController: UIViewController {
             return speedLimit * refreshRate
         }
     }
+    lazy var startedBefore = UserDefaults.standard.bool(forKey: "startedBefore")
+    
     static var selectedColor: String = "#EADE4Cff"
     var speedCounter: Int = 0
     var noSpeedCounter: Int = 0
@@ -91,20 +93,26 @@ class HomeViewController: UIViewController {
         configureInitialMapView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !startedBefore {
+            HomeViewController.locationManager.requestWhenInUseAuthorization()
+            Settings_GeneralVC.registerNoti()
+            Settings_GeneralVC.noti_everydayAlert()
+        }
+    }
+    
     @IBAction func startButtonPressed(_ sender: UIButton) {
         
         if startButton.currentImage == #imageLiteral(resourceName: "startButton") { // FROM START TO STOP
             HomeViewController.distanceToday = DateManager.loadDistance(total: false)
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
-            HomeViewController.locationManager.requestAlwaysAuthorization()
             let status = CLLocationManager.authorizationStatus()
             if status == .notDetermined || status == .denied {
                 alertForAuthorization()
             } else {
                 if UserDefaults.standard.bool(forKey: "startedBefore") == false {
                     UserDefaults.standard.setValue(true, forKey: "startedBefore")
-                    Settings_GeneralVC.registerNoti()
-                    Settings_GeneralVC.noti_everydayAlert()
                     UserDefaults.standard.setValue(true, forKey: "wantPush")
                     LevelManager.firstLaunch()
                     BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "starter_level", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
@@ -358,7 +366,10 @@ extension HomeViewController {
     func alertForAuthorization() { // present an alert indicating location authorization required
         // and offer to take the user to Settings for the app via
         // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
-        let alert = UIAlertController(title: "위치를 알 수 없어요", message: "소중한 발자취를 위해 위치서비스를 '항상'으로 켜주세요.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "위치를 알 수 없어요", message: "소중한 발자취를 위해 위치서비스를 허용해주세요.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
         alert.addAction(UIAlertAction(title: "설정", style: .default, handler: { (_) in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                 return

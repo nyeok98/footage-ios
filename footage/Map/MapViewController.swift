@@ -16,8 +16,9 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     
     var preventTableUpdate = false // to prevent table from reloading when collectionview is showing / view is resizing
-    var currentLocation: CLLocationCoordinate2D! = nil
+    var currentLocation = CLLocationCoordinate2D(latitude: 36.4800984, longitude: 127.2802807)
     var allFootsteps: [Footstep] = []
+    var authStatus: CLAuthorizationStatus { CLLocationManager.authorizationStatus() }
     
     override func viewDidLoad() {
         M.mapVC = self
@@ -29,20 +30,24 @@ class MapViewController: UIViewController {
         view.addSubview(M.bottomVC.view)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let realm = try! Realm()
-        allFootsteps = Array(realm.objects(Footstep.self)).filter({(footstep) -> Bool in !footstep.notes.isEmpty })
-        M.tableVC.allFootsteps = allFootsteps
-        M.tableVC.reloadWithNewLocation(coordinate: currentLocation, selected: nil)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if authStatus == .authorizedAlways || authStatus == .authorizedWhenInUse {
+            let realm = try! Realm()
+            allFootsteps = Array(realm.objects(Footstep.self)).filter({(footstep) -> Bool in !footstep.notes.isEmpty })
+            M.tableVC.allFootsteps = allFootsteps
+            M.tableVC.reloadWithNewLocation(coordinate: currentLocation, selected: nil)
+        } else { alertForAuthorization() }
     }
     
     @objc func getCurrentLocation() {
-        while locationManager.location == nil {
-            locationManager.requestLocation()
+        if authStatus == .authorizedAlways || authStatus == .authorizedWhenInUse {
+            while locationManager.location == nil {
+                locationManager.requestLocation()
+            }
+            currentLocation = locationManager.location!.coordinate
+            mapView.setCenter(currentLocation, animated: false)
         }
-        currentLocation = locationManager.location!.coordinate
-        mapView.setCenter(currentLocation, animated: false)
     }
     
     func initializeMapView() { // mapView configuration and add all annotations
@@ -69,6 +74,28 @@ class MapViewController: UIViewController {
         locationButton.setImage(#imageLiteral(resourceName: "myLocation"), for: .normal)
         locationButton.addTarget(self, action: #selector(getCurrentLocation), for: .touchUpInside)
         view.addSubview(locationButton)
+    }
+    
+    func alertForAuthorization() { // present an alert indicating location authorization required
+        // and offer to take the user to Settings for the app via
+        // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
+        let alert = UIAlertController(title: "위치를 알 수 없어요", message: "소중한 발자취를 위해 위치서비스를 허용해주세요.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in
+            self.tabBarController?.selectedIndex = 0
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "설정", style: .default, handler: { (_) in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)") // Prints true
+                })
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

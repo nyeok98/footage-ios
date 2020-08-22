@@ -12,7 +12,7 @@ import EFCountingLabel
 
 class DateViewController: UIViewController {
     
-    var profileImage: UIImage?
+    var profileImage: UIImage = #imageLiteral(resourceName: "noProfileImage")
     
     @IBOutlet weak var rangeControl: UISegmentedControl!
     @IBOutlet weak var profileView: UIImageView!

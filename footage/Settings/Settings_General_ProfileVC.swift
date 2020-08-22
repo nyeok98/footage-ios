@@ -50,7 +50,7 @@ class Settings_General_ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        profileImage = #imageLiteral(resourceName: "profile")
+        profileImage = #imageLiteral(resourceName: "noProfileImage")
         if let profileData = UserDefaults.standard.data(forKey: "profileImage") {
             profileImage = UIImage(data: profileData)!
         }

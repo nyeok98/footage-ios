@@ -25,7 +25,7 @@ class ProfileEditVC: UIViewController, UIScrollViewDelegate {
         if statsVC is DateViewController {
             let setVC = statsVC as! DateViewController
             setVC.profileImage = captureSelectedRegion()
-            UserDefaults.standard.setValue(setVC.profileImage!.pngData(), forKey: "profileImage")
+            UserDefaults.standard.setValue(setVC.profileImage.pngData(), forKey: "profileImage")
             setVC.reloadProfileImage()
             self.dismiss(animated: false) { }
             self.parentVC!.dismiss(animated: false) { }
