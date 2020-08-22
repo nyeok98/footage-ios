@@ -11,37 +11,11 @@ import UIKit
 class Settings_General_PasswordVC: UIViewController {
     
     var numberTogether: String = ""
+    var compareNumbers: String = ""
     var isQualified: Bool = false
     var generalVC: Settings_GeneralVC?
     var whereAreYouFrom: String = ""
-    
-    @IBAction func completeButton(_ sender: Any) {
-        if isQualified {
-            let youSureAlert = UIAlertController.init(title: "주의", message: "정말 비밀번호를 설정하시겠습니까?", preferredStyle:  .alert)
-            let realOk =  UIAlertAction.init(title: "설정", style: .default) { (action) in
-                UserDefaults.standard.set(self.numberTogether, forKey: "Password")
-                self.dismiss(animated: true, completion: nil)
-            }
-            let actuallyNo = UIAlertAction.init(title: "취소", style: .cancel) { [self] (action) in
-                self.numberTogether = ""
-                self.isQualified = false
-                self.fillDots()
-            }
-            youSureAlert.addAction(realOk)
-            youSureAlert.addAction(actuallyNo)
-            
-            self.present(youSureAlert, animated: true, completion: nil)
-        } else {
-            let pleaseFill = UIAlertController.init(title: "주의", message: "비밀번호는 네자리가 되어야합니다.", preferredStyle:  .alert)
-            let tryAgain = UIAlertAction.init(title: "확인", style: .cancel) { (action) in
-                print(action)
-            }
-            pleaseFill.addAction(tryAgain)
-            
-            self.present(pleaseFill, animated: true, completion: nil)
-        }
-        
-    }
+    @IBOutlet weak var guideString: UILabel!
     
     @IBOutlet weak var firstDot: UIImageView!
     @IBOutlet weak var secondDot: UIImageView!
@@ -150,13 +124,56 @@ class Settings_General_PasswordVC: UIViewController {
             secondDot.image = UIImage(systemName: "circle.fill")
             thirdDot.image = UIImage(systemName: "circle.fill")
             fourthDot.image = UIImage(systemName: "circle.fill")
-            isQualified = true
+            isQualified = false
+            if compareNumbers.isEmpty {
+                compareNumbers = numberTogether
+                numberTogether = ""
+                guideString.text = "비밀번호를 한 번 더 입력해주세요."
+                fillDots()
+            } else {
+                if compareNumbers == numberTogether {
+                    isQualified = true
+                    complete()
+                }
+                else {
+                    guideString.text = "비밀번호가 일치하지 않습니다."
+                    numberTogether = ""
+                    fillDots()
+                }
+            }
         default :
             firstDot.image = UIImage(systemName: "circle")
             secondDot.image = UIImage(systemName: "circle")
             thirdDot.image = UIImage(systemName: "circle")
             fourthDot.image = UIImage(systemName: "circle")
             
+        }
+    }
+    
+    func complete() {
+        if isQualified {
+            let youSureAlert = UIAlertController.init(title: "주의", message: "정말 비밀번호를 설정하시겠습니까?", preferredStyle:  .alert)
+            let realOk =  UIAlertAction.init(title: "설정", style: .default) { (action) in
+                UserDefaults.standard.set(self.numberTogether, forKey: "Password")
+                self.dismiss(animated: true, completion: nil)
+            }
+            let actuallyNo = UIAlertAction.init(title: "취소", style: .cancel) { [self] (action) in
+                self.numberTogether = ""
+                self.isQualified = false
+                self.fillDots()
+            }
+            youSureAlert.addAction(realOk)
+            youSureAlert.addAction(actuallyNo)
+            
+            self.present(youSureAlert, animated: true, completion: nil)
+        } else {
+            let pleaseFill = UIAlertController.init(title: "주의", message: "비밀번호는 네자리가 되어야합니다.", preferredStyle:  .alert)
+            let tryAgain = UIAlertAction.init(title: "확인", style: .cancel) { (action) in
+                print(action)
+            }
+            pleaseFill.addAction(tryAgain)
+            
+            self.present(pleaseFill, animated: true, completion: nil)
         }
     }
 }
