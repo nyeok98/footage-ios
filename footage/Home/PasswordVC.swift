@@ -68,7 +68,11 @@ class PasswordVC: UIViewController {
         super.viewDidLoad()
         userPassword = UserDefaults.standard.string(forKey: "Password")!
         let userState = UserDefaults.standard.string(forKey: "UserState")
-        if userState == "hasBioId" { authenticateUser() }
+        print("userState is \(userState)")
+        if userState == "hasBioId" {
+            print("Yes You are here")
+            authenticateUser()
+        }
     }
     
     override func didReceiveMemoryWarning() {

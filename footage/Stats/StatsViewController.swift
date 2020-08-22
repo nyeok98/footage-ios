@@ -33,6 +33,8 @@ class StatsViewController: UIViewController {
     // add color text label
     @IBOutlet weak var cityImage: UIImageView!
     @IBOutlet weak var cityNickName: UILabel!
+    @IBOutlet weak var firstDot: UILabel!
+    @IBOutlet weak var secondDot: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         self.totalDistance.setUpdateBlock { (value, label) in
@@ -44,6 +46,8 @@ class StatsViewController: UIViewController {
         colorRank = ColorManager.getRankingDistance(startDate: days.0, endDate: days.1)
         placeRank = PlaceManager.getRankingDistance(startDate: days.0, endDate: days.1)
         if !colorRank.isEmpty {
+            firstDot.isHidden = false
+            secondDot.isHidden = false
             firstColor = colorRank[0].key
             colorImage.image = UIImage(named: firstColor + "Big")
         }
@@ -56,6 +60,11 @@ class StatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         currentBadge.image = UIImage(named: UserDefaults.standard.string(forKey: "todayBadge") ?? "")
+        colorImage.image = UIImage(named: "noDataImage")
+        firstDot.isHidden = true
+        secondDot.isHidden = true
+        cityImage.image = UIImage(named: "noDataImage")
+        cityNickName.text = " - "
         setFontSize()
         setScrollView()
     }

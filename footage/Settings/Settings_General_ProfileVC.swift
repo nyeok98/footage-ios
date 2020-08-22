@@ -83,7 +83,7 @@ extension Settings_General_ProfileVC: UITextFieldDelegate {
         }
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
-        return count <= 6
+        return count <= 7
     }
 }
 

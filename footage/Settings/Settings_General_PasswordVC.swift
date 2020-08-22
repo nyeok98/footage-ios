@@ -19,12 +19,13 @@ class Settings_General_PasswordVC: UIViewController {
         if isQualified {
             let youSureAlert = UIAlertController.init(title: "주의", message: "정말 비밀번호를 설정하시겠습니까?", preferredStyle:  .alert)
             let realOk =  UIAlertAction.init(title: "설정", style: .default) { (action) in
-                UserDefaults.standard.set("hasPassword", forKey: "UserState")
                 UserDefaults.standard.set(self.numberTogether, forKey: "Password")
                 self.dismiss(animated: true, completion: nil)
             }
-            let actuallyNo = UIAlertAction.init(title: "취소", style: .cancel) { (action) in
-                print(action)
+            let actuallyNo = UIAlertAction.init(title: "취소", style: .cancel) { [self] (action) in
+                self.numberTogether = ""
+                self.isQualified = false
+                self.fillDots()
             }
             youSureAlert.addAction(realOk)
             youSureAlert.addAction(actuallyNo)
