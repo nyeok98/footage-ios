@@ -47,7 +47,7 @@ class Settings_NameColorVC: UIViewController {
     
     func giveAlert(labelname: UILabel, hexCode: String) {
         var userInput: String = ""
-        let rename = UIAlertController.init(title: "카테고리 설정", message: "이름을 입력해주세요.", preferredStyle: .alert)
+        let rename = UIAlertController.init(title: "카테고리 설정", message: "6자 이내로 카테고리 이름을 입력해주세요.", preferredStyle: .alert)
         let okAction = UIAlertAction.init(title: "수정", style: .default) { (action) in
             userInput = rename.textFields![0].text!
             if (userInput.isEmpty) {
@@ -72,11 +72,25 @@ class Settings_NameColorVC: UIViewController {
         }
         rename.addTextField { (textField) in
             textField.placeholder = labelname.text
+            textField.smartInsertDeleteType = .no
+            textField.delegate = self
         }
         rename.addAction(okAction)
         rename.addAction(cancelAction)
         
         
         self.present(rename, animated: true, completion: nil)
+    }
+}
+
+extension Settings_NameColorVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = textField.text,
+              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+            return false
+        }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 7
     }
 }

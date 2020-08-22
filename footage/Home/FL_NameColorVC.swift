@@ -51,30 +51,35 @@ class FL_NameColorVC: UIViewController {
             if (userInput.isEmpty) {
                 return
             }
-            let youSureAlert = UIAlertController.init(title: "주의!", message: "월간 리포트에서는 이름을 바꿔도 누적되어 적용됩니다.", preferredStyle:  .alert)
-            let realOk =  UIAlertAction.init(title: "수정", style: .default) { (action) in
-                labelname.text = userInput
-                UserDefaults.standard.set(labelname.text, forKey: hexCode)
-            }
-            let actuallyNo = UIAlertAction.init(title: "취소", style: .cancel) { (action) in
-                print(action)
-            }
-            youSureAlert.addAction(realOk)
-            youSureAlert.addAction(actuallyNo)
-            
-            
-            self.present(youSureAlert, animated: true, completion: nil)
+            labelname.text = userInput
+            UserDefaults.standard.set(labelname.text, forKey: hexCode)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
             print(action)
         }
         rename.addTextField { (textField) in
             textField.placeholder = labelname.text
+            textField.smartInsertDeleteType = .no
+            textField.delegate = self
         }
         rename.addAction(okAction)
         rename.addAction(cancelAction)
         
         
         self.present(rename, animated: true, completion: nil)
+    }
+}
+
+
+
+extension FL_NameColorVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = textField.text,
+              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+            return false
+        }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 7
     }
 }
