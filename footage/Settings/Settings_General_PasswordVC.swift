@@ -155,6 +155,11 @@ class Settings_General_PasswordVC: UIViewController {
             let youSureAlert = UIAlertController.init(title: "주의", message: "정말 비밀번호를 설정하시겠습니까?", preferredStyle:  .alert)
             let realOk =  UIAlertAction.init(title: "설정", style: .default) { (action) in
                 UserDefaults.standard.set(self.numberTogether, forKey: "Password")
+                if self.whereAreYouFrom == "faceId" {
+                    UserDefaults.standard.set("hasBioId", forKey: "UserState")
+                } else if self.whereAreYouFrom == "passcode" {
+                    UserDefaults.standard.set("hasPassword", forKey: "UserState")
+                }
                 self.dismiss(animated: true, completion: nil)
             }
             let actuallyNo = UIAlertAction.init(title: "취소", style: .cancel) { [self] (action) in

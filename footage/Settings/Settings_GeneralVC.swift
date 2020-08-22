@@ -84,7 +84,6 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
         
         if sender.tag == 1 {
             if sender.isOn { // remove password
-                UserDefaults.standard.set("hasPassword", forKey: "UserState")
                 performSegue(withIdentifier: "goToPasswordSettings", sender: sender)
             } else if !sender.isOn {
                 let youSureAlert = UIAlertController.init(title: "주의", message: "정말 비밀번호를 삭제하시겠습니까?", preferredStyle:  .alert)
@@ -117,7 +116,6 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
                     }
                     else if !switchView.isOn {
                         switchView.setOn(true, animated: true)
-                        UserDefaults.standard.set("hasBioId", forKey: "UserState")
                         performSegue(withIdentifier: "goToPasswordSettings", sender: sender)
                     }
                 }
