@@ -58,7 +58,7 @@ class FL_ProfileSettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        profileImage = #imageLiteral(resourceName: "noProfileImage")
+        profileImage = #imageLiteral(resourceName: "baseProfileImage")
         if let profileData = UserDefaults.standard.data(forKey: "profileImage") {
             profileImage = UIImage(data: profileData)!
         }

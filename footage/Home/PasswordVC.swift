@@ -68,7 +68,7 @@ class PasswordVC: UIViewController {
         super.viewDidLoad()
         userPassword = UserDefaults.standard.string(forKey: "Password")!
         let userState = UserDefaults.standard.string(forKey: "UserState")
-        print("userState is \(userState)")
+        print("userState is \(String(describing: userState))")
         if userState == "hasBioId" {
             print("Yes You are here")
             authenticateUser()

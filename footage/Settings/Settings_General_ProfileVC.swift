@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Photos
 
 class Settings_General_ProfileVC: UIViewController {
     var profileImage: UIImage?
+    var photoAuth = PHPhotoLibrary.authorizationStatus()
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var profileView: UIImageView!
@@ -20,7 +22,19 @@ class Settings_General_ProfileVC: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func profileChangeButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "goToProfileGeneral", sender: self)
+        switch photoAuth {
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { (status) in
+                self.photoAuth = status
+                if status == .authorized {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "goToProfileGeneral", sender: sender)
+                    }
+                }
+            }
+        case .authorized: performSegue(withIdentifier: "goToProfileGeneral", sender: sender)
+        default: alertPhotoAuthorization()
+        }
     }
     @IBAction func nameChangeButtonPressed(_ sender: UIButton) {
         var userInput: String = ""
@@ -50,7 +64,7 @@ class Settings_General_ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        profileImage = #imageLiteral(resourceName: "noProfileImage")
+        profileImage = #imageLiteral(resourceName: "baseProfileImage")
         if let profileData = UserDefaults.standard.data(forKey: "profileImage") {
             profileImage = UIImage(data: profileData)!
         }
@@ -71,6 +85,25 @@ class Settings_General_ProfileVC: UIViewController {
     func reloadProfileImage() {
         profileView.layer.cornerRadius = profileView.bounds.width / 2.0
         profileView.image = profileImage
+    }
+    
+    func alertPhotoAuthorization() {
+        // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
+        let alert = UIAlertController(title: "사진을 불러올 수 없습니다", message: "소중한 기록을 위해 사진 접근을 허용해주세요.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "설정", style: .default, handler: { (_) in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)") // Prints true
+                })
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

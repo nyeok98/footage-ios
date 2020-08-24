@@ -226,8 +226,6 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     }
     
     func checkForMovement(location: CLLocation) {
-        print("isCalled")
-        print(noSpeedCounter)
         if location.speed > speedLimit { speedCounter += 1 }
         
         if location.speed < 0 { noSpeedCounter += 1 }
@@ -348,9 +346,6 @@ extension HomeViewController {
         startButton.alpha = 0
         distanceView.alpha = 0
         unitLabel.alpha = 0
-        todayString.font = todayString.font.withSize(0.043 * HomeAnimation.screenHeight)
-        youString.font = youString.font.withSize(0.043 * HomeAnimation.screenHeight)
-        footString.font = footString.font.withSize(0.043 * HomeAnimation.screenHeight)
         unitLabel.font = unitLabel.font.withSize(0.061 * HomeAnimation.screenHeight)
         distance.font = distance.font.withSize(0.08 * HomeAnimation.screenHeight)
         self.view.bringSubviewToFront(StringStackView)

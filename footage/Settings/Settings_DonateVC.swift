@@ -11,22 +11,24 @@ import StoreKit
 
 class Settings_DonateVC: UIViewController {
     
-    let productID = "ConsumableTest"
+    let productIDs = ["co.el.iap.bike", "co.el.iap.coffee", "co.el.iap.rice"]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        SKPaymentQueue.default().add(self)
+    }
 
     @IBAction func backButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func requestPurchase(_ sender: UIButton) {
-        requestBikePurchase()
+        if SKPaymentQueue.canMakePayments() {
+            let paymentRequest = SKMutablePayment()
+            paymentRequest.productIdentifier = productIDs[sender.tag]
+            SKPaymentQueue.default().add(paymentRequest)
+        }
     }
- 
-    func requestBikePurchase() {
-        let productRequest = SKProductsRequest(productIdentifiers: .init(arrayLiteral: productID))
-        productRequest.delegate = self
-        productRequest.start()
-    }
-    
 }
 
 extension Settings_DonateVC: SKPaymentTransactionObserver {
@@ -35,7 +37,7 @@ extension Settings_DonateVC: SKPaymentTransactionObserver {
         for transaction in transactions {
             switch transaction.transactionState {
             case .deferred: print("defer")
-            case .failed: print("fail")
+            case .failed: print("failed")
             case .purchased: print("complete")
             case .purchasing: print("ing")
             case .restored: print("restored")
@@ -44,15 +46,17 @@ extension Settings_DonateVC: SKPaymentTransactionObserver {
             }
         }
     }
-    
 }
 
-extension Settings_DonateVC: SKProductsRequestDelegate {
-    
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        let product = response.products[0]
-        let payment = SKPayment(product: product)
-        SKPaymentQueue.default().add(payment)
-    }
-    
-}
+//extension Settings_DonateVC: SKProductsRequestDelegate {
+//
+//    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+//        let product = response.products[0]
+//        let payment = SKPayment(product: product)
+//        SKPaymentQueue.default().add(payment)
+//    }
+//
+//}
+//        let productRequest = SKProductsRequest(productIdentifiers: .init(arrayLiteral: productID))
+//        productRequest.delegate = self
+//        productRequest.start()

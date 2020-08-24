@@ -112,6 +112,7 @@ class HomeAnimation {
         homeVC.todayString.text = "오늘까지"
         homeVC.youString.text = "당신이 남긴"
         homeVC.footString.text = "발자취"
+        
         homeVC.todayString.alpha = 0.0
         homeVC.youString.alpha = 0.0
         homeVC.footString.alpha = 0.0

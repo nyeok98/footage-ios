@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -17,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -25,7 +27,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>당신의 기록을 소중히 보관하기 위해 필요합니다.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>위치서비스를 '항상'으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
+	<string>위치서비스를 &apos;항상&apos;으로 해두시면, 소중한 발자취를 남길 수 있어요.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>위치서비스를 허용해 주시면, 소중한 발자취를 남길 수 있어요.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
