@@ -53,7 +53,7 @@ class Settings_NameColorVC: UIViewController {
             if (userInput.isEmpty) {
                 return
             }
-            let youSureAlert = UIAlertController.init(title: "주의!", message: "월간 리포트에서는 이름을 바꿔도 누적되어 적용됩니다.", preferredStyle:  .alert)
+            let youSureAlert = UIAlertController.init(title: "주의!", message: "월간리포트에서는 카테고리의 이름이 아닌 발자취의 색깔에 따라 거리가 합산됩니다.", preferredStyle:  .alert)
             let realOk =  UIAlertAction.init(title: "수정", style: .default) { (action) in
                 labelname.text = userInput
                 UserDefaults.standard.set(labelname.text, forKey: hexCode)
