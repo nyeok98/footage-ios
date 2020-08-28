@@ -43,10 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         let userState = UserDefaults.standard.string(forKey: "UserState")
-        if userState == "noPassword" {
-            HomeViewController.locationManager.stopUpdatingLocation()
-            UIApplication.shared.applicationIconBadgeNumber = 0
-        } else if userState == "hasPassword" || userState == "hasBioId"  {
+        if userState == "hasPassword" || userState == "hasBioId"  {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let passwordVC = storyBoard.instantiateViewController(withIdentifier: "PasswordVC") as! PasswordVC
             let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
@@ -63,7 +60,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 passwordVC.view.topAnchor.constraint(equalTo: topController.view.safeAreaLayoutGuide.topAnchor).isActive = true
                 passwordVC.view.bottomAnchor.constraint(equalTo: topController.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
             }
-        } else { // userState == nil (first launch)
+        } else if userState == nil { // first launch
             UserDefaults.standard.set("", forKey: "todayBadge")
             UserDefaults.standard.set(0, forKey: "minimumTotalDistance")
             UserDefaults.standard.set(false, forKey: "startedBefore")
@@ -72,7 +69,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UserDefaults.standard.set("흰  색", forKey: "#F0E7CFff")
             UserDefaults.standard.set("주황색", forKey: "#FF6B39ff")
             UserDefaults.standard.set("파란색", forKey: "#206491ff")
-            
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let FLProfileSettingsVC = storyBoard.instantiateViewController(withIdentifier: "FL_ProfileSettingsVC") as! FL_ProfileSettingsVC
             self.window?.rootViewController = FLProfileSettingsVC

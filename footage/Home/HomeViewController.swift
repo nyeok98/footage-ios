@@ -27,6 +27,14 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var selectedButtonLabel: UILabel!
     @IBOutlet weak var exampleImageView: UIImageView!
+    @IBOutlet weak var currentColorIndicator: UIImageView!
+    @IBOutlet weak var selectedButtonStackView: UIStackView!
+    @IBOutlet weak var MainButton: UIButton!
+    @IBOutlet weak var secondButton: UIButton!
+    @IBOutlet weak var thirdButton: UIButton!
+    @IBOutlet weak var fourthButton: UIButton!
+    @IBOutlet weak var fifthButton: UIButton!
+    
     @IBAction func questionCircle(_ sender: UIButton) {
         exampleImageView.isHidden = true
     }
@@ -36,13 +44,6 @@ class HomeViewController: UIViewController {
         keyWindow?.addSubview(exampleImageView)
         keyWindow?.bringSubviewToFront(exampleImageView)
     }
-    @IBOutlet weak var currentColorIndicator: UIImageView!
-    @IBOutlet weak var selectedButtonStackView: UIStackView!
-    @IBOutlet weak var MainButton: UIButton!
-    @IBOutlet weak var secondButton: UIButton!
-    @IBOutlet weak var thirdButton: UIButton!
-    @IBOutlet weak var fourthButton: UIButton!
-    @IBOutlet weak var fifthButton: UIButton!
     
     @IBAction func secondButtonPressed(_ sender: UIButton) {
         HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
@@ -64,9 +65,9 @@ class HomeViewController: UIViewController {
     /// 2. For MapKit
     static var distanceToday: Double = 0
     static var distanceTotal: Double = 0
-    var dateFormatter =  DateFormatter()
     static let locationManager = CLLocationManager()
-    var locations: [CLLocation] = []
+    var dateFormatter =  DateFormatter()
+    var nextLocation: CLLocation?
     var lastLocation: CLLocation?
     var locationTimer: Timer?
     var setAsStart: Bool = true
@@ -91,6 +92,7 @@ class HomeViewController: UIViewController {
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
         configureInitialMapView()
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -98,7 +100,6 @@ class HomeViewController: UIViewController {
         if !startedBefore {
             HomeViewController.locationManager.requestWhenInUseAuthorization()
             Settings_GeneralVC.registerNoti()
-            Settings_GeneralVC.noti_everydayAlert()
         }
     }
     
@@ -116,6 +117,7 @@ class HomeViewController: UIViewController {
                     UserDefaults.standard.setValue(true, forKey: "wantPush")
                     LevelManager.firstLaunch()
                     BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "starter_level", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
+                    Settings_GeneralVC.noti_everydayAlert()
                 }
                 HomeAnimation.homeStartAnimation(self)
                 HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
@@ -125,7 +127,6 @@ class HomeViewController: UIViewController {
         } else { // FROM STOP TO START
             locationTimer?.invalidate() // stop location request
             HomeViewController.locationManager.stopUpdatingLocation()
-            HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
             setAsStart = true // next coordinate must be set as new start point
             HomeAnimation.homeStopAnimation(self)
@@ -168,41 +169,38 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         let today = dateFormatter.string(from: Date())
         HomeViewController.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         HomeViewController.locationManager.distanceFilter = 5 // meters
-        HomeViewController.locationManager.pausesLocationUpdatesAutomatically = false
+        HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
         HomeViewController.locationManager.allowsBackgroundLocationUpdates = true
-        mainMap.mapType = MKMapType.standard
-        mainMap.showsUserLocation = true
+        HomeViewController.locationManager.startUpdatingLocation()
+        HomeViewController.locationManager.activityType = .fitness
         // draw previous routes from today
         for journey in DateManager.loadFromRealm(rangeOf: today) {
             DrawOnMap.polylineFromFootsteps(journey.footsteps, on: mainMap)
         }
-        for _ in 1...10 { // wait for accurate location
-            HomeViewController.locationManager.requestLocation()
-        }
         guard let location = HomeViewController.locationManager.location
         else { return }
         lastLocation = location
-        locationTimer = Timer.scheduledTimer(withTimeInterval: refreshRate, repeats: true) { (timer) in
-            HomeViewController.locationManager.requestLocation() // request location and move to center every 5 sec
-            self.setMapRegion(latitude: (HomeViewController.locationManager.location?.coordinate.latitude)!, longitude: (HomeViewController.locationManager.location?.coordinate.longitude)!, delta: 0.001)
-        }
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
+            self.mainMap.setCamera(.init(lookingAtCenter: self.mainMap.centerCoordinate, fromDistance: 500, pitch: 0, heading: 0), animated: false)
         }
     }
     
     // DID UPDATE
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let newLocation = locations[0]
-        checkForMovement(location: newLocation)
-        if isValid(location: newLocation) {
+        print("did update")
+        nextLocation = locations[0]
+        checkForMovement(location: nextLocation)
+        guard let nextLocation = nextLocation else { return }
+        guard let lastLocation = lastLocation else { return }
+        if isValid(location: nextLocation) {
             if setAsStart { // now began to walk
-                LocationUpdate.processNewLocation(location: newLocation, distance: 0, setAsStart: true, color: HomeViewController.selectedColor)
+                LocationUpdate.processNewLocation(location: nextLocation, distance: 0, setAsStart: true, color: HomeViewController.selectedColor)
                 setAsStart = false
             } else { // continue walking
-                let newDistance = newLocation.distance(from: lastLocation!)
-                LocationUpdate.processNewLocation(location: newLocation, distance: newDistance, setAsStart: false, color: HomeViewController.selectedColor)
-                extendPolyline(lastLocation: lastLocation!, newLocation: newLocation)
+                let newDistance = nextLocation.distance(from: lastLocation)
+                LocationUpdate.processNewLocation(location: nextLocation, distance: newDistance, setAsStart: false, color: HomeViewController.selectedColor)
+                self.extendPolyline(lastLocation: lastLocation, newLocation: nextLocation)
                 HomeViewController.distanceToday += newDistance
                 distance.text = String(format: "%.2f", (HomeViewController.distanceToday)/1000)
                 HomeViewController.distanceTotal += newDistance
@@ -211,8 +209,21 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
                 DateManager.saveTotalDistance(value: HomeViewController.distanceTotal)
             }
         } else { setAsStart = true } // you are on a bus
-        lastLocation = newLocation
-        
+        self.lastLocation = nextLocation
+        mainMap.setCenter(nextLocation.coordinate, animated: true)
+    }
+    
+    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
+        HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
+        setAsStart = true // next coordinate must be set as new start point
+        HomeAnimation.homeStopAnimation(self)
+        configureInitialMapView()
+    }
+    
+    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
+        HomeAnimation.homeStartAnimation(self)
+        HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
+        trackMapView()
     }
     
     func isValid(location: CLLocation) -> Bool { // check speed, distance etc with lastLocation
@@ -225,7 +236,8 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         else { noSpeedCounter = 0; return true }
     }
     
-    func checkForMovement(location: CLLocation) {
+    func checkForMovement(location: CLLocation?) {
+        guard let location = location else { return }
         if location.speed > speedLimit { speedCounter += 1 }
         
         if location.speed < 0 { noSpeedCounter += 1 }
@@ -235,7 +247,6 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             noti_recordStoppedBySpeed()
             locationTimer?.invalidate() // stop location request
             HomeViewController.locationManager.stopUpdatingLocation()
-            HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
             setAsStart = true // next coordinate must be set as new start point
             HomeAnimation.homeStopAnimation(self)
@@ -247,7 +258,6 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             noti_recordStoppedByNoSpeed()
             locationTimer?.invalidate() // stop location request
             HomeViewController.locationManager.stopUpdatingLocation()
-            HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
             setAsStart = true // next coordinate must be set as new start point
             HomeAnimation.homeStopAnimation(self)
