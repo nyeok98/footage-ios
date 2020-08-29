@@ -70,8 +70,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UserDefaults.standard.set("주황색", forKey: "#FF6B39ff")
             UserDefaults.standard.set("파란색", forKey: "#206491ff")
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let FLProfileSettingsVC = storyBoard.instantiateViewController(withIdentifier: "FL_ProfileSettingsVC") as! FL_ProfileSettingsVC
-            self.window?.rootViewController = FLProfileSettingsVC
+            let firstLaunchVC = storyBoard.instantiateViewController(withIdentifier: "FL_VideoVC") as! FL_VideoVC
+            self.window?.rootViewController = firstLaunchVC
         }
     }
     
