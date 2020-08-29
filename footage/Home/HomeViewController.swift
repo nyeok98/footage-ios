@@ -262,7 +262,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             setAsStart = true // next coordinate must be set as new start point
             HomeAnimation.homeStopAnimation(self)
             configureInitialMapView()
-            speedCounter = 0
+            noSpeedCounter = 0
             return
         }
     }
