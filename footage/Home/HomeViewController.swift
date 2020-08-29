@@ -92,7 +92,6 @@ class HomeViewController: UIViewController {
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
         configureInitialMapView()
-        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,6 +107,7 @@ class HomeViewController: UIViewController {
         if startButton.currentImage == #imageLiteral(resourceName: "startButton") { // FROM START TO STOP
             HomeViewController.distanceToday = DateManager.loadDistance(total: false)
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
+            UIApplication.shared.applicationIconBadgeNumber = 0
             let status = CLLocationManager.authorizationStatus()
             if status == .notDetermined || status == .denied {
                 alertForAuthorization()
