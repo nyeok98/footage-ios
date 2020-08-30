@@ -188,7 +188,6 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     
     // DID UPDATE
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("did update")
         nextLocation = locations[0]
         checkForMovement(location: nextLocation)
         guard let nextLocation = nextLocation else { return }

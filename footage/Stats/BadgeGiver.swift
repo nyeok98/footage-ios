@@ -203,7 +203,7 @@ class BadgeGiver {
     static func noti_gotBadge() {
         if UserDefaults.standard.bool(forKey: "wantPush") {
             let content = UNMutableNotificationContent()
-            content.title = "새로운 뱃지를 획득하였습니다!"
+            content.title = "새로운 배지를 획득하였습니다!"
             content.badge = 1
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)

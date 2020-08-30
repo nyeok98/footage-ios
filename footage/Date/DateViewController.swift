@@ -45,12 +45,6 @@ class DateViewController: UIViewController {
         super.viewDidLoad()
         configureHierarchy()
         configureDataSource()
-        if let profileData = UserDefaults.standard.data(forKey: "profileImage") {
-            profileImage = UIImage(data: profileData)!
-        }
-        if let profileID = UserDefaults.standard.string(forKey: "userName") {
-            profileName.text = profileID
-        }
         reloadProfileImage()
     }
 }
@@ -142,9 +136,14 @@ extension DateViewController {
 extension DateViewController {
     
     func reloadProfileImage() {
+        if let profileData = UserDefaults.standard.data(forKey: "profileImage") {
+            profileImage = UIImage(data: profileData)!
+            profileView.image = profileImage
+        }
+        if let profileID = UserDefaults.standard.string(forKey: "userName") {
+            profileName.text = profileID
+        }
         profileView.layer.cornerRadius = profileView.bounds.width / 2.0
-        profileView.image = profileImage
-        profileName.text = UserDefaults.standard.string(forKey: "userName")
     }
     
     private func loadWithRange(_ range: Int) {

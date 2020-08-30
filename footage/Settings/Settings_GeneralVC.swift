@@ -10,7 +10,7 @@ import UIKit
 class Settings_GeneralVC: UIViewController {
     
     let cellIdentifier = "generalCell"
-    let cellContent = ["내 정보","암호잠금", "FaceID", "푸시 알림"]
+    let cellContent = ["내 정보","암호잠금", "FaceID 및 TouchID", "푸시 알림"]
     
     @IBOutlet weak var tableView: UITableView!
     @IBAction func backButtonPressed(_ sender: UIButton) {

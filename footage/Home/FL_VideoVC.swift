@@ -12,28 +12,45 @@ import AVFoundation
 
 class FL_VideoVC: UIViewController {
     
-    var playerVC = AVPlayerViewController()
-    var playerLayer: AVPlayerLayer!
-    var player: AVPlayer!
+    var player: AVPlayer?
     
+    @IBOutlet weak var backBoard: UIView!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var logoImage: UIImageView!
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        player.play()
+        super.viewDidAppear(true)
+        playBackgroundVideo()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let videoPath = Bundle.main.path(forResource: "Intro", ofType: "mp4") {
-            let videoURL = URL(fileURLWithPath: videoPath)
-            print(videoURL)
-            player = AVPlayer(url: videoURL)
-            playerLayer = AVPlayerLayer(player: player)
-            playerLayer.videoGravity = .resizeAspectFill
-            player.volume = 0
-            player.actionAtItemEnd = .none
-            playerLayer.frame = view.layer.bounds
-            view.backgroundColor = .clear
-            view.layer.insertSublayer(playerLayer, at: 0)
+        playBackgroundVideo()
+        nextButton.alpha = 0
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in
+            UIView.animate(withDuration: 3) {
+                self.nextButton.alpha = 1
+            }
         }
     }
+    
+    func playBackgroundVideo() {
+        let path = Bundle.main.path(forResource: "Intro", ofType: "mp4")
+        let url = NSURL(fileURLWithPath: path!)
+        player = AVPlayer(url: url as URL)
+        player!.actionAtItemEnd = AVPlayer.ActionAtItemEnd.pause
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.frame = self.view.bounds
+        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        backBoard.layer.addSublayer(playerLayer)
+        backBoard.layer.insertSublayer(playerLayer, below: nextButton.layer)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidReachEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player!.currentItem)
+        player!.seek(to: CMTime.zero)
+        player?.play()
+        self.player?.isMuted = true
+    }
+    
+    @objc func playerItemDidReachEnd() {
+        player!.seek(to: CMTime.positiveInfinity)
+    }
+
 }
