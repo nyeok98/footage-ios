@@ -109,7 +109,7 @@ class PasswordVC: UIViewController {
             fourthDot.image = UIImage(systemName: "circle.fill")
             
             if checkPassword(writtenPassword: numberTogether) {
-                view.removeFromSuperview()
+                self.dismiss(animated: false, completion: nil)
             } else {
                 numberTogether = ""
                 fillDots()
@@ -164,7 +164,7 @@ extension PasswordVC {
                             print("laError - \(laError)")
                         } else {
                             if isSuccess { print("sucess")
-                                self.view.removeFromSuperview()
+                                self.dismiss(animated: false, completion: nil)
                             }
                             else { print("failure") }
                         }
