@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
     
     /// 1. For Home Animation
     static var currentStartButtonImage: UIImage?
+    var exampleImageView = UIImageView()
     @IBOutlet weak var mainMap: MKMapView!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var StringStackView: UIStackView!
@@ -26,7 +27,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var distanceView: UIView!
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var selectedButtonLabel: UILabel!
-    @IBOutlet weak var exampleImageView: UIImageView!
     @IBOutlet weak var currentColorIndicator: UIImageView!
     @IBOutlet weak var selectedButtonStackView: UIStackView!
     @IBOutlet weak var MainButton: UIButton!
@@ -92,6 +92,7 @@ class HomeViewController: UIViewController {
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
         configureInitialMapView()
+        setExampleImageView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -386,6 +387,14 @@ extension HomeViewController {
             }
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func setExampleImageView() {
+        exampleImageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: -10), size: CGSize(width: K.screenWidth, height: K.screenHeight*1.1)))
+        exampleImageView.image = #imageLiteral(resourceName: "home_example")
+        view.addSubview(exampleImageView)
+        view.bringSubviewToFront(exampleImageView)
+        exampleImageView.isHidden = true
     }
 }
 
