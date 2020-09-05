@@ -104,37 +104,37 @@ class BadgeGiver {
                 LevelManager.appendBadge(badge: Badge(type: "place", imageName: "Jeju_master", detail: "제주의 모든 행정구역을 만나보았어요!\n제주, 이제 당신의 발자취로 가득합니다."))
                 gotBadge(view: view, badge: Badge(type: "place", imageName: "Jeju_master", detail: "제주의 모든 행정구역을 만나보았어요!\n제주, 이제 당신의 발자취로 가득합니다."))
             }
-        case Korea.sejong.cityName() :
+        case Korea.sejong.cityNameKR() :
             placeBadgeCreator(cityName: Korea.sejong, view: view)
-        case Korea.seoul.cityName() :
+        case Korea.seoul.cityNameKR() :
             placeBadgeCreator(cityName: Korea.seoul, view: view)
-        case Korea.incheon.cityName() :
+        case Korea.incheon.cityNameKR() :
             placeBadgeCreator(cityName: Korea.incheon, view: view)
-        case Korea.busan.cityName() :
+        case Korea.busan.cityNameKR() :
             placeBadgeCreator(cityName: Korea.busan, view: view)
-        case Korea.daegu.cityName() :
+        case Korea.daegu.cityNameKR() :
             placeBadgeCreator(cityName: Korea.daegu, view: view)
-        case Korea.gwangju.cityName() :
+        case Korea.gwangju.cityNameKR() :
             placeBadgeCreator(cityName: Korea.gwangju, view: view)
-        case Korea.daejeon.cityName() :
+        case Korea.daejeon.cityNameKR() :
             placeBadgeCreator(cityName: Korea.daejeon, view: view)
-        case Korea.ulsan.cityName() :
+        case Korea.ulsan.cityNameKR() :
             placeBadgeCreator(cityName: Korea.ulsan, view: view)
-        case Korea.gyeonggi.cityName() :
+        case Korea.gyeonggi.cityNameKR() :
             placeBadgeCreator(cityName: Korea.gyeonggi, view: view)
-        case Korea.gangwon.cityName() :
+        case Korea.gangwon.cityNameKR() :
             placeBadgeCreator(cityName: Korea.gangwon, view: view)
-        case Korea.northJeolla.cityName() :
+        case Korea.northJeolla.cityNameKR() :
             placeBadgeCreator(cityName: Korea.northJeolla, view: view)
-        case Korea.southJeolla.cityName() :
+        case Korea.southJeolla.cityNameKR() :
             placeBadgeCreator(cityName: Korea.southJeolla, view: view)
-        case Korea.northChungcheong.cityName() :
+        case Korea.northChungcheong.cityNameKR() :
             placeBadgeCreator(cityName: Korea.northChungcheong, view: view)
-        case Korea.southChungcheong.cityName() :
+        case Korea.southChungcheong.cityNameKR() :
             placeBadgeCreator(cityName: Korea.southChungcheong, view: view)
-        case Korea.northGyeongsang.cityName() :
+        case Korea.northGyeongsang.cityNameKR() :
             placeBadgeCreator(cityName: Korea.northGyeongsang, view: view)
-        case Korea.southGyeongsang.cityName() :
+        case Korea.southGyeongsang.cityNameKR() :
             placeBadgeCreator(cityName: Korea.southGyeongsang, view: view)
             
         //california for test

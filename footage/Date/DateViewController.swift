@@ -12,6 +12,7 @@ import EFCountingLabel
 
 class DateViewController: UIViewController {
     
+    @IBOutlet weak var collectionView: UICollectionView!
     var profileImage: UIImage = #imageLiteral(resourceName: "baseProfileImage")
     
     @IBOutlet weak var rangeControl: UISegmentedControl!
@@ -21,7 +22,6 @@ class DateViewController: UIViewController {
     static var journeys: [Journey] = []
     
     var dataSource: UICollectionViewDiffableDataSource<Section, MapCell>! = nil
-    var collectionView: UICollectionView! = nil
     
     static let badgeElementKind = "badge-element-kind"
     enum Section {
@@ -62,8 +62,9 @@ extension DateViewController {
         group.interItemSpacing = .fixed(20)
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 30
+        let inset = (collectionView.frame.width - 315) / 2
+        section.contentInsets = .init(top: 0, leading: inset, bottom: 0, trailing: inset)
         let layout = UICollectionViewCompositionalLayout(section: section)
-        
         return layout
     }
 }
@@ -72,16 +73,13 @@ extension DateViewController {
 
 extension DateViewController {
     private func configureHierarchy() {
-        let minY = rangeControl.frame.maxY + view.safeAreaInsets.top + 50
-        let collectionFrame = CGRect(x: 30, y: minY, width: view.bounds.width - 60, height: view.bounds.height - minY - 30)
-        collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: createLayout())
+        collectionView.setCollectionViewLayout(createLayout(), animated: false)
         collectionView.delegate = self
         collectionView.register(UINib(nibName: "MapCell", bundle: nil), forCellWithReuseIdentifier: MapCell.reuseIdentifier)
         collectionView.isPagingEnabled = true
         collectionView.allowsSelection = true
         //collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .white
-        
         view.addSubview(collectionView)
         view.sendSubviewToBack(collectionView)
     }
@@ -198,4 +196,6 @@ extension DateViewController: UICollectionViewDelegate {
         default: break
         }
     }
+    
+    
 }

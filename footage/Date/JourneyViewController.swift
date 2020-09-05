@@ -27,6 +27,7 @@ class JourneyViewController: UIViewController {
     @IBOutlet weak var footstepLabel: UILabel!
     var journeyManager: JourneyManager! = nil
     var dateVC: DateViewController! = nil
+    var exampleView: UIImageView! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,19 @@ class JourneyViewController: UIViewController {
         } catch { print(error)}
         dateVC.collectionView.reloadData()
     }
+    
+    @IBAction func questionPressed(_ sender: UIButton) {
+        exampleView = UIImageView(frame: CGRect(x: 0, y: -20, width: K.screenWidth, height: view.bounds.height * 1.05))
+        exampleView.contentMode = .scaleToFill
+        exampleView.image = #imageLiteral(resourceName: "journeyExample")
+        view.addSubview(exampleView)
+    }
+    
+    
+    @IBAction func questionReleased(_ sender: UIButton) {
+        exampleView.removeFromSuperview()
+    }
+    
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         addButton.alpha = 1

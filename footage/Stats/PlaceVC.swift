@@ -45,19 +45,12 @@ class PlaceVC: UIViewController {
         thirdButton.setImage(#imageLiteral(resourceName: "placeSection"), for: .normal)
         thirdContent.alpha = 0
         PlaceAnimation.firstIsLarge(placeVC: self)
-//        firstView.layer.borderWidth = 2
-//        firstView.layer.borderColor = .init(srgbRed: 100, green: 0, blue: 0, alpha: 1)
-//        secondView.layer.borderWidth = 2
-//        secondView.layer.borderColor = .init(srgbRed: 100, green: 0, blue: 0, alpha: 1)
-//        thirdView.layer.borderWidth = 2
-//        thirdView.layer.borderColor = .init(srgbRed: 100, green: 0, blue: 0, alpha: 1)
         firstStack.bounds.origin.x -= 30
         secondStack.bounds.origin.x -= 30
         thirdStack.bounds.origin.x -= 30
         firstStack.bounds.origin.y -= 20
         secondStack.bounds.origin.y -= 20
         thirdStack.bounds.origin.y -= 20
-//        firstContent.bottomAnchor.constraint(equalTo: firstView.bottomAnchor, constant: 50).isActive = true
         setDefaultData()
         loadData()
         firstButton.isUserInteractionEnabled = true

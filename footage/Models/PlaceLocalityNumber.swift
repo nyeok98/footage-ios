@@ -32,6 +32,30 @@ enum Korea: String {
     
     func cityName() -> String { return self.rawValue }
     
+    func cityNameKR() -> String {
+        switch self {
+        case .sejong: return "세종특별자치시"
+        case .seoul: return "서울특별시"
+        case .incheon: return "인천광역시"
+        case .busan: return "부산광역시"
+        case .daegu: return "대구광역시"
+        case .ulsan: return "울산광역시"
+        case .daejeon: return "대전광역시"
+        case .gangwon: return "강원도"
+        case .gwangju: return "광주광역시"
+        case .gyeonggi: return "경기도"
+        case .jeju: return "제주도"
+        case .northChungcheong: return "충청북도"
+        case .southChungcheong: return "충청남도"
+        case .northGyeongsang: return "경상북도"
+        case .southGyeongsang: return "경상남도"
+        case .northJeolla: return "전라북도"
+        case .southJeolla: return "전라남도"
+        //california for test
+        case .california: return "CA"
+        }
+    }
+    
     func numberOfLocality() -> Double {
         switch self {
         case .sejong: return 19

@@ -10,11 +10,11 @@ import UIKit
 
 class PlaceAnimation {
     
-    static let bigHeight = 209
-    static let smallHeight = 79
-    static let spacing = 10
-    static let ceiling = 130
-    static let leading = 25
+    static let bigHeight = 209.0
+    static let smallHeight = 79.0
+    static let spacing = 10.0
+    static let ceiling = 130.0
+    static let leading = (Double(UIScreen.main.bounds.width) - 327) / 2
     static let bigFrame = CGSize(width: 327, height: 209)
     static let smallFrame = CGSize(width: 327, height: 79)
     
