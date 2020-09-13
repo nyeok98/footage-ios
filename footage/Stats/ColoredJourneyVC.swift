@@ -29,7 +29,7 @@ class ColoredJourneyVC: UIViewController, MKMapViewDelegate {
         let days = DateConverter.lastMondayToday()
         let footstepsArray = ColorManager.footstepsWithColor(color: color, from: days.0, to: days.1)
         for footsteps in footstepsArray {
-            DrawOnMap.polylineFromFootsteps(footsteps, on: mainMap)
+            DrawOnMap.polylineFromFootsteps(Array(footsteps), on: mainMap)
         }
         guard let initial = mainMap.overlays.first?.boundingMapRect else { return }
         let mapRect = mainMap.overlays

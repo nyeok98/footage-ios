@@ -49,6 +49,7 @@ class LevelVC: UIViewController {
         collectionView.alwaysBounceHorizontal = true
         collectionView.bounces = true
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGFloat(CGFloat(badgeList.count) * BadgeCell().bounds.width))
+        print(BadgeCell().bounds.width)
         badgeAnimation()
     }
     
@@ -91,7 +92,6 @@ extension LevelVC: UICollectionViewDelegate, UICollectionViewDataSource {
         todayBadgeImageView.image = UIImage(named: badgeList[indexPath.row].imageName)
         badgeDetail.text = "\"\(badgeList[indexPath.row].detail)\""
         UserDefaults.standard.setValue(badgeList[indexPath.row].imageName, forKey: "todayBadge")
-        
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

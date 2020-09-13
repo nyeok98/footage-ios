@@ -61,8 +61,8 @@ extension DateViewController {
                                                        subitems: [item])
         group.interItemSpacing = .fixed(20)
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 30
-        let inset = (collectionView.frame.width - 315) / 2
+        section.interGroupSpacing = 15
+        let inset = (K.screenWidth - 315) / 2
         section.contentInsets = .init(top: 0, leading: inset, bottom: 0, trailing: inset)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout

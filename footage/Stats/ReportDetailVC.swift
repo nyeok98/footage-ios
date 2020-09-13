@@ -50,13 +50,24 @@ class ReportDetailVC: UIViewController {
         badgeCollectionView.backgroundColor = .clear
         badgeCollectionView.allowsSelection = true
         badgeCollectionView.decelerationRate = .fast
-        badgeCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
         badgeCollectionView.alwaysBounceHorizontal = true
         badgeCollectionView.bounces = true
-        badgeCollectionView.contentInset = UIEdgeInsets(top: 0, left: CGFloat(CGFloat(badgeList.count) * ReportBadgeCell().bounds.width), bottom: 0, right: CGFloat(CGFloat(badgeList.count) * ReportBadgeCell().bounds.width))
+        //badgeCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGFloat(badgeList.count) * ReportBadgeCell().bounds.width)
         setDefaultData()
         loadColorData()
         loadPlaceData()
+        //badgeCollectionView.contentOffset = CGPoint(x: (K.screenWidth - 80) / -2, y: 0)
+        //badgeCollectionView.setContentOffset(CGPoint(x: 100, y: 100), animated: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if badgeList.count < 4 {
+            badgeCollectionView.setContentOffset(CGPoint(x: (K.screenWidth * 0.76 - CGFloat(80 * badgeList.count)) / -2, y: 0), animated: false)
+            badgeCollectionView.isScrollEnabled = false
+        }
+        UIView.animate(withDuration: 0.1) {
+            self.badgeCollectionView.alpha = 1
+        }
     }
     
     func loadColorData() {
@@ -171,8 +182,12 @@ class ReportDetailVC: UIViewController {
 
 extension ReportDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        badgeList.count
+        return badgeList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -181,7 +196,6 @@ extension ReportDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.badgeImageView.image = UIImage(named: badgeList[indexPath.row].imageName)
         return cell
     }
-    
 }
 
 class ReportBadgeCell: UICollectionViewCell {

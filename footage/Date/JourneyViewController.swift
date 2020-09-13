@@ -78,14 +78,19 @@ class JourneyViewController: UIViewController {
     
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
+        let footstepNumber = Int(sender.value)
         addButton.alpha = 1
         addButton.isUserInteractionEnabled = true
         footstepLabel.alpha = 0.5
-        footstepLabel.text = "# " + String(Int(sender.value))
-        DrawOnMap.moveCenterTo(journeyManager.journey.footsteps[Int(sender.value)].coordinate, on: mainMap, centerMark: centerMark)
-        if let nextItem = journeyManager.bookmark.lastIndex(of: Int(sender.value)) {
-            journeyManager.photoVC.collectionView.scrollToItem(at: IndexPath(item: 0, section: nextItem), at: .centeredHorizontally, animated: true)
-            journeyManager.currentIndexPath = IndexPath(item: 0, section: nextItem)
+        footstepLabel.text = "# " + String(footstepNumber)
+        DrawOnMap.moveCenterTo(journeyManager.journey.footsteps[footstepNumber].coordinate, on: mainMap, centerMark: centerMark)
+        let currentSection = journeyManager.currentIndexPath.section
+        if currentSection < journeyManager.bookmark.count - 1 && footstepNumber > journeyManager.bookmark[currentSection + 1] { // passed next footstep
+            journeyManager.photoVC.collectionView.scrollToItem(at: IndexPath(item: 0, section: currentSection + 1), at: .centeredHorizontally, animated: true)
+            journeyManager.currentIndexPath = IndexPath(item: 0, section: currentSection + 1)
+        } else if currentSection > 0 && footstepNumber < journeyManager.bookmark[currentSection - 1] { // passed previous footstep
+            journeyManager.photoVC.collectionView.scrollToItem(at: IndexPath(item: 0, section: currentSection - 1), at: .centeredHorizontally, animated: true)
+            journeyManager.currentIndexPath = IndexPath(item: 0, section: currentSection - 1)
         }
     }
     
@@ -141,8 +146,8 @@ extension JourneyViewController: MKMapViewDelegate {
         let firstCoordinate = journeyManager.journey.footsteps[0].coordinate
         mainMap.setCenter(firstCoordinate, animated: false)
         centerMark.coordinate = firstCoordinate
-        //DrawOnMap.moveCenterTo(journeyManager.journey.footsteps[0].coordinate, on: mainMap, centerMark: centerMark)
-        DrawOnMap.polylineFromFootsteps(journeyManager.journey.footsteps, on: mainMap)
+        DrawOnMap.moveCenterTo(journeyManager.journey.footsteps[0].coordinate, on: mainMap, centerMark: centerMark)
+        DrawOnMap.polylineFromFootsteps(Array(journeyManager.journey.footsteps), on: mainMap)
         guard let initial = mainMap.overlays.first?.boundingMapRect else { return }
         let mapRect = mainMap.overlays
             .dropFirst()
@@ -159,6 +164,7 @@ extension JourneyViewController: MKMapViewDelegate {
         DrawOnMap.moveCenterTo(footstep.coordinate, on: mainMap, centerMark: centerMark)
         journeyManager.prepareNewFootstep(footstepNumber: footstepNumber, annotation: newAnnotation)
     }
+
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let overlayWithColor = overlay as! PolylineWithColor
@@ -182,10 +188,11 @@ extension JourneyViewController: MKMapViewDelegate {
         guard let footAnnotation = view.annotation as? FootAnnotation else { return }
         guard let sectionNumber = journeyManager.bookmark.lastIndex(of: footAnnotation.number) else { return }
         slider.value = Float(footAnnotation.number)
-        DrawOnMap.moveCenterTo(view.annotation!.coordinate, on: mapView, centerMark: centerMark)
+        
         journeyManager.selectedPin = view
         journeyManager.currentIndexPath = IndexPath(item: 0, section: sectionNumber)
         journeyManager.photoVC.collectionView.scrollToItem(at: IndexPath(item: 0, section: sectionNumber), at: .centeredHorizontally, animated: true)
+        view.isSelected = true
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) { performSegue(withIdentifier: "goToPhotoSelection", sender: self) }

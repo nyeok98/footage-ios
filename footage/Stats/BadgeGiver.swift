@@ -93,69 +93,17 @@ class BadgeGiver {
     }
     
     static func cityCheck(view: UIView) {
-        switch PlaceManager.currentAdministrativeArea {
-        case Korea.jeju.cityName() :
+        if PlaceManager.currentAdministrativeArea == Korea.jeju.cityName() {
             if PlaceManager.localityList?.count == 1 && PlaceManager.isAppended == true  {
                 LevelManager.appendBadge(badge: Badge(type: "place", imageName: "Jeju_newb", detail: "제주가 조금 익숙해지기 시작하셨군요!"))
                 LevelManager.appendBadge(badge: Badge(type: "place", imageName: "Jeju_junior", detail: "제주의 반을 본 셈이에요!"))
                 gotBadge(view: view, badge: Badge(type: "place", imageName: "Jeju_junior", detail: "제주의 반을 본 셈이에요!"))
-            }
-            if PlaceManager.localityList?.count == 2 && PlaceManager.isAppended == true {
-                LevelManager.appendBadge(badge: Badge(type: "place", imageName: "Jeju_master", detail: "제주의 모든 행정구역을 만나보았어요!\n제주, 이제 당신의 발자취로 가득합니다."))
+            } else if PlaceManager.localityList?.count == 2 && PlaceManager.isAppended == true {
+                LevelManager.appendBadge(badge: Badge(type: "place", imageName: "Je ju_master", detail: "제주의 모든 행정구역을 만나보았어요!\n제주, 이제 당신의 발자취로 가득합니다."))
                 gotBadge(view: view, badge: Badge(type: "place", imageName: "Jeju_master", detail: "제주의 모든 행정구역을 만나보았어요!\n제주, 이제 당신의 발자취로 가득합니다."))
             }
-        case Korea.sejong.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.sejong, view: view)
-        case Korea.seoul.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.seoul, view: view)
-        case Korea.incheon.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.incheon, view: view)
-        case Korea.busan.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.busan, view: view)
-        case Korea.daegu.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.daegu, view: view)
-        case Korea.gwangju.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.gwangju, view: view)
-        case Korea.daejeon.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.daejeon, view: view)
-        case Korea.ulsan.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.ulsan, view: view)
-        case Korea.gyeonggi.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.gyeonggi, view: view)
-        case Korea.gangwon.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.gangwon, view: view)
-        case Korea.northJeolla.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.northJeolla, view: view)
-        case Korea.southJeolla.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.southJeolla, view: view)
-        case Korea.northChungcheong.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.northChungcheong, view: view)
-        case Korea.southChungcheong.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.southChungcheong, view: view)
-        case Korea.northGyeongsang.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.northGyeongsang, view: view)
-        case Korea.southGyeongsang.cityNameKR() :
-            placeBadgeCreator(cityName: Korea.southGyeongsang, view: view)
-            
-        //california for test
-        case Korea.california.cityName() :
-            if PlaceManager.localityList?.count == 2 && PlaceManager.isAppended == true {
-                LevelManager.appendBadge(badge: Badge(type: "place", imageName: "Sejong City_newb", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
-                BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "Sejong City_newb", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
-                PlaceManager.isAppended = false
-            }
-            if PlaceManager.localityList?.count == Int(ceil(Korea.california.numberOfLocality()/2))  && PlaceManager.isAppended == true {
-                LevelManager.appendBadge(badge: Badge(type: "place", imageName: "Sejong City_junior", detail: "이 지역 행정구역의 반에 발자취를 남겼습니다!"))
-                BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "Sejong City_junior", detail: "이 지역 행정구역의 반에 발자취를 남겼습니다!"))
-                PlaceManager.isAppended = false
-            }
-            if PlaceManager.localityList?.count == Int(Korea.california.numberOfLocality())  && PlaceManager.isAppended == true {
-                LevelManager.appendBadge(badge: Badge(type: "place", imageName: "Sejong City_master", detail: "이 지역의 모든 행정구역을 만나보았어요!\n이 지역은 당신의 발자취로 가득합니다."))
-                BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "Sejong City_master", detail: "이 지역의 모든 행정구역을 만나보았어요!\n이 지역은 당신의 발자취로 가득합니다."))
-                PlaceManager.isAppended = false
-            }
-        default:
-            placeBadgeCreator(cityName: Korea.sejong, view: view)
+        } else {
+            placeBadgeCreator(cityName: Korea(rawValue: PlaceManager.currentAdministrativeArea) ?? Korea.sejong, view: view)
         }
     }
     
@@ -184,18 +132,18 @@ class BadgeGiver {
     
     static func placeBadgeCreator(cityName: Korea, view: UIView) {
         if PlaceManager.localityList?.count == 2 && PlaceManager.isAppended == true {
-            LevelManager.appendBadge(badge: Badge(type: "place", imageName: "\(cityName.cityName())_newb", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
-            BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "\(cityName.cityName())_newb", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
+            LevelManager.appendBadge(badge: Badge(type: "place", imageName: "\(cityName.cityNameEN())_newb", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
+            BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "\(cityName.cityNameEN())_newb", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
             PlaceManager.isAppended = false
         }
         if PlaceManager.localityList?.count == Int(round(Double(cityName.numberOfLocality()/2)))  && PlaceManager.isAppended == true {
-            LevelManager.appendBadge(badge: Badge(type: "place", imageName: "\(cityName.cityName())_junior", detail: "이 지역 행정구역의 반에 발자취를 남겼습니다!"))
-            BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "\(cityName.cityName())_junior", detail: "이 지역 행정구역의 반에 발자취를 남겼습니다!"))
+            LevelManager.appendBadge(badge: Badge(type: "place", imageName: "\(cityName.cityNameEN())_junior", detail: "이 지역 행정구역의 반에 발자취를 남겼습니다!"))
+            BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "\(cityName.cityNameEN())_junior", detail: "이 지역 행정구역의 반에 발자취를 남겼습니다!"))
             PlaceManager.isAppended = false
         }
         if PlaceManager.localityList?.count == Int(cityName.numberOfLocality())  && PlaceManager.isAppended == true {
-            LevelManager.appendBadge(badge: Badge(type: "place", imageName: "\(cityName.cityName())_master", detail: "이 지역의 모든 행정구역을 만나보았어요!\n이 지역은 당신의 발자취로 가득합니다."))
-            BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "\(cityName.cityName())_master", detail: "이 지역의 모든 행정구역을 만나보았어요!\n이 지역은 당신의 발자취로 가득합니다."))
+            LevelManager.appendBadge(badge: Badge(type: "place", imageName: "\(cityName.cityNameEN())_master", detail: "이 지역의 모든 행정구역을 만나보았어요!\n이 지역은 당신의 발자취로 가득합니다."))
+            BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "\(cityName.cityNameEN())_master", detail: "이 지역의 모든 행정구역을 만나보았어요!\n이 지역은 당신의 발자취로 가득합니다."))
             PlaceManager.isAppended = false
         }
     }

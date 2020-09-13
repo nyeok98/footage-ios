@@ -23,20 +23,25 @@ class PlaceManager {
     static func update(latitude: Double, longitude: Double, distance: Double) {
         let realm = try! Realm()
         CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: latitude, longitude: longitude), preferredLocale: Locale(identifier: "ko_KR")) { (placemarks, error) in
+            
             if let placemark = placemarks?[0] {
+                var placemarkLocality: String?
+                if placemark.administrativeArea == "세종특별자치시" {
+                    placemarkLocality = placemark.subLocality
+                } else { placemarkLocality = placemark.locality }
             do { try realm.write {
-                if lastLocality == "" || placemark.locality != lastLocality { // first walk of the day or new region
+                if lastLocality == "" || placemarkLocality != lastLocality { // first walk of the day or new region
                     isAppended = false
                     let today = DateConverter.dateToDay(date: Date())
                     let result = realm.objects(Place.self)
-                        .filter("\(today) == date && '\(placemark.locality ?? "")' == locality")
+                        .filter("\(today) == date && '\(placemarkLocality ?? "")' == locality")
                     if result.isEmpty {
                         lastData = Place(date: today, placemark: placemark)
                         realm.add(lastData)
                     } else { lastData = result[0] }
-                    lastLocality = placemark.locality ?? ""
+                    lastLocality = placemarkLocality ?? ""
                 } else {
-                    if !localityList!.contains(placemark.locality!) { localityList?.append(placemark.locality!)
+                    if !localityList!.contains(placemarkLocality!) { localityList?.append(placemarkLocality!)
                         isAppended = true
                     }
                 }
@@ -48,6 +53,8 @@ class PlaceManager {
                 }
                 lastData.distance += distance
                 lastAdministrativeArea = currentAdministrativeArea
+                //print("placemark.locality: \(placemarkLocality)")
+                //print("localityList: \(localityList)")
             }} catch { print(error) }
             }
         }

@@ -30,6 +30,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var currentColorIndicator: UIImageView!
     @IBOutlet weak var selectedButtonStackView: UIStackView!
     @IBOutlet weak var MainButton: UIButton!
+    @IBOutlet weak var startAlert: UIImageView!
     @IBOutlet weak var secondButton: UIButton!
     @IBOutlet weak var thirdButton: UIButton!
     @IBOutlet weak var fourthButton: UIButton!
@@ -45,19 +46,7 @@ class HomeViewController: UIViewController {
         keyWindow?.bringSubviewToFront(exampleImageView)
     }
     
-    @IBAction func secondButtonPressed(_ sender: UIButton) {
-        HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
-        HomeAnimation.colorSelected(homeVC: self, pressedbutton: sender)
-    }
-    @IBAction func thirdButtonPressed(_ sender: UIButton) {
-        HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
-        HomeAnimation.colorSelected(homeVC: self, pressedbutton: sender)
-    }
-    @IBAction func fourthButtonPressed(_ sender: UIButton) {
-        HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
-        HomeAnimation.colorSelected(homeVC: self, pressedbutton: sender)
-    }
-    @IBAction func fifthButtonPressed(_ sender: UIButton) {
+    @IBAction func categoryPressed(_ sender: UIButton) {
         HomeAnimation.buttonChanger(homeVC: self, pressedbutton: sender)
         HomeAnimation.colorSelected(homeVC: self, pressedbutton: sender)
     }
@@ -68,6 +57,7 @@ class HomeViewController: UIViewController {
     static let locationManager = CLLocationManager()
     var dateFormatter =  DateFormatter()
     var nextLocation: CLLocation?
+    var saveStart: CLLocation?
     var lastLocation: CLLocation?
     var locationTimer: Timer?
     var setAsStart: Bool = true
@@ -93,13 +83,19 @@ class HomeViewController: UIViewController {
         HomeAnimation.homeStopAnimation(self)
         configureInitialMapView()
         setExampleImageView()
+        if UIApplication.shared.applicationIconBadgeNumber == 0 {
+            startAlert.isHidden = true
+        } else {
+            startAlert.isHidden = false
+            view.bringSubviewToFront(startAlert)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if !startedBefore {
-            HomeViewController.locationManager.requestWhenInUseAuthorization()
             Settings_GeneralVC.registerNoti()
+            HomeViewController.locationManager.requestWhenInUseAuthorization()
         }
     }
     
@@ -109,6 +105,7 @@ class HomeViewController: UIViewController {
             HomeViewController.distanceToday = DateManager.loadDistance(total: false)
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
             UIApplication.shared.applicationIconBadgeNumber = 0
+            startAlert.isHidden = true
             let status = CLLocationManager.authorizationStatus()
             if status == .notDetermined || status == .denied {
                 alertForAuthorization()
@@ -119,6 +116,7 @@ class HomeViewController: UIViewController {
                     LevelManager.firstLaunch()
                     BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "starter_level", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
                     Settings_GeneralVC.noti_everydayAlert()
+                    Settings_GeneralVC.noti_everyMonthAlert()
                 }
                 HomeAnimation.homeStartAnimation(self)
                 HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
@@ -157,9 +155,9 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         mainMap.mapType = MKMapType.standard
         mainMap.setRegion(locationRegion, animated: true)
         // draw all routes
-        for journey in DateManager.loadFromRealm(rangeOf: "year") {
-            DrawOnMap.polylineFromFootsteps(journey.footsteps, on: mainMap)
-        }
+//        for journey in DateManager.loadFromRealm(rangeOf: "year") {
+//            DrawOnMap.polylineFromFootsteps(Array(journey.footsteps), on: mainMap)
+//        }
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
         }
@@ -172,32 +170,41 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         HomeViewController.locationManager.distanceFilter = 5 // meters
         HomeViewController.locationManager.pausesLocationUpdatesAutomatically = true
         HomeViewController.locationManager.allowsBackgroundLocationUpdates = true
-        HomeViewController.locationManager.startUpdatingLocation()
         HomeViewController.locationManager.activityType = .fitness
-        // draw previous routes from today
-        for journey in DateManager.loadFromRealm(rangeOf: today) {
-            DrawOnMap.polylineFromFootsteps(journey.footsteps, on: mainMap)
+        
+        for journey in DateManager.loadFromRealm(rangeOf: today) { // draw previous routes from today
+            DrawOnMap.polylineFromFootsteps(Array(journey.footsteps), on: mainMap)
         }
-        guard let location = HomeViewController.locationManager.location
-        else { return }
-        lastLocation = location
+        
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
             self.mainMap.setCamera(.init(lookingAtCenter: self.mainMap.centerCoordinate, fromDistance: 500, pitch: 0, heading: 0), animated: false)
+        }
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+            HomeViewController.locationManager.startUpdatingLocation()
+            while HomeViewController.locationManager.location == nil {
+                HomeViewController.locationManager.requestLocation()
+            }
+            self.lastLocation = HomeViewController.locationManager.location
         }
     }
     
     // DID UPDATE
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("didupdate")
         nextLocation = locations[0]
         checkForMovement(location: nextLocation)
         guard let nextLocation = nextLocation else { return }
         guard let lastLocation = lastLocation else { return }
         if isValid(location: nextLocation) {
             if setAsStart { // now began to walk
-                LocationUpdate.processNewLocation(location: nextLocation, distance: 0, setAsStart: true, color: HomeViewController.selectedColor)
+                saveStart = nextLocation
                 setAsStart = false
             } else { // continue walking
+                if let startLocation = saveStart {
+                    LocationUpdate.processNewLocation(location: startLocation, distance: 0, setAsStart: true, color: HomeViewController.selectedColor)
+                    saveStart = nil
+                }
                 let newDistance = nextLocation.distance(from: lastLocation)
                 LocationUpdate.processNewLocation(location: nextLocation, distance: newDistance, setAsStart: false, color: HomeViewController.selectedColor)
                 self.extendPolyline(lastLocation: lastLocation, newLocation: nextLocation)
@@ -232,8 +239,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         } else if let lastLocation = lastLocation {
             if location.speed < 0 && lastLocation.speed < 0 { return false }
             else { return true }
-        }
-        else { noSpeedCounter = 0; return true }
+        } else { noSpeedCounter = 0; return true }
     }
     
     func checkForMovement(location: CLLocation?) {
@@ -309,6 +315,12 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             content.title = "속도 제한 초과"
             content.body = "발자취를 남긴다는 건, 주위를 온전히 담아낼 수 있어야 한다는 것."
             content.badge = 1
+            startAlert.isHidden = false
+            startAlert.alpha = 0
+            view.bringSubviewToFront(startAlert)
+            UIView.animate(withDuration: 1) {
+                self.startAlert.alpha = 1
+            }
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let randomIdentifier = UUID().uuidString
@@ -316,9 +328,15 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
 
             // 3
             UNUserNotificationCenter.current().add(request) { error in
-              if error != nil {
-                print("something went wrong")
-              }
+                if error != nil {
+                    print("something went wrong")
+                }
+            }
+            
+            let youSureAlert = UIAlertController.init(title: "속도 제한 초과", message: "발자취를 남긴다는 건, 주위를 온전히 담아낼 수 있어야 한다는 것.", preferredStyle:  .alert)
+            self.present(youSureAlert, animated: true, completion: nil)
+            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (timer) in
+                youSureAlert.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -329,6 +347,12 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             content.title = "기록 중지"
             content.body = "어딘가에 머물러 짙은 발자취를 남기시나보군요. 잠시 기록을 중단하겠습니다."
             content.badge = 1
+            startAlert.isHidden = false
+            startAlert.alpha = 0
+            view.bringSubviewToFront(startAlert)
+            UIView.animate(withDuration: 1) {
+                self.startAlert.alpha = 1
+            }
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let randomIdentifier = UUID().uuidString
@@ -336,9 +360,15 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
 
             // 3
             UNUserNotificationCenter.current().add(request) { error in
-              if error != nil {
-                print("something went wrong")
-              }
+                if error != nil {
+                    print("something went wrong")
+                }
+            }
+            
+            let youSureAlert = UIAlertController.init(title: "기록 중지", message: "어딘가에 머물러 짙은 발자취를 남기시나보군요. 잠시 기록을 중단하겠습니다.", preferredStyle:  .alert)
+            self.present(youSureAlert, animated: true, completion: nil)
+            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (timer) in
+                youSureAlert.dismiss(animated: true, completion: nil)
             }
         }
     }

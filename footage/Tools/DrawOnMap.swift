@@ -12,7 +12,7 @@ import RealmSwift
 
 class DrawOnMap {
     
-    static func polylineFromFootsteps(_ footsteps: List<Footstep>, on map: MKMapView) {
+    static func polylineFromFootsteps(_ footsteps: [Footstep], on map: MKMapView) {
         var overlays: [PolylineWithColor] = []
         var lastColor = footsteps[0].color
         var coordinates: [CLLocationCoordinate2D] = []
@@ -101,6 +101,7 @@ class FootTransparentView: MKAnnotationView {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         self.canShowCallout = false
         self.isEnabled = false
+        self.isUserInteractionEnabled = false
         self.image = UIImage(named: "transparentPin")
     }
     

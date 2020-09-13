@@ -12,7 +12,7 @@ import Photos
 import RealmSwift
 
 class PhotoCollectionVC: UIViewController {
-
+    
     weak var journeyManager: JourneyManager! = nil
     var collectionView: UICollectionView! = nil
     
@@ -30,7 +30,7 @@ class PhotoCollectionVC: UIViewController {
         configureHierarchy()
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
     }
-
+    
     func configureHierarchy() {
         let collectionFrame = CGRect(x: 0, y: K.screenHeight * 0.15, width: view.bounds.width, height: K.screenHeight * 0.3)
         collectionView = UICollectionView(frame: collectionFrame, collectionViewLayout: PhotoCollectionLayout(journeyManager: journeyManager))
@@ -73,12 +73,12 @@ extension PhotoCollectionVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 { // first section
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstCell.reuseIdentifier,
-                for: indexPath) as? FirstCell else { fatalError("Cannot create new cell") }
+                                                                for: indexPath) as? FirstCell else { fatalError("Cannot create new cell") }
             return cell
         }
         if indexPath.section != journeyManager.expandedSection { // collapsed sections for footsteps
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GroupCell.reuseIdentifier,
-                for: indexPath) as? GroupCell else { fatalError("Cannot create new cell") }
+                                                                for: indexPath) as? GroupCell else { fatalError("Cannot create new cell") }
             cell.journeyManager = journeyManager
             cell.section  = indexPath.section
             cell.addGroupImage()
@@ -87,7 +87,7 @@ extension PhotoCollectionVC: UICollectionViewDataSource {
             return cell
         } else { // expanded section
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCell.reuseIdentifier,
-                for: indexPath) as? CardCell else { fatalError("Cannot create new cell") }
+                                                                for: indexPath) as? CardCell else { fatalError("Cannot create new cell") }
             cell.journeyManager = journeyManager
             cell.section = indexPath.section
             cell.item = indexPath.item
@@ -133,7 +133,7 @@ extension PhotoCollectionVC: UICollectionViewDelegate, UICollectionViewDelegateF
             return CGSize(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.22)
         }
     }
-
+    
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if journeyManager.currentIndexPath.section != journeyManager.expandedSection {
             let sectionToCollapse = journeyManager.expandedSection
@@ -162,7 +162,9 @@ class FirstCell: UICollectionViewCell {
         labelTop.font = UIFont(name: "NanumBarunpen-Bold", size: 25)
         labelTop.alpha = 0
         contentView.addSubview(labelTop)
-        Timer.scheduledTimer(withTimeInterval: 0.55, repeats: false) { (_) in labelTop.alpha = 1}
+        Timer.scheduledTimer(withTimeInterval: 0.55, repeats: false) { _ in UIView.animate(withDuration: 1, animations: {
+            labelTop.alpha = 1
+        })}
         
         let labelBottom = UILabel()
         labelBottom.text = "돌아볼까요?"
@@ -170,7 +172,8 @@ class FirstCell: UICollectionViewCell {
         labelBottom.font = UIFont(name: "NanumBarunpen-Bold", size: 25)
         labelBottom.alpha = 0
         contentView.addSubview(labelBottom)
-        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (_) in labelBottom.alpha = 1}
+        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in UIView.animate(withDuration: 1, animations: { labelBottom.alpha = 1
+        })}
     }
     
     required init?(coder: NSCoder) {

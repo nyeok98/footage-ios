@@ -177,4 +177,29 @@ extension Settings_GeneralVC: UNUserNotificationCenterDelegate{
           }
         }
     }
+    
+    static func noti_everyMonthAlert() {
+
+        // 1
+        var dateComponents = DateComponents()
+        dateComponents.day = 1
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+
+        // 2
+        let content = UNMutableNotificationContent()
+        content.title = "새로운 달의 시작이에요. 월간 리포트가 초기화 되었습니다."
+        content.subtitle = "지난 기록은 월간 리포트에 잘 보관되었습니다."
+        content.badge = 1
+
+        let randomIdentifier = UUID().uuidString
+        let request = UNNotificationRequest(identifier: randomIdentifier, content: content, trigger: trigger)
+
+        // 3
+        UNUserNotificationCenter.current().add(request) { error in
+          if error != nil {
+            print("something went wrong")
+          }
+        }
+    }
+    
 }

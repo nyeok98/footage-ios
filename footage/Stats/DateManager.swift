@@ -127,6 +127,22 @@ extension DateManager {
         return 0 // unused
     }
     
+    static func loadMonthlyDistance() -> Double {
+        let realm = try! Realm()
+        let today = DateConverter.dateToDay(date: Date())
+        let thisMonthStart = DateConverter.tagToMonth(year: today/10000, tag: (today/100)%100, start: true)
+        let thisMonthFinish = DateConverter.tagToMonth(year: today/10000, tag: (today/100)%100, start: false)
+        let journeys = realm.objects(DayData.self).filter("date >= \(thisMonthStart) && date <= \(thisMonthFinish)")
+        if journeys.isEmpty { return 0 }
+        else {
+            var distance = 0.0
+            for day in journeys {
+                distance += day.distance
+            }
+            return distance
+        }
+    }
+    
     static func saveTotalDistance(value: Double) {
         let realm = try! Realm()
         let distance = realm.objects(Distance.self)[0]

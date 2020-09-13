@@ -15,14 +15,25 @@ class MapViewController: UIViewController {
     let mapView = MKMapView()
     let locationManager = CLLocationManager()
     
+    var overlayOn = true
+    var overlayButton = UIButton()
     var preventTableUpdate = false // to prevent table from reloading when collectionview is showing / view is resizing
     var currentLocation = CLLocationCoordinate2D(latitude: 36.4800984, longitude: 127.2802807)
-    var allFootsteps: [Footstep] = []
+    var footstepsWithAssets: [Footstep] = []
+    var allFootsteps: [Footstep] = [] {
+        didSet {
+            if allFootsteps.isEmpty { return }
+            else {
+                DrawOnMap.polylineFromFootsteps(allFootsteps, on: mapView)
+            }
+        }
+    }
     var authStatus: CLAuthorizationStatus { CLLocationManager.authorizationStatus() }
     
     override func viewDidLoad() {
         M.mapVC = self
         super.viewDidLoad()
+        locationManager.delegate = self
         getCurrentLocation()
         initializeMapView()
         M.tableVC.reloadWithNewLocation(coordinate: currentLocation, selected: nil)
@@ -34,13 +45,17 @@ class MapViewController: UIViewController {
         super.viewDidAppear(animated)
         if authStatus == .authorizedAlways || authStatus == .authorizedWhenInUse {
             let realm = try! Realm()
-            allFootsteps = Array(realm.objects(Footstep.self)).filter({(footstep) -> Bool in !footstep.notes.isEmpty })
+            footstepsWithAssets = Array(realm.objects(Footstep.self)).filter({(footstep) -> Bool in !footstep.notes.isEmpty })
             mapView.removeAnnotations(mapView.annotations)
-            let annotations = allFootsteps.map { (footstep) -> NearbyAnnotation in
-                return NearbyAnnotation(footstep: footstep, distance: 0)
+            mapView.removeOverlays(mapView.overlays)
+            if overlayOn {
+                allFootsteps = Array(realm.objects(Footstep.self)) // automatic overlay
+                let annotations = footstepsWithAssets.map { (footstep) -> NearbyAnnotation in
+                    return NearbyAnnotation(footstep: footstep, distance: 0)
+                }
+                mapView.addAnnotations(annotations)
             }
-            mapView.addAnnotations(annotations)
-            M.tableVC.allFootsteps = allFootsteps
+            M.tableVC.allFootsteps = footstepsWithAssets
             M.tableVC.reloadWithNewLocation(coordinate: currentLocation, selected: nil)
         } else { alertForAuthorization() }
     }
@@ -64,21 +79,48 @@ class MapViewController: UIViewController {
         mapView.setCamera(camera, animated: false)
         
         let realm = try! Realm()
-        allFootsteps = Array(realm.objects(Footstep.self)).filter({(footstep) -> Bool in !footstep.notes.isEmpty })
-        M.tableVC.allFootsteps = allFootsteps
+        footstepsWithAssets = Array(realm.objects(Footstep.self)).filter({(footstep) -> Bool in !footstep.notes.isEmpty })
+        M.tableVC.allFootsteps = footstepsWithAssets
         mapView.register(NearbyAnnotationView.self, forAnnotationViewWithReuseIdentifier: NearbyAnnotationView.reuseIdentifier)
         mapView.register(AppleClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         
-        let annotations = allFootsteps.map { (footstep) -> NearbyAnnotation in
+        let annotations = footstepsWithAssets.map { (footstep) -> NearbyAnnotation in
             return NearbyAnnotation(footstep: footstep, distance: 0)
         }
         mapView.addAnnotations(annotations)
         view.addSubview(mapView)
-        
         let locationButton = UIButton(frame: CGRect(x: 10, y: 40, width: 45, height: 45))
         locationButton.setImage(#imageLiteral(resourceName: "myLocation"), for: .normal)
         locationButton.addTarget(self, action: #selector(getCurrentLocation), for: .touchUpInside)
         view.addSubview(locationButton)
+        
+        overlayButton = UIButton(frame: CGRect(x: 14, y: 90, width: 36, height: 36))
+        overlayButton.setImage(#imageLiteral(resourceName: "noProfileImage"), for: .normal)
+        overlayButton.addTarget(self, action: #selector(toggleOverlay), for: .touchUpInside)
+        overlayButton.layer.shadowOffset = .init(width: 0, height: 2.0)
+        overlayButton.layer.shadowOpacity = 0.2
+        overlayButton.layer.shadowRadius = 2.0
+        overlayButton.layer.shadowColor = UIColor.gray.cgColor
+        overlayButton.layer.cornerRadius = 2
+        overlayButton.alpha = 1
+        view.addSubview(overlayButton)
+    }
+    
+    @objc func toggleOverlay() {
+        if overlayOn { // turn off overlay
+            overlayOn = false
+            overlayButton.alpha = 0.6
+            mapView.removeAnnotations(mapView.annotations)
+            mapView.showsUserLocation = false
+        } else { // turn on overlay
+            overlayOn = true
+            overlayButton.alpha = 1
+            let annotations = footstepsWithAssets.map { (footstep) -> NearbyAnnotation in
+                return NearbyAnnotation(footstep: footstep, distance: 0)
+            }
+            mapView.addAnnotations(annotations)
+            mapView.showsUserLocation = true
+        }
     }
     
     func alertForAuthorization() { // present an alert indicating location authorization required
@@ -104,7 +146,15 @@ class MapViewController: UIViewController {
     }
 }
 
-extension MapViewController: MKMapViewDelegate {
+extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        return
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        return
+    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let cluster = annotation as? MKClusterAnnotation {
@@ -129,6 +179,15 @@ extension MapViewController: MKMapViewDelegate {
         mapView.setCenter(footstep.coordinate, animated: true)
         M.bottomVC.reloadSelectedView(selected: footstep)
         M.tableVC.reloadWithNewLocation(coordinate: footstep.coordinate, selected: footstep)
+        mapView.deselectAnnotation(view.annotation, animated: false)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let overlayWithColor = overlay as! PolylineWithColor
+        let polylineView = MKPolylineRenderer(overlay: overlay)
+        polylineView.strokeColor = overlayWithColor.color
+        polylineView.lineWidth = 10
+        return polylineView
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
