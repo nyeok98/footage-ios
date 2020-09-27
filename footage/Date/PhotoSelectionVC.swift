@@ -29,8 +29,8 @@ class PhotoSelectionVC: UIViewController {
     override func viewDidLoad() { // FIX: Fetch must wait until permission granted!
         let fetchOptions = PHFetchOptions()
         let date = journeyManager.journey.date
-        let dateFrom = DateConverter.stringToDate(int: date, start: true)
-        //let dateFrom = NSDate(timeIntervalSince1970: 0) // DELETE!
+        //let dateFrom = DateConverter.stringToDate(int: date, start: true)
+        let dateFrom = NSDate(timeIntervalSince1970: 0) // DELETE!
         let dateTo = DateConverter.stringToDate(int: date, start: false) as NSDate
         fetchOptions.predicate = NSPredicate(format: "creationDate < %@ AND creationDate >= %@", dateTo, dateFrom as NSDate)
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
@@ -76,13 +76,17 @@ extension PhotoSelectionVC: UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: highlight and/or display check badge
-        selected.insert(indexPath.row)
-        collectionView.cellForItem(at: indexPath)?.backgroundColor = .black
+        if let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell {
+            cell.select()
+            selected.insert(indexPath.row)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        selected.remove(indexPath.row)
-        collectionView.cellForItem(at: indexPath)?.backgroundColor = .white
+        if let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell {
+            cell.deselect()
+            selected.remove(indexPath.row)
+        }
     }
     
 }

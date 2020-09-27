@@ -11,6 +11,7 @@ import UIKit
 class PhotoCell: UICollectionViewCell {
     
     var imageView = UIImageView()
+    var selectedMark = UIImageView(image: #imageLiteral(resourceName: "monthFive"))
     static let reuseIdentifier = "photo-cell-reuse-identifier"
     
     override init(frame: CGRect) {
@@ -26,6 +27,22 @@ class PhotoCell: UICollectionViewCell {
         imageView.frame = contentView.frame
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
+    }
+    
+    func select() {
+        alpha = 0.8
+        selectedMark.frame = CGRect(x: bounds.maxX - 25, y: bounds.maxY - 25, width: 20, height: 20)
+        addSubview(selectedMark)
+    }
+    
+    func deselect() {
+        alpha = 1.0
+        selectedMark.removeFromSuperview()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        deselect()
     }
 
 }

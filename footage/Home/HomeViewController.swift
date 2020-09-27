@@ -155,7 +155,6 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
                 HomeViewController.locationManager.requestLocation()
             }
             coordinate = HomeViewController.locationManager.location!.coordinate
-            mainMap.showsUserLocation = true
         } else { // default location for when location data is not authorized
             coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(exactly: 36.5151)!, CLLocationDegrees(exactly: 127.2385)!)
         }
@@ -163,6 +162,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         let locationRegion = MKCoordinateRegion(center: coordinate!, span: spanValue)
         mainMap.mapType = MKMapType.standard
         mainMap.setRegion(locationRegion, animated: true)
+        mainMap.showsUserLocation = true
         // draw all routes
 //        for journey in DateManager.loadFromRealm(rangeOf: "year") {
 //            DrawOnMap.polylineFromFootsteps(Array(journey.footsteps), on: mainMap)
