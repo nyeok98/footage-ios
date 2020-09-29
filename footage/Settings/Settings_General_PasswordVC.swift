@@ -24,10 +24,10 @@ class Settings_General_PasswordVC: UIViewController {
     
     @IBAction func backButton(_ sender: Any) {
         if whereAreYouFrom == "passcode" {
-        if let cellObj =  generalVC?.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) {
-            let switchView = cellObj.accessoryView as! UISwitch
-            switchView.setOn(false, animated: true)
-        }
+            if let cellObj =  generalVC?.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) {
+                let switchView = cellObj.accessoryView as! UISwitch
+                switchView.setOn(false, animated: true)
+            }
         } else if whereAreYouFrom == "faceId" {
             if let cellObj =  generalVC?.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) {
                 let switchView = cellObj.accessoryView as! UISwitch

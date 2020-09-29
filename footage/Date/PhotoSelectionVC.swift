@@ -29,8 +29,8 @@ class PhotoSelectionVC: UIViewController {
     override func viewDidLoad() { // FIX: Fetch must wait until permission granted!
         let fetchOptions = PHFetchOptions()
         let date = journeyManager.journey.date
-        //let dateFrom = DateConverter.stringToDate(int: date, start: true)
-        let dateFrom = NSDate(timeIntervalSince1970: 0) // DELETE!
+        let dateFrom = DateConverter.stringToDate(int: date, start: true)
+//        let dateFrom = NSDate(timeIntervalSince1970: 0) // DELETE!
         let dateTo = DateConverter.stringToDate(int: date, start: false) as NSDate
         fetchOptions.predicate = NSPredicate(format: "creationDate < %@ AND creationDate >= %@", dateTo, dateFrom as NSDate)
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]

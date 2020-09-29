@@ -323,6 +323,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             content.title = "속도 제한 초과"
             content.body = "발자취를 남긴다는 건, 주위를 온전히 담아낼 수 있어야 한다는 것."
             content.badge = 1
+            content.sound = UNNotificationSound.default
             alertDot.isHidden = false
             alertDot.alpha = 0
             view.bringSubviewToFront(alertDot)
@@ -354,6 +355,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             content.title = "기록 중지"
             content.body = "어딘가에 머물러 짙은 발자취를 남기시나보군요. 잠시 기록을 중단하겠습니다."
             content.badge = 1
+            content.sound = UNNotificationSound.default
             alertDot.isHidden = false
             alertDot.alpha = 0
             view.bringSubviewToFront(alertDot)
@@ -435,6 +437,9 @@ extension HomeViewController {
     }
     
     func checkForReview() {
+        if UserDefaults.standard.object(forKey: "launchingCount") == nil {
+            UserDefaults.standard.setValue(0, forKey: "launchingCount")
+        }
         lauchingCount = UserDefaults.standard.integer(forKey: "launchingCount")
         if lauchingCount ?? 0 >= 5 {
             SKStoreReviewController.requestReview()

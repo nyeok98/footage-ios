@@ -30,9 +30,9 @@ class Settings_GeneralVC: UIViewController {
             let destinationVC = segue.destination as! Settings_General_PasswordVC
             destinationVC.generalVC = self
             if let sender = sender as? UISwitch {
-                if sender.tag == 1 {
+                if sender.tag == 2 {
                     destinationVC.whereAreYouFrom = "passcode"
-                } else if sender.tag == 2 {
+                } else if sender.tag == 3 {
                     destinationVC.whereAreYouFrom = "faceId"
                 }
             }
@@ -158,8 +158,13 @@ extension Settings_GeneralVC: UNUserNotificationCenterDelegate{
 
         // 1
         var dateComponents = DateComponents()
-        dateComponents.hour = UserDefaults.standard.integer(forKey: "everydayPushHour")
-        dateComponents.minute = UserDefaults.standard.integer(forKey: "everydayPushMinute")
+        if  UserDefaults.standard.object(forKey: "everydayPushHour") != nil {
+            dateComponents.hour = UserDefaults.standard.integer(forKey: "everydayPushHour")
+            dateComponents.minute = UserDefaults.standard.integer(forKey: "everydayPushMinute")
+        } else { // 이거 혹시 업데이트하는 사람들 userdefault값 없이 00시 00분에 울릴까봐 해놨어:)
+            dateComponents.hour = 10
+            dateComponents.minute = 30
+        }
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
 
         // 2

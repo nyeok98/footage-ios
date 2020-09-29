@@ -153,6 +153,7 @@ class BadgeGiver {
             let content = UNMutableNotificationContent()
             content.title = "새로운 배지를 획득하였습니다!"
             content.badge = 0
+            content.sound = UNNotificationSound.default
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let randomIdentifier = UUID().uuidString
