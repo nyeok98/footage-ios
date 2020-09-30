@@ -85,6 +85,9 @@ class Settings_General_ProfileVC: UIViewController {
     func reloadProfileImage() {
         profileView.layer.cornerRadius = profileView.bounds.width / 2.0
         profileView.image = profileImage
+        print(profileView.layer.borderWidth)
+        print(profileView.bounds.width)
+        print(profileView.image!.size)
     }
     
     func alertPhotoAuthorization() {

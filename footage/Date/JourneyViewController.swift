@@ -67,7 +67,7 @@ class JourneyViewController: UIViewController {
     @IBAction func questionPressed(_ sender: UIButton) {
         exampleView = UIImageView(frame: CGRect(x: 0, y: -20, width: K.screenWidth, height: view.bounds.height * 1.05))
         exampleView.contentMode = .scaleToFill
-        exampleView.image = #imageLiteral(resourceName: "journeyExample")
+        exampleView.image = #imageLiteral(resourceName: "JourneyExampleImage")
         view.addSubview(exampleView)
     }
     

@@ -29,7 +29,6 @@
 		6E442F4D24BDDEB00041CAF2 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E442F4C24BDDEB00041CAF2 /* CardCell.swift */; };
 		6E442F5324BEA0FD0041CAF2 /* FL_NameColorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E442F4E24BEA0FB0041CAF2 /* FL_NameColorVC.swift */; };
 		6E442F5424BEA0FD0041CAF2 /* FL_LetsStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E442F4F24BEA0FC0041CAF2 /* FL_LetsStartVC.swift */; };
-		6E442F5524BEA0FD0041CAF2 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E442F5024BEA0FC0041CAF2 /* Report.swift */; };
 		6E442F5624BEA0FD0041CAF2 /* FL_ProfileSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E442F5124BEA0FC0041CAF2 /* FL_ProfileSettingsVC.swift */; };
 		6E442F5F24BEA9CE0041CAF2 /* NanumBarunpenRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E442F5E24BEA6A10041CAF2 /* NanumBarunpenRegular.ttf */; };
 		6E4DE58D249F335700883E7E /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4DE58B249F335700883E7E /* DateManager.swift */; };
@@ -45,7 +44,6 @@
 		6E99A9A82497B4FE00440E2A /* DayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E99A9A72497B4FE00440E2A /* DayData.swift */; };
 		6E99A9AC2497BAE200440E2A /* JourneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E99A9AB2497BAE200440E2A /* JourneyViewController.swift */; };
 		6EB4753C2493B40F00166A1D /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4753B2493B40F00166A1D /* MapCell.swift */; };
-		6EB475452496489000166A1D /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB475442496489000166A1D /* TitleSupplementaryView.swift */; };
 		6ECCBFD624A98B51007B7B5E /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECCBFD524A98B51007B7B5E /* DateConverter.swift */; };
 		6ECCBFD824A9943A007B7B5E /* BadgeSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECCBFD724A9943A007B7B5E /* BadgeSupplementaryView.swift */; };
 		6ECCBFDA24A9C605007B7B5E /* PhotoSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECCBFD924A9C605007B7B5E /* PhotoSelectionVC.swift */; };
@@ -54,6 +52,24 @@
 		6ECCBFE024AB1CF7007B7B5E /* LocationUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECCBFDF24AB1CF7007B7B5E /* LocationUpdate.swift */; };
 		B911617D249A1E2300EFC75F /* MapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B911617C249A1E2300EFC75F /* MapCell.xib */; };
 		B911617F249A36C600EFC75F /* JourneyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B911617E249A36C600EFC75F /* JourneyAnimation.swift */; };
+		B91D8AAD251259AC005525B0 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AA6251259AB005525B0 /* LevelManager.swift */; };
+		B91D8AAE251259AC005525B0 /* PopUpCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = B91D8AA7251259AB005525B0 /* PopUpCard.xib */; };
+		B91D8AAF251259AC005525B0 /* ReportDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AA8251259AB005525B0 /* ReportDetailVC.swift */; };
+		B91D8AB0251259AC005525B0 /* PopUpCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AA9251259AB005525B0 /* PopUpCard.swift */; };
+		B91D8AB1251259AC005525B0 /* BadgeGiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AAA251259AB005525B0 /* BadgeGiver.swift */; };
+		B91D8AB2251259AC005525B0 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AAB251259AB005525B0 /* AlertHelper.swift */; };
+		B91D8AB3251259AC005525B0 /* ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AAC251259AC005525B0 /* ReportVC.swift */; };
+		B91D8AB6251259B7005525B0 /* PasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AB4251259B7005525B0 /* PasswordVC.swift */; };
+		B91D8AB7251259B7005525B0 /* FL_VideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AB5251259B7005525B0 /* FL_VideoVC.swift */; };
+		B91D8AB9251259C1005525B0 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AB8251259C1005525B0 /* SectionHeader.swift */; };
+		B91D8ABD251259CD005525B0 /* Settings_About_PersonalInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8ABA251259CD005525B0 /* Settings_About_PersonalInformationVC.swift */; };
+		B91D8ABE251259CD005525B0 /* Settings_General_PasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8ABB251259CD005525B0 /* Settings_General_PasswordVC.swift */; };
+		B91D8ABF251259CD005525B0 /* Settings_General_ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8ABC251259CD005525B0 /* Settings_General_ProfileVC.swift */; };
+		B91D8AC2251259D9005525B0 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AC0251259D9005525B0 /* Badge.swift */; };
+		B91D8AC3251259D9005525B0 /* PlaceLocalityNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AC1251259D9005525B0 /* PlaceLocalityNumber.swift */; };
+		B91D8AC5251259E2005525B0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AC4251259E2005525B0 /* Constants.swift */; };
+		B91D8AC725125C96005525B0 /* Intro.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B91D8AC625125C96005525B0 /* Intro.mp4 */; };
+		B91D8AC925126005005525B0 /* Settings_General_PushVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AC825126005005525B0 /* Settings_General_PushVC.swift */; };
 		B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */; };
 		B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */; };
 		B9A66FA6248F6BF3001EAF54 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA5248F6BF3001EAF54 /* HomeViewController.swift */; };
@@ -90,7 +106,6 @@
 		6E442F4C24BDDEB00041CAF2 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardCell.swift; path = ../Views/CardCell.swift; sourceTree = "<group>"; };
 		6E442F4E24BEA0FB0041CAF2 /* FL_NameColorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FL_NameColorVC.swift; sourceTree = "<group>"; };
 		6E442F4F24BEA0FC0041CAF2 /* FL_LetsStartVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FL_LetsStartVC.swift; sourceTree = "<group>"; };
-		6E442F5024BEA0FC0041CAF2 /* Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		6E442F5124BEA0FC0041CAF2 /* FL_ProfileSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FL_ProfileSettingsVC.swift; sourceTree = "<group>"; };
 		6E442F5E24BEA6A10041CAF2 /* NanumBarunpenRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBarunpenRegular.ttf; sourceTree = "<group>"; };
 		6E4DE58B249F335700883E7E /* DateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
@@ -106,7 +121,6 @@
 		6E99A9A72497B4FE00440E2A /* DayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DayData.swift; path = footage/Models/DayData.swift; sourceTree = SOURCE_ROOT; };
 		6E99A9AB2497BAE200440E2A /* JourneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyViewController.swift; sourceTree = "<group>"; };
 		6EB4753B2493B40F00166A1D /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
-		6EB475442496489000166A1D /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
 		6ECCBFD524A98B51007B7B5E /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		6ECCBFD724A9943A007B7B5E /* BadgeSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeSupplementaryView.swift; sourceTree = "<group>"; };
 		6ECCBFD924A9C605007B7B5E /* PhotoSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectionVC.swift; sourceTree = "<group>"; };
@@ -117,6 +131,24 @@
 		B62ECEFF6FF5C8333D8221B6 /* Pods-footage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-footage.debug.xcconfig"; path = "Target Support Files/Pods-footage/Pods-footage.debug.xcconfig"; sourceTree = "<group>"; };
 		B911617C249A1E2300EFC75F /* MapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapCell.xib; sourceTree = "<group>"; };
 		B911617E249A36C600EFC75F /* JourneyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyAnimation.swift; sourceTree = "<group>"; };
+		B91D8AA6251259AB005525B0 /* LevelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
+		B91D8AA7251259AB005525B0 /* PopUpCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopUpCard.xib; sourceTree = "<group>"; };
+		B91D8AA8251259AB005525B0 /* ReportDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportDetailVC.swift; sourceTree = "<group>"; };
+		B91D8AA9251259AB005525B0 /* PopUpCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpCard.swift; sourceTree = "<group>"; };
+		B91D8AAA251259AB005525B0 /* BadgeGiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeGiver.swift; sourceTree = "<group>"; };
+		B91D8AAB251259AB005525B0 /* AlertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		B91D8AAC251259AC005525B0 /* ReportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportVC.swift; sourceTree = "<group>"; };
+		B91D8AB4251259B7005525B0 /* PasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordVC.swift; sourceTree = "<group>"; };
+		B91D8AB5251259B7005525B0 /* FL_VideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FL_VideoVC.swift; sourceTree = "<group>"; };
+		B91D8AB8251259C1005525B0 /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
+		B91D8ABA251259CD005525B0 /* Settings_About_PersonalInformationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings_About_PersonalInformationVC.swift; sourceTree = "<group>"; };
+		B91D8ABB251259CD005525B0 /* Settings_General_PasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings_General_PasswordVC.swift; sourceTree = "<group>"; };
+		B91D8ABC251259CD005525B0 /* Settings_General_ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings_General_ProfileVC.swift; sourceTree = "<group>"; };
+		B91D8AC0251259D9005525B0 /* Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		B91D8AC1251259D9005525B0 /* PlaceLocalityNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceLocalityNumber.swift; sourceTree = "<group>"; };
+		B91D8AC4251259E2005525B0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B91D8AC625125C96005525B0 /* Intro.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intro.mp4; sourceTree = SOURCE_ROOT; };
+		B91D8AC825126005005525B0 /* Settings_General_PushVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings_General_PushVC.swift; sourceTree = "<group>"; };
 		B9A66F9E248F6BF3001EAF54 /* footage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = footage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,11 +188,15 @@
 		6E442F5824BEA3120041CAF2 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				B91D8ABA251259CD005525B0 /* Settings_About_PersonalInformationVC.swift */,
+				B91D8ABB251259CD005525B0 /* Settings_General_PasswordVC.swift */,
+				B91D8ABC251259CD005525B0 /* Settings_General_ProfileVC.swift */,
 				B9A66FBD248F70E8001EAF54 /* SettingsViewController.swift */,
 				6E442F3424B2E1370041CAF2 /* Settings_GeneralVC.swift */,
 				6E442F4024B486800041CAF2 /* Settings_NameColorVC.swift */,
 				6E442F3E24B486800041CAF2 /* Settings_DonateVC.swift */,
 				6E442F3F24B486800041CAF2 /* Settings_AboutVC.swift */,
+				B91D8AC825126005005525B0 /* Settings_General_PushVC.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -178,7 +214,13 @@
 				6E31E3AE24AF1CC600C60177 /* PlaceVC.swift */,
 				6E31E3B724B0356400C60177 /* PlaceAnimation.swift */,
 				6ECCBFDD24AB12BF007B7B5E /* PlaceManager.swift */,
-				6E442F5024BEA0FC0041CAF2 /* Report.swift */,
+				B91D8AAB251259AB005525B0 /* AlertHelper.swift */,
+				B91D8AAA251259AB005525B0 /* BadgeGiver.swift */,
+				B91D8AA6251259AB005525B0 /* LevelManager.swift */,
+				B91D8AA9251259AB005525B0 /* PopUpCard.swift */,
+				B91D8AA7251259AB005525B0 /* PopUpCard.xib */,
+				B91D8AA8251259AB005525B0 /* ReportDetailVC.swift */,
+				B91D8AAC251259AC005525B0 /* ReportVC.swift */,
 			);
 			path = Stats;
 			sourceTree = "<group>";
@@ -186,6 +228,7 @@
 		6E442F5A24BEA3CC0041CAF2 /* Date */ = {
 			isa = PBXGroup;
 			children = (
+				B91D8AB8251259C1005525B0 /* SectionHeader.swift */,
 				B9AC35AA24910FE300B5CBBD /* DateViewController.swift */,
 				6EB4753B2493B40F00166A1D /* MapCell.swift */,
 				B911617C249A1E2300EFC75F /* MapCell.xib */,
@@ -198,7 +241,6 @@
 				6E442F4C24BDDEB00041CAF2 /* CardCell.swift */,
 				6ECCBFD924A9C605007B7B5E /* PhotoSelectionVC.swift */,
 				6E3BBB5224A1EB2100FA0143 /* PhotoCell.swift */,
-				6EB475442496489000166A1D /* TitleSupplementaryView.swift */,
 				6ECCBFD724A9943A007B7B5E /* BadgeSupplementaryView.swift */,
 			);
 			path = Date;
@@ -207,6 +249,8 @@
 		6E442F5B24BEA44D0041CAF2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B91D8AB5251259B7005525B0 /* FL_VideoVC.swift */,
+				B91D8AB4251259B7005525B0 /* PasswordVC.swift */,
 				6E442F5124BEA0FC0041CAF2 /* FL_ProfileSettingsVC.swift */,
 				6E6F0FBF24A0847300F49152 /* ProfileSelectionVC.swift */,
 				6E6F0FC524A0903800F49152 /* ProfileEditVC.swift */,
@@ -222,6 +266,7 @@
 		6E95A95624AB3F450085069F /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				B91D8AC4251259E2005525B0 /* Constants.swift */,
 				6E31E3AB24AC4BAB00C60177 /* DrawOnMap.swift */,
 				6ECCBFD524A98B51007B7B5E /* DateConverter.swift */,
 			);
@@ -257,6 +302,7 @@
 		B9A66FA0248F6BF3001EAF54 /* footage */ = {
 			isa = PBXGroup;
 			children = (
+				B91D8AC625125C96005525B0 /* Intro.mp4 */,
 				6E442F5B24BEA44D0041CAF2 /* Home */,
 				6E442F5924BEA36B0041CAF2 /* Stats */,
 				6E442F5A24BEA3CC0041CAF2 /* Date */,
@@ -277,6 +323,8 @@
 		B9A66FB5248F6C8D001EAF54 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B91D8AC0251259D9005525B0 /* Badge.swift */,
+				B91D8AC1251259D9005525B0 /* PlaceLocalityNumber.swift */,
 				6E4DE58C249F335700883E7E /* Footstep.swift */,
 				6E99A9A72497B4FE00440E2A /* DayData.swift */,
 				6E31E3A324AB49B900C60177 /* Month.swift */,
@@ -372,7 +420,9 @@
 				B9A66FAE248F6BF6001EAF54 /* LaunchScreen.storyboard in Resources */,
 				B9A66FAB248F6BF6001EAF54 /* Assets.xcassets in Resources */,
 				6E6F0FCA24A1014800F49152 /* NanumBarunpenBold.ttf in Resources */,
+				B91D8AAE251259AC005525B0 /* PopUpCard.xib in Resources */,
 				6E442F5F24BEA9CE0041CAF2 /* NanumBarunpenRegular.ttf in Resources */,
+				B91D8AC725125C96005525B0 /* Intro.mp4 in Resources */,
 				B9A66FA9248F6BF3001EAF54 /* Main.storyboard in Resources */,
 				B911617D249A1E2300EFC75F /* MapCell.xib in Resources */,
 			);
@@ -440,28 +490,38 @@
 				6ECCBFDE24AB12BF007B7B5E /* PlaceManager.swift in Sources */,
 				6E442F4D24BDDEB00041CAF2 /* CardCell.swift in Sources */,
 				6E31E3A424AB49B900C60177 /* Month.swift in Sources */,
+				B91D8AAF251259AC005525B0 /* ReportDetailVC.swift in Sources */,
 				B911617F249A36C600EFC75F /* JourneyAnimation.swift in Sources */,
 				6E442F4124B486810041CAF2 /* Settings_DonateVC.swift in Sources */,
 				B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */,
-				6E442F5524BEA0FD0041CAF2 /* Report.swift in Sources */,
 				6E95A95524AB3F350085069F /* Color.swift in Sources */,
 				6E31E3B224AF1CC600C60177 /* PlaceVC.swift in Sources */,
 				6E31E3B124AF1CC600C60177 /* LevelVC.swift in Sources */,
 				6ECCBFDC24AB12A4007B7B5E /* ColorManager.swift in Sources */,
 				B9AC35B32491CAD700B5CBBD /* HomeAnimation.swift in Sources */,
+				B91D8AB3251259AC005525B0 /* ReportVC.swift in Sources */,
 				6E99A9AC2497BAE200440E2A /* JourneyViewController.swift in Sources */,
+				B91D8AC2251259D9005525B0 /* Badge.swift in Sources */,
 				6E99A9A82497B4FE00440E2A /* DayData.swift in Sources */,
 				6ECCBFDA24A9C605007B7B5E /* PhotoSelectionVC.swift in Sources */,
+				B91D8ABD251259CD005525B0 /* Settings_About_PersonalInformationVC.swift in Sources */,
+				B91D8AB9251259C1005525B0 /* SectionHeader.swift in Sources */,
+				B91D8AB0251259AC005525B0 /* PopUpCard.swift in Sources */,
 				6E442F4224B486810041CAF2 /* Settings_AboutVC.swift in Sources */,
+				B91D8AC3251259D9005525B0 /* PlaceLocalityNumber.swift in Sources */,
 				B9AC35AB24910FE300B5CBBD /* DateViewController.swift in Sources */,
+				B91D8ABE251259CD005525B0 /* Settings_General_PasswordVC.swift in Sources */,
+				B91D8ABF251259CD005525B0 /* Settings_General_ProfileVC.swift in Sources */,
 				6E442F4524BD9ACC0041CAF2 /* PhotoCollectionLayout.swift in Sources */,
 				6E31E3AA24AC39DD00C60177 /* Journey.swift in Sources */,
 				6E31E3BC24B052A800C60177 /* ColoredJourneyVC.swift in Sources */,
 				6ECCBFD624A98B51007B7B5E /* DateConverter.swift in Sources */,
 				6E442F5624BEA0FD0041CAF2 /* FL_ProfileSettingsVC.swift in Sources */,
 				6EB4753C2493B40F00166A1D /* MapCell.swift in Sources */,
-				6EB475452496489000166A1D /* TitleSupplementaryView.swift in Sources */,
+				B91D8AAD251259AC005525B0 /* LevelManager.swift in Sources */,
+				B91D8AB6251259B7005525B0 /* PasswordVC.swift in Sources */,
 				6E442F4724BD9BDE0041CAF2 /* GroupCell.swift in Sources */,
+				B91D8AB2251259AC005525B0 /* AlertHelper.swift in Sources */,
 				6E442F4324B486810041CAF2 /* Settings_NameColorVC.swift in Sources */,
 				6E442F3524B2E1370041CAF2 /* Settings_GeneralVC.swift in Sources */,
 				6E442F3D24B44C620041CAF2 /* Asset.swift in Sources */,
@@ -470,12 +530,16 @@
 				6E442F5324BEA0FD0041CAF2 /* FL_NameColorVC.swift in Sources */,
 				6E6F0FC424A0878500F49152 /* PhotoCollectionVC.swift in Sources */,
 				6E800BF3249DDC3F007860EE /* Distance.swift in Sources */,
+				B91D8AC5251259E2005525B0 /* Constants.swift in Sources */,
 				B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */,
 				6E3BBB5324A1EB2100FA0143 /* PhotoCell.swift in Sources */,
 				6E31E3AC24AC4BAB00C60177 /* DrawOnMap.swift in Sources */,
+				B91D8AB1251259AC005525B0 /* BadgeGiver.swift in Sources */,
 				6ECCBFD824A9943A007B7B5E /* BadgeSupplementaryView.swift in Sources */,
+				B91D8AB7251259B7005525B0 /* FL_VideoVC.swift in Sources */,
 				6E31E3B624AF1CD500C60177 /* Buttons.swift in Sources */,
 				6E31E3B424AF1CC600C60177 /* ColorVC.swift in Sources */,
+				B91D8AC925126005005525B0 /* Settings_General_PushVC.swift in Sources */,
 				B9A66FBE248F70E8001EAF54 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -622,6 +686,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = footage/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -629,8 +694,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cosmos1.footage;
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.el.fooage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -643,6 +708,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = footage/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -650,8 +716,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cosmos1.footage;
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.el.fooage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

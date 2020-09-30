@@ -10,7 +10,7 @@ import UIKit
 class Settings_GeneralVC: UIViewController {
     
     let cellIdentifier = "generalCell"
-    let cellContent = ["내 정보","암호잠금", "FaceID 및 TouchID", "푸시 알림"]
+    let cellContent = ["내 정보","알림 설정", "암호잠금", "FaceID 및 TouchID"]
     
     @IBOutlet weak var tableView: UITableView!
     @IBAction func backButtonPressed(_ sender: UIButton) {
@@ -47,15 +47,13 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        if indexPath.row == 0 {
+        if indexPath.row == 0 || indexPath.row == 1 {
             cell.accessoryType = .disclosureIndicator; cell.selectionStyle = .default
         } else {
             let switchView = UISwitch(frame: .zero)
-            if indexPath.row == 1 && (UserDefaults.standard.string(forKey: "UserState") == "hasPassword" || UserDefaults.standard.string(forKey: "UserState") == "hasBioId") {
+            if indexPath.row == 2 && (UserDefaults.standard.string(forKey: "UserState") == "hasPassword" || UserDefaults.standard.string(forKey: "UserState") == "hasBioId") {
                 switchView.setOn(true, animated: true)
-            } else if indexPath.row == 2 && UserDefaults.standard.string(forKey: "UserState") == "hasBioId" {
-                switchView.setOn(true, animated: true)
-            } else if indexPath.row == 3 && UserDefaults.standard.bool(forKey: "wantPush") {
+            } else if indexPath.row == 3 && UserDefaults.standard.string(forKey: "UserState") == "hasBioId" {
                 switchView.setOn(true, animated: true)
             } else { switchView.setOn(false, animated: true) }
             switchView.tag = indexPath.row // for detect which row switch Changed
@@ -73,6 +71,8 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
             performSegue(withIdentifier: "goToGeneralProfileSettings", sender: self)
+        } else if indexPath.row == 1 {
+            performSegue(withIdentifier: "goToGeneralPushSettings", sender: self)
         }
     }
     
@@ -82,7 +82,7 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
     
     @objc func switchChanged(_ sender : UISwitch!){
         
-        if sender.tag == 1 {
+        if sender.tag == 2 {
             if sender.isOn { // remove password
                 performSegue(withIdentifier: "goToPasswordSettings", sender: sender)
             } else if !sender.isOn {
@@ -107,7 +107,7 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        if sender.tag == 2 {
+        if sender.tag == 3 {
             if sender.isOn { // turn on bio id
                 if let cellObj =  self.tableView.cellForRow(at: IndexPath(row: sender.tag-1, section: 0)) {
                     let switchView = cellObj.accessoryView as! UISwitch
@@ -126,17 +126,17 @@ extension Settings_GeneralVC: UITableViewDelegate, UITableViewDataSource {
             
         }
         
-        if sender.tag == 3 {
-            if sender.isOn {
-                Settings_GeneralVC.registerNoti()
-                Settings_GeneralVC.noti_everydayAlert()
-                UserDefaults.standard.setValue(true, forKey: "wantPush")
-            } else if !sender.isOn {
-                let center = UNUserNotificationCenter.current()
-                center.removeAllPendingNotificationRequests()
-                UserDefaults.standard.setValue(false, forKey: "wantPush")
-            }
-        }
+//        if sender.tag == 3 {
+//            if sender.isOn {
+//                Settings_GeneralVC.registerNoti()
+//                Settings_GeneralVC.noti_everydayAlert()
+//                UserDefaults.standard.setValue(true, forKey: "wantPush")
+//            } else if !sender.isOn {
+//                let center = UNUserNotificationCenter.current()
+//                center.removeAllPendingNotificationRequests()
+//                UserDefaults.standard.setValue(false, forKey: "wantPush")
+//            }
+//        }
     }
     
 }
@@ -158,14 +158,15 @@ extension Settings_GeneralVC: UNUserNotificationCenterDelegate{
 
         // 1
         var dateComponents = DateComponents()
-        dateComponents.hour = 10
-        dateComponents.minute = 30
+        dateComponents.hour = UserDefaults.standard.integer(forKey: "everydayPushHour")
+        dateComponents.minute = UserDefaults.standard.integer(forKey: "everydayPushMinute")
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
 
         // 2
         let content = UNMutableNotificationContent()
-        content.title = "오늘도 세상에 당신의 발자취를 남겨볼까요?"
+        content.body = "오늘도 세상에 당신의 발자취를 남겨볼까요?"
         content.badge = 1
+        content.sound = UNNotificationSound.default
 
         let randomIdentifier = UUID().uuidString
         let request = UNNotificationRequest(identifier: randomIdentifier, content: content, trigger: trigger)
@@ -183,13 +184,16 @@ extension Settings_GeneralVC: UNUserNotificationCenterDelegate{
         // 1
         var dateComponents = DateComponents()
         dateComponents.day = 1
+        dateComponents.hour = 00
+        dateComponents.minute = 00
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
 
         // 2
         let content = UNMutableNotificationContent()
-        content.title = "새로운 달의 시작이에요. 월간 리포트가 초기화 되었습니다."
-        content.subtitle = "지난 기록은 월간 리포트에 잘 보관되었습니다."
+        content.title = "새로운 달의 시작이에요."
+        content.body = "월간 리포트가 초기화되었습니다. 지난 달 기록은 '지난 기록 보기'에 잘 보관되었습니다:-)"
         content.badge = 1
+        content.sound = UNNotificationSound.default
 
         let randomIdentifier = UUID().uuidString
         let request = UNNotificationRequest(identifier: randomIdentifier, content: content, trigger: trigger)

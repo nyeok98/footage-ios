@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import StoreKit
 import UserNotifications
 import EFCountingLabel
 
@@ -30,7 +31,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var currentColorIndicator: UIImageView!
     @IBOutlet weak var selectedButtonStackView: UIStackView!
     @IBOutlet weak var MainButton: UIButton!
-    @IBOutlet weak var startAlert: UIImageView!
+    @IBOutlet weak var alertDot: UIImageView!
     @IBOutlet weak var secondButton: UIButton!
     @IBOutlet weak var thirdButton: UIButton!
     @IBOutlet weak var fourthButton: UIButton!
@@ -75,6 +76,7 @@ class HomeViewController: UIViewController {
     var noSpeedCounter: Int = 0
     var isWalking: Int = 0
     var timer = Timer()
+    var lauchingCount: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,10 +86,10 @@ class HomeViewController: UIViewController {
         configureInitialMapView()
         setExampleImageView()
         if UIApplication.shared.applicationIconBadgeNumber == 0 {
-            startAlert.isHidden = true
+            alertDot.isHidden = true
         } else {
-            startAlert.isHidden = false
-            view.bringSubviewToFront(startAlert)
+            alertDot.isHidden = false
+            view.bringSubviewToFront(alertDot)
         }
     }
     
@@ -105,22 +107,29 @@ class HomeViewController: UIViewController {
             HomeViewController.distanceToday = DateManager.loadDistance(total: false)
             HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
             UIApplication.shared.applicationIconBadgeNumber = 0
-            startAlert.isHidden = true
+            alertDot.isHidden = true
             let status = CLLocationManager.authorizationStatus()
             if status == .notDetermined || status == .denied {
                 alertForAuthorization()
             } else {
                 if UserDefaults.standard.bool(forKey: "startedBefore") == false {
-                    UserDefaults.standard.setValue(true, forKey: "startedBefore")
-                    UserDefaults.standard.setValue(true, forKey: "wantPush")
+                    setUserDefaults()
                     LevelManager.firstLaunch()
                     BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "starter_level", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
-                    Settings_GeneralVC.noti_everydayAlert()
                     Settings_GeneralVC.noti_everyMonthAlert()
+                    Settings_GeneralVC.noti_everydayAlert()
                 }
+                checkForReview() 
                 HomeAnimation.homeStartAnimation(self)
                 HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
                 trackMapView()
+                
+                let center = UNUserNotificationCenter.current()
+                center.getPendingNotificationRequests(completionHandler: { requests in
+                    for request in requests {
+                        print(request)
+                    }
+                })
             }
             
         } else { // FROM STOP TO START
@@ -191,7 +200,6 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     
     // DID UPDATE
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("didupdate")
         nextLocation = locations[0]
         checkForMovement(location: nextLocation)
         guard let nextLocation = nextLocation else { return }
@@ -310,18 +318,17 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     }
     
     func noti_recordStoppedBySpeed() {
-        if UserDefaults.standard.bool(forKey: "wantPush") {
+        if UserDefaults.standard.bool(forKey: "etcPush") {
             let content = UNMutableNotificationContent()
             content.title = "속도 제한 초과"
             content.body = "발자취를 남긴다는 건, 주위를 온전히 담아낼 수 있어야 한다는 것."
             content.badge = 1
-            startAlert.isHidden = false
-            startAlert.alpha = 0
-            view.bringSubviewToFront(startAlert)
+            alertDot.isHidden = false
+            alertDot.alpha = 0
+            view.bringSubviewToFront(alertDot)
             UIView.animate(withDuration: 1) {
-                self.startAlert.alpha = 1
+                self.alertDot.alpha = 1
             }
-            
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let randomIdentifier = UUID().uuidString
             let request = UNNotificationRequest(identifier: randomIdentifier, content: content, trigger: trigger)
@@ -342,16 +349,16 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     }
     
     func noti_recordStoppedByNoSpeed() {
-        if UserDefaults.standard.bool(forKey: "wantPush") {
+        if UserDefaults.standard.bool(forKey: "etcPush") {
             let content = UNMutableNotificationContent()
             content.title = "기록 중지"
             content.body = "어딘가에 머물러 짙은 발자취를 남기시나보군요. 잠시 기록을 중단하겠습니다."
             content.badge = 1
-            startAlert.isHidden = false
-            startAlert.alpha = 0
-            view.bringSubviewToFront(startAlert)
+            alertDot.isHidden = false
+            alertDot.alpha = 0
+            view.bringSubviewToFront(alertDot)
             UIView.animate(withDuration: 1) {
-                self.startAlert.alpha = 1
+                self.alertDot.alpha = 1
             }
             
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
@@ -421,10 +428,29 @@ extension HomeViewController {
     
     func setExampleImageView() {
         exampleImageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: -10), size: CGSize(width: K.screenWidth, height: K.screenHeight*1.1)))
-        exampleImageView.image = #imageLiteral(resourceName: "home_example")
+        exampleImageView.image = #imageLiteral(resourceName: "HomeExampleImage")
         view.addSubview(exampleImageView)
         view.bringSubviewToFront(exampleImageView)
         exampleImageView.isHidden = true
+    }
+    
+    func checkForReview() {
+        lauchingCount = UserDefaults.standard.integer(forKey: "launchingCount")
+        if lauchingCount ?? 0 >= 5 {
+            SKStoreReviewController.requestReview()
+            UserDefaults.standard.set(0, forKey: "launchingCount")
+        } else {
+            UserDefaults.standard.set((lauchingCount ?? 0) + 1, forKey: "launchingCount")
+        }
+    }
+    
+    func setUserDefaults() {
+        UserDefaults.standard.setValue(true, forKey: "startedBefore")
+        UserDefaults.standard.setValue(0, forKey: "launchingCount")
+        UserDefaults.standard.setValue(true, forKey: "everydayPush")
+        UserDefaults.standard.setValue(true, forKey: "etcPush")
+        UserDefaults.standard.setValue(10, forKey: "everydayPushHour")
+        UserDefaults.standard.setValue(30, forKey: "everydayPushMinute")
     }
 }
 
