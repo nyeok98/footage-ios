@@ -31,7 +31,7 @@ class BadgeGiver {
                 }
             }
             return
-        
+            
         case 10:
             if HomeViewController.distanceTotal/1000 >= 50 {
                 if !LevelManager.checkBadge(badgeName: "total_50") {
@@ -90,6 +90,79 @@ class BadgeGiver {
         
         
         
+    }
+    
+    static func annotationCheck(view: UIView, _ annotationNumber: Int) {
+        switch UserDefaults.standard.integer(forKey: "minimumTotalRecord") {
+        case 0:
+            if annotationNumber >= 10 {
+                if !LevelManager.checkBadge(badgeName: "10th_record") {
+                    LevelManager.appendBadge(badge: Badge(type: "record", imageName: "10th_record", detail: "자 공간에 자신을 담아가는 기분은 어떤가요? 이제 시작이지만 한 번 돌아볼때가 되었어요."))
+                    UserDefaults.standard.setValue(10, forKey: "minimumTotalRecord")
+                    gotBadge(view: view, badge: Badge(type: "record", imageName: "10th_record", detail: "자 공간에 자신을 담아가는 기분은 어떤가요? 이제 시작이지만 한 번 돌아볼때가 되었어요."))
+                }
+            }
+            return
+        case 10:
+            if annotationNumber >= 20 {
+                if !LevelManager.checkBadge(badgeName: "20th_record") {
+                    LevelManager.appendBadge(badge: Badge(type: "record", imageName: "20th_record", detail: "차츰 공간에 당신을 담아가는 것이 익숙해져 가고 있지요. 그렇게 우린 조금 더 우리가 서 있는 이 땅을 추억하고 사랑할 거예요."))
+                    UserDefaults.standard.setValue(20, forKey: "minimumTotalRecord")
+                    gotBadge(view: view, badge: Badge(type: "record", imageName: "20th_record", detail: "차츰 공간에 당신을 담아가는 것이 익숙해져 가고 있지요. 그렇게 우린 조금 더 우리가 서 있는 이 땅을 추억하고 사랑할 거예요."))
+                }
+            }
+            return
+        case 20:
+            if annotationNumber >= 50 {
+                if !LevelManager.checkBadge(badgeName: "50th_record") {
+                    LevelManager.appendBadge(badge: Badge(type: "record", imageName: "50th_record", detail: "50개. 벌써 백의 반이에요. 언젠가 100개의 다른 공간이 저마다 다른 당신의 추억을 품고 있다면 얼마나 근사할까요."))
+                    UserDefaults.standard.setValue(50, forKey: "minimumTotalRecord")
+                    gotBadge(view: view, badge: Badge(type: "record", imageName: "50th_record", detail: "50개. 벌써 백의 반이에요. 언젠가 100개의 다른 공간이 저마다 다른 당신의 추억을 품고 있다면 얼마나 근사할까요."))
+                }
+            }
+            return
+        case 50:
+            if annotationNumber >= 100 {
+                if !LevelManager.checkBadge(badgeName: "100th_record") {
+                    LevelManager.appendBadge(badge: Badge(type: "record", imageName: "100th_record", detail: "100개의 기록. 100개의 다른 길과 100개의 다른 생각과 100개의 다른 공기가 오롯이 담긴 기록들."))
+                    UserDefaults.standard.setValue(100, forKey: "minimumTotalRecord")
+                    gotBadge(view: view, badge: Badge(type: "record", imageName: "100th_record", detail: "100개의 기록. 100개의 다른 길과 100개의 다른 생각과 100개의 다른 공기가 오롯이 담긴 기록들."))
+                }
+            }
+            return
+        case 100:
+            if annotationNumber >= 200 {
+                if !LevelManager.checkBadge(badgeName: "200th_record") {
+                    LevelManager.appendBadge(badge: Badge(type: "record", imageName: "200th_record", detail: "또 하나의 100번을 지났어요. 다음은 조금 많이 남았을 수도 있지만, 이쯤에서 습관이 된 당신의 공간에 대한 사랑이라면 충분합니다."))
+                    UserDefaults.standard.setValue(200, forKey: "minimumTotalRecord")
+                    gotBadge(view: view, badge: Badge(type: "record", imageName: "200th_record", detail: "또 하나의 100번을 지났어요. 다음은 조금 많이 남았을 수도 있지만, 이쯤에서 습관이 된 당신의 공간에 대한 사랑이라면 충분합니다."))
+                }
+            }
+            return
+        case 200:
+            if annotationNumber >= 500 {
+                if !LevelManager.checkBadge(badgeName: "500th_record") {
+                    LevelManager.appendBadge(badge: Badge(type: "record", imageName: "500th_record", detail: "수많은 당신의 이야기를 담은 공간들, 이제 당신이 담기지 않은 공간을 찾기는 힘들 수도 있겠어요!"))
+                    UserDefaults.standard.setValue(500, forKey: "minimumTotalRecord")
+                    gotBadge(view: view, badge: Badge(type: "record", imageName: "500th_record", detail: "수많은 당신의 이야기를 담은 공간들, 이제 당신이 담기지 않은 공간을 찾기는 힘들 수도 있겠어요!"))
+                }
+            }
+            return
+        case 500:
+            if annotationNumber >= 1000 {
+                if !LevelManager.checkBadge(badgeName: "1000th_record") {
+                    LevelManager.appendBadge(badge: Badge(type: "record", imageName: "1000th_record", detail: "이 세상에 당신의 흔적은 결국 1000개나 남았어요. 이곳, 저곳 어디에나 담겨있는 당신을 추억할 일 만 남았을 거예요."))
+                    UserDefaults.standard.setValue(1000, forKey: "minimumTotalRecord")
+                    gotBadge(view: view, badge: Badge(type: "record", imageName: "1000th_record", detail: "이 세상에 당신의 흔적은 결국 1000개나 남았어요. 이곳, 저곳 어디에나 담겨있는 당신을 추억할 일 만 남았을 거예요."))
+                }
+            }
+            return
+        case 1000:
+            return
+            
+        default:
+            return
+        }
     }
     
     static func cityCheck(view: UIView) {
@@ -158,12 +231,12 @@ class BadgeGiver {
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let randomIdentifier = UUID().uuidString
             let request = UNNotificationRequest(identifier: randomIdentifier, content: content, trigger: trigger)
-
+            
             // 3
             UNUserNotificationCenter.current().add(request) { error in
-              if error != nil {
-                print("something went wrong")
-              }
+                if error != nil {
+                    print("something went wrong")
+                }
             }
         }
     }
@@ -173,14 +246,14 @@ extension UIView {
     enum GlowEffect: Float {
         case small = 0.4, normal = 2, big = 30
     }
-
+    
     func doGlowAnimation(withColor color: UIColor, withEffect effect: GlowEffect = .big) {
         layer.masksToBounds = false
         layer.shadowColor = color.cgColor
         layer.shadowRadius = 30
         layer.shadowOpacity = 1
         layer.shadowOffset = .zero
-
+        
         let glowAnimation = CABasicAnimation(keyPath: "shadowRadius")
         glowAnimation.fromValue = 0
         glowAnimation.toValue = effect.rawValue

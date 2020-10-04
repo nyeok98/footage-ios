@@ -28,6 +28,7 @@ class JourneyViewController: UIViewController {
     var journeyManager: JourneyManager! = nil
     var dateVC: DateViewController! = nil
     var exampleView: UIImageView! = nil
+    var annotationNumber: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,12 +105,15 @@ class JourneyViewController: UIViewController {
     }
     
     @IBAction func addPressed(_ sender: UIButton) {
+        let realm = try! Realm()
         let footstepNumber = Int(slider.value)
         let footstep = journeyManager.journey.footsteps[footstepNumber]
         let newAnnotation = FootAnnotation(footstep: footstep, number: footstepNumber)
         mainMap.addAnnotation(newAnnotation)
         DrawOnMap.moveCenterTo(footstep.coordinate, on: mainMap, centerMark: centerMark)
         journeyManager.prepareNewFootstep(footstepNumber: footstepNumber, annotation: newAnnotation)
+        annotationNumber = Array(realm.objects(Footstep.self)).filter({(footstep) -> Bool in !footstep.notes.isEmpty }).count
+        BadgeGiver.annotationCheck(view: view, annotationNumber ?? 0)
     }
     
     @IBAction func removePressed(_ sender: UIButton) {

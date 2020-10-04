@@ -58,6 +58,11 @@ class PlaceVC: UIViewController {
         thirdButton.isUserInteractionEnabled = true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let placeDetailVC = segue.destination as! Place_DetailVC
+        placeDetailVC.ranking = ranking
+    }
+    
     @IBAction func firstplaceButtonPressed(_ sender: UIButton) {
         PlaceAnimation.firstIsLarge(placeVC: self)
     }

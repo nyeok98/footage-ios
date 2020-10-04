@@ -61,6 +61,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else if userState == nil { // first launch
             UserDefaults.standard.set("", forKey: "todayBadge")
             UserDefaults.standard.set(0, forKey: "minimumTotalDistance")
+            UserDefaults.standard.set(0, forKey: "minimumTotalRecord")
             UserDefaults.standard.set(false, forKey: "startedBefore")
             UserDefaults.standard.set("노란색", forKey: "#EADE4Cff")
             UserDefaults.standard.set("분홍색", forKey: "#F5A997ff")

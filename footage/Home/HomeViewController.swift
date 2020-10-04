@@ -119,7 +119,7 @@ class HomeViewController: UIViewController {
                     Settings_GeneralVC.noti_everyMonthAlert()
                     Settings_GeneralVC.noti_everydayAlert()
                 }
-                checkForReview() 
+                checkForUD() //set UserDafaults when App is updated and need to set new UD
                 HomeAnimation.homeStartAnimation(self)
                 HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
                 trackMapView()
@@ -290,12 +290,12 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         if let overlayWithColor = overlay as? PolylineWithColor {
             let polylineView = MKPolylineRenderer(overlay: overlay)
             polylineView.strokeColor = overlayWithColor.color
-            polylineView.lineWidth = 10
+            polylineView.lineWidth = 8
             return polylineView
         } else {
             let polylineView = MKPolylineRenderer(overlay: overlay)
             polylineView.strokeColor = UIColor(hex: HomeViewController.selectedColor)
-            polylineView.lineWidth = 10
+            polylineView.lineWidth = 8
             return polylineView
         }
     }
@@ -436,9 +436,12 @@ extension HomeViewController {
         exampleImageView.isHidden = true
     }
     
-    func checkForReview() {
+    func checkForUD() {
         if UserDefaults.standard.object(forKey: "launchingCount") == nil {
-            UserDefaults.standard.setValue(0, forKey: "launchingCount")
+            UserDefaults.standard.set(0, forKey: "launchingCount")
+        }
+        if UserDefaults.standard.object(forKey: "minimumTotalRecord") == nil {
+            UserDefaults.standard.set(0, forKey: "minimumTotalRecord")
         }
         lauchingCount = UserDefaults.standard.integer(forKey: "launchingCount")
         if lauchingCount ?? 0 >= 5 {

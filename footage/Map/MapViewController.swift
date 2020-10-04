@@ -186,7 +186,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         let overlayWithColor = overlay as! PolylineWithColor
         let polylineView = MKPolylineRenderer(overlay: overlay)
         polylineView.strokeColor = overlayWithColor.color
-        polylineView.lineWidth = 10
+        polylineView.lineWidth = 8
         return polylineView
     }
     

@@ -101,6 +101,7 @@ class JourneyManager {
         if journey.footsteps[footstepNumber].photos.isEmpty {
             view.isUserInteractionEnabled = true
             defaultImage.image = #imageLiteral(resourceName: "emptyPhotoBox")
+            defaultImage.contentMode = .scaleAspectFill
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToSelection)))
             view.addSubview(defaultImage)
         }
