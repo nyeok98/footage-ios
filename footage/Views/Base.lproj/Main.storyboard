@@ -667,25 +667,25 @@
                                 <rect key="frame" x="41" y="272" width="290" height="45"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="currentColorIndicator" translatesAutoresizingMaskIntoConstraints="NO" id="iBp-E4-sGE" userLabel="Indicator">
-                                        <rect key="frame" x="36.666666666666671" y="21.333333333333314" width="20" height="17"/>
+                                        <rect key="frame" x="35.333333333333329" y="21.333333333333314" width="22.333333333333329" height="17"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cb2-wI-sHX">
-                                        <rect key="frame" x="20" y="-3.6666666666666856" width="53" height="21.666666666666668"/>
+                                        <rect key="frame" x="17" y="-2" width="59" height="20"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZxM-lk-4Xt">
-                                                <rect key="frame" x="0.0" y="0.0" width="6.333333333333333" height="21.666666666666668"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="7.333333333333333" height="20"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="노랑색" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3Z-yn-IUz">
-                                                <rect key="frame" x="6.3333333333333286" y="0.0" width="40.333333333333336" height="21.666666666666668"/>
+                                                <rect key="frame" x="7.3333333333333286" y="0.0" width="44.333333333333336" height="20"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSD-lM-YEx">
-                                                <rect key="frame" x="46.666666666666671" y="0.0" width="6.3333333333333357" height="21.666666666666668"/>
+                                                <rect key="frame" x="51.666666666666671" y="0.0" width="7.3333333333333357" height="20"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -707,21 +707,21 @@
                                 <rect key="frame" x="35" y="54" width="262.66666666666669" height="195"/>
                                 <subviews>
                                     <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="오늘까지" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="108.5" translatesAutoresizingMaskIntoConstraints="NO" id="H72-wm-f5e">
-                                        <rect key="frame" x="0.0" y="0.0" width="108.33333333333333" height="65"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="91" height="65"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="당신이 새로 남긴" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="208" translatesAutoresizingMaskIntoConstraints="NO" id="BJx-zr-y7Y">
-                                        <rect key="frame" x="0.0" y="65" width="208.33333333333334" height="65"/>
+                                        <rect key="frame" x="0.0" y="65" width="231.66666666666666" height="65"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="발자취" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="82.5" translatesAutoresizingMaskIntoConstraints="NO" id="OeL-aW-bTF">
-                                        <rect key="frame" x="0.0" y="130" width="82.333333333333329" height="65"/>
+                                        <rect key="frame" x="0.0" y="130" width="91" height="65"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
@@ -730,16 +730,16 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="iGZ-I2-TSG" userLabel="DistanceButton">
-                                <rect key="frame" x="123.33333333333333" y="200.33333333333337" width="211.66666666666669" height="127"/>
+                                <rect key="frame" x="108" y="200.33333333333337" width="227" height="127"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXz-8V-14k" userLabel="Distance">
-                                        <rect key="frame" x="0.0" y="0.0" width="211.66666666666666" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="227" height="64"/>
                                         <subviews>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vtI-px-9ux">
                                                 <rect key="frame" x="0.0" y="0.0" width="158.33333333333334" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m0H-qt-p6W" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                                        <rect key="frame" x="60.333333333333329" y="-12.333333333333343" width="94.999999999999986" height="83"/>
+                                                        <rect key="frame" x="46.666666666666664" y="-9" width="108.66666666666669" height="76"/>
                                                         <color key="tintColor" systemColor="linkColor"/>
                                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="65"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -754,7 +754,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ak2-5v-9Pu">
-                                                <rect key="frame" x="158.33333333333337" y="0.0" width="53.333333333333343" height="64"/>
+                                                <rect key="frame" x="158.33333333333331" y="0.0" width="68.666666666666686" height="64"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="50"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <nil key="highlightedColor"/>
@@ -762,7 +762,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c38-vy-blr" userLabel="StartButton">
-                                        <rect key="frame" x="9.6666666666666714" y="63.999999999999972" width="202" height="63"/>
+                                        <rect key="frame" x="25" y="63.999999999999972" width="202" height="63"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vwq-rP-WTh">
                                                 <rect key="frame" x="0.0" y="0.0" width="58" height="63"/>
