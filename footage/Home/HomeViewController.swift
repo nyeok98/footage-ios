@@ -36,6 +36,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var thirdButton: UIButton!
     @IBOutlet weak var fourthButton: UIButton!
     @IBOutlet weak var fifthButton: UIButton!
+    @IBOutlet weak var alwaysOnSwitch: UISwitch!
+    @IBOutlet weak var extendedStartButtonView: UIView!
+    @IBOutlet weak var extendedStartButtonImageView: UIImageView!
     
     @IBAction func questionCircle(_ sender: UIButton) {
         exampleImageView.isHidden = true
@@ -45,6 +48,10 @@ class HomeViewController: UIViewController {
         let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
         keyWindow?.addSubview(exampleImageView)
         keyWindow?.bringSubviewToFront(exampleImageView)
+    }
+    @IBAction func extendClosePressed(_ sender: Any) {
+        extendedStartButtonView.isHidden = true
+        view.sendSubviewToBack(extendedStartButtonView)
     }
     
     @IBAction func categoryPressed(_ sender: UIButton) {
@@ -80,11 +87,13 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkForUD() //set UserDafaults which doesn't related to StartButton when App is updated and need to set new UD
         setDelegates()
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
         configureInitialMapView()
         setExampleImageView()
+        alwaysOnSwitch.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
         if UIApplication.shared.applicationIconBadgeNumber == 0 {
             alertDot.isHidden = true
         } else {
@@ -100,7 +109,15 @@ class HomeViewController: UIViewController {
             HomeViewController.locationManager.requestWhenInUseAuthorization()
         }
     }
-    
+    @IBAction func startButtonLongPressed(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            self.extendedStartButtonView.isHidden = false
+            self.view.bringSubviewToFront(self.extendedStartButtonView)
+            UIView.transition(with: self.extendedStartButtonImageView, duration: 1, options: .curveEaseIn) {
+                self.extendedStartButtonImageView.image = #imageLiteral(resourceName: "extendedStartButton")
+            }
+        }
+    }
     @IBAction func startButtonPressed(_ sender: UIButton) {
         
         if startButton.currentImage == #imageLiteral(resourceName: "startButton") { // FROM START TO STOP
@@ -119,7 +136,7 @@ class HomeViewController: UIViewController {
                     Settings_GeneralVC.noti_everyMonthAlert()
                     Settings_GeneralVC.noti_everydayAlert()
                 }
-                checkForUD() //set UserDafaults when App is updated and need to set new UD
+                checkForUDHB() //set UserDafaults which related to HomeButton when App is updated and need to set new UD
                 HomeAnimation.homeStartAnimation(self)
                 HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
                 trackMapView()
@@ -164,9 +181,9 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         mainMap.setRegion(locationRegion, animated: true)
         mainMap.showsUserLocation = true
         // draw all routes
-//        for journey in DateManager.loadFromRealm(rangeOf: "year") {
-//            DrawOnMap.polylineFromFootsteps(Array(journey.footsteps), on: mainMap)
-//        }
+        //        for journey in DateManager.loadFromRealm(rangeOf: "year") {
+        //            DrawOnMap.polylineFromFootsteps(Array(journey.footsteps), on: mainMap)
+        //        }
         UIView.animate(withDuration: 1) {
             self.mainMap.alpha = 1
         }
@@ -242,7 +259,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     }
     
     func isValid(location: CLLocation) -> Bool { // check speed, distance etc with lastLocation
-        if checkSpeed(lastLocation: lastLocation ?? location, newLocation: location) > speedLimit || location.distance(from: lastLocation ?? location) > distanceLimit {
+        if checkSpeed(lastLocation: lastLocation ?? location, newLocation: location) > speedLimit || location.distance(from: lastLocation ?? location) > distanceLimit || (noSpeedCounter > 4 && UserDefaults.standard.bool(forKey: "alwaysOn")) {
             return false
         } else if let lastLocation = lastLocation {
             if location.speed < 0 && lastLocation.speed < 0 { return false }
@@ -253,31 +270,36 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     func checkForMovement(location: CLLocation?) {
         guard let location = location else { return }
         if location.speed > speedLimit { speedCounter += 1 }
-        
         if location.speed < 0 { noSpeedCounter += 1 }
         else { noSpeedCounter = 0 }
         
-        if speedCounter > 4 {
+        if speedCounter == 4 {
             noti_recordStoppedBySpeed()
-            locationTimer?.invalidate() // stop location request
-            HomeViewController.locationManager.stopUpdatingLocation()
-            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
-            setAsStart = true // next coordinate must be set as new start point
-            HomeAnimation.homeStopAnimation(self)
-            configureInitialMapView()
-            speedCounter = 0
-            return
+            if !UserDefaults.standard.bool(forKey: "alwaysOn") {
+                locationTimer?.invalidate() // stop location request
+                HomeViewController.locationManager.stopUpdatingLocation()
+                HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
+                setAsStart = true // next coordinate must be set as new start point
+                HomeAnimation.homeStopAnimation(self)
+                configureInitialMapView()
+                speedCounter = 0
+                return
+            }
             
-        } else if noSpeedCounter > 7 {
+            
+        } else if noSpeedCounter == 7 {
             noti_recordStoppedByNoSpeed()
-            locationTimer?.invalidate() // stop location request
-            HomeViewController.locationManager.stopUpdatingLocation()
-            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
-            setAsStart = true // next coordinate must be set as new start point
-            HomeAnimation.homeStopAnimation(self)
-            configureInitialMapView()
-            noSpeedCounter = 0
-            return
+            if !UserDefaults.standard.bool(forKey: "alwaysOn") {
+                noti_recordStoppedByNoSpeed()
+                locationTimer?.invalidate() // stop location request
+                HomeViewController.locationManager.stopUpdatingLocation()
+                HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
+                setAsStart = true // next coordinate must be set as new start point
+                HomeAnimation.homeStopAnimation(self)
+                configureInitialMapView()
+                noSpeedCounter = 0
+                return
+            }
         }
     }
     
@@ -333,7 +355,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let randomIdentifier = UUID().uuidString
             let request = UNNotificationRequest(identifier: randomIdentifier, content: content, trigger: trigger)
-
+            
             // 3
             UNUserNotificationCenter.current().add(request) { error in
                 if error != nil {
@@ -366,7 +388,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
             let randomIdentifier = UUID().uuidString
             let request = UNNotificationRequest(identifier: randomIdentifier, content: content, trigger: trigger)
-
+            
             // 3
             UNUserNotificationCenter.current().add(request) { error in
                 if error != nil {
@@ -387,6 +409,7 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
 extension HomeViewController {
     
     func prepareForAnimation() {
+        extendedStartButtonView.isHidden = true
         exampleImageView.isHidden = true
         startButton.setImage(#imageLiteral(resourceName: "startButton"), for: .normal)
         HomeViewController.currentStartButtonImage = startButton.currentImage
@@ -399,12 +422,17 @@ extension HomeViewController {
         distance.font = distance.font.withSize(0.08 * HomeAnimation.screenHeight)
         self.view.bringSubviewToFront(StringStackView)
         self.view.bringSubviewToFront(startAboutStackView)
+        if UserDefaults.standard.bool(forKey: "alwaysOn") {
+            alwaysOnSwitch.setOn(true, animated: true)
+        } else {
+            alwaysOnSwitch.setOn(false, animated: true)
+        }
     }
     
     func setDelegates() {
         mainMap.delegate = self
         HomeViewController.locationManager.delegate = self
-//        self.requestNotificationAuthorization()
+        //        self.requestNotificationAuthorization()
     }
     
     func alertForAuthorization() { // present an alert indicating location authorization required
@@ -437,6 +465,12 @@ extension HomeViewController {
     }
     
     func checkForUD() {
+        if UserDefaults.standard.object(forKey: "alwaysOn") == nil {
+            UserDefaults.standard.set(false, forKey: "alwaysOn")
+        }
+    }
+    
+    func checkForUDHB() {
         if UserDefaults.standard.object(forKey: "launchingCount") == nil {
             UserDefaults.standard.set(0, forKey: "launchingCount")
         }
@@ -454,11 +488,28 @@ extension HomeViewController {
     
     func setUserDefaults() {
         UserDefaults.standard.setValue(true, forKey: "startedBefore")
+        UserDefaults.standard.setValue(true, forKey: "alwaysOn")
         UserDefaults.standard.setValue(0, forKey: "launchingCount")
         UserDefaults.standard.setValue(true, forKey: "everydayPush")
         UserDefaults.standard.setValue(true, forKey: "etcPush")
         UserDefaults.standard.setValue(10, forKey: "everydayPushHour")
         UserDefaults.standard.setValue(30, forKey: "everydayPushMinute")
+    }
+    
+    @objc func switchChanged(_ sender: UISwitch) {
+        if sender == alwaysOnSwitch {
+            if sender.isOn {
+                let status = CLLocationManager.authorizationStatus()
+                if status != .authorizedAlways {
+                    HomeViewController.locationManager.requestAlwaysAuthorization()
+                    self.alwaysOnSwitch.setOn(false, animated: true)
+                } else {
+                    UserDefaults.standard.set(true, forKey: "alwaysOn")
+                }
+            } else {
+                UserDefaults.standard.set(false, forKey: "alwaysOn")
+            }
+        }
     }
 }
 

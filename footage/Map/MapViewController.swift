@@ -34,6 +34,7 @@ class MapViewController: UIViewController {
         M.mapVC = self
         super.viewDidLoad()
         locationManager.delegate = self
+        mapView.tintColor = .clear
         getCurrentLocation()
         initializeMapView()
         M.tableVC.reloadWithNewLocation(coordinate: currentLocation, selected: nil)
