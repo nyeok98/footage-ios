@@ -109,6 +109,12 @@ class HomeViewController: UIViewController {
             HomeViewController.locationManager.requestWhenInUseAuthorization()
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        saveDataForWidget()
+    }
+    
     @IBAction func startButtonLongPressed(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             self.extendedStartButtonView.isHidden = false

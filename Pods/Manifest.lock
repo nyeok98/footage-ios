@@ -1,10 +1,10 @@
 PODS:
   - EFCountingLabel (5.1.1)
-  - Realm (5.2.0):
-    - Realm/Headers (= 5.2.0)
-  - Realm/Headers (5.2.0)
-  - RealmSwift (5.2.0):
-    - Realm (= 5.2.0)
+  - Realm (5.3.5):
+    - Realm/Headers (= 5.3.5)
+  - Realm/Headers (5.3.5)
+  - RealmSwift (5.3.5):
+    - Realm (= 5.3.5)
 
 DEPENDENCIES:
   - EFCountingLabel
@@ -18,9 +18,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   EFCountingLabel: 605358591a67a3c92feb7ec32486bfab4a30e2c9
-  Realm: f749c723e272f08fdf1939af5e61d2bd09b203e8
-  RealmSwift: bf0ab78b52c5bafba8b3ad73be8dfb4c1ea5cf01
+  Realm: 2b52fcc86fc0ed3d75a56ac0eb1e73c4f1a60e16
+  RealmSwift: a6ea2ea561039fc3833c08dec81371a9a3bb5ca6
 
-PODFILE CHECKSUM: a064f0a6635aebffc6c79c45250a3e9a22a501ad
+PODFILE CHECKSUM: ef84b0fe1a848554a8dc949d3b70c8fbf169c557
 
 COCOAPODS: 1.9.3
