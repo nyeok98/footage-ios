@@ -358,6 +358,7 @@
 		6EC8D9D9253C3E570084E737 /* MainWidget */ = {
 			isa = PBXGroup;
 			children = (
+				6EC8D9E8253C3E640084E737 /* MainWidgetExtension.entitlements */,
 				6EC8D9EE253C3E8D0084E737 /* HomeState.swift */,
 				6EC8D9ED253C3E8D0084E737 /* ViewForSize.swift */,
 				6EC8D9DA253C3E570084E737 /* MainWidget.swift */,
@@ -381,7 +382,6 @@
 		B9A66F95248F6BF3001EAF54 = {
 			isa = PBXGroup;
 			children = (
-				6EC8D9E8253C3E640084E737 /* MainWidgetExtension.entitlements */,
 				B9A66FA0248F6BF3001EAF54 /* footage */,
 				6EC8D9D9253C3E570084E737 /* MainWidget */,
 				B9A66F9F248F6BF3001EAF54 /* Products */,
