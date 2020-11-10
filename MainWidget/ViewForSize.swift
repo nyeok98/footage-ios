@@ -9,15 +9,28 @@
 import SwiftUI
 
 struct SmallView: View {
-    var state: HomeState
+    let state: HomeState
+    let isTracking = UserDefaults(suiteName: "group.footage")!.bool(forKey: "isTracking")
+    let distanceToday = UserDefaults(suiteName: "group.footage")!.double(forKey: "isTracking")
     var body: some View {
-        Image(uiImage: state.snapshot)
+        VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 10) {
+            Text(String(distanceToday))
+            Text(String(isTracking ? "종료" : "시작"))
+                .widgetURL(URL(string: "widget://" + String(isTracking)))
+        }
     }
 }
 
-struct MediumView: View {
-    var state: HomeState
-    var body: some View {
-        Image(uiImage: state.snapshot)
-    }
-}
+//struct MediumView: View {
+//    var state: HomeState
+//    var body: some View {
+//        Image(uiImage: state.snapshot)
+//    }
+//}
+//
+//struct LargeView: View {
+//    var state: HomeState
+//    var body: some View {
+//
+//    }
+//}

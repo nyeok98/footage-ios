@@ -21,10 +21,10 @@ struct Provider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
-
+        print("update")
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
+        for hourOffset in 0 ..< 1 {
             let entryDate = Calendar.current.date(byAdding: .minute, value: hourOffset, to: currentDate)!
             let entry = SimpleEntry(date: entryDate, homeState: HomeState.create())
             entries.append(entry)
@@ -42,7 +42,6 @@ struct SimpleEntry: TimelineEntry {
 
 struct MainWidgetEntryView : View {
     var entry: Provider.Entry
-
     var body: some View {
         SmallView(state: entry.homeState)
     }

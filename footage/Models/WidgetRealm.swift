@@ -13,12 +13,12 @@ class WidgetRealm: Object {
     @objc var isTracking: Bool = false
     @objc var snapshot: Data = #imageLiteral(resourceName: "noDataImage").pngData()!
     
+    required override init() {
+        super.init()
+    }
+    
     init(isTracking: Bool, snapshot: Data) {
         self.isTracking = isTracking
         self.snapshot = snapshot
-    }
-    
-    required init() {
-        super.init()
     }
 }

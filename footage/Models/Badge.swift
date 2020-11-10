@@ -15,6 +15,10 @@ class Badge: Object {
     @objc dynamic var imageName: String = ""
     @objc dynamic var date: String = ""
     
+    required override init() {
+        super.init()
+    }
+    
     init(type: String, imageName: String, detail: String) {
         super.init()
         self.detail = detail
@@ -23,9 +27,5 @@ class Badge: Object {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
         self.date = dateFormatter.string(from: Date())
-    }
-    
-    required init() {
-        super.init()
     }
 }

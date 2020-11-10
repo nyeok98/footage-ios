@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WidgetKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -18,6 +19,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
+        let isTracking: Bool
+        if url.host == "true" {
+            isTracking = true
+        } else {
+            isTracking = false
+        }
+        UserDefaults(suiteName: "group.footage")?.setValue(isTracking, forKey: "isTracking")
+        if let tabBarVC = window?.rootViewController as? UITabBarController {
+            tabBarVC.selectedIndex = 0
+            if let homeVC = tabBarVC.selectedViewController as? HomeViewController {
+                if isTracking {
+                    homeVC.startTracking()
+                } else {
+                    homeVC.stopTracking()
+                }
+            }
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -81,7 +103,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if HomeViewController.currentStartButtonImage == #imageLiteral(resourceName: "stopButton") {
             HomeViewController.locationManager.startUpdatingLocation()
         }
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
-    
-    
 }

@@ -16,7 +16,7 @@ class Month: Object { // footsteps for a day
     @objc dynamic var preview = #imageLiteral(resourceName: "basicStatsIcon").pngData()!
     let owners = LinkingObjects(fromType: Year.self, property: "months")
     
-    required init() {
+    required override init() {
         super.init()
     }
     

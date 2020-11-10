@@ -25,15 +25,15 @@ class Footstep: Object {
     let notes = List<String>()
     let owners = LinkingObjects(fromType: DayData.self, property: "footsteps")
     
+    required override init() {
+        super.init()
+    }
+    
     init(_ timestamp: Date, _ latitude: Double, _ longitude: Double, _ color: String, _ setAsStart: Bool) {
         self.timestamp = timestamp
         self.latitude = latitude
         self.longitude = longitude
         self.color = color
         self.setAsStart = setAsStart
-    }
-    
-    required init() {
-        super.init()
     }
 }

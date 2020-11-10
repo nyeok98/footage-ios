@@ -18,7 +18,7 @@ class DayData: Object { // footsteps for a day
     let footsteps = List<Footstep>()
     let owners = LinkingObjects(fromType: Month.self, property: "days")
     
-    required init() {
+    required override init() {
         super.init()
     }
     

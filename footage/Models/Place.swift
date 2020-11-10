@@ -11,7 +11,6 @@ import RealmSwift
 import MapKit
 
 class Place: Object { // footsteps for a day
-    
     @objc dynamic var date = 0
     @objc dynamic var distance = 0.0
     @objc dynamic var country = ""
@@ -20,12 +19,11 @@ class Place: Object { // footsteps for a day
     @objc dynamic var locality = ""
     @objc dynamic var subLocality = ""
     
-    required init() {
+    required override init() {
         super.init()
     }
     
     init(date: Int, placemark: CLPlacemark) {
-        super.init()
         self.date = date
         self.country = placemark.country ?? ""
         self.administrativeArea = placemark.administrativeArea ?? ""

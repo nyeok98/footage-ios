@@ -60,7 +60,11 @@ class HomeViewController: UIViewController {
     }
     
     /// 2. For MapKit
-    static var distanceToday: Double = 0
+    static var distanceToday: Double = 0 {
+        didSet {
+            UserDefaults(suiteName: "group.footage")?.set(distanceToday, forKey: "distanceToday")
+        }
+    }
     static var distanceTotal: Double = 0
     static let locationManager = CLLocationManager()
     var dateFormatter =  DateFormatter()
@@ -71,13 +75,8 @@ class HomeViewController: UIViewController {
     var setAsStart: Bool = true
     var speedLimit: Double = 10
     var refreshRate: Double = 2.5
-    var distanceLimit: Double {
-        get {
-            return speedLimit * refreshRate
-        }
-    }
+    var distanceLimit: Double { speedLimit * refreshRate }
     lazy var startedBefore = UserDefaults.standard.bool(forKey: "startedBefore")
-    
     static var selectedColor: String = "#EADE4Cff"
     var speedCounter: Int = 0
     var noSpeedCounter: Int = 0
@@ -100,6 +99,11 @@ class HomeViewController: UIViewController {
             alertDot.isHidden = false
             view.bringSubviewToFront(alertDot)
         }
+        if let isTracking = UserDefaults(suiteName: "group.footage")?.bool(forKey: "isTracking") {
+            if isTracking {
+                startTracking()
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,11 +112,7 @@ class HomeViewController: UIViewController {
             Settings_GeneralVC.registerNoti()
             HomeViewController.locationManager.requestWhenInUseAuthorization()
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        saveDataForWidget()
+        
     }
     
     @IBAction func startButtonLongPressed(_ sender: UILongPressGestureRecognizer) {
@@ -124,45 +124,55 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    
     @IBAction func startButtonPressed(_ sender: UIButton) {
-        
         if startButton.currentImage == #imageLiteral(resourceName: "startButton") { // FROM START TO STOP
-            HomeViewController.distanceToday = DateManager.loadDistance(total: false)
-            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
-            UIApplication.shared.applicationIconBadgeNumber = 0
-            alertDot.isHidden = true
-            let status = CLLocationManager.authorizationStatus()
-            if status == .notDetermined || status == .denied {
-                alertForAuthorization()
-            } else {
-                if UserDefaults.standard.bool(forKey: "startedBefore") == false {
-                    setUserDefaults()
-                    LevelManager.firstLaunch()
-                    BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "starter_level", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
-                    Settings_GeneralVC.noti_everyMonthAlert()
-                    Settings_GeneralVC.noti_everydayAlert()
-                }
-                checkForUDHB() //set UserDafaults which related to HomeButton when App is updated and need to set new UD
-                HomeAnimation.homeStartAnimation(self)
-                HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
-                trackMapView()
-                
-                let center = UNUserNotificationCenter.current()
-                center.getPendingNotificationRequests(completionHandler: { requests in
-                    for request in requests {
-                        print(request)
-                    }
-                })
-            }
-            
+            startTracking()
         } else { // FROM STOP TO START
-            locationTimer?.invalidate() // stop location request
-            HomeViewController.locationManager.stopUpdatingLocation()
-            HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
-            setAsStart = true // next coordinate must be set as new start point
-            HomeAnimation.homeStopAnimation(self)
-            configureInitialMapView()
+            stopTracking()
         }
+    }
+    
+    func startTracking() {
+        UserDefaults(suiteName: "group.footage")?.set(true, forKey: "isTracking")
+        print(UserDefaults(suiteName: "group.footage")?.bool(forKey: "isTracking"))
+        HomeViewController.distanceToday = DateManager.loadDistance(total: false)
+        HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        alertDot.isHidden = true
+        let status = CLLocationManager.authorizationStatus()
+        if status == .notDetermined || status == .denied {
+            alertForAuthorization()
+        } else {
+            if UserDefaults.standard.bool(forKey: "startedBefore") == false {
+                setUserDefaults()
+                LevelManager.firstLaunch()
+                BadgeGiver.gotBadge(view: view, badge: Badge(type: "place", imageName: "starter_level", detail: "이 지역에 이제 막 발자취를 남기기 시작했습니다."))
+                Settings_GeneralVC.noti_everyMonthAlert()
+                Settings_GeneralVC.noti_everydayAlert()
+            }
+            checkForUDHB() //set UserDafaults which related to HomeButton when App is updated and need to set new UD
+            HomeAnimation.homeStartAnimation(self)
+            HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
+            trackMapView()
+            
+            let center = UNUserNotificationCenter.current()
+            center.getPendingNotificationRequests(completionHandler: { requests in
+                for request in requests {
+                    print(request)
+                }
+            })
+        }
+    }
+    
+    func stopTracking() {
+        UserDefaults(suiteName: "group.footage")?.set(false, forKey: "isTracking")
+        locationTimer?.invalidate() // stop location request
+        HomeViewController.locationManager.stopUpdatingLocation()
+        HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
+        setAsStart = true // next coordinate must be set as new start point
+        HomeAnimation.homeStopAnimation(self)
+        configureInitialMapView()
     }
 }
 

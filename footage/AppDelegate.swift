@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //            HomeViewController.selectedColor = lastColor
         //        }
         DateManager.loadTodayData()
+        print(PlaceManager.localityList)
         return true
     }
     
