@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //            HomeViewController.selectedColor = lastColor
         //        }
         DateManager.loadTodayData()
-        print(PlaceManager.localityList)
         return true
     }
     
@@ -42,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
+        UserDefaults(suiteName: "group.footage")?.set(false, forKey: "isTracking")
     }
     
 }

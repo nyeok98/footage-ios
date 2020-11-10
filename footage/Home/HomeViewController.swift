@@ -287,11 +287,10 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             } else {
                 if UserDefaults.standard.bool(forKey: "alwaysOn"){
                     let alwaysOnCount = UserDefaults.standard.integer(forKey: "alwaysOnCount") // alwaysOn이 true일때 오차값을 기록하지 않기 위한 장치
-                    if alwaysOnCount<4 { // 일정 횟수를 넘어야 true를 반환할 수 있도록 함.
-                        UserDefaults.standard.set(0, forKey: "alwaysOnCount")
+                    if alwaysOnCount < 4 { // 일정 횟수를 넘어야 true를 반환할 수 있도록 함.
+                        UserDefaults.standard.set(alwaysOnCount + 1, forKey: "alwaysOnCount")
                         return false
                     } else {
-                        UserDefaults.standard.set(alwaysOnCount+1, forKey: "alwaysOnCount")
                         return true
                     }
                 }

@@ -99,6 +99,8 @@
 		B9D6457125206D5C008CDBF5 /* MapCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6456925206D5C008CDBF5 /* MapCollectionLayout.swift */; };
 		CE5EDEB4254EB77F006D7C9F /* Intro.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE5EDEB3254EB77F006D7C9F /* Intro.mp4 */; };
 		CE5EDEBC254EC5AE006D7C9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5EDEBB254EC5AE006D7C9F /* Assets.xcassets */; };
+		CEA73545255AE9F100F180D7 /* NanumBarunpenBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E6F0FC824A1014800F49152 /* NanumBarunpenBold.ttf */; };
+		CEA73548255AE9F500F180D7 /* NanumBarunpenRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E442F5E24BEA6A10041CAF2 /* NanumBarunpenRegular.ttf */; };
 		E3321726B3160534B511792C /* Pods_footage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D56ABB957378A50C8E81335 /* Pods_footage.framework */; };
 /* End PBXBuildFile section */
 
@@ -551,7 +553,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA73545255AE9F100F180D7 /* NanumBarunpenBold.ttf in Resources */,
 				6EC8D9DD253C3E5A0084E737 /* Assets.xcassets in Resources */,
+				CEA73548255AE9F500F180D7 /* NanumBarunpenRegular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

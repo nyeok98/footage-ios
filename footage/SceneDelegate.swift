@@ -22,18 +22,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        guard let url = URLContexts.first?.url else { return }
-        let isTracking: Bool
-        if url.host == "true" {
-            isTracking = true
-        } else {
-            isTracking = false
-        }
-        UserDefaults(suiteName: "group.footage")?.setValue(isTracking, forKey: "isTracking")
+        // TODO: started before 추가
+        guard let userDefault = UserDefaults(suiteName: "group.footage") else { return }
+        let wasTracking = userDefault.bool(forKey: "isTracking")
+        userDefault.set(!wasTracking, forKey: "isTracking")
         if let tabBarVC = window?.rootViewController as? UITabBarController {
             tabBarVC.selectedIndex = 0
             if let homeVC = tabBarVC.selectedViewController as? HomeViewController {
-                if isTracking {
+                if !wasTracking {
                     homeVC.startTracking()
                 } else {
                     homeVC.stopTracking()
