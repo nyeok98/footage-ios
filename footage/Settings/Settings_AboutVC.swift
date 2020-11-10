@@ -58,7 +58,7 @@ extension Settings_AboutVC: UITableViewDelegate, UITableViewDataSource {
             if MFMailComposeViewController.canSendMail() {
                 let mail = MFMailComposeViewController()
                 mail.mailComposeDelegate = self
-                mail.setToRecipients(["cosmos.footage@gmail.com"])
+                mail.setToRecipients(["el.co.footage@gmail.com"])
                 mail.setMessageBody("", isHTML: true)
                 present(mail, animated: true)
             } else {

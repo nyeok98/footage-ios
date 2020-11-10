@@ -276,11 +276,29 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     
     func isValid(location: CLLocation) -> Bool { // check speed, distance etc with lastLocation
         if checkSpeed(lastLocation: lastLocation ?? location, newLocation: location) > speedLimit || location.distance(from: lastLocation ?? location) > distanceLimit || (noSpeedCounter > 4 && UserDefaults.standard.bool(forKey: "alwaysOn")) {
+            // Valid의 근본적 제한 요소 (제한속도 이상, 두 점이 제한 거리 이상, 항상켜짐 상태에서 노스피드 카운터 횟수가 4를 넘었을 경우)
+            UserDefaults.standard.setValue(0, forKey:"alwaysOnCount")
             return false
-        } else if let lastLocation = lastLocation {
-            if location.speed < 0 && lastLocation.speed < 0 { return false }
-            else { return true }
-        } else { noSpeedCounter = 0; return true }
+        } else if let lastLocation = lastLocation { //이전 위치가 있다면,
+            //혹은 이전 직전의 위치와 현재의 위치에서의 속도가 모두 0보다 작을 경우 즉, 움직임이 없을 경우
+            if location.speed < 0 && lastLocation.speed < 0 {
+                UserDefaults.standard.setValue(0, forKey:"alwaysOnCount")
+                return false
+            } else {
+                if UserDefaults.standard.bool(forKey: "alwaysOn"){
+                    let alwaysOnCount = UserDefaults.standard.integer(forKey: "alwaysOnCount") // alwaysOn이 true일때 오차값을 기록하지 않기 위한 장치
+                    if alwaysOnCount<4 { // 일정 횟수를 넘어야 true를 반환할 수 있도록 함.
+                        UserDefaults.standard.set(0, forKey: "alwaysOnCount")
+                        return false
+                    } else {
+                        UserDefaults.standard.set(alwaysOnCount+1, forKey: "alwaysOnCount")
+                        return true
+                    }
+                }
+                return true
+            }
+        } else { noSpeedCounter = 0; return true } // 이전 위치가 없다면,
+        
     }
     
     func checkForMovement(location: CLLocation?) {
@@ -290,8 +308,9 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         else { noSpeedCounter = 0 }
         
         if speedCounter == 4 {
-            noti_recordStoppedBySpeed()
             if !UserDefaults.standard.bool(forKey: "alwaysOn") {
+                noti_recordStoppedBySpeed()
+                UserDefaults.standard.set(0, forKey: "alwaysOnCount")
                 locationTimer?.invalidate() // stop location request
                 HomeViewController.locationManager.stopUpdatingLocation()
                 HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
@@ -304,9 +323,9 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             
             
         } else if noSpeedCounter == 7 {
-            noti_recordStoppedByNoSpeed()
             if !UserDefaults.standard.bool(forKey: "alwaysOn") {
                 noti_recordStoppedByNoSpeed()
+                UserDefaults.standard.set(0, forKey: "alwaysOnCount")
                 locationTimer?.invalidate() // stop location request
                 HomeViewController.locationManager.stopUpdatingLocation()
                 HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
@@ -484,6 +503,11 @@ extension HomeViewController {
         if UserDefaults.standard.object(forKey: "alwaysOn") == nil {
             UserDefaults.standard.set(false, forKey: "alwaysOn")
         }
+        if UserDefaults.standard.object(forKey: "alwaysOnCount") == nil {
+            //alwaysOn이 켜져있을 때 연속해서 유효한 위치값이 연속으로 나타나야 isValid를 true로 반환할 수 있도록 하는 userdefaults
+            UserDefaults.standard.set(0, forKey: "alwaysOnCount")
+        }
+        
     }
     
     func checkForUDHB() {

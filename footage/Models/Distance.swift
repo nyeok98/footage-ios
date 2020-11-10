@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 
 class Distance: Object { // must be initailizaed once and only once at installation
+
+    required override init() {
+        super.init()
+    }
     
     @objc dynamic var total: Double = 0
     @objc dynamic var today: Double = 0
