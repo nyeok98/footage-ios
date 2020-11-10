@@ -25,7 +25,7 @@ class Badge: Object {
         self.date = dateFormatter.string(from: Date())
     }
     
-    required init() {
+    required override init() {
         super.init()
     }
 }

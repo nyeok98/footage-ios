@@ -33,7 +33,7 @@ class Footstep: Object {
         self.setAsStart = setAsStart
     }
     
-    required init() {
+    required override init() {
         super.init()
     }
 }

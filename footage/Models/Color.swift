@@ -15,7 +15,7 @@ class Color: Object { // footsteps for a day
     @objc dynamic var distance = 0.0
     @objc dynamic var hex = ""
     
-    required init() {
+    required override init() {
         super.init()
     }
     

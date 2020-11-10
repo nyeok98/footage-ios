@@ -20,7 +20,7 @@ class Place: Object { // footsteps for a day
     @objc dynamic var locality = ""
     @objc dynamic var subLocality = ""
     
-    required init() {
+    required override init() {
         super.init()
     }
     

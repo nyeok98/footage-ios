@@ -15,7 +15,7 @@ class Year: Object { // footsteps for a day
     @objc dynamic var date = 0
     @objc dynamic var preview = #imageLiteral(resourceName: "basicStatsIcon").pngData()!
     
-    required init() {
+    required override init() {
         super.init()
     }
     

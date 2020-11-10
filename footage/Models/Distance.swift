@@ -11,7 +11,7 @@ import RealmSwift
 
 class Distance: Object { // must be initailizaed once and only once at installation
     
-    required init() {
+    required override init() {
         super.init()
     }
     
