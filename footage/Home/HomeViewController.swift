@@ -135,7 +135,6 @@ class HomeViewController: UIViewController {
     
     func startTracking() {
         UserDefaults(suiteName: "group.footage")?.set(true, forKey: "isTracking")
-        print(UserDefaults(suiteName: "group.footage")?.bool(forKey: "isTracking"))
         HomeViewController.distanceToday = DateManager.loadDistance(total: false)
         HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
         UIApplication.shared.applicationIconBadgeNumber = 0

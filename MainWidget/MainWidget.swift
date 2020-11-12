@@ -9,41 +9,34 @@
 import WidgetKit
 import SwiftUI
 
-struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), homeState: HomeState.create())
+struct IntentProvider: IntentTimelineProvider {
+    func placeholder(in context: Context) -> WidgetEntry {
+        return WidgetEntry(date: Date(), selectedColor: "#EADE4Cff")
     }
-
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), homeState: HomeState.create())
+    
+    func getSnapshot(for configuration: SelectColorIntent, in context: Context, completion: @escaping (WidgetEntry) -> Void) {
+        guard let hex = configuration.color?.identifier else { return }
+        let entry = WidgetEntry(date: Date(), selectedColor: hex)
         completion(entry)
     }
-
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-        print("update")
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 1 {
-            let entryDate = Calendar.current.date(byAdding: .minute, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, homeState: HomeState.create())
-            entries.append(entry)
-        }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+    
+    func getTimeline(for configuration: SelectColorIntent, in context: Context, completion: @escaping (Timeline<WidgetEntry>) -> Void) {
+        guard let hex = configuration.color?.identifier else { return }
+        let entry = WidgetEntry(date: Date(), selectedColor: hex)
+        let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
     }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct WidgetEntry: TimelineEntry {
     let date: Date
-    let homeState: HomeState
+    let selectedColor: String
 }
 
 struct MainWidgetEntryView : View {
-    var entry: Provider.Entry
+    var entry: IntentProvider.Entry
     var body: some View {
-        SmallView(state: entry.homeState)
+        SmallView(entry: entry)
     }
 }
 
@@ -52,17 +45,14 @@ struct MainWidget: Widget {
     let kind: String = "MainWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            MainWidgetEntryView(entry: entry)
+        IntentConfiguration(
+            kind: "co.el.footage.MainWidget",
+            intent: SelectColorIntent.self,
+            provider: IntentProvider()
+            ) { entry in
+            SmallView(entry: entry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
-    }
-}
-
-struct MainWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        MainWidgetEntryView(entry: SimpleEntry(date: Date(), homeState: HomeState.create()))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+        .configurationDisplayName("발자취 위젯")
+        .description("위젯을 추가해 홈 화면에서 기록을 시작하세요")
     }
 }
