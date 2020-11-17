@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oXa-ZM-RuF">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--HomeViewController-->
+        <scene sceneID="day-qi-RiA">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" referencedIdentifier="HomeViewController" id="1MM-1y-1Gb" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Oh6-dV-cc4"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PVl-wR-lns" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5048" y="-848"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="7hQ-78-LxV">
+            <objects>
+                <tabBarController storyboardIdentifier="TabBarController" id="oXa-ZM-RuF" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pRi-NA-qpU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" systemColor="darkTextColor"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBar>
+                    <connections>
+                        <segue destination="1MM-1y-1Gb" kind="relationship" relationship="viewControllers" id="8Z2-mJ-AtO"/>
+                        <segue destination="G27-Lh-kjI" kind="relationship" relationship="viewControllers" id="4kE-HJ-Nmf"/>
+                        <segue destination="cgF-db-d6k" kind="relationship" relationship="viewControllers" id="Pt9-Et-NiH"/>
+                        <segue destination="fOj-Xo-j48" kind="relationship" relationship="viewControllers" id="DLz-9K-SEE"/>
+                        <segue destination="D6x-y5-gBU" kind="relationship" relationship="viewControllers" id="17B-vq-FoW"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lij-Qe-D6V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6004" y="-380"/>
+        </scene>
+        <!--지도-->
+        <scene sceneID="8mo-cV-p2G">
+            <objects>
+                <viewController id="G27-Lh-kjI" customClass="MapViewController" customModule="Footage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DyI-hy-HhV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="1mo-YO-Ac7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="지도" image="location.fill" catalog="system" selectedImage="location.fill" id="M2Q-kI-rp5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ssL-Dt-uPt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5046" y="-455"/>
+        </scene>
+        <!--StatsViewController-->
+        <scene sceneID="UnE-Og-LMb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Stats" referencedIdentifier="StatsViewController" id="cgF-db-d6k" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="JV5-mX-JGl"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AQl-MO-tif" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5047" y="-51"/>
+        </scene>
+        <!--SettingsViewController-->
+        <scene sceneID="kw9-7F-RNx">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" referencedIdentifier="SettingsViewController" id="D6x-y5-gBU" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="zDA-93-HkC"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TLd-0Q-usJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5047" y="154"/>
+        </scene>
+        <!--DateViewController-->
+        <scene sceneID="BIS-Sq-AGR">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Date" referencedIdentifier="DateViewController" id="fOj-Xo-j48" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="9dz-mK-OMo"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UkN-kQ-iPT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5047" y="48"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" systemColor="systemBlueColor"/>
+    <resources>
+        <image name="location.fill" catalog="system" width="128" height="121"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NanumBarunpenRegular.ttf">
+            <string>NanumBarunpen</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ButtonView" customModule="Footage" customModuleProvider="target">
+            <connections>
+                <outlet property="indicator" destination="eS5-if-idT" id="0ib-c9-YCX"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5ZR-hV-fmu" customClass="ButtonView" customModule="Footage" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot; 노란색 &quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgZ-Sg-UEZ">
+                    <rect key="frame" x="52" y="0.0" width="61.333333333333343" height="21.666666666666668"/>
+                    <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="currentColorIndicator" translatesAutoresizingMaskIntoConstraints="NO" id="DUe-Qk-Ioj" userLabel="Indicator">
+                    <rect key="frame" x="70.333333333333329" y="26.666666666666671" width="25" height="16"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="#EADE4CffBig" translatesAutoresizingMaskIntoConstraints="NO" id="eS5-if-idT" userLabel="Main Image">
+                    <rect key="frame" x="48.333333333333343" y="47.666666666666664" width="69" height="102.33333333333334"/>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xsy-5g-pbh" userLabel="Other Buttons">
+                    <rect key="frame" x="124.33333333333333" y="89.333333333333329" width="248.33333333333337" height="60.666666666666671"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" restorationIdentifier="PinkButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sa9-LS-buz">
+                            <rect key="frame" x="0.0" y="0.0" width="62" height="60.666666666666664"/>
+                            <state key="normal" image="#F5A997ff">
+                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="buttonPressed:" destination="5ZR-hV-fmu" eventType="touchUpInside" id="9m8-sS-RNI"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" restorationIdentifier="WhiteButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0a-B1-Hrt">
+                            <rect key="frame" x="62.000000000000014" y="0.0" width="62" height="60.666666666666664"/>
+                            <state key="normal" image="#F0E7CFff">
+                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="tv5-gS-Way"/>
+                                <action selector="secondButtonPressed:" destination="5ZR-hV-fmu" eventType="touchUpInside" id="Di0-cO-5zF"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="253" restorationIdentifier="OrangeButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sbp-ew-b7b">
+                            <rect key="frame" x="124.00000000000001" y="0.0" width="62.333333333333329" height="60.666666666666664"/>
+                            <state key="normal" image="#FF6B39ff">
+                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="IuA-Jw-cpa"/>
+                                <action selector="thirdButtonPressed:" destination="5ZR-hV-fmu" eventType="touchUpInside" id="ikQ-tW-XS4"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="254" restorationIdentifier="BlueButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6zc-1Y-bLI">
+                            <rect key="frame" x="186.33333333333337" y="0.0" width="62" height="60.666666666666664"/>
+                            <state key="normal" image="#206491ff">
+                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="Iu2-uk-wOK"/>
+                                <action selector="fourthButtonPressed:" destination="5ZR-hV-fmu" eventType="touchUpInside" id="jQ4-7L-8KQ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="NgZ-Sg-UEZ" firstAttribute="top" secondItem="5ZR-hV-fmu" secondAttribute="top" id="5n1-ji-aLn"/>
+                <constraint firstItem="NgZ-Sg-UEZ" firstAttribute="centerX" secondItem="5ZR-hV-fmu" secondAttribute="centerX" multiplier="0.4" id="Oal-sZ-XBJ"/>
+                <constraint firstAttribute="bottom" secondItem="xsy-5g-pbh" secondAttribute="bottom" id="Odl-6h-zeV"/>
+                <constraint firstItem="eS5-if-idT" firstAttribute="top" secondItem="DUe-Qk-Ioj" secondAttribute="bottom" constant="5" id="P6c-VH-1rh"/>
+                <constraint firstItem="eS5-if-idT" firstAttribute="centerX" secondItem="5ZR-hV-fmu" secondAttribute="centerX" multiplier="0.4" id="RnV-20-iOh"/>
+                <constraint firstItem="DUe-Qk-Ioj" firstAttribute="top" secondItem="NgZ-Sg-UEZ" secondAttribute="bottom" constant="5" id="gmQ-KY-znc"/>
+                <constraint firstItem="xsy-5g-pbh" firstAttribute="width" secondItem="5ZR-hV-fmu" secondAttribute="width" multiplier="0.6" id="hLr-rZ-0eL"/>
+                <constraint firstItem="xsy-5g-pbh" firstAttribute="centerX" secondItem="5ZR-hV-fmu" secondAttribute="centerX" multiplier="1.2" id="suE-0F-2yi"/>
+                <constraint firstAttribute="bottom" secondItem="eS5-if-idT" secondAttribute="bottom" id="xfd-be-gKU"/>
+                <constraint firstItem="DUe-Qk-Ioj" firstAttribute="centerX" secondItem="NgZ-Sg-UEZ" secondAttribute="centerX" id="yNy-0t-NFs"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="buttonStackView" destination="xsy-5g-pbh" id="uPA-L7-PCr"/>
+                <outlet property="indicator" destination="DUe-Qk-Ioj" id="VfH-e7-JMC"/>
+                <outlet property="mainImage" destination="eS5-if-idT" id="0Ae-e9-gZs"/>
+                <outlet property="mainLabel" destination="NgZ-Sg-UEZ" id="WzS-pG-IOh"/>
+            </connections>
+            <point key="canvasLocation" x="-236.23188405797103" y="-144.29347826086956"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="#206491ff" width="37.666667938232422" height="60.666667938232422"/>
+        <image name="#EADE4CffBig" width="69" height="108"/>
+        <image name="#F0E7CFff" width="37.666667938232422" height="60.666667938232422"/>
+        <image name="#F5A997ff" width="37.666667938232422" height="60.666667938232422"/>
+        <image name="#FF6B39ff" width="37.666667938232422" height="60.666667938232422"/>
+        <image name="currentColorIndicator" width="25" height="16"/>
+    </resources>
+</document>

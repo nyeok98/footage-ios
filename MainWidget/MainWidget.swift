@@ -3,7 +3,7 @@
 //  MainWidget
 //
 //  Created by Wootae on 10/18/20.
-//  Copyright © 2020 DreamPizza. All rights reserved.
+//  Copyright © 2020 EL.Co. All rights reserved.
 //
 
 import WidgetKit
