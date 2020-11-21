@@ -1,5 +1,5 @@
 //
-//  ViewForSize.swift
+//  SmallView.swift
 //  footage
 //
 //  Created by Wootae on 10/11/20.
@@ -17,8 +17,6 @@ struct SmallView: View {
             Image(entry.selectedColor + "Paper")
             VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 8) {
                 let screenWidth = UIScreen.main.bounds.width
-                let screenHeight = UIScreen.main.bounds.height
-                let _ = print(screenHeight)
                 if isTracking {
                     VStack(alignment: .center, spacing: 10) {
                         Text("오늘")
@@ -37,22 +35,8 @@ struct SmallView: View {
                 Image(isTracking ? "stopButton" : "startButton")
                     .resizable()
                     .frame(width: screenWidth * 0.3, height: screenWidth * 0.14)
-                    .widgetURL(URL(string: "widget://track"))
+                    .widgetURL(URL(string: "widget://smallWidget"))
             }
         }
     }
 }
-
-//struct MediumView: View {
-//    var state: HomeState
-//    var body: some View {
-//        Image(uiImage: state.snapshot)
-//    }
-//}
-//
-//struct LargeView: View {
-//    var state: HomeState
-//    var body: some View {
-//
-//    }
-//}

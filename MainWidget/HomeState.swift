@@ -18,9 +18,8 @@ struct HomeState {
             return HomeState(isTracking: false, distanceToday: 0.0)
         }
         let isTracking = userDefaults.bool(forKey: "isTracking")
-        print(isTracking)
         let distanceToday = userDefaults.double(forKey: "distanceToday")
-        print(distanceToday)
+        let distanceTotal = userDefaults.double(forKey: "distan")
         return HomeState(isTracking: isTracking, distanceToday: distanceToday)
     }
 }

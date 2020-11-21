@@ -19,6 +19,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        if let url = connectionOptions.urlContexts.first?.url {
+            if url.scheme == "widget" {
+                if let tabBarVC = window?.rootViewController as? UITabBarController {
+                    tabBarVC.selectedIndex = 0
+                    if let homeVC = tabBarVC.selectedViewController as? HomeViewController {
+                        homeVC.startTracking()
+                    }
+                }
+            }
+        }
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -43,7 +53,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
-        
+        UserDefaults(suiteName: "group.footage")?.set(false, forKey: "isTracking")
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
         //UserDefaults.standard.setValue(HomeViewController.selectedColor, forKey: "lastColor")
     }
     

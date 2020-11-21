@@ -54,5 +54,6 @@ struct MainWidget: Widget {
         }
         .configurationDisplayName("발자취 위젯")
         .description("위젯을 추가해 홈 화면에서 기록을 시작하세요")
+        .supportedFamilies([.systemSmall])
     }
 }
