@@ -69,7 +69,7 @@ class HomeViewController: UIViewController {
     var lastLocation: CLLocation?
     var locationTimer: Timer?
     var setAsStart: Bool = true
-    var speedLimit: Double = 10
+    var speedLimit: Double = 100
     var refreshRate: Double = 2.5
     var distanceLimit: Double {
         get {
@@ -87,7 +87,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkForUD() //set UserDafaults which doesn't related to StartButton when App is updated and need to set new UD
+        checkUpdate() //set UserDafaults which doesn't related to StartButton when App is updated and need to set new UD
         setDelegates()
         prepareForAnimation()
         HomeAnimation.homeStopAnimation(self)
@@ -104,6 +104,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        checkUpdateInVDA()
         if !startedBefore {
             Settings_GeneralVC.registerNoti()
             HomeViewController.locationManager.requestWhenInUseAuthorization()
@@ -136,7 +137,7 @@ class HomeViewController: UIViewController {
                     Settings_GeneralVC.noti_everyMonthAlert()
                     Settings_GeneralVC.noti_everydayAlert()
                 }
-                checkForUDHB() //set UserDafaults which related to HomeButton when App is updated and need to set new UD
+                checkUpdateInHB() //set UserDafaults which related to HomeButton when App is updated and need to set new UD
                 HomeAnimation.homeStartAnimation(self)
                 HomeViewController.selectedColor = Buttons(className: MainButton.restorationIdentifier!).color
                 trackMapView()
@@ -272,10 +273,9 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
                 if UserDefaults.standard.bool(forKey: "alwaysOn"){
                     let alwaysOnCount = UserDefaults.standard.integer(forKey: "alwaysOnCount") // alwaysOn이 true일때 오차값을 기록하지 않기 위한 장치
                     if alwaysOnCount<4 { // 일정 횟수를 넘어야 true를 반환할 수 있도록 함.
-                        UserDefaults.standard.set(0, forKey: "alwaysOnCount")
+                        UserDefaults.standard.set(alwaysOnCount+1, forKey: "alwaysOnCount")
                         return false
                     } else {
-                        UserDefaults.standard.set(alwaysOnCount+1, forKey: "alwaysOnCount")
                         return true
                     }
                 }
@@ -483,24 +483,32 @@ extension HomeViewController {
         exampleImageView.isHidden = true
     }
     
-    func checkForUD() {
-        if UserDefaults.standard.object(forKey: "alwaysOn") == nil {
-            UserDefaults.standard.set(false, forKey: "alwaysOn")
+    func checkUpdate() { // 어플 실행시 확인하는 것
+        if UserDefaults.standard.object(forKey: "version") == nil {
+            UserDefaults.standard.set(120, forKey: "version")
+            UserDefaults.standard.set(false, forKey: "isUpdated")
+        } else {
+            UserDefaults.standard.set(120, forKey: "version")
+            // 앞으로 업데이트 시 여기에 integer값으로 버전 입력하고 업데이트 사항 반영
         }
-        if UserDefaults.standard.object(forKey: "alwaysOnCount") == nil {
-            //alwaysOn이 켜져있을 때 연속해서 유효한 위치값이 연속으로 나타나야 isValid를 true로 반환할 수 있도록 하는 userdefaults
-            UserDefaults.standard.set(0, forKey: "alwaysOnCount")
+        
+        
+        if UserDefaults.standard.integer(forKey: "version") == 120 {
+            if !UserDefaults.standard.bool(forKey: "isUpdated") {
+                UserDefaults.standard.set(false, forKey: "alwaysOn")
+                //alwaysOn이 켜져있을 때 연속해서 유효한 위치값이 연속으로 나타나야 isValid를 true로 반환할 수 있도록 하는 userdefaults
+                UserDefaults.standard.set(0, forKey: "alwaysOnCount")
+                UserDefaults.standard.set(0, forKey: "launchingCount")
+                UserDefaults.standard.set(0, forKey: "minimumTotalRecord")
+            } else {
+                print("already updated")
+            }
         }
+        
         
     }
     
-    func checkForUDHB() {
-        if UserDefaults.standard.object(forKey: "launchingCount") == nil {
-            UserDefaults.standard.set(0, forKey: "launchingCount")
-        }
-        if UserDefaults.standard.object(forKey: "minimumTotalRecord") == nil {
-            UserDefaults.standard.set(0, forKey: "minimumTotalRecord")
-        }
+    func checkUpdateInHB() { // 홈버튼 누를때 확인하는 것
         lauchingCount = UserDefaults.standard.integer(forKey: "launchingCount")
         if lauchingCount ?? 0 >= 5 {
             SKStoreReviewController.requestReview()
@@ -510,9 +518,24 @@ extension HomeViewController {
         }
     }
     
+    func checkUpdateInVDA(){
+        if !UserDefaults.standard.bool(forKey: "isUpdated") {
+            let updatingAlert = UIAlertController.init(title: "업데이트 중", message: "장소별 배지를 조금 손보았어요.", preferredStyle:  .alert)
+            self.present(updatingAlert, animated: true, completion: nil)
+            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (timer) in
+                updatingAlert.dismiss(animated: true, completion: nil)
+            }
+            DispatchQueue.global().sync {
+                LevelManager.deleteTypeBadge(badgeType: "place")
+                BadgeGiver.restorePlaceBadge()
+            }
+            UserDefaults.standard.set(true, forKey: "isUpdated")
+        }
+    }
+    
     func setUserDefaults() {
         UserDefaults.standard.setValue(true, forKey: "startedBefore")
-        UserDefaults.standard.setValue(true, forKey: "alwaysOn")
+        UserDefaults.standard.setValue(false, forKey: "alwaysOn")
         UserDefaults.standard.setValue(0, forKey: "launchingCount")
         UserDefaults.standard.setValue(true, forKey: "everydayPush")
         UserDefaults.standard.setValue(true, forKey: "etcPush")

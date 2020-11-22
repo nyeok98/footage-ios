@@ -41,7 +41,8 @@ class PlaceManager {
                     } else { lastData = result[0] }
                     lastLocality = placemarkLocality ?? ""
                 } else {
-                    if !localityList!.contains(placemarkLocality!) { localityList?.append(placemarkLocality!)
+                    if !localityList!.contains("\(placemarkLocality!)") {
+                        localityList?.append("\(placemarkLocality!)")
                         isAppended = true
                     }
                 }
@@ -88,7 +89,20 @@ class PlaceManager {
         let realm = try! Realm()
         let results = realm.objects(Place.self).filter("'\(cityName)' == administrativeArea")
         for result in results {
-            localityList?.append(result.locality)
+            if !(localityList?.contains(result.locality) ?? false){
+                localityList?.append(result.locality)
+            }
+        }
+    }
+    
+    static func findAllListOfPlace() { // for restore in 1.2.0
+        let realm = try! Realm()
+        let results = realm.objects(Place.self)
+        BadgeGiver.restorePlaceList = []
+        for result in results {
+            if !(BadgeGiver.restorePlaceList?.contains(result) ?? false){
+                BadgeGiver.restorePlaceList?.append(result)
+            }
         }
     }
 }
