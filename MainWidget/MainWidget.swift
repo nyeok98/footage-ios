@@ -15,8 +15,8 @@ struct IntentProvider: IntentTimelineProvider {
     }
     
     func getSnapshot(for configuration: SelectColorIntent, in context: Context, completion: @escaping (WidgetEntry) -> Void) {
-        guard let hex = configuration.color?.identifier else { return }
-        let entry = WidgetEntry(date: Date(), selectedColor: hex)
+        guard let selectedColor = configuration.color?.identifier else { return }
+        let entry = WidgetEntry(date: Date(), selectedColor: selectedColor)
         completion(entry)
     }
     
@@ -36,7 +36,7 @@ struct WidgetEntry: TimelineEntry {
 struct MainWidgetEntryView : View {
     var entry: IntentProvider.Entry
     var body: some View {
-        SmallView(entry: entry)
+        SmallView(selectedColor: entry.selectedColor)
     }
 }
 
@@ -50,7 +50,7 @@ struct MainWidget: Widget {
             intent: SelectColorIntent.self,
             provider: IntentProvider()
             ) { entry in
-            SmallView(entry: entry)
+            SmallView(selectedColor: entry.selectedColor)
         }
         .configurationDisplayName("발자취 위젯")
         .description("위젯을 추가해 홈 화면에서 기록을 시작하세요")

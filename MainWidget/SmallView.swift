@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct SmallView: View {
-    let entry: WidgetEntry
+    
+    let selectedColor: String
     let isTracking = UserDefaults(suiteName: "group.footage")!.bool(forKey: "isTracking")
     let distanceToday = UserDefaults(suiteName: "group.footage")!.double(forKey: "distanceToday")
     var body: some View {
         ZStack {
-            Image(entry.selectedColor + "Paper")
+            Image(selectedColor + "Paper")
             VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 8) {
                 let screenWidth = UIScreen.main.bounds.width
                 if isTracking {

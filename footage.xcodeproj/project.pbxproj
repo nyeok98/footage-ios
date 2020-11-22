@@ -49,7 +49,6 @@
 		6EC8D9E1253C3E5A0084E737 /* MainWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6EC8D9D4253C3E570084E737 /* MainWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6EC8D9EA253C3E780084E737 /* WidgetRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC8D9E9253C3E780084E737 /* WidgetRealm.swift */; };
 		6EC8D9EF253C3E8D0084E737 /* SmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC8D9ED253C3E8D0084E737 /* SmallView.swift */; };
-		6EC8D9F0253C3E8D0084E737 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC8D9EE253C3E8D0084E737 /* HomeState.swift */; };
 		6EC8DA01253C40980084E737 /* WidgetRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC8D9E9253C3E780084E737 /* WidgetRealm.swift */; };
 		6ECCBFD624A98B51007B7B5E /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECCBFD524A98B51007B7B5E /* DateConverter.swift */; };
 		6ECCBFD824A9943A007B7B5E /* BadgeSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECCBFD724A9943A007B7B5E /* BadgeSupplementaryView.swift */; };
@@ -186,7 +185,6 @@
 		6EC8D9DE253C3E5A0084E737 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EC8D9E9253C3E780084E737 /* WidgetRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetRealm.swift; sourceTree = "<group>"; };
 		6EC8D9ED253C3E8D0084E737 /* SmallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallView.swift; sourceTree = "<group>"; };
-		6EC8D9EE253C3E8D0084E737 /* HomeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		6ECCBFD524A98B51007B7B5E /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		6ECCBFD724A9943A007B7B5E /* BadgeSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeSupplementaryView.swift; sourceTree = "<group>"; };
 		6ECCBFD924A9C605007B7B5E /* PhotoSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectionVC.swift; sourceTree = "<group>"; };
@@ -378,7 +376,6 @@
 		6EC8D9D9253C3E570084E737 /* MainWidget */ = {
 			isa = PBXGroup;
 			children = (
-				6EC8D9EE253C3E8D0084E737 /* HomeState.swift */,
 				CE2BE937255B878C000C10C1 /* SelectColorIntent.intentdefinition */,
 				6EC8D9ED253C3E8D0084E737 /* SmallView.swift */,
 				6EC8D9DA253C3E570084E737 /* MainWidget.swift */,
@@ -712,7 +709,6 @@
 			files = (
 				6EC8D9DB253C3E570084E737 /* MainWidget.swift in Sources */,
 				6EC8DA01253C40980084E737 /* WidgetRealm.swift in Sources */,
-				6EC8D9F0253C3E8D0084E737 /* HomeState.swift in Sources */,
 				6EC8D9EF253C3E8D0084E737 /* SmallView.swift in Sources */,
 				CE2BE992255BC5AB000C10C1 /* SelectColorIntent.intentdefinition in Sources */,
 			);
@@ -847,8 +843,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 19D11F09031288490284DBD3 /* Pods-MainWidgetExtension.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = MainWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -860,6 +854,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.el.footage.MainWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -872,8 +867,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CBAF05392549563FA915406F /* Pods-MainWidgetExtension.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = MainWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -885,6 +878,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.el.footage.MainWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1063,12 +1057,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = WidgetColorSelection/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.el.footage.WidgetColorSelection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1083,12 +1078,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = WidgetColorSelection/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.el.footage.WidgetColorSelection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
