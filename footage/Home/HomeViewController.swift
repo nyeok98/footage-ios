@@ -109,6 +109,7 @@ class HomeViewController: UIViewController {
             Settings_GeneralVC.registerNoti()
             HomeViewController.locationManager.requestWhenInUseAuthorization()
         }
+        setToLastCategory(button: UserDefaults.standard.string(forKey: "selectedColor") ?? "#EADE4Cff")
     }
     @IBAction func startButtonLongPressed(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
@@ -422,6 +423,32 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             }
         }
     }
+    
+    func setToLastCategory(button: String){
+        switch button {
+        case "#EADE4Cff":
+            break;
+        case "#F5A997ff":
+            HomeAnimation.buttonChanger(homeVC: self, pressedbutton: secondButton)
+            HomeAnimation.colorSelected(homeVC: self, pressedbutton: secondButton)
+            break;
+        case "#F0E7CFff":
+            HomeAnimation.buttonChanger(homeVC: self, pressedbutton: thirdButton)
+            HomeAnimation.colorSelected(homeVC: self, pressedbutton: thirdButton)
+            break;
+        case "#FF6B39ff":
+            HomeAnimation.buttonChanger(homeVC: self, pressedbutton: fourthButton)
+            HomeAnimation.colorSelected(homeVC: self, pressedbutton: fourthButton)
+            break;
+        case "#206491ff":
+            HomeAnimation.buttonChanger(homeVC: self, pressedbutton: fifthButton)
+            HomeAnimation.colorSelected(homeVC: self, pressedbutton: fifthButton)
+            break;
+        default:
+            break;
+        }
+        
+    }
 }
 
 // MARK: -Others
@@ -500,7 +527,9 @@ extension HomeViewController {
                 UserDefaults.standard.set(0, forKey: "alwaysOnCount")
                 UserDefaults.standard.set(0, forKey: "launchingCount")
                 UserDefaults.standard.set(0, forKey: "minimumTotalRecord")
+                UserDefaults.standard.set("#EADE4Cff", forKey: "selectedColor")
             } else {
+//                UserDefaults.standard.set(false, forKey: "isUpdated") // For test
                 print("already updated")
             }
         }
@@ -541,6 +570,7 @@ extension HomeViewController {
         UserDefaults.standard.setValue(true, forKey: "etcPush")
         UserDefaults.standard.setValue(10, forKey: "everydayPushHour")
         UserDefaults.standard.setValue(30, forKey: "everydayPushMinute")
+        UserDefaults.standard.setValue("#EADE4Cff", forKey: "selectedColor")
     }
     
     @objc func switchChanged(_ sender: UISwitch) {
