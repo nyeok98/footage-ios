@@ -65,7 +65,11 @@ class HomeViewController: UIViewController {
             UserDefaults(suiteName: "group.footage")?.set(distanceToday, forKey: "distanceToday")
         }
     }
-    static var distanceTotal: Double = 0
+    static var distanceTotal: Double = 0 {
+        didSet {
+            UserDefaults(suiteName: "group.footage")?.set(distanceTotal, forKey: "distanceTotal")
+        }
+    }
     static let locationManager = CLLocationManager()
     var dateFormatter =  DateFormatter()
     var nextLocation: CLLocation?
@@ -535,7 +539,16 @@ extension HomeViewController {
                 UserDefaults.standard.set(0, forKey: "alwaysOnCount")
                 UserDefaults.standard.set(0, forKey: "launchingCount")
                 UserDefaults.standard.set(0, forKey: "minimumTotalRecord")
+                guard let widgetUD = UserDefaults(suiteName: "group.footage") else { return }
+                widgetUD.set("#EADE4Cff", forKey: "selectedColor")
+                
+                let hexValues = ["#EADE4Cff", "#F5A997ff", "#F0E7CFff", "#FF6B39ff", "#206491ff"]
+                for hex in hexValues {
+                    guard let categoryName = UserDefaults.standard.string(forKey: hex) else { continue }
+                    widgetUD.set(categoryName, forKey: hex)
+                }
                 UserDefaults(suiteName: "group.footage")!.set("#EADE4Cff", forKey: "selectedColor")
+                
             } else {
                 //                UserDefaults.standard.set(false, forKey: "isUpdated") // For test
                 print("already updated")

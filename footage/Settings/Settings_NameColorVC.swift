@@ -37,11 +37,12 @@ class Settings_NameColorVC: UIViewController {
     }
     
     override func viewDidLoad() {
-        firstLabel.text = UserDefaults.standard.string(forKey: "#EADE4Cff")
-        secondLabel.text = UserDefaults.standard.string(forKey: "#F5A997ff")
-        thirdLabel.text = UserDefaults.standard.string(forKey: "#F0E7CFff")
-        fourthLabel.text = UserDefaults.standard.string(forKey: "#FF6B39ff")
-        fifthLabel.text = UserDefaults.standard.string(forKey: "#206491ff")
+        guard let widgetUD = UserDefaults(suiteName: "group.footage") else { return }
+        firstLabel.text = widgetUD.string(forKey: "#EADE4Cff")
+        secondLabel.text = widgetUD.string(forKey: "#F5A997ff")
+        thirdLabel.text = widgetUD.string(forKey: "#F0E7CFff")
+        fourthLabel.text = widgetUD.string(forKey: "#FF6B39ff")
+        fifthLabel.text = widgetUD.string(forKey: "#206491ff")
     }
     
     
@@ -56,7 +57,7 @@ class Settings_NameColorVC: UIViewController {
             let youSureAlert = UIAlertController.init(title: "주의!", message: "월간리포트에서는 카테고리의 이름이 아닌 발자취의 색깔에 따라 거리가 합산됩니다.", preferredStyle:  .alert)
             let realOk =  UIAlertAction.init(title: "수정", style: .default) { (action) in
                 labelname.text = userInput
-                UserDefaults.standard.set(labelname.text, forKey: hexCode)
+                UserDefaults(suiteName: "group.footage")!.set(labelname.text, forKey: hexCode)
             }
             let actuallyNo = UIAlertAction.init(title: "취소", style: .cancel) { (action) in
                 print(action)

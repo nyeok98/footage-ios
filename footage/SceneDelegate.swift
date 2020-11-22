@@ -90,18 +90,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 topController.present(passwordVC, animated: true, completion: nil)
             }
         } else if userState == nil { // first launch
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let firstLaunchVC = storyBoard.instantiateViewController(withIdentifier: "FL_VideoVC") as! FL_VideoVC
+            self.window?.rootViewController = firstLaunchVC
             UserDefaults.standard.set("", forKey: "todayBadge")
             UserDefaults.standard.set(0, forKey: "minimumTotalDistance")
             UserDefaults.standard.set(0, forKey: "minimumTotalRecord")
             UserDefaults.standard.set(false, forKey: "startedBefore")
-            UserDefaults.standard.set("노란색", forKey: "#EADE4Cff")
-            UserDefaults.standard.set("분홍색", forKey: "#F5A997ff")
-            UserDefaults.standard.set("흰  색", forKey: "#F0E7CFff")
-            UserDefaults.standard.set("주황색", forKey: "#FF6B39ff")
-            UserDefaults.standard.set("파란색", forKey: "#206491ff")
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let firstLaunchVC = storyBoard.instantiateViewController(withIdentifier: "FL_VideoVC") as! FL_VideoVC
-            self.window?.rootViewController = firstLaunchVC
+            guard let widgetUD = UserDefaults(suiteName: "group.footage") else { return }
+            widgetUD.set("노란색", forKey: "#EADE4Cff")
+            widgetUD.set("분홍색", forKey: "#F5A997ff")
+            widgetUD.set("흰  색", forKey: "#F0E7CFff")
+            widgetUD.set("주황색", forKey: "#FF6B39ff")
+            widgetUD.set("파란색", forKey: "#206491ff")
         }
         // Widget Color Update
         
