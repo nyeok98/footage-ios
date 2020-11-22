@@ -97,7 +97,6 @@
 		CE2BE9C6255BD2CE000C10C1 /* NanumBarunpenBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E6F0FC824A1014800F49152 /* NanumBarunpenBold.ttf */; };
 		CE2BE9C7255BD2CE000C10C1 /* NanumBarunpenRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E442F5E24BEA6A10041CAF2 /* NanumBarunpenRegular.ttf */; };
 		CE43B403256A4028001172B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE43B401256A4027001172B7 /* Main.storyboard */; };
-		CE43B415256A9049001172B7 /* MediumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43B40C256A9036001172B7 /* MediumView.swift */; };
 		CE5EDEB4254EB77F006D7C9F /* Intro.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE5EDEB3254EB77F006D7C9F /* Intro.mp4 */; };
 		CE5EDEBC254EC5AE006D7C9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5EDEBB254EC5AE006D7C9F /* Assets.xcassets */; };
 		E3321726B3160534B511792C /* Pods_footage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D56ABB957378A50C8E81335 /* Pods_footage.framework */; };
@@ -224,7 +223,6 @@
 		CBAF05392549563FA915406F /* Pods-MainWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MainWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-MainWidgetExtension/Pods-MainWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		CE2BE94B255B89AF000C10C1 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		CE43B402256A4027001172B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Footage/Views/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
-		CE43B40C256A9036001172B7 /* MediumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumView.swift; sourceTree = "<group>"; };
 		CE5EDEB3254EB77F006D7C9F /* Intro.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intro.mp4; sourceTree = "<group>"; };
 		CE5EDEBB254EC5AE006D7C9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2CCB6D4199D83BB62272983 /* Pods-footage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-footage.release.xcconfig"; path = "Target Support Files/Pods-footage/Pods-footage.release.xcconfig"; sourceTree = "<group>"; };
@@ -356,7 +354,6 @@
 			isa = PBXGroup;
 			children = (
 				6EC8D9ED253C3E8D0084E737 /* SmallView.swift */,
-				CE43B40C256A9036001172B7 /* MediumView.swift */,
 				6EC8D9DA253C3E570084E737 /* MainWidget.swift */,
 				6EC8D9DC253C3E5A0084E737 /* Assets.xcassets */,
 				6EC8D9DE253C3E5A0084E737 /* Info.plist */,
@@ -646,7 +643,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE43B415256A9049001172B7 /* MediumView.swift in Sources */,
 				6EC8D9DB253C3E570084E737 /* MainWidget.swift in Sources */,
 				6EC8DA01253C40980084E737 /* WidgetRealm.swift in Sources */,
 				6EC8D9EF253C3E8D0084E737 /* SmallView.swift in Sources */,

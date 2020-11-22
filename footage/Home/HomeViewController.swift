@@ -138,6 +138,7 @@ class HomeViewController: UIViewController {
     }
     
     func startTracking() {
+        UserDefaults(suiteName: "group.footage")?.set(true, forKey: "isTracking")
         HomeViewController.distanceToday = DateManager.loadDistance(total: false)
         HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "stopButton")
         UIApplication.shared.applicationIconBadgeNumber = 0
@@ -545,12 +546,13 @@ extension HomeViewController {
                 let hexValues = ["#EADE4Cff", "#F5A997ff", "#F0E7CFff", "#FF6B39ff", "#206491ff"]
                 for hex in hexValues {
                     guard let categoryName = UserDefaults.standard.string(forKey: hex) else { continue }
+                    print(categoryName)
                     widgetUD.set(categoryName, forKey: hex)
                 }
                 UserDefaults(suiteName: "group.footage")!.set("#EADE4Cff", forKey: "selectedColor")
                 
             } else {
-                //                UserDefaults.standard.set(false, forKey: "isUpdated") // For test
+//                UserDefaults.standard.set(false, forKey: "isUpdated") // For test
                 print("already updated")
             }
         }
