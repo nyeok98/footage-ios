@@ -48,4 +48,12 @@ class LevelManager {
         let result = Array(realm.objects(Badge.self).filter("date BEGINSWITH '\(month)'"))
         return result.isEmpty ? nil : result
     }
+    
+    static func deleteTypeBadge(badgeType: String){
+        let realm = try! Realm()
+        let results = realm.objects(Badge.self).filter("'\(badgeType)' == type")
+        try! realm.write {
+            realm.delete(results)
+        }
+    }
 }

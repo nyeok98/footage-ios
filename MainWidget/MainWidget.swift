@@ -9,34 +9,44 @@
 import WidgetKit
 import SwiftUI
 
-struct IntentProvider: IntentTimelineProvider {
-    func placeholder(in context: Context) -> WidgetEntry {
-        return WidgetEntry(date: Date(), selectedColor: "#EADE4Cff")
-    }
-    
-    func getSnapshot(for configuration: SelectColorIntent, in context: Context, completion: @escaping (WidgetEntry) -> Void) {
-        guard let selectedColor = configuration.color?.identifier else { return }
+struct MainWidgetProvider: TimelineProvider {
+    func getSnapshot(in context: Context, completion: @escaping (WidgetEntry) -> Void) {
+        guard let userDefaults = UserDefaults(suiteName: "group.footage") else { return }
+        let selectedColor = userDefaults.string(forKey: "selectedColor") ?? "#EADE4Cff"
         let entry = WidgetEntry(date: Date(), selectedColor: selectedColor)
         completion(entry)
     }
     
-    func getTimeline(for configuration: SelectColorIntent, in context: Context, completion: @escaping (Timeline<WidgetEntry>) -> Void) {
-        guard let hex = configuration.color?.identifier else { return }
-        let entry = WidgetEntry(date: Date(), selectedColor: hex)
+    func getTimeline(in context: Context, completion: @escaping (Timeline<WidgetEntry>) -> Void) {
+        guard let userDefaults = UserDefaults(suiteName: "group.footage") else { return }
+        let selectedColor = userDefaults.string(forKey: "selectedColor") ?? "#EADE4Cff"
+        let entry = WidgetEntry(date: Date(), selectedColor: selectedColor)
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
+    }
+    
+    func placeholder(in context: Context) -> WidgetEntry {
+        return WidgetEntry(date: Date(), selectedColor: "#EADE4Cff")
     }
 }
 
 struct WidgetEntry: TimelineEntry {
     let date: Date
-    let selectedColor: String
+    var selectedColor = "#EADE4Cff"
 }
 
 struct MainWidgetEntryView : View {
-    var entry: IntentProvider.Entry
+    var entry: MainWidgetProvider.Entry
+    @Environment(\.widgetFamily) var family
+    @ViewBuilder
     var body: some View {
-        SmallView(selectedColor: entry.selectedColor)
+        switch family {
+        case .systemSmall:
+            SmallView(selectedColor: entry.selectedColor)
+        //case .systemMedium:
+        default:
+            SmallView(selectedColor: entry.selectedColor)
+        }
     }
 }
 
@@ -45,15 +55,11 @@ struct MainWidget: Widget {
     let kind: String = "MainWidget"
 
     var body: some WidgetConfiguration {
-        IntentConfiguration(
-            kind: "co.el.footage.MainWidget",
-            intent: SelectColorIntent.self,
-            provider: IntentProvider()
-            ) { entry in
+        StaticConfiguration(kind: kind, provider: MainWidgetProvider()) { entry in
             SmallView(selectedColor: entry.selectedColor)
         }
         .configurationDisplayName("발자취 위젯")
         .description("위젯을 추가해 홈 화면에서 기록을 시작하세요")
-        .supportedFamilies([.systemSmall])
+        .supportedFamilies([.systemSmall, .systemMedium])
     }
 }

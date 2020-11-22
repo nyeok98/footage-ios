@@ -13,8 +13,8 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        HomeViewController.distanceTotal = DateManager.loadDistance(total: true)
-        DateManager.loadTodayData()
+        //HomeViewController.distanceTotal = DateManager.loadDistance(total: true)
+        //DateManager.loadTodayData()
         return true
     }
     
@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        UserDefaults(suiteName: "group.footage")?.set(false, forKey: "isTracking")
+        //UserDefaults(suiteName: "group.footage")?.set(false, forKey: "isTracking")
     }
     
 }

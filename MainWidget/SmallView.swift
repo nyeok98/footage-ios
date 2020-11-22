@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct SmallView: View {
-    
     let selectedColor: String
     let isTracking = UserDefaults(suiteName: "group.footage")!.bool(forKey: "isTracking")
     let distanceToday = UserDefaults(suiteName: "group.footage")!.double(forKey: "distanceToday")

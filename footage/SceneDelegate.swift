@@ -19,14 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        HomeViewController.distanceTotal = DateManager.loadDistance(total: true)
+        DateManager.loadTodayData()
+        guard let tabBarVC = window?.rootViewController as? UITabBarController else { return }
+        tabBarVC.selectedIndex = 0
+        guard let homeVC = tabBarVC.selectedViewController as? HomeViewController else { return }
+        homeVC.setToLastCategory(selectedColor: UserDefaults(suiteName: "group.footage")?.string(forKey: "selectedColor"))
         if let url = connectionOptions.urlContexts.first?.url {
             if url.scheme == "widget" {
-                if let tabBarVC = window?.rootViewController as? UITabBarController {
-                    tabBarVC.selectedIndex = 0
-                    if let homeVC = tabBarVC.selectedViewController as? HomeViewController {
-                        homeVC.startTracking()
-                    }
-                }
+                homeVC.startTracking()
             }
         }
     }
@@ -57,7 +58,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if #available(iOS 14.0, *) {
             WidgetCenter.shared.reloadAllTimelines()
         }
-        //UserDefaults.standard.setValue(HomeViewController.selectedColor, forKey: "lastColor")
     }
     
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -103,6 +103,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let firstLaunchVC = storyBoard.instantiateViewController(withIdentifier: "FL_VideoVC") as! FL_VideoVC
             self.window?.rootViewController = firstLaunchVC
         }
+        // Widget Color Update
+        
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {

@@ -16,6 +16,7 @@ class LevelVC: UIViewController {
     let screenWidth = UIScreen.main.bounds.width
     var todayBadge: Badge! = nil
     var statsVC: StatsViewController! = nil
+    var isTest = true
 
     @IBOutlet weak var badgeDetail: UILabel!
     @IBOutlet weak var todayBadgeImageView: UIImageView!
@@ -49,7 +50,6 @@ class LevelVC: UIViewController {
         collectionView.alwaysBounceHorizontal = true
         collectionView.bounces = true
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGFloat(CGFloat(badgeList.count) * BadgeCell().bounds.width))
-        print(BadgeCell().bounds.width)
         badgeAnimation()
     }
     
@@ -82,6 +82,7 @@ extension LevelVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "badge-cell-reuse-identifier",for: indexPath) as! BadgeCell
         cell.backgroundColor = .clear
         cell.badgeImageView.image = UIImage(named: badgeList[indexPath.row].imageName)
+        cell.badgeImageView.contentMode = .scaleAspectFit
         
         return cell
     }
@@ -128,6 +129,6 @@ extension LevelVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 10
     }
 }

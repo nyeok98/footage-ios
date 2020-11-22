@@ -80,7 +80,6 @@
 		B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */; };
 		B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */; };
 		B9A66FA6248F6BF3001EAF54 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA5248F6BF3001EAF54 /* HomeViewController.swift */; };
-		B9A66FA9248F6BF3001EAF54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9A66FA7248F6BF3001EAF54 /* Main.storyboard */; };
 		B9A66FAE248F6BF6001EAF54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9A66FAC248F6BF6001EAF54 /* LaunchScreen.storyboard */; };
 		B9A66FB9248F70AC001EAF54 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FB8248F70AC001EAF54 /* StatsViewController.swift */; };
 		B9A66FBE248F70E8001EAF54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FBD248F70E8001EAF54 /* SettingsViewController.swift */; };
@@ -94,13 +93,11 @@
 		B9D6456F25206D5C008CDBF5 /* MapBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6456725206D5C008CDBF5 /* MapBridge.swift */; };
 		B9D6457025206D5C008CDBF5 /* MapBottomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6456825206D5C008CDBF5 /* MapBottomVC.swift */; };
 		B9D6457125206D5C008CDBF5 /* MapCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6456925206D5C008CDBF5 /* MapCollectionLayout.swift */; };
-		CE2BE944255B89AF000C10C1 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2BE943255B89AF000C10C1 /* IntentHandler.swift */; };
-		CE2BE959255B89AF000C10C1 /* WidgetColorSelection.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CE2BE941255B89AF000C10C1 /* WidgetColorSelection.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		CE2BE992255BC5AB000C10C1 /* SelectColorIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = CE2BE937255B878C000C10C1 /* SelectColorIntent.intentdefinition */; };
 		CE2BE9B8255BD123000C10C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EC8D9DC253C3E5A0084E737 /* Assets.xcassets */; };
-		CE2BE9C2255BD18B000C10C1 /* SelectColorIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = CE2BE937255B878C000C10C1 /* SelectColorIntent.intentdefinition */; };
 		CE2BE9C6255BD2CE000C10C1 /* NanumBarunpenBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E6F0FC824A1014800F49152 /* NanumBarunpenBold.ttf */; };
 		CE2BE9C7255BD2CE000C10C1 /* NanumBarunpenRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E442F5E24BEA6A10041CAF2 /* NanumBarunpenRegular.ttf */; };
+		CE43B403256A4028001172B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE43B401256A4027001172B7 /* Main.storyboard */; };
+		CE43B415256A9049001172B7 /* MediumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43B40C256A9036001172B7 /* MediumView.swift */; };
 		CE5EDEB4254EB77F006D7C9F /* Intro.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE5EDEB3254EB77F006D7C9F /* Intro.mp4 */; };
 		CE5EDEBC254EC5AE006D7C9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5EDEBB254EC5AE006D7C9F /* Assets.xcassets */; };
 		E3321726B3160534B511792C /* Pods_footage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D56ABB957378A50C8E81335 /* Pods_footage.framework */; };
@@ -114,13 +111,6 @@
 			remoteGlobalIDString = 6EC8D9D3253C3E570084E737;
 			remoteInfo = MainWidgetExtension;
 		};
-		CE2BE957255B89AF000C10C1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B9A66F96248F6BF3001EAF54 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CE2BE940255B89AF000C10C1;
-			remoteInfo = WidgetColorSelection;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -131,7 +121,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				6EC8D9E1253C3E5A0084E737 /* MainWidgetExtension.appex in Embed App Extensions */,
-				CE2BE959255B89AF000C10C1 /* WidgetColorSelection.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,7 +207,6 @@
 		B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B9A66FA5248F6BF3001EAF54 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		B9A66FA8248F6BF3001EAF54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B9A66FAD248F6BF6001EAF54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B9A66FAF248F6BF6001EAF54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9A66FB8248F70AC001EAF54 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
@@ -234,11 +222,9 @@
 		B9D6456825206D5C008CDBF5 /* MapBottomVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapBottomVC.swift; sourceTree = "<group>"; };
 		B9D6456925206D5C008CDBF5 /* MapCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCollectionLayout.swift; sourceTree = "<group>"; };
 		CBAF05392549563FA915406F /* Pods-MainWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MainWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-MainWidgetExtension/Pods-MainWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
-		CE2BE937255B878C000C10C1 /* SelectColorIntent.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = SelectColorIntent.intentdefinition; sourceTree = "<group>"; };
-		CE2BE941255B89AF000C10C1 /* WidgetColorSelection.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetColorSelection.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE2BE943255B89AF000C10C1 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
-		CE2BE945255B89AF000C10C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE2BE94B255B89AF000C10C1 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		CE43B402256A4027001172B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Footage/Views/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		CE43B40C256A9036001172B7 /* MediumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumView.swift; sourceTree = "<group>"; };
 		CE5EDEB3254EB77F006D7C9F /* Intro.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intro.mp4; sourceTree = "<group>"; };
 		CE5EDEBB254EC5AE006D7C9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2CCB6D4199D83BB62272983 /* Pods-footage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-footage.release.xcconfig"; path = "Target Support Files/Pods-footage/Pods-footage.release.xcconfig"; sourceTree = "<group>"; };
@@ -260,13 +246,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3321726B3160534B511792C /* Pods_footage.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CE2BE93E255B89AF000C10C1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,8 +355,8 @@
 		6EC8D9D9253C3E570084E737 /* MainWidget */ = {
 			isa = PBXGroup;
 			children = (
-				CE2BE937255B878C000C10C1 /* SelectColorIntent.intentdefinition */,
 				6EC8D9ED253C3E8D0084E737 /* SmallView.swift */,
+				CE43B40C256A9036001172B7 /* MediumView.swift */,
 				6EC8D9DA253C3E570084E737 /* MainWidget.swift */,
 				6EC8D9DC253C3E5A0084E737 /* Assets.xcassets */,
 				6EC8D9DE253C3E5A0084E737 /* Info.plist */,
@@ -402,7 +381,6 @@
 			children = (
 				B9A66FA0248F6BF3001EAF54 /* footage */,
 				6EC8D9D9253C3E570084E737 /* MainWidget */,
-				CE2BE942255B89AF000C10C1 /* WidgetColorSelection */,
 				B9A66F9F248F6BF3001EAF54 /* Products */,
 				5944A962B3D12DCBD4DA349A /* Pods */,
 				B52D9A8558ABF266C06DC34C /* Frameworks */,
@@ -414,7 +392,6 @@
 			children = (
 				B9A66F9E248F6BF3001EAF54 /* footage.app */,
 				6EC8D9D4253C3E570084E737 /* MainWidgetExtension.appex */,
-				CE2BE941255B89AF000C10C1 /* WidgetColorSelection.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -463,7 +440,7 @@
 		B9A66FB6248F6C9B001EAF54 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B9A66FA7248F6BF3001EAF54 /* Main.storyboard */,
+				CE43B401256A4027001172B7 /* Main.storyboard */,
 				B9A66FAC248F6BF6001EAF54 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -491,15 +468,6 @@
 				B9D6456925206D5C008CDBF5 /* MapCollectionLayout.swift */,
 			);
 			path = Map;
-			sourceTree = "<group>";
-		};
-		CE2BE942255B89AF000C10C1 /* WidgetColorSelection */ = {
-			isa = PBXGroup;
-			children = (
-				CE2BE943255B89AF000C10C1 /* IntentHandler.swift */,
-				CE2BE945255B89AF000C10C1 /* Info.plist */,
-			);
-			path = WidgetColorSelection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -538,29 +506,11 @@
 			);
 			dependencies = (
 				6EC8D9E0253C3E5A0084E737 /* PBXTargetDependency */,
-				CE2BE958255B89AF000C10C1 /* PBXTargetDependency */,
 			);
 			name = footage;
 			productName = footage;
 			productReference = B9A66F9E248F6BF3001EAF54 /* footage.app */;
 			productType = "com.apple.product-type.application";
-		};
-		CE2BE940255B89AF000C10C1 /* WidgetColorSelection */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CE2BE95D255B89AF000C10C1 /* Build configuration list for PBXNativeTarget "WidgetColorSelection" */;
-			buildPhases = (
-				CE2BE93D255B89AF000C10C1 /* Sources */,
-				CE2BE93E255B89AF000C10C1 /* Frameworks */,
-				CE2BE93F255B89AF000C10C1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = WidgetColorSelection;
-			productName = WidgetColorSelection;
-			productReference = CE2BE941255B89AF000C10C1 /* WidgetColorSelection.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -577,9 +527,6 @@
 					};
 					B9A66F9D248F6BF3001EAF54 = {
 						CreatedOnToolsVersion = 11.5;
-					};
-					CE2BE940255B89AF000C10C1 = {
-						CreatedOnToolsVersion = 12.1;
 					};
 				};
 			};
@@ -598,7 +545,6 @@
 			targets = (
 				B9A66F9D248F6BF3001EAF54 /* footage */,
 				6EC8D9D3253C3E570084E737 /* MainWidgetExtension */,
-				CE2BE940255B89AF000C10C1 /* WidgetColorSelection */,
 			);
 		};
 /* End PBXProject section */
@@ -618,21 +564,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9A66FA9248F6BF3001EAF54 /* Main.storyboard in Resources */,
 				B9A66FAE248F6BF6001EAF54 /* LaunchScreen.storyboard in Resources */,
 				6E6F0FCA24A1014800F49152 /* NanumBarunpenBold.ttf in Resources */,
 				6E442F5F24BEA9CE0041CAF2 /* NanumBarunpenRegular.ttf in Resources */,
+				CE43B403256A4028001172B7 /* Main.storyboard in Resources */,
 				CE5EDEB4254EB77F006D7C9F /* Intro.mp4 in Resources */,
 				CE5EDEBC254EC5AE006D7C9F /* Assets.xcassets in Resources */,
 				B91D8AAE251259AC005525B0 /* PopUpCard.xib in Resources */,
 				B911617D249A1E2300EFC75F /* MapCell.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CE2BE93F255B89AF000C10C1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,10 +646,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE43B415256A9049001172B7 /* MediumView.swift in Sources */,
 				6EC8D9DB253C3E570084E737 /* MainWidget.swift in Sources */,
 				6EC8DA01253C40980084E737 /* WidgetRealm.swift in Sources */,
 				6EC8D9EF253C3E8D0084E737 /* SmallView.swift in Sources */,
-				CE2BE992255BC5AB000C10C1 /* SelectColorIntent.intentdefinition in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -795,15 +734,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE2BE93D255B89AF000C10C1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CE2BE9C2255BD18B000C10C1 /* SelectColorIntent.intentdefinition in Sources */,
-				CE2BE944255B89AF000C10C1 /* IntentHandler.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -812,28 +742,23 @@
 			target = 6EC8D9D3253C3E570084E737 /* MainWidgetExtension */;
 			targetProxy = 6EC8D9DF253C3E5A0084E737 /* PBXContainerItemProxy */;
 		};
-		CE2BE958255B89AF000C10C1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CE2BE940255B89AF000C10C1 /* WidgetColorSelection */;
-			targetProxy = CE2BE957255B89AF000C10C1 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B9A66FA7248F6BF3001EAF54 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B9A66FA8248F6BF3001EAF54 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B9A66FAC248F6BF6001EAF54 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				B9A66FAD248F6BF6001EAF54 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		CE43B401256A4027001172B7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CE43B402256A4027001172B7 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1051,48 +976,6 @@
 			};
 			name = Release;
 		};
-		CE2BE95E255B89AF000C10C1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M286K6KP2M;
-				INFOPLIST_FILE = WidgetColorSelection/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.el.footage.WidgetColorSelection;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		CE2BE95F255B89AF000C10C1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M286K6KP2M;
-				INFOPLIST_FILE = WidgetColorSelection/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.el.footage.WidgetColorSelection;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1119,15 +1002,6 @@
 			buildConfigurations = (
 				B9A66FB3248F6BF6001EAF54 /* Debug */,
 				B9A66FB4248F6BF6001EAF54 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CE2BE95D255B89AF000C10C1 /* Build configuration list for PBXNativeTarget "WidgetColorSelection" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CE2BE95E255B89AF000C10C1 /* Debug */,
-				CE2BE95F255B89AF000C10C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

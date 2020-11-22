@@ -58,7 +58,7 @@ enum Korea: String {
     
     func numberOfLocality() -> Double {
         switch self {
-        case .sejong: return 19
+        case .sejong: return 32
         case .seoul: return 25
         case .incheon: return 10
         case .busan: return 16

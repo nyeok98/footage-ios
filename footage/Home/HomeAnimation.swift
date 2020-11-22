@@ -150,6 +150,8 @@ class HomeAnimation {
         homeVC.mainMap.tintColor = UIColor(hex: pressedButtonClass.color)
         HomeViewController.selectedColor = pressedButtonClass.color
         
+        UserDefaults(suiteName: "group.footage")!.set(pressedButtonClass.color, forKey: "selectedColor")
+        
     }
     
     static func colorSelected(homeVC: HomeViewController, pressedbutton: UIButton) {
