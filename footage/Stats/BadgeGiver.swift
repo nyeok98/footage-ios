@@ -248,8 +248,8 @@ class BadgeGiver {
 // MARK:- Temporary Code for restoring place badge
     
     static func restorePlaceBadge() {
-        if restorePlaceList == nil || restorePlaceList!.isEmpty { return }
         PlaceManager.findAllListOfPlace()
+        if restorePlaceList == nil || restorePlaceList!.isEmpty { return }
         var tempArr = [restorePlaceList?[0].administrativeArea]
         for place in restorePlaceList ?? [] {
             if !(tempArr.contains(place.administrativeArea)){

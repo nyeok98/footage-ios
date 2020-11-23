@@ -77,7 +77,7 @@ class HomeViewController: UIViewController {
     var lastLocation: CLLocation?
     var locationTimer: Timer?
     var setAsStart: Bool = true
-    var speedLimit: Double = 100
+    var speedLimit: Double = 9
     var refreshRate: Double = 2.5
     var distanceLimit: Double { speedLimit * refreshRate }
     lazy var startedBefore = UserDefaults.standard.bool(forKey: "startedBefore")
@@ -553,7 +553,7 @@ extension HomeViewController {
                 
             } else {
 //                UserDefaults.standard.set(false, forKey: "isUpdated") // For test
-                print("already updated")
+//                print("already updated")
             }
         }
         
