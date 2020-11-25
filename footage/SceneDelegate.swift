@@ -123,7 +123,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 Timer.scheduledTimer(withTimeInterval: 2.5, repeats: true) { timer in
                     self.alwaysOnTimer = timer
                     HomeViewController.locationManager.requestLocation()
-                    print("timer tic tok...")
                 }
             } else {
                 HomeViewController.locationManager.startUpdatingLocation()

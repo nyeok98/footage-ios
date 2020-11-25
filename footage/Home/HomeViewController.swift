@@ -77,7 +77,7 @@ class HomeViewController: UIViewController {
     var lastLocation: CLLocation?
     var locationTimer: Timer?
     var setAsStart: Bool = true
-    var speedLimit: Double = 9
+    var speedLimit: Double = 8
     var refreshRate: Double = 2.5
     var distanceLimit: Double { speedLimit * refreshRate }
     lazy var startedBefore = UserDefaults.standard.bool(forKey: "startedBefore")
@@ -472,7 +472,7 @@ extension HomeViewController {
         exampleImageView.isHidden = true
         startButton.setImage(#imageLiteral(resourceName: "startButton"), for: .normal)
         HomeViewController.currentStartButtonImage = startButton.currentImage
-        selectedButtonLabel.text = UserDefaults.standard.string(forKey: "#EADE4Cff")
+        selectedButtonLabel.text = UserDefaults(suiteName: "group.footage")?.string(forKey: "#EADE4Cff")
         mainMap.tintColor = UIColor(hex: "#EADE4Cff")
         startButton.alpha = 0
         distanceView.alpha = 0
@@ -527,6 +527,7 @@ extension HomeViewController {
         if UserDefaults.standard.object(forKey: "version") == nil {
             UserDefaults.standard.set(120, forKey: "version")
             UserDefaults.standard.set(false, forKey: "isUpdated")
+            print("first launch and you here")
         } else {
             UserDefaults.standard.set(120, forKey: "version")
             // 앞으로 업데이트 시 여기에 integer값으로 버전 입력하고 업데이트 사항 반영
@@ -546,7 +547,6 @@ extension HomeViewController {
                 let hexValues = ["#EADE4Cff", "#F5A997ff", "#F0E7CFff", "#FF6B39ff", "#206491ff"]
                 for hex in hexValues {
                     guard let categoryName = UserDefaults.standard.string(forKey: hex) else { continue }
-                    print(categoryName)
                     widgetUD.set(categoryName, forKey: hex)
                 }
                 UserDefaults(suiteName: "group.footage")!.set("#EADE4Cff", forKey: "selectedColor")

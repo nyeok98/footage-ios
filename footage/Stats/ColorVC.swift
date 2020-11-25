@@ -85,10 +85,10 @@ class ColorVC: UIViewController {
     }
     
     func setDefaultData() {
-        firstColorDistance.text = "-"
-        secondColorDistance.text = "-"
-        thirdColorDistance.text = "-"
-        fourthColorDistance.text = "-"
-        fifthColorDistance.text = "-"
+        firstColorDistance.text = "-\t"
+        secondColorDistance.text = "-\t"
+        thirdColorDistance.text = "-\t"
+        fourthColorDistance.text = "-\t"
+        fifthColorDistance.text = "-\t"
     }
 }

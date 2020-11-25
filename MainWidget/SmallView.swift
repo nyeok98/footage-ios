@@ -21,16 +21,21 @@ struct SmallView: View {
     }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 4) {
-            let screenWidth = UIScreen.main.bounds.width
-            TopView(selectedColor: selectedColor, isTracking: isTracking)
-            Text(distanceToShow)
-                .font(.custom("NanumBarunpen", size: 35))
-            Image(isTracking ? "stopButton" : "startButton")
-                .resizable()
-                .frame(width: screenWidth * 0.3, height: screenWidth * 0.14)
-                .widgetURL(URL(string: "widget://smallWidget"))
-        }.padding(.top, 10)
+        ZStack(alignment: .center) {
+            Color.white
+            .edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center, spacing: 4) {
+                let screenWidth = UIScreen.main.bounds.width
+                TopView(selectedColor: selectedColor, isTracking: isTracking)
+                Text(distanceToShow)
+                    .foregroundColor(.black)
+                    .font(.custom("NanumBarunpen", size: 35))
+                Image(isTracking ? "stopButton" : "startButton")
+                    .resizable()
+                    .frame(width: screenWidth * 0.3, height: screenWidth * 0.14)
+                    .widgetURL(URL(string: "widget://smallWidget"))
+            }.padding(.top, 10)
+        }
     }
 }
 
@@ -44,6 +49,7 @@ struct TopView: View {
                 .frame(width: 20, height: 32, alignment: .center)
             let selectedCategory = UserDefaults(suiteName: "group.footage")!.string(forKey: selectedColor) ?? "노란색"
             Text(isTracking ? selectedCategory : "총")
+                .foregroundColor(.black)
                 .font(.custom("NanumBarunpen-Bold", size: 22))
                 .frame(width: 100, alignment: .leading)
         })

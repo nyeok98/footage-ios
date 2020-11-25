@@ -35,11 +35,12 @@ class FL_NameColorVC: UIViewController {
     }
     
     override func viewDidLoad() {
-        firstLabel.text = UserDefaults.standard.string(forKey: "#EADE4Cff")
-        secondLabel.text = UserDefaults.standard.string(forKey: "#F5A997ff")
-        thirdLabel.text = UserDefaults.standard.string(forKey: "#F0E7CFff")
-        fourthLabel.text = UserDefaults.standard.string(forKey: "#FF6B39ff")
-        fifthLabel.text = UserDefaults.standard.string(forKey: "#206491ff")
+        guard let widgetUD = UserDefaults(suiteName: "group.footage") else { return }
+        firstLabel.text = widgetUD.string(forKey: "#EADE4Cff")
+        secondLabel.text = widgetUD.string(forKey: "#F5A997ff")
+        thirdLabel.text = widgetUD.string(forKey: "#F0E7CFff")
+        fourthLabel.text = widgetUD.string(forKey: "#FF6B39ff")
+        fifthLabel.text = widgetUD.string(forKey: "#206491ff")
     }
     
     
@@ -52,7 +53,7 @@ class FL_NameColorVC: UIViewController {
                 return
             }
             labelname.text = userInput
-            UserDefaults.standard.set(labelname.text, forKey: hexCode)
+            UserDefaults(suiteName: "group.footage")?.setValue(labelname.text, forKey: hexCode)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
             print(action)
