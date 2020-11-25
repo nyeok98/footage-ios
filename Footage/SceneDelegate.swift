@@ -95,7 +95,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 topController.present(passwordVC, animated: true, completion: nil)
             }
         } else if userState == nil { // first launch
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = UIStoryboard(name: "FirstLaunch", bundle: nil)
             let firstLaunchVC = storyBoard.instantiateViewController(withIdentifier: "FL_VideoVC") as! FL_VideoVC
             self.window?.rootViewController = firstLaunchVC
             UserDefaults.standard.set("", forKey: "todayBadge")
