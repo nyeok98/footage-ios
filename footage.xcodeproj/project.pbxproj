@@ -798,7 +798,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 19D11F09031288490284DBD3 /* Pods-MainWidgetExtension.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MainWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MainWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = M286K6KP2M;
@@ -822,7 +822,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CBAF05392549563FA915406F /* Pods-MainWidgetExtension.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MainWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MainWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = M286K6KP2M;
@@ -964,7 +964,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Footage/footage.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/footage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = M286K6KP2M;
@@ -988,7 +988,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Footage/footage.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/footage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = M286K6KP2M;
