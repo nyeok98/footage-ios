@@ -33,6 +33,7 @@ class ReportVC: UIViewController {
     @IBAction func buttonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "goToReportDetail", sender: sender)
     }
+    
     @IBAction func nextMonthButtonPressed(_ sender: Any) {
         thisYear += 1
         monthLabel.text = String(thisYear)
@@ -49,7 +50,7 @@ class ReportVC: UIViewController {
     var placeRank: Array<(key: String, value: Double)> = []
     var startDate: Int?
     var endDate: Int?
-    var thisYear = 2021
+    var thisYear = 2020
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +78,6 @@ class ReportVC: UIViewController {
             } else {
                 monthButtonList[index]!.isEnabled = true
                 monthButtonList[index]!.alpha = 1
-                
             }
         }
         setPrevNextButtons()
