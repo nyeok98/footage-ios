@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="204-T8-kw0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="204-T8-kw0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,22 +32,22 @@
                                         <rect key="frame" x="34" y="22" width="25" height="16"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toy-i4-Vdq">
-                                        <rect key="frame" x="13.5" y="-1.5" width="66" height="20"/>
+                                        <rect key="frame" x="13.5" y="-3.5" width="66" height="22"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0W-78-5ep">
-                                                <rect key="frame" x="0.0" y="0.0" width="7.5" height="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="6.5" height="22"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="노랑색" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="llh-wZ-F6T">
-                                                <rect key="frame" x="7.5" y="0.0" width="51" height="20"/>
+                                                <rect key="frame" x="6.5" y="0.0" width="53" height="22"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g1m-cH-GvD">
-                                                <rect key="frame" x="58.5" y="0.0" width="7.5" height="20"/>
+                                                <rect key="frame" x="59.5" y="0.0" width="6.5" height="22"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -69,21 +69,21 @@
                                 <rect key="frame" x="35" y="54" width="290" height="215"/>
                                 <subviews>
                                     <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="오늘까지" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="108.5" translatesAutoresizingMaskIntoConstraints="NO" id="uBe-Qj-Cf6">
-                                        <rect key="frame" x="0.0" y="0.0" width="91" height="71.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="108.5" height="71.5"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="당신이 새로 남긴" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="208" translatesAutoresizingMaskIntoConstraints="NO" id="qj3-im-B0C">
-                                        <rect key="frame" x="0.0" y="71.5" width="231.5" height="72"/>
+                                        <rect key="frame" x="0.0" y="71.5" width="208.5" height="72"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="발자취" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="82.5" translatesAutoresizingMaskIntoConstraints="NO" id="Z1Q-lf-VR3">
-                                        <rect key="frame" x="0.0" y="143.5" width="91" height="71.5"/>
+                                        <rect key="frame" x="0.0" y="143.5" width="82.5" height="71.5"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="35"/>
                                         <nil key="textColor"/>
@@ -92,16 +92,16 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="euM-wd-IaH" userLabel="DistanceButton">
-                                <rect key="frame" x="146.5" y="221.5" width="227.5" height="139"/>
+                                <rect key="frame" x="162" y="221.5" width="212" height="139"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S4A-aX-CF2" userLabel="Distance">
-                                        <rect key="frame" x="0.0" y="0.0" width="227.5" height="76"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="212" height="76"/>
                                         <subviews>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PNw-Oe-zch">
                                                 <rect key="frame" x="0.0" y="0.0" width="158.5" height="76"/>
                                                 <subviews>
                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekj-Gh-TuB" customClass="EFCountingLabel" customModule="EFCountingLabel">
-                                                        <rect key="frame" x="47" y="-3" width="108.5" height="76"/>
+                                                        <rect key="frame" x="60.5" y="-6.5" width="95" height="83"/>
                                                         <color key="tintColor" systemColor="linkColor"/>
                                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="65"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -116,7 +116,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGG-rz-L57">
-                                                <rect key="frame" x="158.5" y="0.0" width="69" height="76"/>
+                                                <rect key="frame" x="158.5" y="0.0" width="53.5" height="76"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="50"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <nil key="highlightedColor"/>
@@ -124,7 +124,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWw-VO-q0y" userLabel="StartButton">
-                                        <rect key="frame" x="25.5" y="76" width="202" height="63"/>
+                                        <rect key="frame" x="10" y="76" width="202" height="63"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TxZ-aN-Q0P">
                                                 <rect key="frame" x="0.0" y="0.0" width="58" height="63"/>
@@ -242,19 +242,19 @@
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hT2-qd-g76">
-                                        <rect key="frame" x="27.5" y="48.5" width="102" height="31"/>
+                                        <rect key="frame" x="29.5" y="48.5" width="98.5" height="31"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="hCF-3z-nDq">
-                                                <rect key="frame" x="0.0" y="0.0" width="38" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="35" height="31"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="잊어도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YrA-Wv-Zxg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="38" height="14.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="14.5"/>
                                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="14.5"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="괜찮아" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wY3-Pr-xCV">
-                                                        <rect key="frame" x="0.0" y="16.5" width="38" height="14.5"/>
+                                                        <rect key="frame" x="0.0" y="16.5" width="35" height="14.5"/>
                                                         <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="14.5"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -262,13 +262,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hq-ad-Z3Z">
-                                                <rect key="frame" x="43" y="0.0" width="5" height="31"/>
+                                                <rect key="frame" x="40" y="0.0" width="4.5" height="31"/>
                                                 <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-Wl-mhb">
-                                                <rect key="frame" x="53" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="49.5" y="0.0" width="51" height="31"/>
                                             </switch>
                                         </subviews>
                                     </stackView>
@@ -284,7 +284,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="CvH-Gh-lf8">
-                                        <rect key="frame" x="28.5" y="89.5" width="105" height="21"/>
+                                        <rect key="frame" x="30.5" y="89.5" width="105" height="21"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시작 누르는 걸 잊어도 괜찮아요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdv-X0-yAD">
                                                 <rect key="frame" x="0.0" y="0.0" width="105" height="10.5"/>
@@ -383,7 +383,6 @@
                         <outlet property="todayString" destination="uBe-Qj-Cf6" id="59b-1O-Y9c"/>
                         <outlet property="unitLabel" destination="LGG-rz-L57" id="e5a-PT-JI9"/>
                         <outlet property="youString" destination="qj3-im-B0C" id="JjM-IT-zX9"/>
-                        <segue destination="VrK-hE-0r7" kind="presentation" id="PaZ-bK-ZtW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OEd-xV-tEX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -395,447 +394,15 @@
             </objects>
             <point key="canvasLocation" x="-5063.1999999999998" y="-2080.7881773399017"/>
         </scene>
-        <!--PasswordVC-->
-        <scene sceneID="gs8-8l-k0Y">
-            <objects>
-                <viewController storyboardIdentifier="PasswordVC" id="VrK-hE-0r7" customClass="PasswordVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="67Z-BZ-UOi">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQG-mK-VDW">
-                                <rect key="frame" x="161.5" y="61.5" width="91" height="38.5"/>
-                                <fontDescription key="fontDescription" name="NanumBarunpen-Bold" family="NanumBarunpen" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" distribution="fillEqually" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="hc0-v4-nus" userLabel="All Numbers">
-                                <rect key="frame" x="41.5" y="219" width="331" height="488.5"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="THM-cH-qyf" userLabel="First Row">
-                                        <rect key="frame" x="0.0" y="0.0" width="331" height="101"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAI-vs-2ZU">
-                                                <rect key="frame" x="0.0" y="0.0" width="105" height="101"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6KS-O2-gxJ">
-                                                        <rect key="frame" x="18" y="0.0" width="69" height="101"/>
-                                                        <state key="normal" image="#EADE4CffBig"/>
-                                                        <connections>
-                                                            <action selector="number1Pressed:" destination="VrK-hE-0r7" eventType="touchUpInside" id="b7i-Yn-jCl"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6b-xF-tLD">
-                                                        <rect key="frame" x="47.5" y="31" width="10" height="38.5"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="6KS-O2-gxJ" firstAttribute="centerX" secondItem="cAI-vs-2ZU" secondAttribute="centerX" id="4fj-Qd-ue9"/>
-                                                    <constraint firstItem="6KS-O2-gxJ" firstAttribute="height" secondItem="cAI-vs-2ZU" secondAttribute="height" id="JfT-ST-TBn"/>
-                                                    <constraint firstItem="6KS-O2-gxJ" firstAttribute="centerY" secondItem="cAI-vs-2ZU" secondAttribute="centerY" id="Ogd-y8-LYx"/>
-                                                    <constraint firstItem="k6b-xF-tLD" firstAttribute="centerY" secondItem="cAI-vs-2ZU" secondAttribute="centerY" id="bex-np-NhW"/>
-                                                    <constraint firstItem="k6b-xF-tLD" firstAttribute="centerX" secondItem="cAI-vs-2ZU" secondAttribute="centerX" id="qiV-j8-LAh"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XYo-hx-DEw">
-                                                <rect key="frame" x="113" y="0.0" width="105" height="101"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCp-C8-4YK">
-                                                        <rect key="frame" x="18" y="0.0" width="69" height="101"/>
-                                                        <state key="normal" image="#F5A997ffBig"/>
-                                                        <connections>
-                                                            <action selector="number2Pressed:" destination="VrK-hE-0r7" eventType="touchUpInside" id="SAv-Q2-QwA"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLI-5F-fjK">
-                                                        <rect key="frame" x="46" y="31" width="13.5" height="38.5"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="nLI-5F-fjK" firstAttribute="centerY" secondItem="XYo-hx-DEw" secondAttribute="centerY" id="2JP-cA-r1H"/>
-                                                    <constraint firstItem="yCp-C8-4YK" firstAttribute="height" secondItem="XYo-hx-DEw" secondAttribute="height" id="Pmb-GS-7SK"/>
-                                                    <constraint firstItem="yCp-C8-4YK" firstAttribute="centerY" secondItem="XYo-hx-DEw" secondAttribute="centerY" id="UBY-9o-CF9"/>
-                                                    <constraint firstItem="yCp-C8-4YK" firstAttribute="centerX" secondItem="XYo-hx-DEw" secondAttribute="centerX" id="YyW-ME-4AO"/>
-                                                    <constraint firstItem="nLI-5F-fjK" firstAttribute="centerX" secondItem="XYo-hx-DEw" secondAttribute="centerX" id="yDv-26-zV4"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ywc-UH-bCj">
-                                                <rect key="frame" x="226" y="0.0" width="105" height="101"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Wd-xZ-vR6">
-                                                        <rect key="frame" x="18" y="0.0" width="69" height="101"/>
-                                                        <state key="normal" image="#F0E7CFffBig"/>
-                                                        <connections>
-                                                            <action selector="number3Pressed:" destination="VrK-hE-0r7" eventType="touchUpInside" id="LjU-jj-4ak"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rqc-sO-ae8">
-                                                        <rect key="frame" x="45.5" y="31" width="14" height="38.5"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="Rqc-sO-ae8" firstAttribute="centerY" secondItem="Ywc-UH-bCj" secondAttribute="centerY" id="9Au-Tg-c4B"/>
-                                                    <constraint firstItem="Rqc-sO-ae8" firstAttribute="centerX" secondItem="Ywc-UH-bCj" secondAttribute="centerX" id="DBA-od-1fL"/>
-                                                    <constraint firstItem="7Wd-xZ-vR6" firstAttribute="centerX" secondItem="Ywc-UH-bCj" secondAttribute="centerX" id="ULS-Vt-rej"/>
-                                                    <constraint firstItem="7Wd-xZ-vR6" firstAttribute="height" secondItem="Ywc-UH-bCj" secondAttribute="height" id="oWM-QX-9Cu"/>
-                                                    <constraint firstItem="7Wd-xZ-vR6" firstAttribute="centerY" secondItem="Ywc-UH-bCj" secondAttribute="centerY" id="rvr-As-s2F"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="cAI-vs-2ZU" firstAttribute="height" secondItem="THM-cH-qyf" secondAttribute="height" id="ECX-JY-Ivd"/>
-                                        </constraints>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DsC-bM-Ysh" userLabel="Second Row">
-                                        <rect key="frame" x="0.0" y="129" width="331" height="101"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkG-ma-a5z">
-                                                <rect key="frame" x="0.0" y="0.0" width="105" height="101"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JnC-gr-Tt7">
-                                                        <rect key="frame" x="18" y="0.0" width="69" height="101"/>
-                                                        <state key="normal" image="#FF6B39ffBig"/>
-                                                        <connections>
-                                                            <action selector="number4Pressed:" destination="VrK-hE-0r7" eventType="touchUpInside" id="knG-K4-2KW"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lE-8C-iBY">
-                                                        <rect key="frame" x="44" y="31.5" width="16.5" height="38.5"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="JnC-gr-Tt7" firstAttribute="centerY" secondItem="CkG-ma-a5z" secondAttribute="centerY" id="NbQ-Vb-J69"/>
-                                                    <constraint firstItem="JnC-gr-Tt7" firstAttribute="height" secondItem="CkG-ma-a5z" secondAttribute="height" id="jS1-sW-mCc"/>
-                                                    <constraint firstItem="5lE-8C-iBY" firstAttribute="centerY" secondItem="CkG-ma-a5z" secondAttribute="centerY" id="mZm-sX-EH3"/>
-                                                    <constraint firstItem="5lE-8C-iBY" firstAttribute="centerX" secondItem="CkG-ma-a5z" secondAttribute="centerX" id="pPu-Sc-peQ"/>
-                                                    <constraint firstItem="JnC-gr-Tt7" firstAttribute="centerX" secondItem="CkG-ma-a5z" secondAttribute="centerX" id="tT5-so-2a5"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dM5-YC-w9j">
-                                                <rect key="frame" x="113" y="0.0" width="105" height="101"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcz-Pn-PBM">
-                                                        <rect key="frame" x="18" y="0.0" width="69" height="101"/>
-                                                        <state key="normal" image="#206491ffBig"/>
-                                                        <connections>
-                                                            <action selector="number5Pressed:" destination="VrK-hE-0r7" eventType="touchUpInside" id="zfl-pt-ye7"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkg-jd-z1L">
-                                                        <rect key="frame" x="46.5" y="31.5" width="12.5" height="38.5"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="wcz-Pn-PBM" firstAttribute="centerY" secondItem="dM5-YC-w9j" secondAttribute="centerY" id="3Zf-Fg-s1T"/>
-                                                    <constraint firstItem="wcz-Pn-PBM" firstAttribute="centerX" secondItem="dM5-YC-w9j" secondAttribute="centerX" id="EsF-9W-i10"/>
-                                                    <constraint firstItem="mkg-jd-z1L" firstAttribute="centerY" secondItem="dM5-YC-w9j" secondAttribute="centerY" id="UEV-3V-C5O"/>
-                                                    <constraint firstItem="wcz-Pn-PBM" firstAttribute="height" secondItem="dM5-YC-w9j" secondAttribute="height" id="gxl-8K-Pu6"/>
-                                                    <constraint firstItem="mkg-jd-z1L" firstAttribute="centerX" secondItem="dM5-YC-w9j" secondAttribute="centerX" id="h53-Wa-uXC"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgK-40-sWS">
-                                                <rect key="frame" x="226" y="0.0" width="105" height="101"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sfJ-eI-5HN">
-                                                        <rect key="frame" x="18" y="0.0" width="69" height="101"/>
-                                                        <state key="normal" image="#EADE4CffBig"/>
-                                                        <connections>
-                                                            <action selector="number6Pressed:" destination="VrK-hE-0r7" eventType="touchUpInside" id="SJi-nf-PBL"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0uH-JN-sV1">
-                                                        <rect key="frame" x="45.5" y="31.5" width="14.5" height="38.5"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="0uH-JN-sV1" firstAttribute="centerX" secondItem="fgK-40-sWS" secondAttribute="centerX" id="0y4-Wm-98u"/>
-                                                    <constraint firstItem="sfJ-eI-5HN" firstAttribute="centerX" secondItem="fgK-40-sWS" secondAttribute="centerX" id="7JI-4l-fyY"/>
-                                                    <constraint firstItem="sfJ-eI-5HN" firstAttribute="height" secondItem="fgK-40-sWS" secondAttribute="height" id="Jsc-Ib-WMc"/>
-                                                    <constraint firstItem="sfJ-eI-5HN" firstAttribute="centerY" secondItem="fgK-40-sWS" secondAttribute="centerY" id="aTZ-PC-fHO"/>
-                                                    <constraint firstItem="0uH-JN-sV1" firstAttribute="centerY" secondItem="fgK-40-sWS" secondAttribute="centerY" id="evc-Sk-8Ek"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-ae-Ly5" userLabel="Third Row">
-                                        <rect key="frame" x="0.0" y="258" width="331" height="101"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDj-eE-9Un">
-                                                <rect key="frame" x="0.0" y="0.0" width="105" height="101"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKm-Ti-nI6">
-                                                        <rect key="frame" x="18" y="0.0" width="69" height="101"/>
-                                                        <state key="normal" image="#F5A997ffBig"/>
-                                                        <connections>
-                                                            <action selector="number7Pressed:" destination="VrK-hE-0r7" eventType="touchUpInside" id="qFh-ce-fVH"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjc-Wg-6Gy">
-                                                        <rect key="frame" x="45.5" y="31.5" width="13.5" height="38.5"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="Vjc-Wg-6Gy" firstAttribute="centerX" secondItem="aDj-eE-9Un" secondAttribute="centerX" id="1Rz-ew-FoE"/>
-                                                    <constraint firstItem="Vjc-Wg-6Gy" firstAttribute="centerY" secondItem="aDj-eE-9Un" secondAttribute="centerY" id="3z4-f6-pC0"/>
-                                                    <constraint firstItem="CKm-Ti-nI6" firstAttribute="height" secondItem="aDj-eE-9Un" secondAttribute="height" id="HcK-3I-7Zt"/>
-                                                    <constraint firstItem="CKm-Ti-nI6" firstAttribute="centerX" secondItem="aDj-eE-9Un" secondAttribute="centerX" id="SnW-xJ-EdW"/>
-                                                    <constraint firstItem="CKm-Ti-nI6" firstAttribute="centerY" secondItem="aDj-eE-9Un" secondAttribute="centerY" id="oSd-9X-X21"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIm-FP-xzv">
-                                                <rect key="frame" x="113" y="0.0" width="105" height="101"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmL-zp-el9">
-                                                        <rect key="frame" x="18" y="0.0" width="69" height="101"/>
-                                                        <state key="normal" image="#F0E7CFffBig"/>
-                                                        <connections>
-                                                            <action selector="number8Pressed:" destination="VrK-hE-0r7" eventType="touchUpInside" id="fhs-B9-wk2"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="If2-Sb-Qpj">
-                                                        <rect key="frame" x="45.5" y="31.5" width="14.5" height="38.5"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="If2-Sb-Qpj" firstAttribute="centerX" secondItem="KIm-FP-xzv" secondAttribute="centerX" id="7ds-y0-iae"/>
-                                                    <constraint firstItem="VmL-zp-el9" firstAttribute="centerX" secondItem="KIm-FP-xzv" secondAttribute="centerX" id="9mz-7L-EYf"/>
-                                                    <constraint firstItem="VmL-zp-el9" firstAttribute="height" secondItem="KIm-FP-xzv" secondAttribute="height" id="R3F-ii-1bB"/>
-                                                    <constraint firstItem="VmL-zp-el9" firstAttribute="centerY" secondItem="KIm-FP-xzv" secondAttribute="centerY" id="TFa-Ww-cK5"/>
-                                                    <constraint firstItem="If2-Sb-Qpj" firstAttribute="centerY" secondItem="KIm-FP-xzv" secondAttribute="centerY" id="dE8-6I-zOK"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TMb-ae-p1o">
-                                                <rect key="frame" x="226" y="0.0" width="105" height="101"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TWi-qc-Ccn">
-                                                        <rect key="frame" x="18" y="0.0" width="69" height="101"/>
-                                                        <state key="normal" image="#FF6B39ffBig"/>
-                                                        <connections>
-                                                            <action selector="number9Pressed:" destination="VrK-hE-0r7" eventType="touchUpInside" id="lmf-ic-lm2"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="9" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVu-KZ-s1N">
-                                                        <rect key="frame" x="46" y="31.5" width="13" height="38.5"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="TWi-qc-Ccn" firstAttribute="centerX" secondItem="TMb-ae-p1o" secondAttribute="centerX" id="7gP-bD-hSe"/>
-                                                    <constraint firstItem="TWi-qc-Ccn" firstAttribute="centerY" secondItem="TMb-ae-p1o" secondAttribute="centerY" id="9ZK-NH-eRO"/>
-                                                    <constraint firstItem="TWi-qc-Ccn" firstAttribute="height" secondItem="TMb-ae-p1o" secondAttribute="height" id="bbI-6V-jHf"/>
-                                                    <constraint firstItem="JVu-KZ-s1N" firstAttribute="centerX" secondItem="TMb-ae-p1o" secondAttribute="centerX" id="gXJ-FR-HYV"/>
-                                                    <constraint firstItem="JVu-KZ-s1N" firstAttribute="centerY" secondItem="TMb-ae-p1o" secondAttribute="centerY" id="tsy-yI-IO3"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sMp-mw-UK2" userLabel="Fourth Row">
-                                        <rect key="frame" x="0.0" y="387" width="331" height="101.5"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fl3-EZ-G21">
-                                                <rect key="frame" x="0.0" y="0.0" width="105" height="101.5"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16b-Lb-LFc">
-                                                <rect key="frame" x="113" y="0.0" width="105" height="101.5"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="erO-1n-RGK">
-                                                        <rect key="frame" x="18" y="0.0" width="69" height="101.5"/>
-                                                        <state key="normal" image="#206491ffBig"/>
-                                                        <connections>
-                                                            <action selector="number0Pressed:" destination="VrK-hE-0r7" eventType="touchUpInside" id="Kjd-dW-VTb"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ue8-AA-FTr">
-                                                        <rect key="frame" x="45.5" y="31.5" width="14" height="38.5"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="30"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="Ue8-AA-FTr" firstAttribute="centerY" secondItem="16b-Lb-LFc" secondAttribute="centerY" id="1Ee-3H-jXt"/>
-                                                    <constraint firstItem="erO-1n-RGK" firstAttribute="centerY" secondItem="16b-Lb-LFc" secondAttribute="centerY" id="EF6-PP-P7I"/>
-                                                    <constraint firstItem="erO-1n-RGK" firstAttribute="centerX" secondItem="16b-Lb-LFc" secondAttribute="centerX" id="Ukd-uD-2jv"/>
-                                                    <constraint firstItem="Ue8-AA-FTr" firstAttribute="centerX" secondItem="16b-Lb-LFc" secondAttribute="centerX" id="nLF-h8-A5J"/>
-                                                    <constraint firstItem="erO-1n-RGK" firstAttribute="height" secondItem="16b-Lb-LFc" secondAttribute="height" id="r2K-Ui-8FM"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYm-1V-SEm">
-                                                <rect key="frame" x="226" y="0.0" width="105" height="101.5"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSM-k6-afW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="105" height="101.5"/>
-                                                        <connections>
-                                                            <action selector="eraseButton:" destination="VrK-hE-0r7" eventType="touchUpInside" id="uBB-7c-iN7"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Iq-M5-F5P">
-                                                        <rect key="frame" x="45" y="25" width="15" height="51"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
-                                                        </accessibility>
-                                                        <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" image="eraseButton">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="heavy"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="VSM-k6-afW" firstAttribute="centerX" secondItem="oYm-1V-SEm" secondAttribute="centerX" id="5Qc-Be-xnK"/>
-                                                    <constraint firstItem="4Iq-M5-F5P" firstAttribute="centerY" secondItem="oYm-1V-SEm" secondAttribute="centerY" id="hpA-5a-ASp"/>
-                                                    <constraint firstItem="4Iq-M5-F5P" firstAttribute="centerX" secondItem="oYm-1V-SEm" secondAttribute="centerX" id="qtw-PG-mJz"/>
-                                                    <constraint firstItem="VSM-k6-afW" firstAttribute="centerY" secondItem="oYm-1V-SEm" secondAttribute="centerY" id="sYm-Pb-rUZ"/>
-                                                    <constraint firstItem="VSM-k6-afW" firstAttribute="width" secondItem="oYm-1V-SEm" secondAttribute="width" id="upS-dq-zBG"/>
-                                                    <constraint firstItem="VSM-k6-afW" firstAttribute="height" secondItem="oYm-1V-SEm" secondAttribute="height" id="x99-pJ-Gi4"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                            </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esw-Ek-GEa" userLabel="Input Count">
-                                <rect key="frame" x="124" y="126" width="166" height="50"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="3p1-9S-x2X">
-                                        <rect key="frame" x="15.5" y="15" width="135" height="20"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2dG-EZ-ywc">
-                                                <rect key="frame" x="0.0" y="0.5" width="23.5" height="19"/>
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CPn-Qr-RI6">
-                                                <rect key="frame" x="37.5" y="0.5" width="23" height="19"/>
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="iBS-NT-UNe">
-                                                <rect key="frame" x="74.5" y="0.5" width="23" height="19"/>
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VkB-2F-y99">
-                                                <rect key="frame" x="111.5" y="0.5" width="23.5" height="19"/>
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </imageView>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="8Jo-3B-oPq"/>
-                                    <constraint firstItem="3p1-9S-x2X" firstAttribute="centerX" secondItem="esw-Ek-GEa" secondAttribute="centerX" id="Djs-AD-qfN"/>
-                                    <constraint firstItem="3p1-9S-x2X" firstAttribute="centerY" secondItem="esw-Ek-GEa" secondAttribute="centerY" id="bLg-V9-xrG"/>
-                                    <constraint firstItem="3p1-9S-x2X" firstAttribute="width" secondItem="esw-Ek-GEa" secondAttribute="width" multiplier="0.813333" id="t4H-nT-gPv"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="REA-zc-ESl"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="hc0-v4-nus" firstAttribute="width" secondItem="67Z-BZ-UOi" secondAttribute="width" multiplier="0.8" id="Bab-um-E8T"/>
-                            <constraint firstItem="esw-Ek-GEa" firstAttribute="width" secondItem="67Z-BZ-UOi" secondAttribute="width" multiplier="0.4" id="GJ1-5J-7dh"/>
-                            <constraint firstItem="esw-Ek-GEa" firstAttribute="centerY" secondItem="67Z-BZ-UOi" secondAttribute="centerY" multiplier="0.32" constant="16.47999999999999" id="OMC-lb-JL4"/>
-                            <constraint firstItem="ZQG-mK-VDW" firstAttribute="centerX" secondItem="REA-zc-ESl" secondAttribute="centerX" id="Php-9H-rZq"/>
-                            <constraint firstItem="hc0-v4-nus" firstAttribute="centerX" secondItem="REA-zc-ESl" secondAttribute="centerX" id="TX2-ny-hhZ"/>
-                            <constraint firstItem="ZQG-mK-VDW" firstAttribute="centerY" secondItem="67Z-BZ-UOi" secondAttribute="centerY" multiplier="0.15" constant="17.516666666666659" id="gEj-bD-vQX"/>
-                            <constraint firstItem="hc0-v4-nus" firstAttribute="height" secondItem="67Z-BZ-UOi" secondAttribute="height" multiplier="0.58" id="pRc-5C-kg2"/>
-                            <constraint firstItem="esw-Ek-GEa" firstAttribute="centerX" secondItem="REA-zc-ESl" secondAttribute="centerX" id="uNF-dy-rPm"/>
-                            <constraint firstItem="hc0-v4-nus" firstAttribute="centerY" secondItem="67Z-BZ-UOi" secondAttribute="centerY" multiplier="1.1" id="v5p-dg-Z5h"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="lx5-hJ-53F"/>
-                    <connections>
-                        <outlet property="firstDot" destination="2dG-EZ-ywc" id="THN-H9-bSc"/>
-                        <outlet property="fourthDot" destination="VkB-2F-y99" id="EG9-Vg-sgC"/>
-                        <outlet property="secondDot" destination="CPn-Qr-RI6" id="jXf-tz-Wni"/>
-                        <outlet property="thirdDot" destination="iBS-NT-UNe" id="dtU-SZ-bhi"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nhF-gH-chy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4319.1999999999998" y="-2080.0492610837441"/>
-        </scene>
     </scenes>
     <resources>
         <image name="#206491ff" width="38" height="61"/>
-        <image name="#206491ffBig" width="69" height="108"/>
         <image name="#EADE4CffBig" width="69" height="108"/>
         <image name="#F0E7CFff" width="38" height="61"/>
-        <image name="#F0E7CFffBig" width="69" height="108"/>
         <image name="#F5A997ff" width="38" height="61"/>
-        <image name="#F5A997ffBig" width="69" height="108"/>
         <image name="#FF6B39ff" width="38" height="61"/>
-        <image name="#FF6B39ffBig" width="69" height="108"/>
         <image name="alertDot" width="49" height="49"/>
-        <image name="circle" catalog="system" width="128" height="121"/>
         <image name="currentColorIndicator" width="25" height="16"/>
-        <image name="eraseButton" width="15" height="51"/>
         <image name="extendedCloser" width="25" height="16"/>
         <image name="extendedStartButton" width="149" height="143"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>

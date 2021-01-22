@@ -226,10 +226,10 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
             self.mainMap.setCamera(.init(lookingAtCenter: self.mainMap.centerCoordinate, fromDistance: 500, pitch: 0, heading: 0), animated: false)
         }
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-            HomeViewController.locationManager.startUpdatingLocation()
             while HomeViewController.locationManager.location == nil {
                 HomeViewController.locationManager.requestLocation()
             }
+            HomeViewController.locationManager.startUpdatingLocation()
             self.lastLocation = HomeViewController.locationManager.location
         }
     }
@@ -278,13 +278,18 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     }
     
     func isValid(location: CLLocation) -> Bool { // check speed, distance etc with lastLocation
-        if checkSpeed(lastLocation: lastLocation ?? location, newLocation: location) > speedLimit || location.distance(from: lastLocation ?? location) > distanceLimit || (noSpeedCounter > 4 && UserDefaults.standard.bool(forKey: "alwaysOn")) {
-            // Valid의 근본적 제한 요소 (제한속도 이상, 두 점이 제한 거리 이상, 항상켜짐 상태에서 노스피드 카운터 횟수가 4를 넘었을 경우)
+        if checkSpeed(lastLocation: lastLocation ?? location, newLocation: location) > speedLimit || location.distance(from: lastLocation ?? location) > distanceLimit {
+            // Valid의 근본적 제한 요소 (제한속도 이상, 두 점이 제한 거리 이상)
+            UserDefaults.standard.setValue(0, forKey:"alwaysOnCount")
+            return false
+        } else if UserDefaults.standard.bool(forKey: "alwaysOn") && noSpeedCounter>4 {
+            // Valid의 근본적 제한 요소2 (alwaysOn이 true일때 noSpeedCounter의 횟수가 4회 이상일 경우, 즉 실내로 판단될 경우)
+            // speedCounter를 따로 판단하지 않는 이유는 위에서의 speedLimit에서 걸러지기 때문
             UserDefaults.standard.setValue(0, forKey:"alwaysOnCount")
             return false
         } else if let lastLocation = lastLocation { //이전 위치가 있다면,
             //혹은 이전 직전의 위치와 현재의 위치에서의 속도가 모두 0보다 작을 경우 즉, 움직임이 없을 경우
-            if location.speed < 0 && lastLocation.speed < 0 {
+            if location.speed < 0.1 && lastLocation.speed < 0.1 {
                 UserDefaults.standard.setValue(0, forKey:"alwaysOnCount")
                 return false
             } else {
@@ -306,13 +311,13 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
     func checkForMovement(location: CLLocation?) {
         guard let location = location else { return }
         if location.speed > speedLimit { speedCounter += 1 }
-        if location.speed < 0 { noSpeedCounter += 1 }
+        else { speedCounter = 0 }
+        if location.speed <= 0.1 { noSpeedCounter += 1 }
         else { noSpeedCounter = 0 }
         
         if speedCounter == 4 {
             if !UserDefaults.standard.bool(forKey: "alwaysOn") {
                 noti_recordStoppedBySpeed()
-                UserDefaults.standard.set(0, forKey: "alwaysOnCount")
                 locationTimer?.invalidate() // stop location request
                 HomeViewController.locationManager.stopUpdatingLocation()
                 HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
@@ -323,11 +328,9 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
                 return
             }
             
-            
         } else if noSpeedCounter == 7 {
             if !UserDefaults.standard.bool(forKey: "alwaysOn") {
                 noti_recordStoppedByNoSpeed()
-                UserDefaults.standard.set(0, forKey: "alwaysOnCount")
                 locationTimer?.invalidate() // stop location request
                 HomeViewController.locationManager.stopUpdatingLocation()
                 HomeViewController.currentStartButtonImage = #imageLiteral(resourceName: "startButton")
@@ -349,12 +352,12 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         if let overlayWithColor = overlay as? PolylineWithColor {
             let polylineView = MKPolylineRenderer(overlay: overlay)
             polylineView.strokeColor = overlayWithColor.color
-            polylineView.lineWidth = 8
+            polylineView.lineWidth = 7
             return polylineView
         } else {
             let polylineView = MKPolylineRenderer(overlay: overlay)
             polylineView.strokeColor = UIColor(hex: HomeViewController.selectedColor)
-            polylineView.lineWidth = 8
+            polylineView.lineWidth = 7
             return polylineView
         }
     }
@@ -375,6 +378,8 @@ extension HomeViewController: CLLocationManagerDelegate, MKMapViewDelegate  {
         let distanceInterval = newLocation.distance(from: lastLocation)
         return distanceInterval / timeInterval
     }
+    
+    // MARK:- Notification
     
     func noti_recordStoppedBySpeed() {
         if UserDefaults.standard.bool(forKey: "etcPush") {
@@ -525,16 +530,19 @@ extension HomeViewController {
     
     func checkUpdate() { // 어플 실행시 확인하는 것
         if UserDefaults.standard.object(forKey: "version") == nil {
-            UserDefaults.standard.set(120, forKey: "version")
+            UserDefaults.standard.set(122, forKey: "version")
             UserDefaults.standard.set(false, forKey: "isUpdated")
-            print("first launch and you here")
         } else {
-            UserDefaults.standard.set(120, forKey: "version")
+            UserDefaults.standard.setValue(122, forKey: "version")
+            UserDefaults.standard.setValue(false, forKey: "isUpdated")
             // 앞으로 업데이트 시 여기에 integer값으로 버전 입력하고 업데이트 사항 반영
         }
         
-        
-        if UserDefaults.standard.integer(forKey: "version") == 120 {
+        if UserDefaults.standard.integer(forKey: "version") == 122 {
+            if !UserDefaults.standard.bool(forKey: "isUpdated") {
+                UserDefaults.standard.set(true, forKey: "isUpdated")
+            }
+        } else if UserDefaults.standard.integer(forKey: "version") == 120 {
             if !UserDefaults.standard.bool(forKey: "isUpdated") {
                 UserDefaults.standard.set(false, forKey: "alwaysOn")
                 //alwaysOn이 켜져있을 때 연속해서 유효한 위치값이 연속으로 나타나야 isValid를 true로 반환할 수 있도록 하는 userdefaults
@@ -551,9 +559,6 @@ extension HomeViewController {
                 }
                 UserDefaults(suiteName: "group.footage")!.set("#EADE4Cff", forKey: "selectedColor")
                 
-            } else {
-//                UserDefaults.standard.set(false, forKey: "isUpdated") // For test
-//                print("already updated")
             }
         }
         
@@ -572,16 +577,20 @@ extension HomeViewController {
     
     func checkUpdateInVDA(){
         if !UserDefaults.standard.bool(forKey: "isUpdated") {
-            let updatingAlert = UIAlertController.init(title: "업데이트 중", message: "장소별 배지를 조금 손보았어요.", preferredStyle:  .alert)
-            self.present(updatingAlert, animated: true, completion: nil)
-            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (timer) in
-                updatingAlert.dismiss(animated: true, completion: nil)
+            if UserDefaults.standard.integer(forKey: "version") == 120 {
+                let updatingAlert = UIAlertController.init(title: "업데이트 중", message: "장소별 배지를 조금 손보았어요.", preferredStyle:  .alert)
+                self.present(updatingAlert, animated: true, completion: nil)
+                Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (timer) in
+                    updatingAlert.dismiss(animated: true, completion: nil)
+                }
+                DispatchQueue.global().sync {
+                    LevelManager.deleteTypeBadge(badgeType: "place")
+                    BadgeGiver.restorePlaceBadge()
+                }
+                UserDefaults.standard.set(true, forKey: "isUpdated")
+            } else if UserDefaults.standard.integer(forKey: "version") == 122 {
+                UserDefaults.standard.set(true, forKey: "isUpdated")
             }
-            DispatchQueue.global().sync {
-                LevelManager.deleteTypeBadge(badgeType: "place")
-                BadgeGiver.restorePlaceBadge()
-            }
-            UserDefaults.standard.set(true, forKey: "isUpdated")
         }
     }
     

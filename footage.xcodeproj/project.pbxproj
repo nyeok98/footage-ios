@@ -65,7 +65,6 @@
 		B91D8AB0251259AC005525B0 /* PopUpCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AA9251259AB005525B0 /* PopUpCard.swift */; };
 		B91D8AB1251259AC005525B0 /* BadgeGiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AAA251259AB005525B0 /* BadgeGiver.swift */; };
 		B91D8AB2251259AC005525B0 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AAB251259AB005525B0 /* AlertHelper.swift */; };
-		B91D8AB3251259AC005525B0 /* ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AAC251259AC005525B0 /* ReportVC.swift */; };
 		B91D8AB6251259B7005525B0 /* PasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AB4251259B7005525B0 /* PasswordVC.swift */; };
 		B91D8AB7251259B7005525B0 /* FL_VideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AB5251259B7005525B0 /* FL_VideoVC.swift */; };
 		B91D8AB9251259C1005525B0 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AB8251259C1005525B0 /* SectionHeader.swift */; };
@@ -76,11 +75,12 @@
 		B91D8AC3251259D9005525B0 /* PlaceLocalityNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AC1251259D9005525B0 /* PlaceLocalityNumber.swift */; };
 		B91D8AC5251259E2005525B0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AC4251259E2005525B0 /* Constants.swift */; };
 		B91D8AC925126005005525B0 /* Settings_General_PushVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D8AC825126005005525B0 /* Settings_General_PushVC.swift */; };
+		B93CFCE2259C670B00AEF677 /* ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93CFCE0259C670B00AEF677 /* ReportVC.swift */; };
+		B93CFCE3259C670B00AEF677 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93CFCE1259C670B00AEF677 /* StatsViewController.swift */; };
 		B94C877925286F260084248B /* Place_DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94C877825286F260084248B /* Place_DetailVC.swift */; };
 		B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */; };
 		B9A66FA4248F6BF3001EAF54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */; };
 		B9A66FA6248F6BF3001EAF54 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FA5248F6BF3001EAF54 /* HomeViewController.swift */; };
-		B9A66FB9248F70AC001EAF54 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FB8248F70AC001EAF54 /* StatsViewController.swift */; };
 		B9A66FBE248F70E8001EAF54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66FBD248F70E8001EAF54 /* SettingsViewController.swift */; };
 		B9AC35AB24910FE300B5CBBD /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC35AA24910FE300B5CBBD /* DateViewController.swift */; };
 		B9AC35B32491CAD700B5CBBD /* HomeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC35B22491CAD700B5CBBD /* HomeAnimation.swift */; };
@@ -194,7 +194,6 @@
 		B91D8AA9251259AB005525B0 /* PopUpCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpCard.swift; sourceTree = "<group>"; };
 		B91D8AAA251259AB005525B0 /* BadgeGiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeGiver.swift; sourceTree = "<group>"; };
 		B91D8AAB251259AB005525B0 /* AlertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
-		B91D8AAC251259AC005525B0 /* ReportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportVC.swift; sourceTree = "<group>"; };
 		B91D8AB4251259B7005525B0 /* PasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordVC.swift; sourceTree = "<group>"; };
 		B91D8AB5251259B7005525B0 /* FL_VideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FL_VideoVC.swift; sourceTree = "<group>"; };
 		B91D8AB8251259C1005525B0 /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
@@ -205,13 +204,14 @@
 		B91D8AC1251259D9005525B0 /* PlaceLocalityNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceLocalityNumber.swift; sourceTree = "<group>"; };
 		B91D8AC4251259E2005525B0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B91D8AC825126005005525B0 /* Settings_General_PushVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings_General_PushVC.swift; sourceTree = "<group>"; };
+		B93CFCE0259C670B00AEF677 /* ReportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportVC.swift; sourceTree = "<group>"; };
+		B93CFCE1259C670B00AEF677 /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		B94C877825286F260084248B /* Place_DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place_DetailVC.swift; sourceTree = "<group>"; };
 		B9A66F9E248F6BF3001EAF54 /* footage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = footage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A66FA1248F6BF3001EAF54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9A66FA3248F6BF3001EAF54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B9A66FA5248F6BF3001EAF54 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B9A66FAF248F6BF6001EAF54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B9A66FB8248F70AC001EAF54 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		B9A66FBD248F70E8001EAF54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B9AC35AA24910FE300B5CBBD /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		B9AC35B22491CAD700B5CBBD /* HomeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAnimation.swift; sourceTree = "<group>"; };
@@ -289,7 +289,8 @@
 		6E442F5924BEA36B0041CAF2 /* Stats */ = {
 			isa = PBXGroup;
 			children = (
-				B9A66FB8248F70AC001EAF54 /* StatsViewController.swift */,
+				B93CFCE1259C670B00AEF677 /* StatsViewController.swift */,
+				B93CFCE0259C670B00AEF677 /* ReportVC.swift */,
 				6ECCBFDF24AB1CF7007B7B5E /* LocationUpdate.swift */,
 				6E4DE58B249F335700883E7E /* DateManager.swift */,
 				6E31E3AD24AF1CC600C60177 /* LevelVC.swift */,
@@ -306,7 +307,6 @@
 				B91D8AA9251259AB005525B0 /* PopUpCard.swift */,
 				B91D8AA7251259AB005525B0 /* PopUpCard.xib */,
 				B91D8AA8251259AB005525B0 /* ReportDetailVC.swift */,
-				B91D8AAC251259AC005525B0 /* ReportVC.swift */,
 			);
 			path = Stats;
 			sourceTree = "<group>";
@@ -688,6 +688,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E95A95824AB3FD20085069F /* Place.swift in Sources */,
+				B93CFCE2259C670B00AEF677 /* ReportVC.swift in Sources */,
 				6E4DE58D249F335700883E7E /* DateManager.swift in Sources */,
 				6E442F3324B2C9570041CAF2 /* JourneyManager.swift in Sources */,
 				B9D6456F25206D5C008CDBF5 /* MapBridge.swift in Sources */,
@@ -700,7 +701,6 @@
 				6E6F0FC624A0903800F49152 /* ProfileEditVC.swift in Sources */,
 				6EC8D9EA253C3E780084E737 /* WidgetRealm.swift in Sources */,
 				B9D6457025206D5C008CDBF5 /* MapBottomVC.swift in Sources */,
-				B9A66FB9248F70AC001EAF54 /* StatsViewController.swift in Sources */,
 				6ECCBFDE24AB12BF007B7B5E /* PlaceManager.swift in Sources */,
 				B9D6456C25206D5C008CDBF5 /* MapCollectionVC.swift in Sources */,
 				6E442F4D24BDDEB00041CAF2 /* CardCell.swift in Sources */,
@@ -711,10 +711,10 @@
 				B9A66FA2248F6BF3001EAF54 /* AppDelegate.swift in Sources */,
 				6E95A95524AB3F350085069F /* Color.swift in Sources */,
 				6E31E3B224AF1CC600C60177 /* PlaceVC.swift in Sources */,
+				B93CFCE3259C670B00AEF677 /* StatsViewController.swift in Sources */,
 				6E31E3B124AF1CC600C60177 /* LevelVC.swift in Sources */,
 				6ECCBFDC24AB12A4007B7B5E /* ColorManager.swift in Sources */,
 				B9AC35B32491CAD700B5CBBD /* HomeAnimation.swift in Sources */,
-				B91D8AB3251259AC005525B0 /* ReportVC.swift in Sources */,
 				6E99A9AC2497BAE200440E2A /* JourneyViewController.swift in Sources */,
 				B91D8AC2251259D9005525B0 /* Badge.swift in Sources */,
 				6E99A9A82497B4FE00440E2A /* DayData.swift in Sources */,
@@ -800,7 +800,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Entitlements/MainWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = MainWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -809,12 +809,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = co.el.footage.MainWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -824,7 +824,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Entitlements/MainWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = MainWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -833,12 +833,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = co.el.footage.MainWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -966,7 +966,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/footage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = Footage/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -974,11 +974,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = co.el.footage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -990,7 +990,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/footage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = M286K6KP2M;
 				INFOPLIST_FILE = Footage/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -998,11 +998,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = co.el.footage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

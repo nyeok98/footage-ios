@@ -174,7 +174,7 @@ extension JourneyViewController: MKMapViewDelegate {
         let overlayWithColor = overlay as! PolylineWithColor
         let polylineView = MKPolylineRenderer(overlay: overlay)
         polylineView.strokeColor = overlayWithColor.color
-        polylineView.lineWidth = 8
+        polylineView.lineWidth = 7
         return polylineView
     }
     

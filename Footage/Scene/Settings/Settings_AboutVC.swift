@@ -14,6 +14,7 @@ class Settings_AboutVC:UIViewController {
     let cellIdentifier = "aboutCell"
     let cellContent = ["개인정보 취급방침","문의하기"]
     
+    @IBOutlet weak var versionText: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
@@ -22,11 +23,21 @@ class Settings_AboutVC:UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        
         tableView.delegate = self
         tableView.dataSource = self
+        setVersion()
+    }
+    
+    func setVersion(){
+        var version = UserDefaults.standard.integer(forKey: "version")
+        let hundred = version/100
+        version -= hundred*100
+        let ten = version/10
+        version -= ten*10
+        let one = version
+        
+        versionText.text = "버전정보 "+"v"+String(hundred)+"."+String(ten)+"."+String(one)
     }
 }
 
