@@ -62,7 +62,7 @@ class MapBottomVC: UIViewController {
         let date = DateConverter.dateToDay(date: selectedView.footstep.timestamp)
         guard let tabBarController = M.mapVC.tabBarController else { return }
         tabBarController.selectedIndex = 3
-        if let dateVC = tabBarController.viewControllers![2] as? DateViewController {
+        if let dateVC = tabBarController.viewControllers![3] as? DateViewController {
             let dateList = DateViewController.journeys.map { $0.date }
             dateVC.performSegue(withIdentifier: "goToJourney", sender: dateList.firstIndex(of: date))
         }

@@ -87,6 +87,7 @@ class HomeViewController: UIViewController {
     var isWalking: Int = 0
     var timer = Timer()
     var lauchingCount: Int?
+    var latestVersion: Int = 123
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -530,15 +531,15 @@ extension HomeViewController {
     
     func checkUpdate() { // 어플 실행시 확인하는 것
         if UserDefaults.standard.object(forKey: "version") == nil {
-            UserDefaults.standard.set(122, forKey: "version")
+            UserDefaults.standard.set(latestVersion, forKey: "version")
             UserDefaults.standard.set(false, forKey: "isUpdated")
         } else {
-            UserDefaults.standard.setValue(122, forKey: "version")
+            UserDefaults.standard.setValue(latestVersion, forKey: "version")
             UserDefaults.standard.setValue(false, forKey: "isUpdated")
             // 앞으로 업데이트 시 여기에 integer값으로 버전 입력하고 업데이트 사항 반영
         }
         
-        if UserDefaults.standard.integer(forKey: "version") == 122 {
+        if UserDefaults.standard.integer(forKey: "version") == latestVersion {
             if !UserDefaults.standard.bool(forKey: "isUpdated") {
                 UserDefaults.standard.set(true, forKey: "isUpdated")
             }
@@ -588,7 +589,7 @@ extension HomeViewController {
                     BadgeGiver.restorePlaceBadge()
                 }
                 UserDefaults.standard.set(true, forKey: "isUpdated")
-            } else if UserDefaults.standard.integer(forKey: "version") == 122 {
+            } else if UserDefaults.standard.integer(forKey: "version") == latestVersion {
                 UserDefaults.standard.set(true, forKey: "isUpdated")
             }
         }
@@ -597,6 +598,7 @@ extension HomeViewController {
     func setUserDefaults() {
         UserDefaults.standard.setValue(true, forKey: "startedBefore")
         UserDefaults.standard.setValue(false, forKey: "alwaysOn")
+        UserDefaults.standard.setValue(0, forKey: "alwaysOnCount")
         UserDefaults.standard.setValue(0, forKey: "launchingCount")
         UserDefaults.standard.setValue(true, forKey: "everydayPush")
         UserDefaults.standard.setValue(true, forKey: "etcPush")

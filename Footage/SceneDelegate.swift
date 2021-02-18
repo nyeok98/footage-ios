@@ -92,7 +92,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 passwordVC.view.widthAnchor.constraint(equalToConstant: screenSize.width).isActive = true
                 passwordVC.view.heightAnchor.constraint(equalToConstant: screenSize.height).isActive = true
                 passwordVC.modalPresentationStyle = .fullScreen
-                topController.present(passwordVC, animated: true, completion: nil)
+                topController.present(passwordVC, animated: false, completion: nil)
             }
         } else if userState == nil { // first launch
             let storyBoard = UIStoryboard(name: "FirstLaunch", bundle: nil)

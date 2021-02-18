@@ -109,7 +109,7 @@
         <!--PasswordVC-->
         <scene sceneID="blQ-47-g5p">
             <objects>
-                <viewController restorationIdentifier="PasswordVC" storyboardIdentifier="PasswordVC" id="FXf-md-iyJ" customClass="PasswordVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PasswordVC" title="PasswordVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FXf-md-iyJ" customClass="PasswordVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T3L-kP-wel">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

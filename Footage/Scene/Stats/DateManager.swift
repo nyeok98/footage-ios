@@ -65,7 +65,7 @@ class DateManager { // journey 저장 및 데이터 가공을 담당
             }
             return journeys
         case "month":
-            let result = realm.objects(Month.self)
+            let result = realm.objects(Month.self).sorted(byKeyPath: "date", ascending: false)
             for month in result {
                 let footsteps = List<Footstep>()
                 for day in month.days {
@@ -76,7 +76,7 @@ class DateManager { // journey 저장 및 데이터 가공을 담당
             }
             return journeys
         case "year":
-            let result = realm.objects(Year.self)
+            let result = realm.objects(Year.self).sorted(byKeyPath: "date", ascending: false)
             for year in result {
                 let footsteps = List<Footstep>()
                 for month in year.months {
