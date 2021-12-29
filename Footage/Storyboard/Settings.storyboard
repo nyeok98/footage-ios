@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VxY-pw-nG7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VxY-pw-nG7">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -21,8 +21,7 @@
         <!--설정-->
         <scene sceneID="JMH-zj-D7w">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Cf9-Lq-qFL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="SettingsViewController" id="VxY-pw-nG7" customClass="SettingsViewController" customModule="Footage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" id="VxY-pw-nG7" customClass="SettingsViewController" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sB1-wA-VkK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -111,13 +110,14 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="설정" image="circle.grid.2x2.fill" catalog="system" selectedImage="circle.grid.2x2.fill" id="q7d-TT-BlA"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cf9-Lq-qFL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-5375" y="1771"/>
         </scene>
         <!--Settings DonateVC-->
         <scene sceneID="ttj-a2-8CT">
             <objects>
-                <viewController id="Ltj-Eb-rDb" customClass="Settings_DonateVC" customModule="Footage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ltj-Eb-rDb" customClass="Settings_DonateVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kbq-bE-fe6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -354,7 +354,7 @@
         <!--Settings AboutVC-->
         <scene sceneID="NMX-VV-I60">
             <objects>
-                <viewController id="dgS-kQ-0wK" customClass="Settings_AboutVC" customModule="Footage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dgS-kQ-0wK" customClass="Settings_AboutVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NoD-lE-vgT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -443,8 +443,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="버전정보 v1.2.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VGd-VQ-o51">
-                                <rect key="frame" x="162" y="395.5" width="90" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="버전정보 v1.2.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VGd-VQ-o51">
+                                <rect key="frame" x="163.5" y="395.5" width="87.5" height="22"/>
                                 <fontDescription key="fontDescription" name="NanumBarunpen" family="NanumBarunpen" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -489,7 +489,7 @@
         <!--Settings About Personal InformationVC-->
         <scene sceneID="bhS-6D-C2u">
             <objects>
-                <viewController id="hLn-sT-aOH" customClass="Settings_About_PersonalInformationVC" customModule="Footage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hLn-sT-aOH" customClass="Settings_About_PersonalInformationVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0A2-qA-tZc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -590,7 +590,7 @@
         <!--Settings GeneralVC-->
         <scene sceneID="oi0-Q3-K6l">
             <objects>
-                <viewController id="et2-eG-m2z" customClass="Settings_GeneralVC" customModule="Footage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="et2-eG-m2z" customClass="Settings_GeneralVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bRc-eN-e6y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -652,7 +652,7 @@
         <!--Settings Name ColorVC-->
         <scene sceneID="IOS-mZ-89i">
             <objects>
-                <viewController id="Y3r-L8-9T8" customClass="Settings_NameColorVC" customModule="Footage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y3r-L8-9T8" customClass="Settings_NameColorVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yuv-Mp-7FP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -909,7 +909,7 @@
         <!--Settings General ProfileVC-->
         <scene sceneID="D4Y-1K-QXJ">
             <objects>
-                <viewController storyboardIdentifier="Settings_General_ProfileVC" id="QIk-Uo-u84" customClass="Settings_General_ProfileVC" customModule="Footage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Settings_General_ProfileVC" id="QIk-Uo-u84" customClass="Settings_General_ProfileVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kAh-Uh-ZzU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1001,7 +1001,7 @@
         <!--Settings General PasswordVC-->
         <scene sceneID="D9h-5X-TqD">
             <objects>
-                <viewController storyboardIdentifier="Settings_General_PasswordVC" id="plg-Y5-Pph" customClass="Settings_General_PasswordVC" customModule="Footage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Settings_General_PasswordVC" id="plg-Y5-Pph" customClass="Settings_General_PasswordVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hsm-ot-4ra">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1449,7 +1449,7 @@
         <!--Settings General PushVC-->
         <scene sceneID="Rw6-Tx-dXY">
             <objects>
-                <viewController id="bAn-Ok-ceO" customClass="Settings_General_PushVC" customModule="Footage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bAn-Ok-ceO" customClass="Settings_General_PushVC" customModule="footage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kI4-Zh-jOB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
